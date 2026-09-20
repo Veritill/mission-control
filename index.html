@@ -38,6 +38,7 @@ textarea{min-height:84px;resize:vertical}
 .note{font-size:13px;color:var(--muted);padding:8px 14px 12px}
 a{color:var(--accent)}
 .hidden{display:none!important}
+  .steps{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 2px}.steps span{font-size:12px;padding:2px 7px;border-radius:999px;background:var(--code);color:var(--muted)}.steps span.on{background:var(--ok-soft);color:var(--ok)}
 </style>
 
 </head>
@@ -68,9 +69,11 @@ a{color:var(--accent)}
     <div class="card" id="needs"></div>
     <div class="card" id="env"></div>
     <div class="card" id="agents"></div>
-    <div class="card" id="lanes"></div>
-    <div class="card" id="quality"></div>
-    <div class="card" id="feed"></div>
+    <details class="card" id="more"><summary class="head" style="cursor:pointer">Lanes · Quality · Feed</summary>
+    <div id="lanes"></div>
+    <div id="quality"></div>
+    <div id="feed"></div>
+    </details>
     <div class="muted" id="footer" style="margin-top:10px"></div>
   </div>
 </main>
@@ -87,7 +90,8 @@ a{color:var(--accent)}
     { role:'core-agent', label:'Core agent', cron:'45 12,15,18,21,0,3,6 * * *', does:'reviews pull requests, merges clean green ones to staging, lands migrations lanes asked for, and builds the next Core task when nothing waits (Playwright first); also wakes when a pull request opens or changes' },
     { role:'core seat', label:'Core seat', cron:'', does:'Claude with Kiran, interactive: escalation point; presses Promote' },
   ];
-  const ACTIVE_MS = 45*60000;
+  const ACTIVE_MS = 20*60000; // a progress note moves at least every 15 minutes while a worker is alive
+  const HEART_MS = 60*60000; // a branch commit in the last hour counts as a heartbeat
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const ago = (iso) => { if (!iso) return ''; const m = Math.round((Date.now() - new Date(iso).getTime())/60000); return m < 1 ? 'just now' : m < 60 ? m+' min' : m < 1440 ? Math.round(m/60)+' h' : Math.round(m/1440)+' d'; };
@@ -97,6 +101,9 @@ a{color:var(--accent)}
   const label = (i, p) => ((i.labels||[]).find((l) => l.name.startsWith(p))||{name:''}).name.slice(p.length);
   const SIG = /—\s*([a-z][\w:-]*(?: [a-z]+)?)\s*(?:\(agent run\))?\s*$/im;
   const signer = (b) => { const s = String(b||'').trim(); if (/^\*\*(Kiran|Approved by Kiran|Confirmed by Kiran|Dismissed by Kiran)/i.test(s)) return 'kiran'; if (/\(planner\)|\(planner tick/i.test(s)) return 'planner'; const m = SIG.exec(s); return m ? m[1].trim().toLowerCase() : 'core seat'; };
+  // The progress note (agentic-build.md 4b): one comment per role per issue, edited as steps complete.
+  const NOTE_HEAD = /^(🟢|⚪|⏸)\s*(Working|Done|Stopped)\s*·\s*([^·\n]+?)\s*(?:·\s*(.*?))?\s*·\s*started\s+(\d\d:\d\d)\s*UTC\s*·\s*updated\s+(\d\d:\d\d)\s*UTC/u;
+  function parseNote(c) { const b = String(c.body||'').trim(); const m = NOTE_HEAD.exec(b); if (!m) return null; const steps = [...b.matchAll(/^- \[( |x)\] (.+)$/gm)].map((x) => ({ done: x[1] === 'x', label: x[2].trim() })); const nowLine = (/^Now:\s*(.+)$/m.exec(b)||[])[1] || ''; return { state: m[2].toLowerCase(), role: m[3].trim(), extra: (m[4]||'').trim(), started: m[5], updated: m[6], steps, now: nowLine, at: c.updated_at || c.created_at, url: c.html_url }; }
   const stripSig = (b) => String(b||'').replace(/\s+/g,' ').replace(/—\s*[\w:-]+( \w+)? \(agent run\)\s*$/i,'').replace(/_via Mission Control_/,'').trim();
   function cronTimes(cron) { const [m,h] = cron.split(' '); if (!m||!h) return ''; const mins = m.split(',').map(Number), hours = h.split(',').map(Number).sort((a,b)=>a-b); const fmt = new Intl.DateTimeFormat(undefined, { hour:'numeric', minute:'2-digit' }); const d = new Date(); return hours.flatMap((hh) => mins.map((mm) => fmt.format(new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), hh, mm))))).sort((x,y) => new Date('1/1/2000 '+x) - new Date('1/1/2000 '+y)).join(' · '); }
   function nextRun(cron) { const [m,h] = cron.split(' '); if (!m||!h) return null; const mins = m.split(',').map(Number).sort((a,b)=>a-b), hours = h.split(',').map(Number).sort((a,b)=>a-b); const now = new Date(); for (let d=0; d<3; d++) for (const hh of hours) for (const mm of mins) { const t = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()+d, hh, mm)); if (t > now) return t.toISOString(); } return null; }
@@ -114,22 +121,29 @@ a{color:var(--accent)}
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
-      const [open, closed, prs, runsR, branches] = await Promise.all([
+      const [open, closed, prs, runsR, branches, allBranches] = await Promise.all([
         gh('GET', `/repos/${REPO}/issues?state=open&per_page=100`),
         gh('GET', `/repos/${REPO}/issues?state=closed&per_page=60&sort=updated`),
         gh('GET', `/repos/${REPO}/pulls?state=open&per_page=30`),
         gh('GET', `/repos/${REPO}/actions/runs?per_page=15`).catch(() => ({ workflow_runs: [] })),
         Promise.all(['main','staging','deploy'].map((b) => gh('GET', `/repos/${REPO}/branches/${b}`).then((r) => ({ branch:b, sha:r.commit.sha, message:r.commit.commit.message.split(/\r?\n/)[0], at:r.commit.commit.committer.date })).catch((e) => ({ branch:b, sha:'', message:'', at:'', error: String(e && e.message || e) })))),
+        gh('GET', `/repos/${REPO}/branches?per_page=100`).catch(() => []),
       ]);
+      // lane branches with a commit in the last hour = a worker's heartbeat, even between note edits
+      const laneBranches = (allBranches||[]).filter((b) => /^(lane\/|core\/)/.test(b.name));
+      const heads = await Promise.all(laneBranches.slice(0,12).map((b) => gh('GET', `/repos/${REPO}/commits/${b.commit.sha}`).then((c) => ({ name:b.name, at:c.commit.committer.date, message:c.commit.message.split(/\r?\n/)[0], url:c.html_url })).catch(() => null)));
+      const beats = heads.filter(Boolean).filter((h) => Date.now() - new Date(h.at).getTime() < HEART_MS).sort((a,b)=>a.at<b.at?1:-1);
       const issues = [...open, ...closed].filter((i) => !i.pull_request);
       const openI = open.filter((i) => !i.pull_request);
       const inProg = openI.filter((i) => has(i,'status:in-progress'));
-      const seen = new Map(); const lastNote = new Map();
+      const seen = new Map(); const lastNote = new Map(); const progress = new Map();
       const comments = await Promise.all(inProg.slice(0,12).map((i) => gh('GET', `/repos/${REPO}/issues/${i.number}/comments?per_page=100`).catch(() => [])));
       inProg.slice(0,12).forEach((i, k) => {
         for (const c of comments[k]) { const who = signer(c.body); const prev = seen.get(who); if (!prev || prev.at < c.created_at) seen.set(who, { at:c.created_at, text:stripSig(c.body).slice(0,200), url:c.html_url }); }
         const notes = comments[k].filter((c) => { const w = signer(c.body); return w !== 'planner' && w !== 'kiran' && w !== 'core seat'; });
         const last = notes[notes.length-1]; if (last) lastNote.set(i.number, { at:last.created_at, by:signer(last.body), text:stripSig(last.body).slice(0,220) });
+        const pn = comments[k].map(parseNote).filter(Boolean).sort((a,b)=>a.at<b.at?1:-1)[0];
+        if (pn) { progress.set(i.number, pn); const prev = seen.get(pn.role.toLowerCase()); if (!prev || prev.at < pn.at) seen.set(pn.role.toLowerCase(), { at:pn.at, text: pn.state==='working' ? 'working on #'+i.number+(pn.now?': '+pn.now:'') : pn.state+' #'+i.number+(pn.extra?' · '+pn.extra:''), url:pn.url }); }
       });
       const plannerLog = issues.find((i) => i.title === 'Planner log');
       if (plannerLog) { const p = seen.get('planner'); if (!p || p.at < plannerLog.updated_at) seen.set('planner', { at:plannerLog.updated_at, text:'wrote the Planner log', url:plannerLog.html_url }); }
@@ -137,15 +151,21 @@ a{color:var(--accent)}
       const now = Date.now();
 
       // lanes
-      const lanes = LANES.map((lane) => { const mine = issues.filter((i) => has(i,'lane:'+lane)); const o = mine.filter((i) => i.state === 'open'); const ip = o.filter((i) => has(i,'status:in-progress')); const cur = ip[0]; const note = cur ? lastNote.get(cur.number) : null;
-        return { lane, total:mine.length, done:mine.filter((i)=>i.state==='closed').length, inProgress:ip.length, ready:o.filter((i)=>has(i,'status:ready')).length, blocked:o.filter((i)=>has(i,'status:blocked')||has(i,'needs-kiran')).length, cur, note, active: !!note && now - new Date(note.at).getTime() < ACTIVE_MS, milestone: (mine[0]&&mine[0].milestone&&mine[0].milestone.title)||'' }; }).filter((l) => l.total > 0);
+      const lanes = LANES.map((lane) => { const mine = issues.filter((i) => has(i,'lane:'+lane)); const o = mine.filter((i) => i.state === 'open'); const ip = o.filter((i) => has(i,'status:in-progress')); const cur = ip[0]; const note = cur ? lastNote.get(cur.number) : null; const pn = cur ? progress.get(cur.number) : null;
+        const beat = beats.find((b) => b.name.startsWith(lane==='core' ? 'core/' : 'lane/'+lane+'/'));
+        const movedAt = [pn && pn.state==='working' ? pn.at : null, beat ? beat.at : null].filter(Boolean).sort().pop() || null;
+        return { lane, total:mine.length, done:mine.filter((i)=>i.state==='closed').length, inProgress:ip.length, ready:o.filter((i)=>has(i,'status:ready')).length, blocked:o.filter((i)=>has(i,'status:blocked')||has(i,'needs-kiran')).length, cur, note, pn, beat, movedAt, active: !!movedAt && now - new Date(movedAt).getTime() < ACTIVE_MS, milestone: (mine[0]&&mine[0].milestone&&mine[0].milestone.title)||'' }; }).filter((l) => l.total > 0);
       const workers = lanes.filter((l) => l.active).length;
       const totalDone = lanes.reduce((a,l)=>a+l.done,0), total = lanes.reduce((a,l)=>a+l.total,0);
       $('summary').textContent = `${totalDone} of ${total} tasks done · read just now`;
 
-      // right now
-      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'}${workers?'':' · waiting for the next event (a task marked ready, a pull request, your answer) or the next scheduled run: '+(function(){ const soon = AGENTS.filter(a=>a.cron).map(a=>({a, t:nextRun(a.cron)})).filter(x=>x.t).sort((x,y)=>x.t<y.t?-1:1)[0]; return soon ? soon.a.label+' in '+until(soon.t) : 'none scheduled'; })()}</div></div></div>` +
-        lanes.filter((l)=>l.cur).map((l) => `<div class="row"><span class="ic">${l.active?'🟢':'⚪'}</span><div class="body"><div class="t">${LANE_ICON[l.lane]||''} ${l.lane}: <a href="${l.cur.html_url}" target="_blank" rel="noreferrer">#${l.cur.number} ${esc(l.cur.title)}</a></div><div class="s">${l.note ? 'last activity '+ago(l.note.at)+' ago by '+esc(l.note.by) : 'no worker activity yet'}${has(l.cur,'needs-kiran')?' · waiting on you':''}</div>${l.note?`<div class="q">“${esc(l.note.text)}”</div>`:''}</div></div>`).join('');
+      // right now: one row per lane with the live checklist from its progress note
+      const soon = AGENTS.filter(a=>a.cron).map(a=>({a, t:nextRun(a.cron)})).filter(x=>x.t).sort((x,y)=>x.t<y.t?-1:1)[0];
+      const stepBar = (pn) => pn && pn.steps.length ? `<div class="steps">${pn.steps.map((st) => `<span class="${st.done?'on':''}" title="${esc(st.label)}">${st.done?'✓':'·'} ${esc(st.label.replace(/\s*\(.*\)$/,''))}</span>`).join('')}</div>` : '';
+      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · next scheduled run: ${soon ? soon.a.label+' in '+until(soon.t) : 'none'}</div></div></div>` +
+        lanes.filter((l)=>l.cur).map((l) => { const pn = l.pn; const icon = l.active ? '🟢' : pn && pn.state==='done' ? '⚪' : pn && pn.state==='stopped' ? '⏸' : '⚪';
+          const line = pn ? (pn.state==='working' ? (l.active ? 'working' : 'no movement for '+ago(pn.at)) + ' · ' + esc(pn.role) : pn.state==='done' ? 'done · '+esc(pn.extra||'') : 'stopped · '+esc(pn.extra||'')) : (l.beat ? 'commits landing, no note yet' : l.note ? 'last note '+ago(l.note.at)+' ago by '+esc(l.note.by) : 'no worker activity yet');
+          return `<div class="row"><span class="ic">${icon}</span><div class="body"><div class="t">${LANE_ICON[l.lane]||''} ${l.lane}: <a href="${l.cur.html_url}" target="_blank" rel="noreferrer">#${l.cur.number} ${esc(l.cur.title)}</a></div><div class="s">${line}${l.movedAt?' · moved '+ago(l.movedAt)+' ago':''}${has(l.cur,'needs-kiran')?' · waiting on you':''}</div>${stepBar(pn)}${pn && pn.now && pn.state==='working' ? `<div class="q">Now: ${esc(pn.now)}</div>` : ''}${l.beat ? `<div class="s">last commit ${ago(l.beat.at)} ago on ${esc(l.beat.name)}: <a href="${l.beat.url}" target="_blank" rel="noreferrer">${esc(l.beat.message.slice(0,90))}</a></div>` : ''}</div></div>`; }).join('');
 
       // needs you
       const needs = openI.filter((i) => has(i,'needs-kiran'));
@@ -171,7 +191,7 @@ a{color:var(--accent)}
       // feed
       const feed = [ ...closed.filter((i)=>!i.pull_request).slice(0,10).map((i) => ({ at:i.updated_at, ic:'✓', text:'closed: '+i.title, url:i.html_url })), ...runs.slice(0,10).map((r) => ({ at:r.at, ic:r.status==='success'?'✅':r.status==='failure'?'❌':'·', text:`${r.name}: ${r.status} · ${r.title}`, url:r.url })), ...prs.map((p) => ({ at:p.updated_at, ic:'🔀', text:`PR #${p.number}: ${p.title}`, url:p.html_url })) ].sort((a,b)=>a.at<b.at?1:-1).slice(0,25);
       $('feed').innerHTML = `<div class="head">Feed</div>` + feed.map((f) => `<div class="row"><span class="ic">${f.ic}</span><div class="body"><div class="s"><a href="${f.url}" target="_blank" rel="noreferrer">${esc(f.text)}</a></div></div><span class="muted">${ago(f.at)}</span></div>`).join('');
-      $('footer').textContent = 'Reads GitHub directly from this browser. Nothing here touches Veritill. Refreshes when you tap Refresh.';
+      $('footer').textContent = 'Reads GitHub directly from this browser. Nothing here touches Veritill. Refreshes every minute while open, and when you tap Refresh.';
       showErr('');
     } catch (e) { showErr(e.message || String(e)); $('summary').textContent = 'could not read GitHub'; }
   }
@@ -209,6 +229,8 @@ a{color:var(--accent)}
   $('save').onclick = () => { const v = $('token').value.trim(); if (!v) return; token = v; try { localStorage.setItem('vt-gh-token', v); } catch {} $('token').value = ''; load(); };
   $('forget').onclick = () => { token = ''; try { localStorage.removeItem('vt-gh-token'); } catch {} load(); };
   $('refresh').onclick = load;
+  setInterval(() => { if (document.visibilityState === 'visible' && token) load(); }, 60000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && token) load(); });
   $('send').onclick = feedback;
   document.addEventListener('click', (e) => { const b = e.target.closest('button[data-act]'); if (b) { const row = b.closest('[data-n]'); answer(Number(row.dataset.n), b.dataset.act); } if (e.target.id === 'promote') promote(); });
   load();
