@@ -67,6 +67,7 @@ a{color:var(--accent)}
 
     <div class="card" id="now"></div>
     <div class="card" id="needs"></div>
+    <div class="card" id="plan"></div>
     <div class="card" id="env"></div>
     <div class="card" id="agents"></div>
     <details class="card" id="more"><summary class="head" style="cursor:pointer">Lanes · Quality · Feed</summary>
@@ -121,13 +122,14 @@ a{color:var(--accent)}
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
-      const [open, closed, prs, runsR, branches, allBranches] = await Promise.all([
+      const [open, closed, prs, runsR, branches, allBranches, milestones] = await Promise.all([
         gh('GET', `/repos/${REPO}/issues?state=open&per_page=100`),
-        gh('GET', `/repos/${REPO}/issues?state=closed&per_page=60&sort=updated`),
+        gh('GET', `/repos/${REPO}/issues?state=closed&per_page=100&sort=updated`),
         gh('GET', `/repos/${REPO}/pulls?state=open&per_page=30`),
         gh('GET', `/repos/${REPO}/actions/runs?per_page=15`).catch(() => ({ workflow_runs: [] })),
         Promise.all(['main','staging','deploy'].map((b) => gh('GET', `/repos/${REPO}/branches/${b}`).then((r) => ({ branch:b, sha:r.commit.sha, message:r.commit.commit.message.split(/\r?\n/)[0], at:r.commit.commit.committer.date })).catch((e) => ({ branch:b, sha:'', message:'', at:'', error: String(e && e.message || e) })))),
         gh('GET', `/repos/${REPO}/branches?per_page=100`).catch(() => []),
+        gh('GET', `/repos/${REPO}/milestones?state=all&per_page=50&sort=due_on&direction=asc`).catch(() => []),
       ]);
       // lane branches with a commit in the last hour = a worker's heartbeat, even between note edits
       const laneBranches = (allBranches||[]).filter((b) => /^(lane\/|core\/)/.test(b.name));
@@ -176,6 +178,26 @@ a{color:var(--accent)}
       // needs you
       const needs = openI.filter((i) => has(i,'needs-kiran'));
       $('needs').innerHTML = `<div class="head">Needs you · ${needs.length}</div>` + (needs.length ? needs.map((i) => { const kind = label(i,'kind:')||'task'; return `<div class="row" data-n="${i.number}"><span class="ic">${KIND_ICON[kind]||'🔧'}</span><div class="body"><div class="t">${esc(i.title)}</div><div class="s">${LANE_ICON[label(i,'lane:')]||''} ${label(i,'lane:')||'core'} · ${kind}${label(i,'size:')?' · '+label(i,'size:'):''} · ${ago(i.updated_at)} ago</div><details><summary class="muted" style="cursor:pointer;font-size:13px">details</summary><div class="q">${esc((i.body||'').slice(0,1500))}</div></details><div class="btns">${kind==='mockup'?'<button data-act="approve">Approve</button>':''}${kind==='gap'?'<button data-act="confirm">Confirm</button>':''}<button data-act="answer" class="ghost">Answer…</button><button data-act="dismiss" class="ghost">Dismiss</button><a class="btn ghost" href="${i.html_url}" target="_blank" rel="noreferrer">GitHub</a></div></div></div>`; }).join('') : `<div class="note">Nothing needs you right now.</div>`);
+
+      // the plan: what is built, being built, next, blocked, and not started, by milestone (functional goal)
+      const PLAN_STATE = (i) => i.state === 'closed' ? 'done' : has(i,'needs-kiran') ? 'you' : has(i,'status:in-progress') ? (prFor(i.number) ? 'pr' : 'building') : has(i,'status:ready') ? 'ready' : 'blocked';
+      const PLAN_ICON = { done:'✓', pr:'🔀', building:'🟢', ready:'○', blocked:'⏸', you:'❓' };
+      const PLAN_WORD = { done:'done', pr:'pull request open, waiting for Core', building:'being built', ready:'ready, the lane takes it next', blocked:'waits on an earlier task or an answer', you:'waiting on you' };
+      const PLAN_ORDER = { building:0, pr:1, you:2, ready:3, blocked:4, done:5 };
+      const planIssues = issues.filter((i) => i.title !== 'Planner log');
+      const msList = [...(milestones||[])].sort((a,b) => a.number - b.number);
+      const noMs = planIssues.filter((i) => !i.milestone);
+      const groups = msList.map((m) => ({ key:'ms'+m.number, title:m.title, goal:m.description||'', items: planIssues.filter((i) => i.milestone && i.milestone.number === m.number) })).concat(noMs.length ? [{ key:'other', title:'Other', goal:'', items:noMs }] : []);
+      $('plan').innerHTML = `<div class="head">The plan · ${planIssues.filter((i)=>i.state==='closed').length} of ${planIssues.length} tasks built</div>` + groups.map((g) => {
+        const done = g.items.filter((i) => i.state==='closed').length, pct = g.items.length ? Math.round(done/g.items.length*100) : 0;
+        const openItems = g.items.filter((i) => i.state!=='closed').map((i) => ({ i, st: PLAN_STATE(i) })).sort((a,b) => PLAN_ORDER[a.st]-PLAN_ORDER[b.st] || a.i.number-b.i.number);
+        const doneItems = g.items.filter((i) => i.state==='closed').sort((a,b)=>b.number-a.number);
+        const lanesIn = [...new Set(g.items.map((i) => label(i,'lane:')).filter(Boolean))];
+        const status = !g.items.length ? 'not started · planned, no tasks written yet' : openItems.length ? `${done} built · ${openItems.length} to go` : 'all built';
+        return `<div class="row" style="display:block"><div class="t">${lanesIn.map((l)=>LANE_ICON[l]||'').join('') || '🗓️'} ${esc(g.title)}</div>${g.goal ? `<div class="s">${esc(g.goal)}</div>` : ''}${g.items.length ? `<div class="bar"><i style="width:${pct}%"></i></div>` : ''}<div class="s">${status}</div>` +
+          openItems.map(({i, st}) => `<div class="s" style="margin-top:6px"><span title="${PLAN_WORD[st]}">${PLAN_ICON[st]}</span> <a href="${i.html_url}" target="_blank" rel="noreferrer">#${i.number} ${esc(i.title)}</a>${label(i,'size:')?' <span class="muted">· '+label(i,'size:')+'</span>':''}<span class="muted"> · ${PLAN_WORD[st]}</span></div>`).join('') +
+          (doneItems.length ? `<details style="margin-top:6px"><summary class="muted" style="cursor:pointer;font-size:13px">${doneItems.length} built</summary>${doneItems.map((i) => `<div class="s">✓ <a href="${i.html_url}" target="_blank" rel="noreferrer">#${i.number} ${esc(i.title)}</a></div>`).join('')}</details>` : '') +
+          `</div>`; }).join('');
 
       // environments
       const st = branches.find((b)=>b.branch==='staging'), pr = branches.find((b)=>b.branch==='deploy');
