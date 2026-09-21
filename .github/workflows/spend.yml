@@ -1,0 +1,37 @@
+name: spend
+
+# AI spend for the page (scripts/spend.mjs): every hour, read the organisation's cost and usage reports with the
+# ANTHROPIC_ADMIN_KEY secret and commit spend.json when it changed. The key stays in Actions; the page reads only
+# the JSON. Add the secret under Settings → Secrets and variables → Actions on this repository.
+on:
+  schedule:
+    - cron: '20 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: spend
+  cancel-in-progress: false
+
+jobs:
+  spend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read the reports
+        env:
+          ANTHROPIC_ADMIN_KEY: ${{ secrets.ANTHROPIC_ADMIN_KEY }}
+        run: node scripts/spend.mjs
+      - name: Commit spend.json when it changed
+        run: |
+          git config user.name "mission-control-bot"
+          git config user.email "bot@veritill.invalid"
+          git add spend.json
+          git diff --cached --quiet && echo "no change" && exit 0
+          git commit -m "spend: $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push

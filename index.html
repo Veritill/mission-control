@@ -69,6 +69,7 @@ a{color:var(--accent)}
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
     <div class="card" id="env"></div>
+    <div class="card" id="spend"></div>
     <div class="card" id="agents"></div>
     <details class="card" id="more"><summary class="head" style="cursor:pointer">Lanes · Quality · Feed</summary>
     <div id="lanes"></div>
@@ -118,7 +119,29 @@ a{color:var(--accent)}
   }
   const showErr = (m) => { const e = $('error'); if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); };
 
+  const money = (n) => '$' + Number(n||0).toFixed(2);
+  const kfmt = (n) => n >= 1e6 ? (n/1e6).toFixed(1)+' M' : n >= 1e3 ? Math.round(n/1e3)+' k' : String(n);
+  async function loadSpend() {
+    const el = $('spend'); if (!el) return;
+    let sp = null; try { const r = await fetch('spend.json?t=' + Date.now(), { cache:'no-store' }); if (r.ok) sp = await r.json(); } catch {}
+    let credits = null; try { credits = JSON.parse(localStorage.getItem('vt-credits') || 'null'); } catch {}
+    const setCredits = `<button class="ghost" id="set-credits" title="tell the page what you loaded so it can show what is left">${credits ? 'Edit credits' : 'Set credits loaded'}</button>`;
+    if (!sp) { el.innerHTML = `<div class="head">AI spend</div><div class="note">No data yet. The hourly job needs the ANTHROPIC_ADMIN_KEY secret on the Veritill/mission-control repository (Settings → Secrets and variables → Actions), then it writes the numbers here every hour. <a href="https://platform.claude.com/cost" target="_blank" rel="noreferrer">Console cost page</a></div>`; return; }
+    if (sp.error) { el.innerHTML = `<div class="head">AI spend</div><div class="row"><span class="ic">⚠️</span><div class="body"><div class="t">The hourly job could not read the account</div><div class="s">${esc(sp.error)}</div><div class="s">checked ${ago(sp.at)} ago · <a href="https://platform.claude.com/cost" target="_blank" rel="noreferrer">Console cost page</a></div></div></div>`; return; }
+    const sinceCredits = credits ? (sp.days||[]).filter((d) => d.day >= credits.since).reduce((a,d)=>a+d.amount,0) : null;
+    const left = credits ? credits.amount - sinceCredits : null;
+    const last7 = (sp.days||[]).slice(-7);
+    const max = Math.max(1, ...last7.map((d)=>d.amount));
+    const bars = `<div class="steps" style="align-items:flex-end;gap:6px">${last7.map((d) => `<span title="${d.day}: ${money(d.amount)}" style="display:inline-block;width:28px;height:${Math.max(4, Math.round(d.amount/max*36))}px;background:var(--ok);border-radius:3px;padding:0"></span>`).join('')}</div>`;
+    el.innerHTML = `<div class="head">AI spend</div>
+      <div class="row"><span class="ic">🪙</span><div class="body"><div class="t">${credits ? (left >= 0 ? money(left)+' left of '+money(credits.amount)+' loaded' : 'over the '+money(credits.amount)+' loaded by '+money(-left)) : 'Credits left: tell the page what you loaded'}</div><div class="s">this month ${money(sp.month.total)} · today ${money(sp.today)} · yesterday ${money(sp.yesterday)} · read ${ago(sp.at)} ago</div>${bars}<div class="btns">${setCredits}<a class="btn ghost" href="https://platform.claude.com/cost" target="_blank" rel="noreferrer">Console</a></div></div></div>` +
+      (sp.month.byDescription||[]).slice(0,6).map((d) => `<div class="row"><span class="ic">🤖</span><div class="body"><div class="t">${esc(d.model || d.description)}</div><div class="s">${esc(d.description)}</div></div><b>${money(d.amount)}</b></div>`).join('') +
+      (sp.keys||[]).slice(0,5).map((k) => `<div class="row"><span class="ic">🔑</span><div class="body"><div class="t">${esc(k.name)}</div><div class="s">last 7 days · in ${kfmt(k.tokensIn)} · cached ${kfmt(k.tokensCached)} · out ${kfmt(k.tokensOut)} tokens</div></div></div>`).join('');
+    const b = $('set-credits'); if (b) b.onclick = () => { const amount = Number(prompt('Credits loaded, in dollars (the prepaid amount you bought):', credits ? credits.amount : '')); if (!amount) return; const since = prompt('Loaded on which day? (YYYY-MM-DD)', credits ? credits.since : new Date().toISOString().slice(0,10)); if (!since) return; try { localStorage.setItem('vt-credits', JSON.stringify({ amount, since })); } catch {} loadSpend(); };
+  }
+
   async function load() {
+    loadSpend();
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
