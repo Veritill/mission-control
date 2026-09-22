@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #77 — Library folded into ⓘ</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #eeece4; color: var(--ink); font: 16px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased; padding: 24px 14px 60px;
+  }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .col h2 b { color: var(--ink); }
+  .phone {
+    width: 320px; height: 640px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f;
+    overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28);
+  }
+  .screen { position: absolute; inset: 0; overflow-y: auto; }
+  .topbar { display: flex; align-items: baseline; gap: 10px; margin: 14px 14px 12px; }
+  .topbar h1 { font-size: 18px; margin: 0; font-weight: 700; }
+  .topbar .back { margin-left: auto; font-size: 12.5px; color: var(--green); }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; margin: 0 14px 12px; padding: 12px 14px; }
+  .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  .note { color: var(--muted); font-size: 13px; margin: 0; }
+  a.link { color: var(--green); text-decoration: none; font-weight: 600; }
+  .ico-tap { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--green-soft); color: var(--green); font-size: 12px; font-weight: 700; margin-left: 4px; cursor: pointer; vertical-align: -4px; }
+  .notice { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,.16); position: absolute; left: 12px; right: 12px; bottom: 78px; padding: 14px 16px; }
+  .notice .t { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .notice p { margin: 0 0 8px; font-size: 13.5px; line-height: 1.5; }
+  .btnrow { display: flex; gap: 8px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 9px; padding: 8px 14px; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--rule); }
+  .tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; display: flex; background: var(--card); border-top: 1px solid var(--rule); }
+  .tabs .t { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: var(--muted); }
+  .tabs .t.on { color: var(--green); }
+  .tabs .ic { font-size: 17px; }
+  /* the folded sheet */
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet {
+    background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 18px 18px 22px;
+    max-height: 76%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25);
+  }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 12px; }
+  .sheet h3 { font-size: 16px; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+  .sheet p { font-size: 14px; line-height: 1.55; margin: 0 0 10px; color: var(--ink); }
+  .sheet .note { margin: 0 0 14px; }
+  .sheet .close { width: 100%; margin-top: 4px; }
+  .old-route-flash { position: absolute; inset: 0; background: var(--paper); z-index: 6; display: none; align-items: center; justify-content: center; text-align: center; padding: 30px; }
+  .old-route-flash.show { display: flex; }
+  .old-route-flash .box { max-width: 220px; }
+  .old-route-flash .big { font-size: 34px; margin-bottom: 10px; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 999px; font-weight: 700; }
+  .badge.before { background: var(--warn-soft); color: var(--warn); }
+  .badge.after { background: var(--green-soft); color: var(--green); }
+  .foot { max-width: 900px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot b { color: var(--ink); }
+  .foot ul { padding-left: 18px; margin: 8px 0; }
+  .foot li { margin-bottom: 5px; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="lede">
+  <h1 style="text-align:center">Issue #77 — fold the Library page into an ⓘ / help-book entry</h1>
+  <div class="lede">library/page.tsx is one static block of prose reached two ways today: Settings' "How it works" link
+  and the one-time Product Library notice's "Learn more" button. Neither needs its own route — both become an ⓘ tap
+  that opens the same text as a bottom sheet, over the screen the person is already on. Tap the ⓘ marks below.</div>
+</div>
+
+<div class="stage">
+  <div class="col">
+    <h2><span class="badge before">BEFORE</span> <b>today — a routed screen</b></h2>
+    <div class="phone">
+      <div class="screen">
+        <div class="topbar"><h1>Business</h1></div>
+        <div class="card">
+          <div class="k">Store</div>
+          <div style="font-size:15px;font-weight:600">Great Indian Food</div>
+          <div class="note" style="margin-top:2px">Toast POS Retail · 6 partners</div>
+        </div>
+        <div class="card">
+          <div class="k">📚 Product Library</div>
+          <p class="note">Verified details join a shared library that fills in every store's items.
+            <a class="link" href="#" onclick="showOldRoute(this);return false;">How it works</a></p>
+        </div>
+        <div class="card">
+          <div class="k">AI spend</div>
+          <div class="note">today $2.14 of $12.00</div>
+        </div>
+        <div class="notice">
+          <div class="t">📚 Your store just got a product library</div>
+          <p>Veritill now maintains a growing library of verified product details — names, brands, sizes,
+             categories, and ready-to-use online descriptions. When an invoice or import mentions a product
+             the library already knows, your items fill in automatically.</p>
+          <div class="btnrow">
+            <button class="btn">Nice — thanks</button>
+            <button class="btn ghost" onclick="showOldRoute(this)">Learn more</button>
+          </div>
+        </div>
+        <div class="old-route-flash" id="oldRoute">
+          <div class="box">
+            <div class="big">📚</div>
+            <div style="font-weight:700;margin-bottom:6px">The Product Library</div>
+            <p class="note">A whole new screen, a full navigation away, just to read three paragraphs —
+              and there's no way back except the browser/app back button (screens.md §0 check 6: a way back
+              named at the top). This is the routed <code>/library</code> page today.</p>
+            <button class="btn ghost" style="margin-top:10px" onclick="hideOldRoute()">← back (only way out)</button>
+          </div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="t on"><span class="ic">⚙️</span>Settings</div>
+        <div class="t"><span class="ic">🏠</span>Today</div>
+        <div class="t"><span class="ic">📦</span>Products</div>
+      </div>
+    </div>
+    <div class="tap-hint">tap "How it works" or "Learn more" to see the old route</div>
+  </div>
+
+  <div class="col">
+    <h2><span class="badge after">AFTER</span> <b>folded behind ⓘ</b></h2>
+    <div class="phone">
+      <div class="screen">
+        <div class="topbar"><h1>Business</h1></div>
+        <div class="card">
+          <div class="k">Store</div>
+          <div style="font-size:15px;font-weight:600">Great Indian Food</div>
+          <div class="note" style="margin-top:2px">Toast POS Retail · 6 partners</div>
+        </div>
+        <div class="card">
+          <div class="k">📚 Product Library <span class="ico-tap" onclick="openSheet()" title="How it works">ⓘ</span></div>
+          <p class="note">Verified details join a shared library that fills in every store's items.</p>
+        </div>
+        <div class="card">
+          <div class="k">AI spend</div>
+          <div class="note">today $2.14 of $12.00</div>
+        </div>
+        <div class="notice">
+          <div class="t">📚 Your store just got a product library <span class="ico-tap" onclick="openSheet()" title="How it works">ⓘ</span></div>
+          <p>Veritill now maintains a growing library of verified product details — names, brands, sizes,
+             categories, and ready-to-use online descriptions. When an invoice or import mentions a product
+             the library already knows, your items fill in automatically.</p>
+          <div class="btnrow">
+            <button class="btn">Nice — thanks</button>
+          </div>
+        </div>
+        <div class="sheet-overlay" id="sheetOverlay" onclick="if(event.target===this)closeSheet()">
+          <div class="sheet">
+            <div class="grabber"></div>
+            <h3>📚 How the Product Library works</h3>
+            <p>The Veritill Product Library holds universal product facts — the kind printed on any label or
+              shelf tag: product name, brand, package size, category, barcode, and product descriptions.
+              When people at any store verify these details, they join the library so every store's
+              catalog fills in automatically.</p>
+            <p>The library contains product information only. Today it also learns how each supplier's
+              paperwork reads, so a vendor your store has never trained can still arrive pre-understood.</p>
+            <p class="note">You can manage your store's participation right here on Business settings.</p>
+            <button class="btn ghost close" onclick="closeSheet()">Close</button>
+          </div>
+        </div>
+      </div>
+      <div class="tabs">
+        <div class="t on"><span class="ic">⚙️</span>Settings</div>
+        <div class="t"><span class="ic">🏠</span>Today</div>
+        <div class="t"><span class="ic">📦</span>Products</div>
+      </div>
+    </div>
+    <div class="tap-hint">tap either ⓘ — same sheet, same words, no navigation, one tap to dismiss</div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>What changes</b> (issue #77, Refs #54 — Kiran approved the fold):
+  <ul>
+    <li><code>apps/web/src/app/(app)/library/page.tsx</code> (the routed screen) is deleted; its three paragraphs
+      move into a small shared component, e.g. <code>LibraryInfoSheet.tsx</code>, rendered as a bottom sheet
+      (same pattern as <code>.dlg-overlay</code>/<code>.dlg</code> in globals.css, already used for confirm dialogs).</li>
+    <li>Settings → Business: the "How it works" link (<code>settings/page.tsx</code> line ~82) becomes an ⓘ tap
+      that opens the sheet in place — no route change, no scroll loss.</li>
+    <li><code>LibraryNotice.tsx</code>'s "Learn more" button opens the same sheet instead of navigating to
+      <code>/library</code> and dismissing the notice early; "Nice — thanks" still dismisses it as today.</li>
+    <li>Both entry points show the exact same copy — one component, one source of truth, no duplicate prose.</li>
+  </ul>
+  <b>Screen checks this satisfies:</b> #7 one home per function (one sheet, not a page plus a duplicate), #8 as few
+  screens as possible (a card/sheet before a new screen — here, before an existing one), #6 a way back (a tap
+  outside the sheet or "Close", never a dead-end route).
+  <br><br>
+  This is a static mockup with example data only — no client data, no live calls.
+</div>
+
+<script>
+  function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); }
+  function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); }
+  function showOldRoute(el) { document.getElementById('oldRoute').classList.add('show'); }
+  function hideOldRoute() { document.getElementById('oldRoute').classList.remove('show'); }
+</script>
+</body>
+</html>
