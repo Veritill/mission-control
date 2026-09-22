@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup — Kitchen (Roster + Metrics as drawers)</title>
+<style>
+  :root {
+    --bg: #f6f7f5; --card: #ffffff; --ink: #1c2320; --sub: #6b756f; --line: #e4e7e2;
+    --accent: #2f6f4f; --accent-ink: #ffffff; --warn: #a15c00; --warn-bg: #fdf1de;
+    --ok-bg: #e9f4ec; --ok-ink: #1f6b41; --bad-bg: #fbe8e6; --bad-ink: #a3301f; --chip-bg: #eef1ec;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .note-banner { background: #fff8e1; border-bottom: 1px solid #eadfa0; color: #6b5300; font-size: 12.5px; padding: 8px 14px; text-align: center; }
+  .wrap { max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--bg); display: flex; flex-direction: column; }
+  header { position: sticky; top: 0; background: var(--bg); z-index: 5; padding: 12px 14px 0; }
+  .back { display: flex; align-items: center; gap: 6px; color: var(--sub); font-size: 13px; text-decoration: none; }
+  .topbar { display: flex; align-items: center; gap: 6px; margin: 6px 0 8px; }
+  h1 { font-size: 20px; margin: 0; flex: 1; }
+  .daynav { display: flex; gap: 2px; }
+  nav.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); padding: 0 14px; position: sticky; top: 54px; background: var(--bg); z-index: 4; }
+  nav.tabs button { flex: 1; border: none; background: none; padding: 10px 4px; font-size: 13.5px; font-weight: 600; color: var(--sub); border-bottom: 2px solid transparent; }
+  nav.tabs button.on { color: var(--accent); border-color: var(--accent); }
+  main { flex: 1; padding: 12px 14px 90px; }
+  .panel { display: none; }
+  .panel.on { display: block; }
+  .facets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
+  .facet { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .facet.link { background: var(--chip-bg); display: flex; align-items: center; gap: 4px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 8px 2px; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: none; }
+  .t { font-weight: 600; font-size: 14px; }
+  .s { color: var(--sub); font-size: 12px; margin-top: 1px; }
+  .grow { flex: 1; min-width: 0; }
+  .chip { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 8px; background: var(--chip-bg); color: var(--sub); white-space: nowrap; }
+  .chip.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .chip.warn { background: var(--warn-bg); color: var(--warn); }
+  .chip.bad { background: var(--bad-bg); color: var(--bad-ink); }
+  .note-line { color: var(--sub); font-size: 12.5px; margin-bottom: 10px; }
+  .btn { border: 1px solid var(--line); background: #fff; border-radius: 9px; padding: 7px 11px; font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .drawer-bg { position: fixed; inset: 0; background: rgba(20,24,20,.35); display: none; align-items: flex-end; z-index: 20; }
+  .drawer-bg.on { display: flex; }
+  .drawer { background: var(--card); width: 100%; max-width: 480px; margin: 0 auto; border-radius: 16px 16px 0 0; padding: 14px 14px 24px; max-height: 82vh; overflow-y: auto; position: relative; }
+  .drawer .handle { width: 36px; height: 4px; background: var(--line); border-radius: 3px; margin: 0 auto 10px; }
+  .drawer .close { position: absolute; right: 14px; top: 14px; color: var(--sub); font-size: 13px; }
+  .drawer h2 { margin: 0 0 2px; font-size: 17px; }
+  footer.legend { padding: 10px 14px 20px; color: var(--sub); font-size: 11px; text-align: center; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14171a; --card: #1d2124; --ink: #eef0ee; --sub: #93a09a; --line: #2b3034;
+      --accent: #4fae7d; --accent-ink: #0b1210; --warn: #e2a34c; --warn-bg: #332608;
+      --ok-bg: #143224; --ok-ink: #61c993; --bad-bg: #351a17; --bad-ink: #e2705f; --chip-bg: #262b2e;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="note-banner">MOCKUP — issue #82 · example data only · for Kiran's review, nothing here is live</div>
+<div class="wrap">
+  <header>
+    <a class="back" href="#">← Today</a>
+    <div class="topbar">
+      <h1>Kitchen</h1>
+      <span class="daynav">
+        <button class="btn sm">‹</button>
+        <button class="btn sm">Today</button>
+        <button class="btn sm">›</button>
+      </span>
+    </div>
+  </header>
+  <nav class="tabs">
+    <button class="on" data-tab="plan">Plan</button>
+    <button data-tab="monitor">Monitor</button>
+    <button data-tab="boxes">Boxes</button>
+  </nav>
+  <main>
+
+    <!-- PLAN TAB -->
+    <section class="panel on" id="panel-plan">
+      <div class="note-line">9 to make · 2 empty · 0 expired · 14 ok · service 11:00 AM</div>
+      <div class="facets">
+        <button class="facet" style="background:var(--chip-bg);">all stations</button>
+        <button class="facet">Curry Chef · 4</button>
+        <button class="facet">Tandoori Chef · 3</button>
+        <span style="flex:1"></span>
+        <button class="facet link" onclick="openRoster()">👥 Roster · 5 in</button>
+      </div>
+      <div class="card">
+        <div class="s" style="padding:10px 14px 0; font-weight:600;">Curry Chef</div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">📦 Makhani gravy → make <b>2</b> boxes</div><div class="s">by 9:00 AM · on hand 1 · need 3 = par 3</div></div>
+          <span class="chip warn">make</span>
+        </div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">📦 Onion-tomato masala → make <b>1</b> box</div><div class="s">by 9:30 AM · on hand 2 · need 3 = par 2 + catering 1</div></div>
+          <span class="chip warn">make</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="s" style="padding:10px 14px 0; font-weight:600;">Tandoori Chef</div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">📦 Tandoori marinade → make <b>1</b> box</div><div class="s">by 9:00 AM · on hand 0 · need 1 = par 1</div></div>
+          <span class="chip bad">empty</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MONITOR TAB -->
+    <section class="panel" id="panel-monitor">
+      <div class="facets">
+        <span class="note-line" style="margin:0;">7/12 done · 2 late · 1 blocked</span>
+        <span style="flex:1"></span>
+        <button class="facet link" onclick="openMetrics()">📊 Metrics</button>
+      </div>
+      <div class="card">
+        <div class="s" style="padding:10px 14px 0; font-weight:600;">Curry Chef · 4/6</div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">🔥 Makhani gravy batch</div><div class="s">by 9:00 AM · Priya · done 8:52 AM by Priya</div></div>
+          <span class="chip ok">verified</span>
+        </div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">🔪 Onion-tomato masala prep</div><div class="s">by 9:30 AM · ~25 min</div></div>
+          <span class="chip bad">late</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="s" style="padding:10px 14px 0; font-weight:600;">Tandoori Chef · 3/6</div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">🧹 Clean the walk-in shelves</div><div class="s">by 5:00 PM · station</div></div>
+          <span class="chip">open</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOXES TAB -->
+    <section class="panel" id="panel-boxes">
+      <div class="facets">
+        <button class="facet" style="background:var(--chip-bg);">all 57</button>
+        <button class="facet">Indian restaurant · 52</button>
+        <button class="facet">your own · 5</button>
+      </div>
+      <div class="card">
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">📦 Makhani gravy</div><div class="s">Curry Chef · 12 qt · one box = 3 gal · keeps 4 days</div></div>
+          <span class="chip ok">9 lines · $18.40 per box</span>
+        </div>
+        <div class="row" style="cursor:default;">
+          <div class="grow"><div class="t">📦 Tandoori marinade</div><div class="s">Tandoori Chef · deli 2 qt · one box = 2 qt · keeps 2 days</div></div>
+          <span class="chip warn">no recipe</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Roster drawer, off Plan -->
+<div class="drawer-bg" id="roster-bg" onclick="if(event.target===this) closeRoster()">
+  <div class="drawer">
+    <div class="handle"></div>
+    <a class="close" href="#" onclick="closeRoster();return false;">✕</a>
+    <h2>👥 Roster — Today</h2>
+    <div class="s" style="margin-bottom:10px;">Tick who is in and where they stand. The wall screen's Work rail reads this.</div>
+    <div class="row" style="cursor:default;">
+      <input type="checkbox" checked />
+      <div class="grow"><div class="t">Priya Menon</div><div class="s">Curry Chef · Store Manager</div></div>
+    </div>
+    <div class="row" style="cursor:default;">
+      <input type="checkbox" checked />
+      <div class="grow"><div class="t">Arjun Rao</div><div class="s">Tandoori Chef · Cook</div></div>
+    </div>
+    <div class="row" style="cursor:default;">
+      <input type="checkbox" />
+      <div class="grow"><div class="t">Deepa Iyer</div><div class="s">not in today · Cook</div></div>
+    </div>
+    <div style="padding-top:10px;"><button class="btn primary">Save roster</button></div>
+  </div>
+</div>
+
+<!-- Metrics drawer, off Monitor -->
+<div class="drawer-bg" id="metrics-bg" onclick="if(event.target===this) closeMetrics()">
+  <div class="drawer">
+    <div class="handle"></div>
+    <a class="close" href="#" onclick="closeMetrics();return false;">✕</a>
+    <h2>📊 Metrics — last 4 weeks</h2>
+    <div class="facets" style="margin-top:6px;">
+      <button class="facet" style="background:var(--chip-bg);">person</button>
+      <button class="facet">station</button>
+      <button class="facet">task</button>
+    </div>
+    <div class="row" style="cursor:default;">
+      <div class="grow"><div class="t">Priya Menon</div><div class="s">42/45 done · on time 89% · typically 22 min · verified 95%</div></div>
+    </div>
+    <div class="row" style="cursor:default;">
+      <div class="grow"><div class="t">Arjun Rao</div><div class="s">30/34 done · 2 late · takes 15% longer than planned</div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="legend">Roster and Metrics leave the tab bar (5 tabs → 3) and reopen as drawers off Plan and Monitor: 👥 Roster stays beside the station filters on Plan (where staffing decides what gets made); 📊 Metrics sits beside the day's done/late/blocked line on Monitor (the same task ledger, read-only). Neither loses a route, a gate, or a field — canSee(kitchen.roster) still governs the Roster button.</footer>
+
+<script>
+  document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById('panel-' + b.dataset.tab).classList.add('on');
+  }));
+  function openRoster() { document.getElementById('roster-bg').classList.add('on'); }
+  function closeRoster() { document.getElementById('roster-bg').classList.remove('on'); }
+  function openMetrics() { document.getElementById('metrics-bg').classList.add('on'); }
+  function closeMetrics() { document.getElementById('metrics-bg').classList.remove('on'); }
+</script>
+</body>
+</html>
