@@ -81,7 +81,11 @@ a{color:var(--accent)}
 </main>
 <script>
 (() => {
-  const REPO = 'Veritill/platform';
+  // PRODUCTS: the build screen is shared across products (Kiran, 2026-09-21). One line per product; the page reads
+  // the first one today and groups by product once a second exists. The runner and test database live in the
+  // Railway project 'veritill-build' and serve every product here.
+  const PRODUCTS = [ { key:'veritill', name:'Veritill', repo:'Veritill/platform', icon:'🧾' } ];
+  const REPO = PRODUCTS[0].repo;
   const LANES = ['core','money','recipes','onboarding','commerce','pos','agents'];
   const LANE_ICON = { core:'🧱', money:'💵', recipes:'🍛', onboarding:'🚪', commerce:'🛵', pos:'🧾', agents:'🤖' };
   const KIND_ICON = { decision:'❓', mockup:'🖼️', gap:'🧩', contract:'📜', feedback:'💬', task:'🔧' };
@@ -92,7 +96,7 @@ a{color:var(--accent)}
     { role:'core-agent', label:'Core agent', cron:'45 * * * *', does:'reviews pull requests, merges clean green ones to staging, lands migrations lanes asked for, and builds the next Core task when nothing waits' },
     { role:'core seat', label:'Core seat', cron:'', does:'Claude with Kiran, interactive: escalation point; presses Promote' },
   ];
-  const PAUSED = true; // 2026-09-21: Kiran paused the four routines until further notice (the schedules are disabled on claude.ai)
+  const PAUSED = false; // set true when the routines are disabled on claude.ai, so the page says so
   const ACTIVE_MS = 20*60000; // a progress note moves at least every 15 minutes while a worker is alive
   const HEART_MS = 60*60000; // a branch commit in the last hour counts as a heartbeat
   const $ = (id) => document.getElementById(id);
