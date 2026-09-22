@@ -90,10 +90,10 @@ a{color:var(--accent)}
   const LANE_ICON = { core:'🧱', money:'💵', recipes:'🍛', onboarding:'🚪', commerce:'🛵', pos:'🧾', agents:'🤖' };
   const KIND_ICON = { decision:'❓', mockup:'🖼️', gap:'🧩', contract:'📜', feedback:'💬', task:'🔧' };
   const AGENTS = [
-    { role:'planner', label:'Planner', cron:'5 * * * *', does:'picks the next task per lane, unblocks what you answered, triages feedback, writes the Planner log' },
-    { role:'lane-worker:money', label:'Money lane', cron:'15 * * * *', does:'builds money and price-watch tasks: contract, code, tests, a pull request' },
-    { role:'lane-worker:recipes', label:'Recipes lane', cron:'30 * * * *', does:'builds the recipe stack the same way' },
-    { role:'core-agent', label:'Core agent', cron:'45 * * * *', does:'reviews pull requests, merges clean green ones to staging, lands migrations lanes asked for, and builds the next Core task when nothing waits' },
+    { role:'planner', label:'Planner', cron:'5,35 * * * *', does:'picks the next task per lane, unblocks what you answered, triages feedback, writes the Planner log' },
+    { role:'lane-worker:money', label:'Money + onboarding lane', cron:'15 * * * *', does:'builds money tasks, then onboarding-agent tasks; keeps going task after task for up to 3 hours' },
+    { role:'lane-worker:recipes', label:'Recipes + POS lane', cron:'30 * * * *', does:'builds recipe tasks, then POS register tasks; keeps going task after task for up to 3 hours' },
+    { role:'core-agent', label:'Core agent', cron:'15,45 * * * *', does:'reviews pull requests, merges clean green ones to staging, lands migrations lanes asked for, and builds the next Core task when nothing waits' },
     { role:'core seat', label:'Core seat', cron:'', does:'Claude with Kiran, interactive: escalation point; presses Promote' },
   ];
   const PAUSED = false; // set true when the routines are disabled on claude.ai, so the page says so
@@ -112,7 +112,7 @@ a{color:var(--accent)}
   const NOTE_HEAD = /^(🟢|⚪|⏸)\s*(Working|Done|Stopped)\s*·\s*([^·\n]+?)\s*(?:·\s*(.*?))?\s*·\s*started\s+(\d\d:\d\d)\s*UTC\s*·\s*updated\s+(\d\d:\d\d)\s*UTC/u;
   function parseNote(c) { const b = String(c.body||'').trim(); const m = NOTE_HEAD.exec(b); if (!m) return null; const steps = [...b.matchAll(/^- \[( |x)\] (.+)$/gm)].map((x) => ({ done: x[1] === 'x', label: x[2].trim() })); const nowLine = (/^Now:\s*(.+)$/m.exec(b)||[])[1] || ''; return { state: m[2].toLowerCase(), role: m[3].trim(), extra: (m[4]||'').trim(), started: m[5], updated: m[6], steps, now: nowLine, at: c.updated_at || c.created_at, url: c.html_url }; }
   const stripSig = (b) => String(b||'').replace(/\s+/g,' ').replace(/—\s*[\w:-]+( \w+)? \(agent run\)\s*$/i,'').replace(/_via Mission Control_/,'').trim();
-  function cronTimes(cron) { const [m,h] = cron.split(' '); if (!m||!h) return ''; if (h === '*') return 'every hour at :' + String(m).padStart(2,'0'); const mins = m.split(',').map(Number), hours = h.split(',').map(Number).sort((a,b)=>a-b); const fmt = new Intl.DateTimeFormat(undefined, { hour:'numeric', minute:'2-digit' }); const d = new Date(); return hours.flatMap((hh) => mins.map((mm) => fmt.format(new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), hh, mm))))).sort((x,y) => new Date('1/1/2000 '+x) - new Date('1/1/2000 '+y)).join(' · '); }
+  function cronTimes(cron) { const [m,h] = cron.split(' '); if (!m||!h) return ''; if (h === '*') return 'every hour at ' + m.split(',').map((x)=>':'+String(x).padStart(2,'0')).join(' and '); const mins = m.split(',').map(Number), hours = h.split(',').map(Number).sort((a,b)=>a-b); const fmt = new Intl.DateTimeFormat(undefined, { hour:'numeric', minute:'2-digit' }); const d = new Date(); return hours.flatMap((hh) => mins.map((mm) => fmt.format(new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), hh, mm))))).sort((x,y) => new Date('1/1/2000 '+x) - new Date('1/1/2000 '+y)).join(' · '); }
   function nextRun(cron) { const [m,h] = cron.split(' '); if (!m||!h) return null; const mins = m.split(',').map(Number).sort((a,b)=>a-b), hours = h === '*' ? Array.from({length:24},(_,i)=>i) : h.split(',').map(Number).sort((a,b)=>a-b); const now = new Date(); for (let d=0; d<3; d++) for (const hh of hours) for (const mm of mins) { const t = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()+d, hh, mm)); if (t > now) return t.toISOString(); } return null; }
 
   async function gh(method, path, body) {
