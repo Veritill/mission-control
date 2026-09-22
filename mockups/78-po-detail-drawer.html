@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #78 — PO detail folded into a drawer</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 16px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1 { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 320px; height: 640px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; overflow-y: auto; padding-bottom: 56px; }
+  .topbar { display: flex; align-items: baseline; gap: 10px; margin: 14px 14px 12px; }
+  .topbar h1 { font-size: 18px; margin: 0; font-weight: 700; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 9px; padding: 8px 14px; font-weight: 600; font-size: 13px; cursor: pointer; }
+  .btn.sm { padding: 6px 11px; font-size: 12px; }
+  .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--rule); }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; margin: 0 14px 12px; }
+  .note { color: var(--muted); font-size: 13px; margin: 0; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+  .row:last-child { border-bottom: none; }
+  .row .grow { flex: 1; min-width: 0; }
+  .row .t { font-weight: 600; font-size: 14.5px; }
+  .row .s { font-size: 12px; color: var(--muted); }
+  .row .num { font-variant-numeric: tabular-nums; text-align: right; font-size: 13.5px; }
+  .chip { display: inline-block; font-size: 10.5px; padding: 2px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); white-space: nowrap; }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .chip.ok { background: var(--green-soft); color: var(--green); }
+  .drawer { border-top: 1px dashed var(--rule); background: var(--green-soft); padding: 4px 14px 14px; display: none; }
+  .drawer.open { display: block; }
+  .drawer .line { display: flex; align-items: flex-start; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .drawer .line:last-of-type { border-bottom: none; }
+  .drawer .line .grow { flex: 1; }
+  .drawer .lt { font-weight: 600; font-size: 13px; }
+  .drawer .ls { font-size: 11.5px; color: var(--muted); }
+  .drawer .ln { font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+  .drawer .total { text-align: right; font-size: 13.5px; font-weight: 700; padding: 8px 0 2px; }
+  .drawer .actrow { margin-top: 8px; }
+  .chev { margin-left: auto; color: var(--muted); font-size: 15px; transition: transform .15s; }
+  .row.open .chev { transform: rotate(90deg); }
+  .tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; display: flex; background: var(--card); border-top: 1px solid var(--rule); }
+  .tabs .t { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: var(--muted); }
+  .tabs .t.on { color: var(--green); }
+  .tabs .ic { font-size: 17px; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 999px; font-weight: 700; }
+  .badge.before { background: var(--warn-soft); color: var(--warn); }
+  .badge.after { background: var(--green-soft); color: var(--green); }
+  .old-route-flash { position: absolute; inset: 0; background: var(--paper); z-index: 6; display: none; flex-direction: column; }
+  .old-route-flash.show { display: flex; }
+  .foot { max-width: 900px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot ul { padding-left: 18px; margin: 8px 0; }
+  .foot li { margin-bottom: 5px; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1>Mockup #78 — fold Purchase order detail into a drawer on Purchasing</h1>
+<div class="lede">purchasing/[id]/page.tsx is a short header, a line table with each line's reason, and one Approve &amp;
+  send button — nothing that needs a whole new route. Tap a row on the Purchasing list to expand it in place.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2><span class="badge before">BEFORE</span> today — a routed detail screen</h2>
+    <div class="phone">
+      <div class="screen" id="beforeScreen">
+        <div class="topbar"><h1>Purchasing</h1></div>
+        <p class="note" style="margin:0 14px 10px">This week the app proposes $1,240 · approved: $1,100</p>
+        <div class="card">
+          <div class="row" onclick="showOldRoute()">
+            <div class="grow"><div class="t">🧾 Om Wholesale</div><div class="s">2026-09-20</div></div>
+            <span class="chip warn">sent</span><div class="num">$612.40</div>
+          </div>
+          <div class="row"><div class="grow"><div class="t">🧾 RD Produce</div><div class="s">2026-09-19</div></div><span class="chip ok">received</span><div class="num">$304.10</div></div>
+          <div class="row"><div class="grow"><div class="t">🧾 Sysco</div><div class="s">below minimum — held</div></div><span class="chip">draft</span><div class="num">$88.00</div></div>
+        </div>
+        <div class="old-route-flash" id="oldRoute">
+          <div class="topbar"><h1>Om Wholesale</h1><span class="chip warn">sent</span></div>
+          <div class="card">
+            <div class="row" style="cursor:default"><div class="grow"><div class="t">📦 Basmati rice 20lb</div><div class="s">forecast: 9 days cover left, lead time 3</div></div><div class="num">6 × $18.40<div class="note">$110.40</div></div></div>
+            <div class="row" style="cursor:default"><div class="grow"><div class="t">📦 Toor dal 4lb</div><div class="s">vendor constraint shaped this qty</div><div class="chip" style="margin-top:3px">vendor constraint shaped this qty</div></div><div class="num">12 × $6.10<div class="note">$73.20</div></div></div>
+          </div>
+          <p class="note" style="margin:10px 14px"><b>Total $612.40</b></p>
+          <p class="note" style="margin:16px 14px">A whole navigation away, just to read the lines — and Back is the only way out (screens.md §0 check 6/8).</p>
+          <button class="btn ghost" style="margin:0 14px" onclick="hideOldRoute()">← back (only way out)</button>
+        </div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">🧾</span>Purchasing</div><div class="t"><span class="ic">📦</span>Products</div></div>
+    </div>
+    <div class="tap-hint">tap "Om Wholesale" to see the old route</div>
+  </div>
+
+  <div class="col">
+    <h2><span class="badge after">AFTER</span> folded into an expandable row</h2>
+    <div class="phone">
+      <div class="screen">
+        <div class="topbar"><h1>Purchasing</h1></div>
+        <p class="note" style="margin:0 14px 10px">This week the app proposes $1,240 · approved: $1,100</p>
+        <div class="card">
+          <div class="row" id="row1" onclick="toggle('row1','d1')">
+            <div class="grow"><div class="t">🧾 Om Wholesale</div><div class="s">2026-09-20</div></div>
+            <span class="chip warn">sent</span><div class="num">$612.40</div><span class="chev">›</span>
+          </div>
+          <div class="drawer" id="d1">
+            <div class="line"><div class="grow"><div class="lt">📦 Basmati rice 20lb</div><div class="ls">forecast: 9 days cover left, lead time 3</div></div><div class="ln">6 × $18.40<br>$110.40</div></div>
+            <div class="line"><div class="grow"><div class="lt">📦 Toor dal 4lb</div><div class="ls">vendor constraint shaped this qty</div></div><div class="ln">12 × $6.10<br>$73.20</div></div>
+            <div class="total">Total $612.40</div>
+            <div class="actrow"><span class="note">already sent — nothing more to do here</span></div>
+          </div>
+          <div class="row" id="row2" onclick="toggle('row2','d2')">
+            <div class="grow"><div class="t">🧾 RD Produce</div><div class="s">2026-09-19</div></div>
+            <span class="chip ok">received</span><div class="num">$304.10</div><span class="chev">›</span>
+          </div>
+          <div class="drawer" id="d2">
+            <div class="line"><div class="grow"><div class="lt">📦 Green cabbage</div><div class="ls">by-weight commodity line</div></div><div class="ln">40 lb × $0.62<br>$24.80</div></div>
+            <div class="total">Total $304.10</div>
+          </div>
+          <div class="row" id="row3" onclick="toggle('row3','d3')">
+            <div class="grow"><div class="t">🧾 Sysco</div><div class="s">below minimum — held</div></div>
+            <span class="chip">draft</span><div class="num">$88.00</div><span class="chev">›</span>
+          </div>
+          <div class="drawer" id="d3">
+            <div class="line"><div class="grow"><div class="lt">📦 Fryer oil 35lb</div><div class="ls">held: $88 short of Sysco's $150 free-freight minimum</div></div><div class="ln">1 × $88.00<br>$88.00</div></div>
+            <div class="total">Total $88.00</div>
+            <div class="actrow"><button class="btn sm">✓ Approve &amp; send (email)</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">🧾</span>Purchasing</div><div class="t"><span class="ic">📦</span>Products</div></div>
+    </div>
+    <div class="tap-hint">tap any row — lines and Approve &amp; send appear in place, list stays put</div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>What changes</b> (issue #78, Refs #54 — Kiran approved the fold):
+  <ul>
+    <li><code>apps/web/src/app/(app)/purchasing/[id]/page.tsx</code> (the routed detail) is deleted; its data fetch
+      (<code>GET /purchase-orders/:id</code>) moves to a lazy per-row expand on <code>purchasing/page.tsx</code>
+      (fetched once on first open, cached, same drawer pattern used elsewhere — <code>details.group</code> in
+      globals.css — but as a controlled expand so only one PO is open and the list never re-sorts under a tap).</li>
+    <li>Tapping a row's chevron expands its lines, reason text and vendor-constraint chip in place; a second tap,
+      or opening a different row, collapses it — the list itself never scrolls or moves (screens §0 check 5).</li>
+    <li>"✓ Approve &amp; send" stays exactly where it is today, now inside the open drawer, only for
+      <code>status === 'draft'</code>; a sent/received PO's drawer is read-only, same as today.</li>
+    <li>No new route, no lost functionality — same API calls, same permission gates, one fewer screen.</li>
+  </ul>
+  <b>Screen checks this satisfies:</b> #7 one home per function, #8 as few screens as possible (a drawer before a
+  new screen), #6 a way back (there's nowhere to go back FROM — the list is always visible).
+  <br><br>
+  This is a static mockup with example data only — no client data, no live calls.
+</div>
+
+<script>
+  function toggle(rowId, drawerId) {
+    document.querySelectorAll('.row').forEach((r) => { if (r.id !== rowId) r.classList.remove('open'); });
+    document.querySelectorAll('.drawer').forEach((d) => { if (d.id !== drawerId) d.classList.remove('open'); });
+    document.getElementById(rowId).classList.toggle('open');
+    document.getElementById(drawerId).classList.toggle('open');
+  }
+  function showOldRoute() { document.getElementById('oldRoute').classList.add('show'); }
+  function hideOldRoute() { document.getElementById('oldRoute').classList.remove('show'); }
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #79 — New item folded into a drawer off Products</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 16px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1 { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 320px; height: 640px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; overflow-y: auto; padding-bottom: 56px; }
+  .topbar { display: flex; align-items: center; gap: 8px; margin: 14px 14px 10px; flex-wrap: wrap; }
+  .topbar h1 { font-size: 18px; margin: 0; font-weight: 700; }
+  .spacer { flex: 1; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 9px; padding: 7px 12px; font-weight: 600; font-size: 12px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--rule); }
+  .searchbar { margin: 0 14px 10px; }
+  .input { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13.5px; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; margin: 0 14px 10px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+  .row:last-child { border-bottom: none; }
+  .row .t { font-weight: 600; font-size: 13.5px; }
+  .row .s { font-size: 11.5px; color: var(--muted); }
+  .note { color: var(--muted); font-size: 13px; margin: 0; }
+  .field { display: block; margin: 0 0 9px; }
+  .field span { display: block; font-size: 10.5px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+  .field .input { font-size: 14px; padding: 8px 10px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+  .tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; display: flex; background: var(--card); border-top: 1px solid var(--rule); }
+  .tabs .t { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: var(--muted); }
+  .tabs .t.on { color: var(--green); }
+  .tabs .ic { font-size: 17px; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 999px; font-weight: 700; }
+  .badge.before { background: #f7efd8; color: #8a6a1f; }
+  .badge.after { background: var(--green-soft); color: var(--green); }
+  .old-route-flash { position: absolute; inset: 0; background: var(--paper); z-index: 6; display: none; flex-direction: column; }
+  .old-route-flash.show { display: flex; }
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 16px 16px 18px; max-height: 82%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; }
+  .sheet h3 { font-size: 15px; margin: 0 0 10px; }
+  .sheet .actrow { display: flex; gap: 8px; margin-top: 6px; }
+  .sheet .actrow .btn { flex: 1; }
+  .foot { max-width: 900px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot ul { padding-left: 18px; margin: 8px 0; }
+  .foot li { margin-bottom: 5px; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1>Mockup #79 — fold New item into a drawer off Products</h1>
+<div class="lede">items/new/page.tsx is one compact form with no sub-navigation of its own — house-made items and
+  repacks, nothing that needs a whole route. "+ New item" opens the same form as a bottom sheet over Products.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2><span class="badge before">BEFORE</span> today — a routed form screen</h2>
+    <div class="phone">
+      <div class="screen" id="beforeScreen">
+        <div class="topbar"><h1>Products</h1><span class="spacer"></span>
+          <button class="btn ghost">🧺 ingredients</button>
+          <button class="btn ghost" onclick="showOldRoute()">+ New item</button>
+        </div>
+        <div class="searchbar"><input class="input" placeholder="Search or scan…" /></div>
+        <div class="card">
+          <div class="row"><div><div class="t">🧅 Yellow onion, 25lb bag</div><div class="s">Produce · dry</div></div></div>
+          <div class="row"><div><div class="t">🫓 Naan, house-made 6pk</div><div class="s">Bakery · fridge</div></div></div>
+          <div class="row"><div><div class="t">🍯 Ghee, jarred 32oz</div><div class="s">Dairy · dry</div></div></div>
+        </div>
+        <div class="old-route-flash" id="oldRoute">
+          <div class="topbar"><h1>New item</h1></div>
+          <div class="card" style="margin:0 14px;padding:14px">
+            <label class="field"><span>Name (clean — no sizes)</span><input class="input" placeholder="Naan, house-made" /></label>
+            <div class="grid2"><label class="field"><span>Category</span><input class="input" placeholder="Bakery" /></label><label class="field"><span>Storage</span><input class="input" placeholder="fridge" /></label></div>
+            <div class="grid2"><label class="field"><span>Sold by</span><input class="input" placeholder="each" /></label><label class="field"><span>Retail?</span><input class="input" placeholder="sold to shoppers" /></label></div>
+            <button class="btn" style="width:100%;margin-top:4px">+ Create item</button>
+          </div>
+          <p class="note" style="margin:16px 14px">A whole navigation away for a five-field form — Products is gone
+            from the screen, and there's no way back except the app's own back control (screens §0 check 6).</p>
+          <button class="btn ghost" style="margin:0 14px;align-self:flex-start" onclick="hideOldRoute()">← back (only way out)</button>
+        </div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">📦</span>Products</div><div class="t"><span class="ic">🧾</span>Purchasing</div></div>
+    </div>
+    <div class="tap-hint">tap "+ New item" to see the old route</div>
+  </div>
+
+  <div class="col">
+    <h2><span class="badge after">AFTER</span> a sheet off the Products topbar</h2>
+    <div class="phone">
+      <div class="screen">
+        <div class="topbar"><h1>Products</h1><span class="spacer"></span>
+          <button class="btn ghost">🧺 ingredients</button>
+          <button class="btn ghost" onclick="openSheet()">+ New item</button>
+        </div>
+        <div class="searchbar"><input class="input" placeholder="Search or scan…" /></div>
+        <div class="card">
+          <div class="row"><div><div class="t">🧅 Yellow onion, 25lb bag</div><div class="s">Produce · dry</div></div></div>
+          <div class="row"><div><div class="t">🫓 Naan, house-made 6pk</div><div class="s">Bakery · fridge</div></div></div>
+          <div class="row"><div><div class="t">🍯 Ghee, jarred 32oz</div><div class="s">Dairy · dry</div></div></div>
+        </div>
+        <div class="sheet-overlay" id="sheetOverlay" onclick="if(event.target===this)closeSheet()">
+          <div class="sheet">
+            <div class="grabber"></div>
+            <h3>+ New item</h3>
+            <label class="field"><span>Name (clean — no sizes)</span><input class="input" placeholder="Naan, house-made" autofocus /></label>
+            <div class="grid2"><label class="field"><span>Category</span><input class="input" placeholder="Bakery" /></label><label class="field"><span>Storage</span><input class="input" placeholder="fridge" /></label></div>
+            <div class="grid2"><label class="field"><span>Sold by</span><input class="input" placeholder="each" /></label><label class="field"><span>Retail?</span><input class="input" placeholder="sold to shoppers" /></label></div>
+            <div class="actrow"><button class="btn ghost" onclick="closeSheet()">Cancel</button><button class="btn" onclick="closeSheet()">+ Create item</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">📦</span>Products</div><div class="t"><span class="ic">🧾</span>Purchasing</div></div>
+    </div>
+    <div class="tap-hint">tap "+ New item" — the form opens as a sheet, Products stays underneath</div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>What changes</b> (issue #79, Refs #54 — Kiran approved the fold):
+  <ul>
+    <li><code>apps/web/src/app/(app)/items/new/page.tsx</code> (the routed form) is deleted; its fields and the
+      <code>POST /items</code> call move into a small component (e.g. <code>NewItemSheet.tsx</code>) rendered as a
+      bottom sheet, the same pattern as the invoice workspace's dock sheets (<code>.ws-overlay</code> family already
+      in globals.css) or the confirm dialog (<code>.dlg-overlay</code>/<code>.dlg</code>).</li>
+    <li>"+ New item" on Products' topbar (<code>items/page.tsx</code> line ~183) opens the sheet instead of routing;
+      the vocabulary fetch (<code>GET /tenant</code>) still runs once, on open.</li>
+    <li>On save, the sheet closes and the new item opens the same way a matched row does today
+      (<code>ItemDetailsPanel</code>), not a route change — Products' list refreshes with the new row visible,
+      never a separate created-item screen.</li>
+    <li>The <code>canSee(uiKey('items','new'))</code> permission gate is unchanged — same button, same guard, now
+      opening a sheet instead of a link.</li>
+  </ul>
+  <b>Screen checks this satisfies:</b> #7 one home per function, #8 as few screens as possible (a sheet before a
+  new screen — a five-field form never needed a route), #6 a way back (Cancel or tap outside, never a dead end).
+  <br><br>
+  This is a static mockup with example data only — no client data, no live calls.
+</div>
+
+<script>
+  function openSheet() { document.getElementById('sheetOverlay').classList.add('open'); }
+  function closeSheet() { document.getElementById('sheetOverlay').classList.remove('open'); }
+  function showOldRoute() { document.getElementById('oldRoute').classList.add('show'); }
+  function hideOldRoute() { document.getElementById('oldRoute').classList.remove('show'); }
+</script>
+</body>
+</html>

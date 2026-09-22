@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #80 — Toast settings folded into a card on Business settings</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f; --warn: #8a6a1f; --warn-soft: #f7efd8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 16px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1 { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 320px; height: 640px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; overflow-y: auto; padding-bottom: 56px; }
+  .topbar { display: flex; align-items: center; gap: 8px; margin: 14px 14px 10px; }
+  .topbar h1 { font-size: 18px; margin: 0; font-weight: 700; }
+  .spacer { flex: 1; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 9px; padding: 7px 12px; font-weight: 600; font-size: 12px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--rule); }
+  .btn.sm { padding: 5px 10px; font-size: 11.5px; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; margin: 0 14px 10px; padding: 12px 14px; }
+  .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  .note { color: var(--muted); font-size: 12.5px; margin: 0; }
+  .chip { display: inline-block; font-size: 10.5px; padding: 2px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); white-space: nowrap; }
+  .chip.ok { background: var(--green-soft); color: var(--green); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .rowline { display: flex; align-items: center; gap: 8px; }
+  .field { display: block; margin: 8px 0 0; }
+  .field span { display: block; font-size: 10px; color: var(--muted); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .04em; }
+  .input { width: 100%; padding: 7px 9px; border: 1px solid var(--rule); border-radius: 8px; background: var(--card); font-size: 13px; }
+  details.group { border-top: 1px solid var(--rule); margin-top: 8px; }
+  details.group summary { padding: 9px 0; cursor: pointer; font-weight: 600; font-size: 12.5px; list-style: none; display: flex; align-items: center; color: var(--ink); }
+  details.group summary::after { content: '›'; margin-left: auto; color: var(--muted); }
+  details.group[open] summary::after { content: '⌄'; }
+  details.group .gb { padding: 0 0 10px; }
+  .old-route-flash { position: absolute; inset: 0; background: var(--paper); z-index: 6; display: none; flex-direction: column; overflow-y: auto; }
+  .old-route-flash.show { display: flex; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 999px; font-weight: 700; }
+  .badge.before { background: var(--warn-soft); color: var(--warn); }
+  .badge.after { background: var(--green-soft); color: var(--green); }
+  .tabs { position: absolute; left: 0; right: 0; bottom: 0; height: 56px; display: flex; background: var(--card); border-top: 1px solid var(--rule); }
+  .tabs .t { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: var(--muted); }
+  .tabs .t.on { color: var(--green); }
+  .tabs .ic { font-size: 17px; }
+  .foot { max-width: 900px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot ul { padding-left: 18px; margin: 8px 0; }
+  .foot li { margin-bottom: 5px; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1>Mockup #80 — fold Toast settings into a card on Business settings</h1>
+<div class="lede">settings/toast/page.tsx is one connector config (credentials + two pull actions) living on its own
+  route. Folded into a card on Business settings, expanding in place — same pattern the Product Library and AI
+  spend cards already use on that screen.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2><span class="badge before">BEFORE</span> today — a routed settings screen</h2>
+    <div class="phone">
+      <div class="screen" id="beforeScreen">
+        <div class="topbar"><h1>Business</h1></div>
+        <div class="card">
+          <div class="k">Store</div><div style="font-weight:600;font-size:14.5px">Great Indian Food</div>
+          <div class="note" style="margin-top:2px">Toast POS Retail · 6 partners</div>
+        </div>
+        <div class="card">
+          <div class="k">📚 Product Library</div>
+          <p class="note">Verified details join a shared library. <a href="#" style="color:var(--green)">How it works</a></p>
+        </div>
+        <div class="card" style="cursor:pointer" onclick="showOldRoute()">
+          <div class="rowline"><div class="k" style="margin:0">🍞 Toast integration</div><span class="spacer"></span><span class="chip ok">connected</span></div>
+          <p class="note" style="margin-top:4px">Menu and sales pulls — tap to open →</p>
+        </div>
+        <div class="card"><div class="k">AI spend</div><div class="note">today $2.14 of $12.00</div></div>
+        <div class="old-route-flash" id="oldRoute">
+          <div class="topbar"><h1>Toast</h1><span class="chip ok" style="margin-left:6px">connected</span></div>
+          <div class="card">
+            <div class="k">1 · Credentials</div>
+            <label class="field"><span>Client ID</span><input class="input" value="gif-register-01" disabled /></label>
+            <label class="field"><span>Restaurant GUID</span><input class="input" value="a1b2c3d4-…" disabled /></label>
+          </div>
+          <div class="card">
+            <div class="k">2 · Menu</div>
+            <p class="note">Linked: 42 dishes · 9 modifier groups · last pull 2h ago</p>
+          </div>
+          <div class="card">
+            <div class="k">3 · Sales history</div>
+            <p class="note">Landed: 1,204 receipts · Sep 1 → Sep 22</p>
+          </div>
+          <p class="note" style="margin:6px 14px 12px">A whole navigation away for a status check — Business
+            settings is gone from view, only Back returns (screens §0 check 6/8).</p>
+          <button class="btn ghost" style="margin:0 14px 14px;align-self:flex-start" onclick="hideOldRoute()">← back (only way out)</button>
+        </div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">⚙️</span>Settings</div><div class="t"><span class="ic">📦</span>Products</div></div>
+    </div>
+    <div class="tap-hint">tap the Toast card to see the old route</div>
+  </div>
+
+  <div class="col">
+    <h2><span class="badge after">AFTER</span> an expanding card in place</h2>
+    <div class="phone">
+      <div class="screen">
+        <div class="topbar"><h1>Business</h1></div>
+        <div class="card">
+          <div class="k">Store</div><div style="font-weight:600;font-size:14.5px">Great Indian Food</div>
+          <div class="note" style="margin-top:2px">Toast POS Retail · 6 partners</div>
+        </div>
+        <div class="card">
+          <div class="k">📚 Product Library</div>
+          <p class="note">Verified details join a shared library. <a href="#" style="color:var(--green)">How it works</a></p>
+        </div>
+        <div class="card">
+          <div class="rowline"><div class="k" style="margin:0">🍞 Toast integration</div><span class="spacer"></span><span class="chip ok">connected</span></div>
+          <p class="note" style="margin-top:4px">42 dishes linked · 1,204 receipts landed</p>
+          <details class="group">
+            <summary>Credentials</summary>
+            <div class="gb">
+              <label class="field"><span>Client ID</span><input class="input" value="gif-register-01" disabled /></label>
+              <label class="field"><span>Restaurant GUID</span><input class="input" value="a1b2c3d4-…" disabled /></label>
+              <button class="btn sm ghost" style="margin-top:8px">Test connection</button>
+            </div>
+          </details>
+          <details class="group">
+            <summary>Menu</summary>
+            <div class="gb">
+              <p class="note">Linked: 42 dishes · 9 modifier groups · last pull 2h ago</p>
+              <div style="display:flex;gap:6px"><button class="btn sm ghost">Preview the pull</button><button class="btn sm">Apply</button></div>
+            </div>
+          </details>
+          <details class="group">
+            <summary>Sales history</summary>
+            <div class="gb">
+              <p class="note">Landed: 1,204 receipts · Sep 1 → Sep 22</p>
+              <button class="btn sm">Pull sales</button>
+            </div>
+          </details>
+        </div>
+        <div class="card"><div class="k">AI spend</div><div class="note">today $2.14 of $12.00</div></div>
+      </div>
+      <div class="tabs"><div class="t"><span class="ic">🏠</span>Today</div><div class="t on"><span class="ic">⚙️</span>Settings</div><div class="t"><span class="ic">📦</span>Products</div></div>
+    </div>
+    <div class="tap-hint">tap "Credentials", "Menu" or "Sales history" — each expands in place, Business settings stays put</div>
+  </div>
+</div>
+
+<div class="foot">
+  <b>What changes</b> (issue #80, Refs #54 — Kiran approved the fold):
+  <ul>
+    <li><code>apps/web/src/app/(app)/settings/toast/page.tsx</code> (the routed screen) is deleted; its three
+      sections (credentials, menu pull, sales pull) become <code>details.group</code> accordions inside one card on
+      <code>settings/page.tsx</code> — the exact pattern already styled in globals.css (<code>details.group</code>,
+      used elsewhere for expandable detail groups) and already the neighbor of the Product Library and AI spend
+      cards on this same screen.</li>
+    <li>The card's collapsed state (always visible, no tap needed) shows the one line that matters at a glance:
+      connected/not-set-up status chip, dish count, receipt count — the same information the routed page's header
+      and summary lines show today, just without navigating to see it.</li>
+    <li>All three data calls (<code>GET /connectors/toast</code>, <code>/connectors/toast/menu</code>,
+      <code>/connectors/toast/sales</code>) and the <code>canDo('Integrations','Edit')</code> gate are unchanged —
+      only the container changes, from a route to an in-place expand.</li>
+    <li>Price-drift chips and the sales pull log render inside their own group's body exactly as they do today,
+      just not on a separate screen.</li>
+  </ul>
+  <b>Screen checks this satisfies:</b> #7 one home per function, #8 as few screens as possible (an expanding card
+  before a new screen), #6 a way back (nothing to back out of — Business settings never left view), #2 no
+  paragraphs at rest (the collapsed card is one line; detail lives behind the tap, same as today's InfoLine ⓘ).
+  <br><br>
+  This is a static mockup with example data only — no client data, no live calls.
+</div>
+
+<script>
+  function showOldRoute() { document.getElementById('oldRoute').classList.add('show'); }
+  function hideOldRoute() { document.getElementById('oldRoute').classList.remove('show'); }
+</script>
+</body>
+</html>
