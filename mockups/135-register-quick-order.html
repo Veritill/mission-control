@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #135 — POS Register: quick order + check (GIF)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 680px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 11px; color: var(--muted); }
+  .seatpick { flex: none; display: flex; align-items: center; gap: 4px; background: var(--saffron-soft); color: var(--saffron); border: none; border-radius: 999px; padding: 5px 9px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+
+  .catrow { display: flex; gap: 6px; padding: 2px 12px 8px; overflow-x: auto; scrollbar-width: none; }
+  .catrow::-webkit-scrollbar { display: none; }
+  .catchip { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 12.5px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; }
+  .catchip.on { background: var(--green); color: #fff; }
+
+  .searchbar { padding: 0 12px 8px; }
+  .input { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13.5px; font-family: inherit; }
+
+  .tiles { flex: 1; overflow-y: auto; padding: 2px 12px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
+  .tile { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px; text-align: left; cursor: pointer; position: relative; }
+  .tile .ic { font-size: 20px; }
+  .tile .nm { font-weight: 600; font-size: 12.5px; margin-top: 4px; line-height: 1.25; }
+  .tile .pr { font-size: 12.5px; color: var(--green); font-weight: 700; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .tile.off { opacity: .5; cursor: not-allowed; }
+  .tile .flag86 { position: absolute; top: 8px; right: 8px; background: var(--danger-soft); color: var(--danger); font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: 999px; }
+  .tile .qtybadge { position: absolute; top: -6px; right: -6px; background: var(--green); color: #fff; font-size: 11px; font-weight: 800; min-width: 18px; height: 18px; border-radius: 999px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+
+  .strip { flex: none; margin: 0 10px 10px; background: var(--ink); color: #fff; border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,.18); }
+  .strip .n { background: rgba(255,255,255,.15); border-radius: 999px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 800; flex: none; }
+  .strip .lbl { flex: 1; font-size: 12.5px; color: rgba(255,255,255,.75); }
+  .strip .amt { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .strip .chev { font-size: 13px; color: rgba(255,255,255,.6); }
+
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 14px 14px 16px; max-height: 90%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; flex: none; }
+  .sheet h3 { font-size: 15px; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+  .sheet .sub { font-size: 11.5px; color: var(--muted); margin: -4px 0 10px; }
+
+  .line { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .line:last-child { border-bottom: none; }
+  .line .ic { font-size: 17px; flex: none; }
+  .line .body { flex: 1; min-width: 0; }
+  .line .nm { font-weight: 600; font-size: 13px; }
+  .line .mod { font-size: 11px; color: var(--muted); }
+  .line .tags { display: flex; gap: 4px; margin-top: 3px; }
+  .tag { font-size: 9.5px; font-weight: 700; padding: 1px 6px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); }
+  .tag.seat { background: var(--saffron-soft); color: var(--saffron); }
+  .tag.sent { background: var(--green-soft); color: var(--green); }
+  .line .amt { font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; flex: none; }
+  .stepper { display: flex; align-items: center; gap: 6px; flex: none; }
+  .stepper button { width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--rule); background: var(--chip); font-size: 13px; cursor: pointer; }
+  .stepper .q { font-size: 12.5px; font-weight: 700; min-width: 14px; text-align: center; }
+
+  .totals { border-top: 1px dashed var(--rule); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
+  .totals .row2 { display: flex; justify-content: space-between; padding: 2px 0; color: var(--muted); }
+  .totals .row2.grand { color: var(--ink); font-weight: 800; font-size: 15px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 6px; }
+  .totals .amt { font-variant-numeric: tabular-nums; }
+
+  .utilrow { display: flex; gap: 8px; margin-top: 10px; }
+  .util { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; background: var(--chip); border: none; border-radius: 10px; padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: var(--chip-ink); cursor: pointer; }
+  .util .ic { font-size: 16px; }
+
+  .actrow { display: flex; gap: 8px; margin-top: 10px; }
+  .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn.saffron { background: var(--saffron); }
+  .btn.wide { flex: 2; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .chiprow { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .pick { padding: 7px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); border: 2px solid transparent; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .pick.on { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+  .field { display: block; margin: 0 0 9px; }
+  .field span { display: block; font-size: 10.5px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 82px; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 600; text-align: center; z-index: 20; opacity: 0; transform: translateY(6px); transition: opacity .18s, transform .18s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .paidwrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 30px; text-align: center; }
+  .paidwrap .big { font-size: 40px; }
+  .paidwrap h3 { margin: 0; font-size: 16px; }
+  .paidwrap p { margin: 0; font-size: 12px; color: var(--muted); }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 34%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #135 — Register: quick order + check</h1>
+<div class="lede">Great Indian Food, Table 4 — tiles build the check; Search, Open item, Send, Pay, Discount,
+  Split, Service charge and No sale all live as taps and sheets on this ONE screen, never a new route.
+  Live demo: tap a tile, tap the black check strip, try Pay.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Register — Table 4</h2>
+    <div class="phone">
+      <div class="screen" id="screen">
+        <!-- rendered by script -->
+      </div>
+    </div>
+    <div class="tap-hint">tap a dish tile, then tap the black strip to open the check</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Build and manage the open check for this table. Pay/Discount/Split/Service
+      charge/No sale/Search/Open item are all reached from here, never a second screen with the same job.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every row is a name, a number and an icon. The only sentence on the whole
+      screen is the "sent to kitchen" toast, and it clears itself.</td></tr>
+    <tr><td>3. Icon on every row</td><td>Every tile, every check line, every sheet action carries an icon
+      (🍢 🫓 🥤, 🏷️ discount, ✂️ split, 🗄️ no sale, 💵 💳 tender).</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>Main screen: back, seat pill, search, 6 category chips (scroll), a tile
+      grid, one strip = one job's worth of controls. Each sheet (check, pay, discount, split, more, no-sale, open
+      item) is its own short list, never everything at once.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Tapping a tile updates the strip and total from numbers already
+      held in memory (resolveCheck, apps/api/src/checks.ts) — no recompute trip, no server round-trip to add a
+      line; the check total is never computed fresh when the sheet opens.</td></tr>
+    <tr><td>6. A way back</td><td>← at top-left names the parent ("Tables") and is one tap away on every sheet's
+      grabber/✕; nothing here is a dead end.</td></tr>
+    <tr><td>7. One home per function</td><td>Paying, discounting, splitting and no-sale each have exactly one
+      place to happen — this screen's sheets — not a duplicate on some other page.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>Pay, Discount, Split, Service charge, No sale and Open item are
+      six sheets over ONE screen, not six new routes; Table map (the ← target) is the only sibling screen, folded
+      in per pos-register.md §12, not a seventh.</td></tr>
+  </table>
+</div>
+
+<script>
+const TAX_PCT = 9.25; // TN prepared food, Wilson County combined rate
+const money = (n) => '$' + (Math.round(n*100)/100).toFixed(2);
+const r2 = (n) => Math.round(n*100)/100;
+
+const MENU = {
+  Starters: [
+    { id:'samosa', ic:'🥟', nm:'Veg Samosa (2)', price:6.95, station:'Fry', tax:'food' },
+    { id:'bhaji', ic:'🧅', nm:'Onion Bhaji', price:6.50, station:'Fry', tax:'food' },
+    { id:'chix65', ic:'🍗', nm:'Chicken 65', price:9.95, station:'Fry', tax:'food' },
+  ],
+  Tandoor: [
+    { id:'tikka-app', ic:'🍢', nm:'Chicken Tikka', price:14.95, station:'Tandoor', tax:'food' },
+    { id:'tandc', ic:'🍗', nm:'Tandoori Chicken ½', price:13.95, station:'Tandoor', tax:'food' },
+    { id:'seekh', ic:'🍢', nm:'Seekh Kabab', price:12.95, station:'Tandoor', tax:'food' },
+  ],
+  Curries: [
+    { id:'tikkamasala', ic:'🍛', nm:'Chicken Tikka Masala', price:16.95, station:'Curry', tax:'food',
+      mods:[{nm:'Extra chicken', delta:3.00},{nm:'Extra spicy', delta:0}] },
+    { id:'butterchix', ic:'🧈', nm:'Butter Chicken', price:16.95, station:'Curry', tax:'food',
+      mods:[{nm:'Extra spicy', delta:0}] },
+    { id:'palak', ic:'🥬', nm:'Palak Paneer', price:14.50, station:'Curry', tax:'food' },
+    { id:'goat', ic:'🐐', nm:'Goat Curry', price:18.95, station:'Curry', tax:'food', off:true },
+  ],
+  Biryani: [
+    { id:'chixbir', ic:'🍚', nm:'Chicken Biryani', price:15.95, station:'Curry', tax:'food' },
+    { id:'lambbir', ic:'🍚', nm:'Lamb Biryani', price:18.95, station:'Curry', tax:'food' },
+    { id:'vegbir', ic:'🍚', nm:'Veg Biryani', price:13.95, station:'Curry', tax:'food' },
+  ],
+  Bread: [
+    { id:'gnaan', ic:'🫓', nm:'Garlic Naan', price:3.95, station:'Tandoor', tax:'food' },
+    { id:'pnaan', ic:'🫓', nm:'Plain Naan', price:2.95, station:'Tandoor', tax:'food' },
+    { id:'roti', ic:'🫓', nm:'Roti', price:2.50, station:'Tandoor', tax:'food' },
+  ],
+  Drinks: [
+    { id:'mlassi', ic:'🥤', nm:'Mango Lassi', price:4.95, station:null, tax:'food' },
+    { id:'chai', ic:'☕', nm:'Masala Chai', price:2.95, station:null, tax:'food' },
+  ],
+  Dessert: [
+    { id:'gulab', ic:'🍮', nm:'Gulab Jamun (2)', price:5.95, station:null, tax:'food' },
+  ],
+};
+const ALL = Object.values(MENU).flat();
+
+let cats = Object.keys(MENU);
+let activeCat = cats[0];
+let searchOpen = false, searchQ = '';
+let activeSeat = 1; // 1 | 2 | null(shared)
+let seatCycle = [1, 2, null];
+let lineSeq = 1;
+let check = {
+  discount: null, // {kind:'percent'|'flat', value}
+  svcPct: 0,
+  paid: false,
+  lines: [
+    { id:'l'+(lineSeq++), item:MENU.Curries[0], qty:1, seat:1, mods:[{nm:'Extra chicken', delta:3.00}], sent:true },
+    { id:'l'+(lineSeq++), item:MENU.Bread[0], qty:2, seat:1, mods:[], sent:true },
+    { id:'l'+(lineSeq++), item:MENU.Curries[1], qty:1, seat:2, mods:[{nm:'Extra spicy', delta:0}], sent:true },
+    { id:'l'+(lineSeq++), item:MENU.Drinks[0], qty:1, seat:1, mods:[], sent:false },
+    { id:'l'+(lineSeq++), item:MENU.Drinks[0], qty:1, seat:2, mods:[], sent:false },
+    { id:'l'+(lineSeq++), item:MENU.Starters[0], qty:1, seat:null, mods:[], sent:false },
+  ],
+};
+
+function lineGross(l) {
+  const modTotal = (l.mods||[]).reduce((s,m)=>s+m.delta, 0);
+  return r2(l.qty * l.item.price + modTotal);
+}
+function resolve() {
+  const nets = check.lines.map((l) => ({ l, net: lineGross(l) }));
+  const subtotal = r2(nets.reduce((s,n)=>s+n.net, 0));
+  const discAmt = !check.discount ? 0 : r2(Math.max(0, Math.min(subtotal,
+    check.discount.kind === 'percent' ? subtotal * (check.discount.value/100) : check.discount.value)));
+  const netAfterDiscount = r2(subtotal - discAmt);
+  const tax = r2(netAfterDiscount * (TAX_PCT/100));
+  const svc = r2(netAfterDiscount * (check.svcPct/100));
+  const total = r2(netAfterDiscount + tax + svc);
+  return { subtotal, discAmt, netAfterDiscount, tax, svc, total };
+}
+
+function seatLabel(s){ return s===null ? 'Shared' : 'Seat '+s; }
+function toast(msg){
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function addTile(id) {
+  const item = ALL.find(i=>i.id===id);
+  if (!item || item.off || check.paid) return;
+  const existing = check.lines.find(l=>l.item.id===id && l.seat===activeSeat && !l.mods.length && !l.sent);
+  if (existing) existing.qty += 1;
+  else check.lines.push({ id:'l'+(lineSeq++), item, qty:1, seat:activeSeat, mods:[], sent:false });
+  render();
+}
+
+function render() {
+  const R = resolve();
+  const unsent = check.lines.filter(l=>!l.sent).length;
+  const el = document.getElementById('screen');
+  el.innerHTML = `
+    <div class="topbar">
+      <button class="iconbtn" title="Back to Tables">←</button>
+      <div class="titlewrap">
+        <div class="t1">Table 4 · 2 guests</div>
+        <div class="t2">open 12 min · you're ringing this up</div>
+      </div>
+      <button class="seatpick" onclick="cycleSeat()">👤 ${seatLabel(activeSeat)}</button>
+      <button class="iconbtn" title="Search" onclick="toggleSearch()">🔍</button>
+    </div>
+    ${searchOpen ? `
+    <div class="searchbar"><input class="input" autofocus placeholder="Search the menu…" value="${searchQ}"
+      oninput="searchQ=this.value; renderTiles()" /></div>
+    ` : `
+    <div class="catrow">${cats.map(c=>`<button class="catchip ${c===activeCat?'on':''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>
+    `}
+    <div class="tiles" id="tiles"></div>
+    ${check.paid ? '' : `
+    <div class="strip" onclick="openSheet('check')">
+      <div class="n">${check.lines.reduce((s,l)=>s+l.qty,0)}</div>
+      <div class="lbl">items on the check${unsent? ' · '+unsent+' not sent' : ''}</div>
+      <div class="amt">${money(R.total)}</div>
+      <div class="chev">▲</div>
+    </div>`}
+    <div class="toast" id="toast"></div>
+    ${sheetHtml('check')}${sheetHtml('pay')}${sheetHtml('discount')}${sheetHtml('split')}${sheetHtml('more')}${sheetHtml('nosale')}${sheetHtml('openitem')}
+  `;
+  renderTiles();
+}
+
+function renderTiles() {
+  const box = document.getElementById('tiles');
+  if (!box) return;
+  let items;
+  if (searchOpen) {
+    const q = searchQ.trim().toLowerCase();
+    items = ALL.filter(i=>i.nm.toLowerCase().includes(q));
+  } else {
+    items = MENU[activeCat];
+  }
+  box.innerHTML = items.map(i=>{
+    const qtyOnCheck = check.lines.filter(l=>l.item.id===i.id && !l.sent).reduce((s,l)=>s+l.qty,0);
+    return `<button class="tile ${i.off?'off':''}" ${i.off?'disabled':''} onclick="addTile('${i.id}')">
+      ${i.off ? '<span class="flag86">86\'d</span>' : ''}
+      ${qtyOnCheck ? `<span class="qtybadge">${qtyOnCheck}</span>` : ''}
+      <div class="ic">${i.ic}</div>
+      <div class="nm">${i.nm}</div>
+      <div class="pr">${money(i.price)}</div>
+    </button>`;
+  }).join('');
+}
+
+function setCat(c){ activeCat=c; render(); }
+function toggleSearch(){ searchOpen=!searchOpen; searchQ=''; render(); }
+function cycleSeat(){ const i=seatCycle.indexOf(activeSeat); activeSeat=seatCycle[(i+1)%seatCycle.length]; render(); }
+
+let openSheetName = null;
+function openSheet(name){ openSheetName = name; render(); focusSheet(); }
+function closeSheet(){ openSheetName = null; render(); }
+function focusSheet(){ /* no-op, kept for future autofocus */ }
+
+function stepLine(id, d){
+  const l = check.lines.find(x=>x.id===id); if(!l) return;
+  l.qty = Math.max(1, l.qty + d);
+  render(); openSheet('check');
+}
+
+function sendUnsent(){
+  const unsent = check.lines.filter(l=>!l.sent);
+  if (!unsent.length) { toast('Nothing new to send'); return; }
+  const stations = [...new Set(unsent.map(l=>l.item.station).filter(Boolean))];
+  unsent.forEach(l=>l.sent=true);
+  render(); openSheet('check');
+  toast(stations.length ? '🧾 Sent to '+stations.join(' · ') : '🧾 Sent (no kitchen station)');
+}
+
+function applyDiscount(kind, value){
+  check.discount = value ? { kind, value } : null;
+  closeSheet(); openSheet('check');
+}
+function applySvc(pct){ check.svcPct = pct; closeSheet(); openSheet('check'); }
+
+function addOpenItem(){
+  const nm = document.getElementById('oiName').value.trim() || 'Open item';
+  const price = parseFloat(document.getElementById('oiPrice').value) || 0;
+  check.lines.push({ id:'l'+(lineSeq++), item:{ id:'open'+lineSeq, ic:'🧾', nm, price, station:null, tax:'food' }, qty:1, seat:activeSeat, mods:[], sent:false });
+  closeSheet(); openSheet('check');
+}
+
+let tendered = 0;
+function setTender(v){ tendered = v; render(); openSheet('pay'); }
+function closeCheck(){
+  check.paid = true;
+  document.getElementById('screen').innerHTML = `
+    <div class="paidwrap">
+      <div class="big">✅</div>
+      <h3>Check closed</h3>
+      <p>1 receipt + ${check.lines.length} lines written to <b>receipts / receipt_lines</b><br/>
+      same ledger day close and Money already read.</p>
+      <p style="margin-top:10px">Receipt #GIF-1042 · ${money(resolve().total)} · cash</p>
+    </div>`;
+}
+
+function sheetHtml(name){
+  const R = resolve();
+  const open = openSheetName === name ? 'open' : '';
+  if (name === 'check') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet" style="max-height:88%">
+      <div class="grabber"></div>
+      <h3>🧾 Check · Table 4</h3>
+      <div class="sub">tap ✕ or the backdrop to keep ordering</div>
+      <div style="flex:1;overflow-y:auto">
+        ${check.lines.map(l=>`
+          <div class="line">
+            <div class="ic">${l.item.ic}</div>
+            <div class="body">
+              <div class="nm">${l.item.nm}</div>
+              ${l.mods && l.mods.length ? `<div class="mod">${l.mods.map(m=>m.nm+(m.delta?' (+'+money(m.delta)+')':'')).join(', ')}</div>` : ''}
+              <div class="tags">
+                <span class="tag seat">👤 ${seatLabel(l.seat)}</span>
+                ${l.sent ? '<span class="tag sent">✓ sent</span>' : '<span class="tag">not sent</span>'}
+              </div>
+            </div>
+            <div class="stepper">
+              <button onclick="stepLine('${l.id}',-1)">−</button>
+              <div class="q">${l.qty}</div>
+              <button onclick="stepLine('${l.id}',1)">+</button>
+            </div>
+            <div class="amt">${money(lineGross(l))}</div>
+          </div>`).join('')}
+      </div>
+      <div class="utilrow">
+        <button class="util" onclick="openSheet('openitem')"><span class="ic">➕</span>Open item</button>
+        <button class="util" onclick="openSheet('more')"><span class="ic">⋯</span>More</button>
+        <button class="util" onclick="toggleSearch(); closeSheet()"><span class="ic">🔍</span>Search</button>
+      </div>
+      <div class="totals">
+        <div class="row2"><span>Subtotal</span><span class="amt">${money(R.subtotal)}</span></div>
+        ${R.discAmt ? `<div class="row2"><span>Discount</span><span class="amt">−${money(R.discAmt)}</span></div>` : ''}
+        <div class="row2"><span>Tax · ${TAX_PCT}%</span><span class="amt">${money(R.tax)}</span></div>
+        ${R.svc ? `<div class="row2"><span>Service charge · ${check.svcPct}%</span><span class="amt">${money(R.svc)}</span></div>` : ''}
+        <div class="row2 grand"><span>Total</span><span class="amt">${money(R.total)}</span></div>
+      </div>
+      <div class="actrow">
+        <button class="btn ghost" onclick="closeSheet()">Stay</button>
+        <button class="btn ghost" onclick="sendUnsent()">📨 Send</button>
+        <button class="btn wide saffron" onclick="openSheet('pay')">💳 Pay ${money(R.total)}</button>
+      </div>
+    </div></div>`;
+
+  if (name === 'more') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>⋯ More on this check</h3>
+      <div class="utilrow">
+        <button class="util" onclick="openSheet('discount')"><span class="ic">🏷️</span>Discount</button>
+        <button class="util" onclick="openSheet('split')"><span class="ic">✂️</span>Split</button>
+        <button class="util" onclick="applySvc(check.svcPct?0:18)"><span class="ic">➕%</span>${check.svcPct?'Remove svc':'Service chg'}</button>
+        <button class="util" onclick="openSheet('nosale')"><span class="ic">🗄️</span>No sale</button>
+      </div>
+      <div class="actrow"><button class="btn ghost" onclick="openSheet('check')">← Back to check</button></div>
+    </div></div>`;
+
+  if (name === 'discount') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🏷️ Discount the check</h3>
+      <div class="sub">requires the Discount permission (Store Manager+) · reason is kept with the check</div>
+      <div class="chiprow">
+        <button class="pick ${check.discount&&check.discount.value===10?'on':''}" onclick="applyDiscount('percent',10)">10%</button>
+        <button class="pick ${check.discount&&check.discount.value===20?'on':''}" onclick="applyDiscount('percent',20)">20%</button>
+        <button class="pick ${check.discount&&check.discount.kind==='flat'?'on':''}" onclick="applyDiscount('flat',5)">$5 off</button>
+        <button class="pick" onclick="applyDiscount('percent',100)">Comp</button>
+      </div>
+      <div class="actrow">
+        <button class="btn ghost" onclick="applyDiscount(null,0)">Remove</button>
+        <button class="btn ghost wide" onclick="openSheet('check')">← Back to check</button>
+      </div>
+    </div></div>`;
+
+  if (name === 'split') {
+    const perSeat = {};
+    check.lines.forEach(l=>{ const k=seatLabel(l.seat); perSeat[k]=(perSeat[k]||0)+lineGross(l); });
+    const shareOfTotal = R.subtotal>0 ? R.total/R.subtotal : 1;
+    return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>✂️ Split the balance</h3>
+      <div class="sub">by seat, shown with tax and service share folded in — display only, one check until paid</div>
+      ${Object.entries(perSeat).map(([k,v])=>`<div class="line"><div class="ic">👤</div><div class="body"><div class="nm">${k}</div></div><div class="amt">${money(v*shareOfTotal)}</div></div>`).join('')}
+      <div class="actrow"><button class="btn ghost wide" onclick="openSheet('check')">← Back to check</button></div>
+    </div></div>`;
+  }
+
+  if (name === 'nosale') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🗄️ No sale</h3>
+      <div class="sub">opens the drawer without a payment — a reason is logged</div>
+      <div class="chiprow">
+        <button class="pick" onclick="toast('🗄️ Drawer opened — no sale (Price check)'); closeSheet()">Price check</button>
+        <button class="pick" onclick="toast('🗄️ Drawer opened — no sale (Float check)'); closeSheet()">Float check</button>
+        <button class="pick" onclick="toast('🗄️ Drawer opened — no sale (Training)'); closeSheet()">Training</button>
+      </div>
+      <div class="actrow"><button class="btn ghost wide" onclick="openSheet('check')">← Back to check</button></div>
+    </div></div>`;
+
+  if (name === 'openitem') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>➕ Open item</h3>
+      <div class="sub">anything not on the menu — priced by hand, taxed like food</div>
+      <label class="field"><span>Name</span><input class="input" id="oiName" placeholder="e.g. Catering tray" /></label>
+      <label class="field"><span>Price</span><input class="input" id="oiPrice" type="number" step="0.01" placeholder="0.00" /></label>
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('check')">Cancel</button>
+        <button class="btn wide" onclick="addOpenItem()">+ Add to check</button>
+      </div>
+    </div></div>`;
+
+  if (name === 'pay') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>💳 Pay · balance ${money(R.total)}</h3>
+      <div class="chiprow">
+        <button class="pick ${tendered===20?'on':''}" onclick="setTender(20)">$20</button>
+        <button class="pick ${tendered===40?'on':''}" onclick="setTender(40)">$40</button>
+        <button class="pick ${tendered===80?'on':''}" onclick="setTender(80)">$80</button>
+        <button class="pick ${tendered===Math.ceil(R.total)?'on':''}" onclick="setTender(Math.ceil(R.total))">Exact</button>
+      </div>
+      <div class="totals">
+        <div class="row2"><span>Tendered (cash)</span><span class="amt">${tendered?money(tendered):'—'}</span></div>
+        <div class="row2 grand"><span>Change due</span><span class="amt">${tendered?money(Math.max(0,tendered-R.total)):'—'}</span></div>
+      </div>
+      <div class="actrow">
+        <button class="btn ghost" onclick="toast('Card connects when Stripe Terminal lands (#103)')">💳 Card</button>
+        <button class="btn wide" ${tendered<R.total?'disabled':''} onclick="closeCheck()">${tendered?('Take '+money(tendered)+' → close'):'Enter cash'}</button>
+      </div>
+      <div class="actrow"><button class="btn ghost wide" onclick="openSheet('check')">← Back to check</button></div>
+    </div></div>`;
+
+  return '';
+}
+
+render();
+</script>
+</body>
+</html>
