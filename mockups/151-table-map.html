@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #151 — POS: table service (GIF)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 680px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 11px; color: var(--muted); }
+  .minetoggle { flex: none; display: flex; align-items: center; gap: 4px; background: var(--chip); color: var(--chip-ink); border: none; border-radius: 999px; padding: 5px 9px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+  .minetoggle.on { background: var(--green-soft); color: var(--green); }
+
+  .catrow { display: flex; gap: 6px; padding: 2px 12px 8px; overflow-x: auto; scrollbar-width: none; }
+  .catrow::-webkit-scrollbar { display: none; }
+  .catchip { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 12.5px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; }
+  .catchip.on { background: var(--green); color: #fff; }
+
+  .tablegrid { flex: 1; overflow-y: auto; padding: 2px 12px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
+  .tabletile { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px; text-align: left; cursor: pointer; position: relative; }
+  .tabletile.open { border: 1.5px dashed #b9d6c2; }
+  .tabletile.occ { border-color: var(--saffron); background: var(--saffron-soft); }
+  .tabletile .ic { font-size: 20px; }
+  .tabletile .nm { font-weight: 700; font-size: 13px; margin-top: 4px; }
+  .tabletile .seats { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .tabletile .status { font-size: 11px; font-weight: 700; margin-top: 6px; color: var(--green); }
+  .tabletile.occ .status { color: var(--saffron); }
+  .tabletile .meta { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+  .tabletile .amt { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .tabletile .mins { font-size: 10.5px; color: var(--muted); }
+  .avatar { width: 18px; height: 18px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+  .tabletile .dots { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--muted); background: rgba(255,255,255,.6); }
+  .tabletile .twocheck { position: absolute; top: 8px; left: 8px; background: var(--ink); color: #fff; font-size: 9px; font-weight: 800; padding: 1px 6px; border-radius: 999px; }
+
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 14px 14px 16px; max-height: 90%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; flex: none; }
+  .sheet h3 { font-size: 15px; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+  .sheet .sub { font-size: 11.5px; color: var(--muted); margin: -4px 0 10px; }
+
+  .line { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .line:last-child { border-bottom: none; }
+  .line .ic { font-size: 17px; flex: none; }
+  .line .body { flex: 1; min-width: 0; }
+  .line .nm { font-weight: 600; font-size: 13px; }
+  .line .mod { font-size: 11px; color: var(--muted); }
+  .line .amt { font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; flex: none; }
+  .line .cbx { width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--rule); flex: none; display: flex; align-items: center; justify-content: center; font-size: 12px; cursor: pointer; }
+  .line .cbx.on { background: var(--green); border-color: var(--green); color: #fff; }
+
+  .totals { border-top: 1px dashed var(--rule); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
+  .totals .row2 { display: flex; justify-content: space-between; padding: 2px 0; color: var(--muted); }
+  .totals .row2.grand { color: var(--ink); font-weight: 800; font-size: 15px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 6px; }
+  .totals .amt { font-variant-numeric: tabular-nums; }
+
+  .actrow { display: flex; gap: 8px; margin-top: 10px; }
+  .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn.saffron { background: var(--saffron); }
+  .btn.wide { flex: 2; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .chiprow { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .pick { padding: 7px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); border: 2px solid transparent; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .pick.on { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+
+  .movegrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+  .movetile { background: var(--chip); border: none; border-radius: 10px; padding: 10px 4px; text-align: center; cursor: pointer; font-size: 11.5px; font-weight: 700; color: var(--chip-ink); }
+  .movetile:disabled { opacity: .35; cursor: not-allowed; }
+
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 16px; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 600; text-align: center; z-index: 20; opacity: 0; transform: translateY(6px); transition: opacity .18s, transform .18s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 34%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #151 — POS: table service (GIF)</h1>
+<div class="lede">The table map is the Register tab's landing screen for GIF (Shopkiraana has no tables — decision D6).
+  Tap an open table to seat it, tap an occupied table to resume its check; Move and Split live as sheets over this
+  same screen. The check itself (lines, Pay, Discount, Send) is the already-approved #135 screen — reached by
+  tapping Resume, not rebuilt here. Live demo: tap Table 6 (open), then tap Table 4 (occupied) and try Move or Split.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Register — Tables (GIF)</h2>
+    <div class="phone">
+      <div class="screen" id="screen">
+        <!-- rendered by script -->
+      </div>
+    </div>
+    <div class="tap-hint">tap an open table to seat it · tap an occupied table to resume</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>See every table's state and get to its check. Move and Split are reached from a
+      table's own sheet, never a second screen with this job.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every tile is a table label, a seat count and a status word. The split/move
+      sheets carry one sub-line each (12 words or fewer), nothing longer.</td></tr>
+    <tr><td>3. Icon on every row</td><td>🍽️ table icon, 👥 seat count, a server avatar chip on occupied tables,
+      🔀 move, ✂️ split, ✓/− assignment boxes in Split.</td></tr>
+    <tr><td>4. ≤7 things on a phone</td><td>Topbar (back-free root tab) + Mine toggle, room chips (scroll), and one
+      table grid = one job's worth of controls; each sheet (resume, move, split) is its own short list.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Table state (open/occupied, total, minutes, server) is read off each
+      check's own row the same way the register strip already holds it (`resolveCheck`, apps/api/src/checks.ts) —
+      no recompute trip when the map opens.</td></tr>
+    <tr><td>6. A way back</td><td>Tables is the Register tab's own landing screen (pos-register.md §12: "folds into
+      Register as a picker"), so it carries no back arrow itself, same as any root tab; every sheet's grabber/✕
+      returns to Tables, and the check screen it opens into (#135) already backs out here.</td></tr>
+    <tr><td>7. One home per function</td><td>Seating, resuming, moving and splitting a check each happen in exactly
+      one place — this screen and its sheets — never duplicated on another page.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>Resume, Move and Split are three sheets over ONE new screen, not
+      three new routes; the check itself reuses #135 rather than a second check screen. Table catalog editing
+      (Settings → Tables) is a drawer on an existing settings page, not named here.</td></tr>
+  </table>
+</div>
+
+<script>
+const money = (n) => '$' + (Math.round(n*100)/100).toFixed(2);
+const r2 = (n) => Math.round(n*100)/100;
+const initials = (n) => n.split(' ').map(w=>w[0]).join('').toUpperCase();
+
+let rooms = ['Dining room', 'Patio'];
+let activeRoom = rooms[0];
+let mineOnly = false;
+const YOU = 'Asha K';
+
+let tables = [
+  { id:'t1', label:'T1', room:'Dining room', seats:2, server:null, total:0, mins:0, lines:[] },
+  { id:'t4', label:'T4', room:'Dining room', seats:4, server:YOU, total:78.40, mins:22,
+    lines:[{ic:'🍛',nm:'Chicken Tikka Masala',seat:1,amt:19.95},{ic:'🍚',nm:'Chicken Biryani',seat:2,amt:15.95},
+            {ic:'🫓',nm:'Garlic Naan ×2',seat:null,amt:7.90}] },
+  { id:'t5', label:'T5', room:'Dining room', seats:4, server:'Ravi P', total:41.20, mins:8,
+    lines:[{ic:'🍛',nm:'Butter Chicken',seat:1,amt:16.95}] },
+  { id:'t6', label:'T6', room:'Dining room', seats:2, server:null, total:0, mins:0, lines:[] },
+  { id:'t7', label:'T7', room:'Dining room', seats:6, server:null, total:0, mins:0, lines:[] },
+  { id:'p1', label:'P1', room:'Patio', seats:2, server:null, total:0, mins:0, lines:[] },
+  { id:'p2', label:'P2', room:'Patio', seats:4, server:YOU, total:24.90, mins:5,
+    lines:[{ic:'🥤',nm:'Mango Lassi ×2',seat:null,amt:9.90}] },
+];
+
+let openSheetName = null, sheetTableId = null;
+let moveSourceId = null;
+let splitMode = 'seat'; // seat | item
+let splitPicked = new Set();
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+function setRoom(r){ activeRoom = r; render(); }
+function toggleMine(){ mineOnly = !mineOnly; render(); }
+
+function tapTable(id){
+  const t = tables.find(x=>x.id===id);
+  if (!t) return;
+  if (!t.server) {
+    t.server = YOU; t.mins = 0; t.total = 0; t.lines = [];
+    toast('🪑 Table '+t.label+' seated — opening its check (#135 screen)');
+    render();
+    return;
+  }
+  openSheet('resume', id);
+}
+
+function openSheet(name, tableId){ openSheetName = name; sheetTableId = tableId||sheetTableId; splitPicked = new Set(); render(); }
+function closeSheet(){ openSheetName = null; render(); }
+
+function doMove(destId){
+  const src = tables.find(x=>x.id===sheetTableId);
+  const dest = tables.find(x=>x.id===destId);
+  if (!src || !dest || dest.server) return;
+  dest.server = src.server; dest.total = src.total; dest.mins = src.mins; dest.lines = src.lines; dest.split2 = src.split2;
+  src.server = null; src.total = 0; src.mins = 0; src.lines = []; src.split2 = null;
+  toast('🔀 Moved to Table '+dest.label);
+  sheetTableId = destId;
+  openSheet('resume', destId);
+}
+
+function toggleSplitPick(i){
+  if (splitPicked.has(i)) splitPicked.delete(i); else splitPicked.add(i);
+  render();
+}
+function setSplitMode(m){ splitMode = m; splitPicked = new Set(); render(); }
+function doSplit(){
+  const t = tables.find(x=>x.id===sheetTableId);
+  if (!t || !splitPicked.size) { toast('Pick at least one to move to the new check'); return; }
+  const moved = t.lines.filter((_,i)=>splitPicked.has(i));
+  t.lines = t.lines.filter((_,i)=>!splitPicked.has(i));
+  t.split2 = { lines: moved, total: r2(moved.reduce((s,l)=>s+l.amt,0)) };
+  t.total = r2(t.lines.reduce((s,l)=>s+l.amt,0));
+  toast('✂️ Split into 2 checks at Table '+t.label+' — each closes separately');
+  openSheet('resume', t.id);
+}
+
+function render(){
+  const el = document.getElementById('screen');
+  const shown = tables.filter(t=>t.room===activeRoom && (!mineOnly || t.server===YOU || !t.server));
+  const openCount = tables.filter(t=>t.room===activeRoom && !t.server).length;
+  el.innerHTML = `
+    <div class="topbar">
+      <div class="titlewrap">
+        <div class="t1">🍽️ Tables</div>
+        <div class="t2">${activeRoom} · ${openCount} open</div>
+      </div>
+      <button class="minetoggle ${mineOnly?'on':''}" onclick="toggleMine()">👤 Mine</button>
+    </div>
+    <div class="catrow">${rooms.map(r=>`<button class="catchip ${r===activeRoom?'on':''}" onclick="setRoom('${r}')">${r}</button>`).join('')}</div>
+    <div class="tablegrid" id="grid"></div>
+    <div class="toast" id="toast"></div>
+    ${sheetHtml('resume')}${sheetHtml('move')}${sheetHtml('split')}
+  `;
+  renderGrid(shown);
+}
+
+function renderGrid(shown){
+  const box = document.getElementById('grid');
+  if (!box) return;
+  box.innerHTML = shown.map(t=>{
+    const occ = !!t.server;
+    return `<button class="tabletile ${occ?'occ':'open'}" onclick="tapTable('${t.id}')">
+      ${t.split2 ? '<span class="twocheck">2 checks</span>' : ''}
+      ${occ ? `<span class="dots">⋯</span>` : ''}
+      <div class="ic">🍽️</div>
+      <div class="nm">${t.label}</div>
+      <div class="seats">👥 ${t.seats} seats</div>
+      ${occ
+        ? `<div class="status">Occupied</div>
+           <div class="meta"><span class="avatar">${initials(t.server)}</span><span class="amt">${money(t.total + (t.split2?t.split2.total:0))}</span></div>
+           <div class="mins">${t.mins} min open</div>`
+        : `<div class="status">Open · tap to seat</div>`}
+    </button>`;
+  }).join('');
+}
+
+function sheetHtml(name){
+  const open = openSheetName === name ? 'open' : '';
+  const t = tables.find(x=>x.id===sheetTableId);
+
+  if (name === 'resume') {
+    if (!t) return '';
+    const checks = t.split2 ? [
+      { label: 'Check A', lines: t.lines, total: t.total },
+      { label: 'Check B', lines: t.split2.lines, total: t.split2.total },
+    ] : [ { label: 'Check', lines: t.lines, total: t.total } ];
+    return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🍽️ Table ${t.label}</h3>
+      <div class="sub">${t.server} · ${t.mins} min open${t.split2?' · split into 2 checks, close separately':''}</div>
+      ${checks.map(c=>`
+        <div style="margin-bottom:8px">
+          ${t.split2 ? `<div class="mod" style="font-weight:700;margin-bottom:2px">${c.label}</div>` : ''}
+          ${c.lines.map(l=>`<div class="line"><div class="ic">${l.ic}</div><div class="body"><div class="nm">${l.nm}</div>${l.seat?`<div class="mod">Seat ${l.seat}</div>`:''}</div><div class="amt">${money(l.amt)}</div></div>`).join('')}
+          <div class="totals"><div class="row2 grand"><span>Total</span><span class="amt">${money(c.total)}</span></div></div>
+        </div>`).join('')}
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('move')">🔀 Move</button>
+        <button class="btn ghost" ${t.split2?'disabled':''} onclick="openSheet('split')">✂️ Split</button>
+      </div>
+      <div class="actrow"><button class="btn wide saffron" onclick="toast('→ Opens Table ${t.label}\\'s check (the #135 screen)'); closeSheet()">Resume order →</button></div>
+    </div></div>`;
+  }
+
+  if (name === 'move') {
+    if (!t) return '';
+    const targets = tables.filter(x=>!x.server && x.id!==t.id);
+    return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🔀 Move Table ${t.label}'s check</h3>
+      <div class="sub">pick an open table — the check, total and elapsed time move with it</div>
+      <div class="movegrid">
+        ${targets.map(x=>`<button class="movetile" onclick="doMove('${x.id}')">${x.label}<br/><span style="font-weight:400;opacity:.7">${x.room==='Patio'?'🌤️':'🍽️'} ${x.seats} seats</span></button>`).join('')}
+        ${!targets.length ? '<div class="mod">No open tables right now</div>' : ''}
+      </div>
+      <div class="actrow"><button class="btn ghost wide" onclick="openSheet('resume')">← Back to table</button></div>
+    </div></div>`;
+  }
+
+  if (name === 'split') {
+    if (!t) return '';
+    const bySeat = splitMode === 'seat';
+    const seatNums = [...new Set(t.lines.map(l=>l.seat).filter(s=>s!=null))];
+    const newTotal = r2(t.lines.filter((_,i)=>splitPicked.has(i)).reduce((s,l)=>s+l.amt,0));
+    const stayTotal = r2(t.total - newTotal);
+    return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>✂️ Split Table ${t.label} into 2 checks</h3>
+      <div class="sub">table stays the same — the two checks close separately</div>
+      <div class="chiprow">
+        <button class="pick ${bySeat?'on':''}" onclick="setSplitMode('seat')">By seat</button>
+        <button class="pick ${!bySeat?'on':''}" onclick="setSplitMode('item')">By item</button>
+      </div>
+      <div class="sub" style="margin-top:-4px">check off what moves to the new check</div>
+      ${t.lines.map((l,i)=>`
+        <div class="line">
+          <div class="cbx ${splitPicked.has(i)?'on':''}" onclick="toggleSplitPick(${i})">${splitPicked.has(i)?'✓':''}</div>
+          <div class="ic">${l.ic}</div>
+          <div class="body"><div class="nm">${l.nm}</div>${l.seat?`<div class="mod">Seat ${l.seat}</div>`:'<div class="mod">Shared</div>'}</div>
+          <div class="amt">${money(l.amt)}</div>
+        </div>`).join('')}
+      <div class="totals">
+        <div class="row2"><span>Stays on this check</span><span class="amt">${money(stayTotal)}</span></div>
+        <div class="row2 grand"><span>New check</span><span class="amt">${money(newTotal)}</span></div>
+      </div>
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('resume')">Cancel</button>
+        <button class="btn wide" ${!splitPicked.size?'disabled':''} onclick="doSplit()">Split into 2 checks</button>
+      </div>
+    </div></div>`;
+  }
+
+  return '';
+}
+
+render();
+</script>
+</body>
+</html>
