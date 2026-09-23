@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #155 — POS: cash drawer sessions</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 680px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 11px; color: var(--muted); }
+  .drawerpill { flex: none; display: flex; align-items: center; gap: 4px; border: none; border-radius: 999px; padding: 5px 9px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+  .drawerpill.closed { background: var(--danger-soft); color: var(--danger); }
+  .drawerpill.open { background: var(--green-soft); color: var(--green); }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 4px 14px 14px; }
+  .rowcard { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .rowcard .ic { font-size: 20px; flex: none; }
+  .rowcard .body { flex: 1; min-width: 0; }
+  .rowcard .nm { font-weight: 700; font-size: 13.5px; }
+  .rowcard .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .rowcard .amt { font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums; flex: none; }
+
+  .empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 30px; text-align: center; }
+  .empty .big { font-size: 40px; }
+  .empty h3 { margin: 0; font-size: 16px; }
+  .empty p { margin: 0; font-size: 12px; color: var(--muted); }
+
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 14px 14px 16px; max-height: 90%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; flex: none; }
+  .sheet h3 { font-size: 15px; margin: 0 0 8px; display: flex; align-items: center; gap: 6px; }
+  .sheet .sub { font-size: 11.5px; color: var(--muted); margin: -4px 0 10px; }
+
+  .line { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .line:last-child { border-bottom: none; }
+  .line .ic { font-size: 17px; flex: none; }
+  .line .body { flex: 1; min-width: 0; }
+  .line .nm { font-weight: 600; font-size: 13px; }
+  .line .sub { font-size: 11px; color: var(--muted); }
+  .line .amt { font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; flex: none; }
+  .amt.neg { color: var(--danger); }
+  .amt.pos { color: var(--green); }
+
+  .totals { border-top: 1px dashed var(--rule); margin-top: 4px; padding-top: 8px; font-size: 12.5px; }
+  .totals .row2 { display: flex; justify-content: space-between; padding: 2px 0; color: var(--muted); }
+  .totals .row2.grand { color: var(--ink); font-weight: 800; font-size: 15px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 6px; }
+  .totals .amt { font-variant-numeric: tabular-nums; }
+
+  .utilrow { display: flex; gap: 8px; margin-top: 10px; }
+  .util { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; background: var(--chip); border: none; border-radius: 10px; padding: 8px 4px; font-size: 10.5px; font-weight: 700; color: var(--chip-ink); cursor: pointer; }
+  .util .ic { font-size: 16px; }
+
+  .actrow { display: flex; gap: 8px; margin-top: 10px; }
+  .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .btn.saffron { background: var(--saffron); }
+  .btn.danger { background: var(--danger); }
+  .btn.wide { flex: 2; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .chiprow { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .pick { padding: 7px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); border: 2px solid transparent; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .pick.on { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+  .field { display: block; margin: 0 0 9px; }
+  .field span { display: block; font-size: 10.5px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+  .input { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13.5px; font-family: inherit; }
+
+  .oscard { text-align: center; border-radius: 12px; padding: 14px; margin-top: 6px; }
+  .oscard.zero { background: var(--green-soft); color: var(--green); }
+  .oscard.short { background: var(--danger-soft); color: var(--danger); }
+  .oscard.over { background: var(--saffron-soft); color: var(--saffron); }
+  .oscard .big { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .oscard .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-top: 2px; }
+
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 16px; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 600; text-align: center; z-index: 20; opacity: 0; transform: translateY(6px); transition: opacity .18s, transform .18s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 34%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #155 — POS: cash drawer sessions</h1>
+<div class="lede">Great Indian Food, Register 1 — one sheet opened from Register's header handles open/float,
+  pay-outs, deposits and close/count; over/short is computed, never hidden. Live demo: tap the drawer pill,
+  then try Pay-out, Deposit and Close &amp; count.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Register header → Drawer sheet</h2>
+    <div class="phone">
+      <div class="screen" id="screen"><!-- rendered by script --></div>
+    </div>
+    <div class="tap-hint">tap the red/green drawer pill top-right to open the sheet</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Track the cash in this drawer: open it, move cash out (pay-out/deposit), close
+      and count it. Nothing else lives in this sheet.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every row is a label and a number. The only sentence-length text is the
+      over/short explainer line, which is one line and only shows once counted.</td></tr>
+    <tr><td>3. Icon on every row</td><td>💵 open/float, ➖ pay-out, 🏦 deposit, 🔒 close &amp; count, plus a
+      colored over/short badge (✅ even, 🔺 over, 🔻 short).</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>No-drawer state: float field + Open button (2). Open state: expected
+      summary + 3 actions + a running list of today's moves (≤7 before scrolling). Each action (pay-out, deposit,
+      close) is its own short sheet, never stacked together.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Expected-in-drawer (float + cash sales − pay-outs − deposits) is
+      carried forward from numbers the register already holds (checks.ts / resolveCheck totals, drawer ledger
+      rows already in memory) — opening the sheet never triggers a recompute trip.</td></tr>
+    <tr><td>6. A way back</td><td>The grabber/✕ on every sheet returns to Register, named at the top; the drawer
+      pill itself is reached from Register's header, never a separate route.</td></tr>
+    <tr><td>7. One home per function</td><td>Opening, paying out, depositing and closing the drawer each happen
+      in exactly this one sheet — Day close (§7) only ever reads the result, it never re-opens or edits a drawer.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>One sheet with four short states (open / active / an action /
+      close-and-count), not four screens; Pay-out, Deposit and Close are sub-sheets of this same drawer sheet, the
+      same pattern #135's check sheet already uses for Pay/Discount/Split.</td></tr>
+  </table>
+</div>
+
+<script>
+const money = (n) => (n<0?'−':'') + '$' + (Math.abs(Math.round(n*100)/100)).toFixed(2);
+const r2 = (n) => Math.round(n*100)/100;
+
+let drawer = null; // null = closed; else { float, openedAt, moves:[{kind,amt,reason}], cashSales }
+const CASH_SALES_DEMO = 341.50; // stands in for today's cash tenders already in receipts/receipt_lines
+
+let openSheetName = null; // 'drawer' | 'payout' | 'deposit' | 'close'
+let closeResult = null; // { expected, counted, diff }
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function expectedInDrawer(){
+  if (!drawer) return 0;
+  const outs = drawer.moves.reduce((s,m)=> s + (m.kind==='payout'||m.kind==='deposit' ? -m.amt : 0), 0);
+  return r2(drawer.float + CASH_SALES_DEMO + outs);
+}
+
+function openSheet(name){ openSheetName = name; render(); }
+function closeSheet(){ openSheetName = null; render(); }
+
+function doOpenDrawer(){
+  const v = parseFloat(document.getElementById('floatAmt').value) || 0;
+  drawer = { float: r2(v), openedAt: '9:58 AM', moves: [] };
+  closeSheet();
+  toast('💵 Drawer opened · float ' + money(drawer.float));
+}
+
+function addPayout(){
+  const amt = parseFloat(document.getElementById('poAmt').value) || 0;
+  const reason = document.getElementById('poReason').value || 'Other';
+  if (amt <= 0) { toast('Enter an amount first'); return; }
+  drawer.moves.push({ kind:'payout', amt: r2(amt), reason });
+  closeSheet(); openSheet('drawer');
+  toast('➖ Pay-out ' + money(amt) + ' · ' + reason);
+}
+
+function addDeposit(){
+  const amt = parseFloat(document.getElementById('depAmt').value) || 0;
+  const note = document.getElementById('depNote').value || 'Deposit';
+  if (amt <= 0) { toast('Enter an amount first'); return; }
+  drawer.moves.push({ kind:'deposit', amt: r2(amt), reason: note });
+  closeSheet(); openSheet('drawer');
+  toast('🏦 Deposit ' + money(amt) + ' to the safe');
+}
+
+function previewCount(){
+  const counted = parseFloat(document.getElementById('countAmt').value);
+  const expected = expectedInDrawer();
+  const box = document.getElementById('osPreview');
+  if (!box) return;
+  if (isNaN(counted)) { box.innerHTML = ''; return; }
+  const diff = r2(counted - expected);
+  const cls = diff === 0 ? 'zero' : diff > 0 ? 'over' : 'short';
+  const lbl = diff === 0 ? 'Even — matches expected' : diff > 0 ? 'Over by ' + money(Math.abs(diff)) : 'Short by ' + money(Math.abs(diff));
+  box.innerHTML = `<div class="oscard ${cls}"><div class="big">${diff===0?'✅':money(diff)}</div><div class="lbl">${lbl}</div></div>`;
+}
+
+function confirmClose(){
+  const counted = parseFloat(document.getElementById('countAmt').value);
+  if (isNaN(counted)) { toast('Count the drawer first'); return; }
+  const expected = expectedInDrawer();
+  closeResult = { expected, counted: r2(counted), diff: r2(counted - expected) };
+  drawer = null;
+  openSheetName = null;
+  render();
+}
+
+function reopenForNextRegister(){ closeResult = null; render(); }
+
+function render() {
+  const el = document.getElementById('screen');
+  if (closeResult) {
+    const diff = closeResult.diff;
+    const cls = diff === 0 ? 'zero' : diff > 0 ? 'over' : 'short';
+    el.innerHTML = `
+      <div class="empty">
+        <div class="big">🔒</div>
+        <h3>Drawer closed</h3>
+        <p>Expected ${money(closeResult.expected)} · counted ${money(closeResult.counted)}<br/>
+        feeds Day close's "open drawers" checklist (pos-register.md §7) the moment it lands</p>
+        <div class="oscard ${cls}" style="margin-top:10px;width:100%">
+          <div class="big">${diff===0?'✅ Even':money(diff)}</div>
+          <div class="lbl">${diff===0?'no action needed':(diff>0?'over — counted for review':'short — counted for review')}</div>
+        </div>
+        <button class="btn ghost" style="margin-top:14px" onclick="reopenForNextRegister()">← Back to Register</button>
+      </div>
+      <div class="toast" id="toast"></div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="topbar">
+      <button class="iconbtn" title="Back to Register">←</button>
+      <div class="titlewrap">
+        <div class="t1">Register 1 · Great Indian Food</div>
+        <div class="t2">${drawer ? 'drawer opened ' + drawer.openedAt : 'no drawer session yet'}</div>
+      </div>
+      <button class="drawerpill ${drawer?'open':'closed'}" onclick="openSheet(${drawer?"'drawer'":"'drawer'"})">
+        💵 ${drawer ? money(expectedInDrawer()) : 'Closed'}
+      </button>
+    </div>
+    <div class="body-pad">
+      ${drawer ? `
+        <div class="rowcard"><div class="ic">💵</div><div class="body"><div class="nm">Expected in drawer</div>
+          <div class="sub">float ${money(drawer.float)} + cash sales ${money(CASH_SALES_DEMO)} − pay-outs/deposits</div></div>
+          <div class="amt">${money(expectedInDrawer())}</div></div>
+        ${drawer.moves.length ? drawer.moves.map(m=>`
+          <div class="rowcard"><div class="ic">${m.kind==='payout'?'➖':'🏦'}</div><div class="body">
+            <div class="nm">${m.kind==='payout'?'Pay-out':'Deposit'}</div><div class="sub">${m.reason}</div></div>
+            <div class="amt neg">−${money(m.amt)}</div></div>`).join('') :
+          `<div class="rowcard"><div class="ic">📋</div><div class="body"><div class="nm">No pay-outs or deposits yet</div>
+            <div class="sub">today's moves show here as they happen</div></div></div>`}
+      ` : `
+        <div class="empty">
+          <div class="big">💵</div>
+          <h3>No drawer open</h3>
+          <p>Open a drawer session before ringing up sales — the count starts from a float you enter or count now.</p>
+        </div>
+      `}
+    </div>
+    <div class="toast" id="toast"></div>
+    ${sheetHtml('drawer')}${sheetHtml('payout')}${sheetHtml('deposit')}${sheetHtml('close')}
+  `;
+}
+
+function sheetHtml(name){
+  const open = openSheetName === name ? 'open' : '';
+
+  if (name === 'drawer') {
+    if (!drawer) return `
+      <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+        <div class="grabber"></div>
+        <h3>💵 Open the drawer</h3>
+        <div class="sub">who's opening it and the starting float — counted or typed</div>
+        <label class="field"><span>Starting float</span><input class="input" id="floatAmt" type="number" step="0.01" placeholder="200.00" /></label>
+        <div class="actrow">
+          <button class="btn ghost" onclick="closeSheet()">Cancel</button>
+          <button class="btn wide" onclick="doOpenDrawer()">Open drawer</button>
+        </div>
+      </div></div>`;
+    return `
+      <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+        <div class="grabber"></div>
+        <h3>💵 Drawer · Register 1</h3>
+        <div class="sub">opened ${drawer.openedAt} · float ${money(drawer.float)}</div>
+        <div class="totals">
+          <div class="row2"><span>Float</span><span class="amt">${money(drawer.float)}</span></div>
+          <div class="row2"><span>Cash sales today</span><span class="amt">${money(CASH_SALES_DEMO)}</span></div>
+          ${drawer.moves.map(m=>`<div class="row2"><span>${m.kind==='payout'?'Pay-out':'Deposit'} · ${m.reason}</span><span class="amt">−${money(m.amt)}</span></div>`).join('')}
+          <div class="row2 grand"><span>Expected in drawer</span><span class="amt">${money(expectedInDrawer())}</span></div>
+        </div>
+        <div class="utilrow">
+          <button class="util" onclick="openSheet('payout')"><span class="ic">➖</span>Pay-out</button>
+          <button class="util" onclick="openSheet('deposit')"><span class="ic">🏦</span>Deposit</button>
+          <button class="util" onclick="openSheet('close')"><span class="ic">🔒</span>Close &amp; count</button>
+        </div>
+        <div class="actrow"><button class="btn ghost wide" onclick="closeSheet()">← Back to Register</button></div>
+      </div></div>`;
+  }
+
+  if (name === 'payout') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>➖ Pay-out</h3>
+      <div class="sub">cash out of this drawer, with a reason — like a mini expense, not through Payables</div>
+      <label class="field"><span>Amount</span><input class="input" id="poAmt" type="number" step="0.01" placeholder="0.00" /></label>
+      <div class="chiprow">
+        <button class="pick" onclick="document.getElementById('poReason').value='Delivery tip float'">Delivery tip float</button>
+        <button class="pick" onclick="document.getElementById('poReason').value='Supply run'">Supply run</button>
+        <button class="pick" onclick="document.getElementById('poReason').value='Other'">Other</button>
+      </div>
+      <input class="input" id="poReason" placeholder="Reason" value="Delivery tip float" style="margin-bottom:10px" />
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('drawer')">← Back to drawer</button>
+        <button class="btn wide danger" onclick="addPayout()">Record pay-out</button>
+      </div>
+    </div></div>`;
+
+  if (name === 'deposit') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🏦 Deposit</h3>
+      <div class="sub">cash removed to the safe or bank, with a note</div>
+      <label class="field"><span>Amount</span><input class="input" id="depAmt" type="number" step="0.01" placeholder="0.00" /></label>
+      <label class="field"><span>Note</span><input class="input" id="depNote" placeholder="e.g. Safe drop, noon" /></label>
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('drawer')">← Back to drawer</button>
+        <button class="btn wide" onclick="addDeposit()">Record deposit</button>
+      </div>
+    </div></div>`;
+
+  if (name === 'close') return `
+    <div class="sheet-overlay ${open}" onclick="if(event.target===this)closeSheet()"><div class="sheet">
+      <div class="grabber"></div>
+      <h3>🔒 Close &amp; count</h3>
+      <div class="sub">expected ${money(expectedInDrawer())} · count what's actually in the drawer</div>
+      <label class="field"><span>Counted total</span><input class="input" id="countAmt" type="number" step="0.01" placeholder="0.00" oninput="previewCount()" /></label>
+      <div id="osPreview"></div>
+      <div class="actrow">
+        <button class="btn ghost" onclick="openSheet('drawer')">← Back to drawer</button>
+        <button class="btn wide saffron" onclick="confirmClose()">Close drawer</button>
+      </div>
+    </div></div>`;
+
+  return '';
+}
+
+render();
+</script>
+</body>
+</html>
