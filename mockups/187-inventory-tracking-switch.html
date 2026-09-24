@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #187 — Settings: inventory tracking switch + the guided opening count</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 760px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 1420px; margin: 0 auto; }
+  .col { width: 300px; }
+  .col h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 300px; height: 620px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); }
+  .iconbtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 13px; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 8px 12px 12px; }
+
+  .rowcard { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .rowcard .ic { font-size: 19px; flex: none; }
+  .rowcard .body { flex: 1; min-width: 0; }
+  .rowcard .nm { font-weight: 700; font-size: 13px; }
+  .rowcard .sub { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+  .pill { flex: none; font-size: 10.5px; font-weight: 700; padding: 4px 9px; border-radius: 999px; }
+  .pill.off { background: var(--chip); color: var(--chip-ink); }
+  .pill.counting { background: var(--saffron-soft); color: var(--saffron); }
+  .pill.on { background: var(--green-soft); color: var(--green); }
+  .chev { color: var(--muted); font-size: 13px; flex: none; }
+
+  .sectiontitle { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 12px 0 6px; padding: 0 2px; }
+  .sectiontitle:first-child { margin-top: 0; }
+
+  .task { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px; margin-bottom: 7px; }
+  .task .top { display: flex; align-items: center; gap: 8px; }
+  .task .ic { font-size: 17px; flex: none; }
+  .task .nm { font-weight: 700; font-size: 12.5px; flex: 1; min-width: 0; }
+  .task .done { font-size: 11px; color: var(--green); font-weight: 700; flex: none; }
+  .levels { display: flex; gap: 5px; margin-top: 8px; }
+  .lvl { flex: 1; text-align: center; padding: 7px 2px; border-radius: 8px; background: var(--chip); border: 2px solid transparent; font-size: 11px; font-weight: 700; color: var(--chip-ink); }
+  .lvl.on { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+  .countinput { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .countinput .box { flex: 1; border: 1px solid var(--rule); border-radius: 8px; padding: 7px 9px; font-size: 12.5px; background: #fff; color: var(--muted); }
+  .countinput .unit { font-size: 11px; color: var(--muted); flex: none; }
+
+  .progresshead { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+  .progresshead .lbl { font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; }
+  .bar { height: 7px; border-radius: 4px; background: var(--chip); margin-top: 6px; overflow: hidden; }
+  .bar .fill { height: 100%; background: var(--green); }
+
+  .footbar { border-top: 1px solid var(--rule); padding: 10px 12px; background: var(--paper); }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 12.5px; width: 100%; }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--rule); margin-top: 7px; font-weight: 600; }
+
+  .note { background: var(--chip); border-radius: 10px; padding: 8px 10px; font-size: 11px; color: var(--chip-ink); margin-bottom: 10px; display: flex; gap: 7px; align-items: flex-start; }
+  .note .ic { flex: none; }
+
+  .zerostate { border-radius: 10px; padding: 6px 9px; font-size: 10.5px; font-weight: 700; text-align: center; background: var(--chip); color: var(--chip-ink); margin-top: 4px; }
+
+  .miniapp { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
+  .miniapp .apphead { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 12px; margin-bottom: 6px; }
+
+  .toast { position: absolute; left: 10px; right: 10px; bottom: 12px; background: var(--ink); color: #fff; padding: 8px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 600; text-align: center; z-index: 20; }
+
+  .foot { max-width: 1000px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 30%; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #187 — inventory tracking switch (Settings) + the guided opening count</h1>
+<div class="lede">Split from #174 (Kiran: "I need a switch to start counting the inventory; until then all the item data
+  and menu costing data is there"). Four states, no new screen except the count list itself: the Settings → Business
+  row (off / counting / on), the guided count list (box levels + raw-product counts, by storage zone, ordered by
+  recipe use), the "finish with what we have" action, and off-state messaging on Products / Kitchen boxes / Today.</div>
+
+<div class="stage">
+
+  <div class="col">
+    <h2>1 · Settings → Business, one row</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Business</div><div class="t2">Settings</div></div></div>
+      <div class="body-pad">
+        <div class="sectiontitle">Setup</div>
+        <div class="rowcard"><div class="ic">🏪</div><div class="body"><div class="nm">Business info</div><div class="sub">Name, address, hours</div></div><div class="chev">›</div></div>
+        <div class="rowcard"><div class="ic">🧾</div><div class="body"><div class="nm">Tax rates</div><div class="sub">3 rates configured</div></div><div class="chev">›</div></div>
+        <div class="sectiontitle">Inventory</div>
+        <div class="rowcard"><div class="ic">🔢</div><div class="body"><div class="nm">Start counting</div><div class="sub">Not tracked yet — catalog and costing still work</div></div><div class="pill off">Off</div></div>
+        <div class="sectiontitle" style="margin-top:16px">— same row, mid-count —</div>
+        <div class="rowcard"><div class="ic">🔢</div><div class="body"><div class="nm">Opening count</div><div class="sub">Counting 31 of 57</div></div><div class="pill counting">Counting</div></div>
+        <div class="sectiontitle" style="margin-top:16px">— same row, done —</div>
+        <div class="rowcard"><div class="ic">🔢</div><div class="body"><div class="nm">Inventory tracking</div><div class="sub">On since Sep 24</div></div><div class="pill on">On</div></div>
+      </div>
+    </div></div>
+    <div class="tap-hint" style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:8px">one row, three states — tapping it in the Off state starts the count below</div>
+  </div>
+
+  <div class="col">
+    <h2>2 · The guided opening count</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Opening count</div><div class="t2">Business</div></div></div>
+      <div class="body-pad">
+        <div class="progresshead">
+          <div class="lbl"><span>Counted</span><span>31 of 57</span></div>
+          <div class="bar"><div class="fill" style="width:54%"></div></div>
+        </div>
+        <div class="sectiontitle">🧊 Walk-in — prep boxes, by recipe use</div>
+        <div class="task">
+          <div class="top"><div class="ic">🍛</div><div class="nm">Makhani Gravy</div><div class="done">✓ Full</div></div>
+        </div>
+        <div class="task">
+          <div class="top"><div class="ic">🍛</div><div class="nm">Onion-Tomato Masala</div><div></div></div>
+          <div class="levels"><div class="lvl on">Full</div><div class="lvl">½</div><div class="lvl">¼</div><div class="lvl">Empty</div></div>
+        </div>
+        <div class="sectiontitle">🧊 Walk-in — raw products</div>
+        <div class="task">
+          <div class="top"><div class="ic">🥛</div><div class="nm">Whole Milk</div><div></div></div>
+          <div class="countinput"><div class="box">how many gal on hand?</div><div class="unit">gal</div></div>
+        </div>
+        <div class="sectiontitle">🌡️ Dry storage — raw products</div>
+        <div class="task">
+          <div class="top"><div class="ic">🌾</div><div class="nm">Basmati Rice</div><div class="done">✓ 40 lb</div></div>
+        </div>
+      </div>
+      <div class="footbar">
+        <div class="btn">Count next: Onion-Tomato Masala</div>
+      </div>
+    </div></div>
+    <div class="tap-hint" style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:8px">one task per prep box (4 taps) or raw product (a number), grouped by storage zone, boxes/products made soonest first</div>
+  </div>
+
+  <div class="col">
+    <h2>3 · Reachable from My tasks / KDS + finish</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">My tasks</div><div class="t2">Today</div></div></div>
+      <div class="body-pad">
+        <div class="sectiontitle">Opening count — 26 left</div>
+        <div class="rowcard"><div class="ic">🔢</div><div class="body"><div class="nm">Onion-Tomato Masala</div><div class="sub">box level · Walk-in</div></div><div class="chev">›</div></div>
+        <div class="rowcard"><div class="ic">🔢</div><div class="body"><div class="nm">Toor Dal</div><div class="sub">count · Dry storage</div></div><div class="chev">›</div></div>
+        <div class="sectiontitle">Prep</div>
+        <div class="rowcard"><div class="ic">🍳</div><div class="body"><div class="nm">Fry onions for gravy</div><div class="sub">due 2:00 PM</div></div><div class="chev">›</div></div>
+        <div class="miniapp" style="margin-top:16px">
+          <div class="apphead">🖥️ Kitchen display — same count list</div>
+          <div class="task"><div class="top"><div class="ic">🍛</div><div class="nm">Chana Masala</div><div></div></div>
+          <div class="levels"><div class="lvl">Full</div><div class="lvl on">½</div><div class="lvl">¼</div><div class="lvl">Empty</div></div></div>
+        </div>
+      </div>
+      <div class="footbar">
+        <div class="note"><div class="ic">ℹ️</div><div>26 tasks left. Counting every box and product gives the truest opening number — but the store can't wait forever.</div></div>
+        <div class="btn" style="background:var(--saffron)">Finish with what we have</div>
+        <div style="font-size:10px;color:var(--muted);text-align:center;margin-top:6px">turns tracking On now; the 26 uncounted items start from their last known level/zero, flagged for a follow-up count</div>
+      </div>
+    </div></div>
+    <div class="tap-hint" style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:8px">the same count tasks show on My tasks (front of house) and the kitchen display (station)</div>
+  </div>
+
+  <div class="col">
+    <h2>4 · Off-state messaging elsewhere</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Products</div><div class="t2">Catalog</div></div></div>
+      <div class="body-pad">
+        <div class="note"><div class="ic">ℹ️</div><div>On-hand isn't tracked yet. Turn on inventory tracking in Settings → Business to start.</div></div>
+        <div class="rowcard"><div class="ic">🌾</div><div class="body"><div class="nm">Basmati Rice 20 lb</div><div class="sub">$24.99 · Grocery</div></div><div class="zerostate">not tracked yet</div></div>
+        <div class="rowcard"><div class="ic">🧀</div><div class="body"><div class="nm">Paneer Cubes</div><div class="sub">$6.99 · Dairy</div></div><div class="zerostate">not tracked yet</div></div>
+
+        <div class="sectiontitle" style="margin-top:16px">Kitchen › boxes</div>
+        <div class="task"><div class="top"><div class="ic">🍛</div><div class="nm">Makhani Gravy</div><div></div></div>
+          <div class="zerostate">on-hand not tracked yet</div></div>
+
+        <div class="sectiontitle" style="margin-top:16px">Today</div>
+        <div class="note"><div class="ic">📦</div><div>No stock-out warnings and no variance notes — inventory isn't tracked yet.</div></div>
+      </div>
+    </div></div>
+    <div class="tap-hint" style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:8px">catalog, costs, recipes, menu and purchasing DRAFTS keep working off — only on-hand-derived numbers and alerts go quiet</div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Screen 1 is one row: see and change the tracking state. Screen 2 is one job: get an opening number for every box and product. Nothing else lives on either.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every row is an icon + name + one short line. The only sentence-length text is the off-state explainer and the "finish with what we have" note, each one line.</td></tr>
+    <tr><td>3. Icon on every row</td><td>🔢 the switch row, 🍛/🌾/🥛 box or product rows, ✓ done, ℹ️ explainer notes.</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>Settings row: 1 row. Count list: a progress bar + grouped tasks, scrolled, current task pinned in the footer so nothing competes with it. My tasks: existing task list pattern, counts fold into the existing per-day groups.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>counts.ts already tracks box levels and stocked-product on-hand; the list reads the existing count/level rows, it does not recompute a store-wide number on open.</td></tr>
+    <tr><td>6. A way back</td><td>← Business / ← Today on every screen; the count list is reached from Settings (start), My tasks and the kitchen display (work it), never a fourth entry point.</td></tr>
+    <tr><td>7. One home per function</td><td>The switch lives only on Settings → Business (screens.md §0's "one row" rule from #174); the count LIST has one home (its own screen) but appears through two doors (My tasks, KDS) — same task rows, not a duplicate screen.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>One new screen (the opening count list) and one existing-row change (Settings → Business); My tasks and the kitchen display fold the count tasks into their existing lists rather than adding a screen each.</td></tr>
+  </table>
+</div>
+
+</body>
+</html>
+
