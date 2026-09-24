@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #239 — Grocery storefront: browse · cart · checkout (Shopkiraana)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8; --bad: #8a3b3b; --bad-soft: #f6e4e4;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 640px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 700px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px; flex: none; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .storeic { width: 34px; height: 34px; border-radius: 9px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .searchbar { padding: 0 14px 8px; flex: none; }
+  .input { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13.5px; font-family: inherit; color: var(--ink); }
+
+  .catrow { display: flex; gap: 6px; padding: 2px 14px 10px; overflow-x: auto; scrollbar-width: none; flex: none; }
+  .catrow::-webkit-scrollbar { display: none; }
+  .catchip { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 12px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; }
+  .catchip.on { background: var(--green); color: #fff; }
+
+  .list { flex: 1; overflow-y: auto; padding: 0 14px 90px; }
+  .prow { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .prow.off { opacity: .55; }
+  .prow .ic { font-size: 22px; flex: none; width: 30px; text-align: center; }
+  .prow .grow { flex: 1; min-width: 0; }
+  .prow .nm { font-weight: 600; font-size: 13.5px; line-height: 1.3; }
+  .prow .meta { display: flex; align-items: center; gap: 6px; margin-top: 3px; flex-wrap: wrap; }
+  .prow .pr { font-weight: 700; font-size: 13px; color: var(--green); font-variant-numeric: tabular-nums; }
+  .tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .tag.snap { background: var(--green-soft); color: var(--green); }
+  .tag.ok { background: var(--chip); color: var(--chip-ink); }
+  .tag.out { background: var(--bad-soft); color: var(--bad); }
+  .addbtn { flex: none; background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+  .stepper { display: flex; align-items: center; gap: 8px; flex: none; }
+  .stepper button { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--rule); background: var(--chip); font-size: 14px; cursor: pointer; }
+  .stepper .q { font-size: 13px; font-weight: 700; min-width: 14px; text-align: center; }
+  .emptyrow { text-align: center; color: var(--muted); font-size: 13px; padding: 30px 10px; }
+
+  .strip { position: absolute; left: 12px; right: 12px; bottom: 12px; background: var(--ink); color: #fff; border-radius: 14px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 6px 16px rgba(0,0,0,.22); z-index: 4; }
+  .strip .n { background: rgba(255,255,255,.18); border-radius: 999px; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; font-weight: 800; flex: none; }
+  .strip .lbl { flex: 1; font-size: 12.5px; color: rgba(255,255,255,.78); }
+  .strip .amt { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .strip .chev { font-size: 13px; color: rgba(255,255,255,.6); }
+
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 6; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 12px 14px 16px; max-height: 92%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; flex: none; }
+  .sheethead { display: flex; align-items: center; margin-bottom: 10px; }
+  .sheethead h3 { font-size: 15.5px; margin: 0; flex: 1; }
+  .xbtn { width: 26px; height: 26px; border-radius: 999px; border: none; background: var(--chip); font-size: 13px; cursor: pointer; color: var(--ink); }
+
+  .toggle2 { display: flex; gap: 6px; margin-bottom: 10px; }
+  .toggle2 button { flex: 1; padding: 9px 6px; border-radius: 9px; border: 1px solid var(--rule); background: var(--card); font-size: 12.5px; font-weight: 700; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
+  .toggle2 button.on { background: var(--green-soft); color: var(--green); border-color: var(--green); }
+
+  .presetrow { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 10px; }
+  .preset { text-align: left; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--rule); background: var(--card); font-size: 12px; cursor: pointer; color: var(--ink); }
+  .preset.on { border-color: var(--green); background: var(--green-soft); }
+  .feenote { font-size: 12px; padding: 8px 10px; border-radius: 9px; margin-bottom: 10px; }
+  .feenote.ok { background: var(--green-soft); color: var(--green); }
+  .feenote.bad { background: var(--bad-soft); color: var(--bad); }
+
+  .line { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .line:last-child { border-bottom: none; }
+  .line .ic { font-size: 18px; flex: none; width: 26px; text-align: center; }
+  .line .body { flex: 1; min-width: 0; }
+  .line .nm { font-weight: 600; font-size: 12.5px; }
+  .line .ls { font-size: 11px; color: var(--muted); }
+  .line .amt { font-weight: 700; font-size: 12.5px; font-variant-numeric: tabular-nums; flex: none; min-width: 46px; text-align: right; }
+
+  .totals { border-top: 1px dashed var(--rule); margin-top: 8px; padding-top: 8px; font-size: 12.5px; flex: none; }
+  .totals .row2 { display: flex; justify-content: space-between; padding: 2px 0; color: var(--muted); }
+  .totals .row2.grand { color: var(--ink); font-weight: 800; font-size: 15px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 6px; }
+  .totals .amt { font-variant-numeric: tabular-nums; }
+  .infonote { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 12px 10px; font-weight: 700; font-size: 13.5px; cursor: pointer; width: 100%; margin-top: 10px; }
+  .btn.ghost { background: transparent; color: var(--green); border: 1px solid var(--rule); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+
+  .co-body { flex: 1; overflow-y: auto; padding: 0 14px 16px; }
+  .reccard { display: flex; align-items: center; gap: 8px; background: var(--green-soft); color: var(--green); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; font-weight: 600; margin-bottom: 12px; cursor: pointer; }
+  .reccard .chev { margin-left: auto; font-size: 12px; }
+  .field { display: block; margin: 0 0 10px; }
+  .field span { display: block; font-size: 10.5px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+  .fieldrow { display: flex; gap: 8px; }
+  .fieldrow .field { flex: 1; }
+  .paynote { display: flex; align-items: center; gap: 8px; background: var(--chip); border-radius: 10px; padding: 10px 12px; font-size: 12px; color: var(--chip-ink); margin: 10px 0 2px; }
+  .paynote .ic { font-size: 16px; flex: none; }
+
+  .sectitle { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 0 6px; }
+
+  .confirmwrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 30px; text-align: center; }
+  .confirmwrap .big { font-size: 42px; }
+  .confirmwrap h3 { margin: 0; font-size: 17px; }
+  .confirmwrap p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .confirmwrap .kv { width: 100%; max-width: 240px; text-align: left; background: var(--chip); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; margin-top: 6px; }
+  .confirmwrap .kv div { display: flex; justify-content: space-between; padding: 3px 0; }
+
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 26%; }
+  .foot .tradeoffs { margin-top: 14px; }
+  .foot .tradeoffs li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #239 — Grocery storefront: browse · cart · checkout</h1>
+<div class="lede">Shopkiraana's public, no-sign-in customer door (docs/requirements/commerce.md §8) — one screen, three
+  steps: browse adds to a cart drawer, the drawer picks pickup/delivery, checkout confirms and places the order.
+  Live demo: tap ✚ Add on a couple of items, tap the black cart strip, choose Delivery and an address, then Checkout.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Storefront — Shopkiraana</h2>
+    <div class="phone">
+      <div class="screen" id="screen"><!-- rendered by script --></div>
+    </div>
+    <div class="tap-hint">tap ✚ Add, then the black strip, then Checkout</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>The whole flow is one job — "order something" — done in three sequential steps
+      (browse → cart → checkout), the same way the invoice workspace is one screen with tabs, not three unrelated
+      screens. Each step's own action is visible with no scrolling: ✚ Add, Checkout, Place order.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every row is a name, a price and a chip. The only sentence-length text is the
+      tax note ("computed per item — SNAP-eligible items are tax-exempt") and the payment note ("pay when you get
+      your order"), both under twelve words and both sitting where an ⓘ would — not blocking the job.</td></tr>
+    <tr><td>3. Icon on every row</td><td>Every catalog row (🌾🫘🧀🧈🌶️🥬🥟), every cart line, and every action
+      carries an icon (🛍️ pickup, 🚚 delivery, 💳 pay, ✅ placed, ✚/−/+ steppers).</td></tr>
+    <tr><td>4. ≤7 things</td><td>Browse: store header, search, category-chip row, ~4 visible item rows, cart strip —
+      one job's worth of controls, same bundling the register mockup (#135) used. Cart drawer: title/close,
+      pickup/delivery toggle, address block (delivery only), the line list, Checkout button ≈ 6. Checkout: back +
+      recap, contact, time, order summary, payment note, Place order = 7 exactly.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Totals here are pure arithmetic over cart state already held in
+      memory (computeTotals()) — no recompute trip. The real build reads price via pricing.ts's resolvePrice
+      (storefrontOf) and tax per line's own character the way checks.ts's resolveCheck already does for the
+      register — never one flat cart-wide rate. No screen exists yet to measure against a 300 ms Playwright budget
+      (CLAUDE.md: never guess a number) — that spec is a build-time follow-up, timed on the page's own clock the
+      way apps/web/e2e/kitchen.spec.ts already had to learn to do, not across a Playwright click().</td></tr>
+    <tr><td>6. A way back</td><td>Browse is the flow's own home — it has no parent, the same as the sign-in gate.
+      The cart drawer's ✕ returns to Browse; Checkout's ← returns to the cart with fulfilment and contact details
+      intact; Confirmation's "Back to store" returns to Browse. No dead ends.</td></tr>
+    <tr><td>7. One home per function</td><td>Search/browse lives only on Browse. Quantity editing lives only in the
+      cart drawer's steppers (Browse's own rows just add/increment the same cart, never a second edit surface).
+      Fulfilment (pickup/delivery, address) is SET only in the cart drawer; Checkout shows it read-only with a tap
+      that routes back rather than a duplicate control — the exact defect this check warns against.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>The cart is a drawer over Browse, not a page — check 8's own
+      preferred fix. Checkout is the one distinct job (confirm identity + fulfilment + pay before an order is
+      created) that earns its own full step, kept to ONE screen, not a wizard. Total: one new screen (the
+      storefront) with a drawer and one follow-on step — matches commerce.md §10 exactly ("one job … at most seven
+      things per screen"). The staff-side orders hub is explicitly out of scope here (folds into the existing
+      /catering book per §10, a separate later issue).</td></tr>
+  </table>
+  <ul class="tradeoffs">
+    <li><b>Availability honesty (commerce.md §8, O1):</b> every sellable row reads "Usually in stock," never a
+      fabricated quantity, until a tenant's opening-count switch is on; Paneer demonstrates the other true state,
+      "Out of stock today," with its Add control removed rather than left clickable.</li>
+    <li><b>Mixed tax (commerce.md §6):</b> Basmati Rice and Toor Dal are tax-exempt/SNAP-eligible lines (🟢 SNAP
+      chip, $0 tax); Ghee, Turmeric, Garam Masala, Okra and Samosas are taxable — the checkout total sums tax
+      per line's own character, never one flat percentage, so the two SNAP items in the demo cart provably do not
+      inflate the tax line.</li>
+    <li><b>Delivery fee vs. unmapped (commerce.md §4):</b> the address presets show both real paths — an in-range
+      address prices a mile-tier fee ($2.99/$4.99/$7.99, the same deliveryFeeFor shape catering already uses), and
+      an out-of-range address (Nashville) refuses plainly ("delivery isn't available at this address yet") instead
+      of guessing a fee — Checkout stays disabled until the cart resolves one way or the other.</li>
+    <li><b>Payment (commerce.md §6, D5 undecided):</b> this mockup assumes option 3 — pay at pickup/delivery, no
+      card entered online — since it needs no new Stripe connector and is the only one of the three shapes that is
+      free to build; the checkout screen names this plainly rather than implying a decision Kiran has not made.
+      A capture-at-placement or authorize-then-capture flow (options 1/2) would replace this one row with a card
+      field once D5 is answered — it does not change the screen count.</li>
+  </ul>
+</div>
+
+<script>
+const money = (n) => '$' + (Math.round(n*100)/100).toFixed(2);
+const r2 = (n) => Math.round(n*100)/100;
+const TAX_PCT = 9.25; // general-merchandise rate, matching the register mockup's own TN figure
+
+const CATALOG = {
+  'Rice & Grains': [
+    { id:'rice', ic:'🌾', nm:'Basmati Rice, 10 lb', price:14.99, snap:true, tax:'exempt', stock:'ok' },
+  ],
+  'Dals & Pulses': [
+    { id:'tdal', ic:'🫘', nm:'Toor Dal, 4 lb', price:6.49, snap:true, tax:'exempt', stock:'ok' },
+    { id:'cdal', ic:'🫘', nm:'Chana Dal, 4 lb', price:5.99, snap:true, tax:'exempt', stock:'ok' },
+  ],
+  'Dairy & Chilled': [
+    { id:'paneer', ic:'🧀', nm:'Paneer, Fresh, 14 oz', price:5.99, snap:false, tax:'taxable', stock:'out' },
+    { id:'ghee', ic:'🧈', nm:'Cow Ghee, 32 oz', price:12.99, snap:false, tax:'taxable', stock:'ok' },
+  ],
+  'Spices': [
+    { id:'turmeric', ic:'🟡', nm:'Turmeric Powder, 7 oz', price:3.49, snap:false, tax:'taxable', stock:'ok' },
+    { id:'garam', ic:'🌶️', nm:'Garam Masala, 3.5 oz', price:4.29, snap:false, tax:'taxable', stock:'ok' },
+  ],
+  'Produce': [
+    { id:'okra', ic:'🥬', nm:'Fresh Okra (Bhindi), 1 lb', price:2.99, snap:false, tax:'taxable', stock:'ok' },
+  ],
+  'Snacks': [
+    { id:'samosa', ic:'🥟', nm:'Frozen Samosas (12 ct)', price:7.49, snap:false, tax:'taxable', stock:'ok' },
+  ],
+};
+const ALL = Object.entries(CATALOG).flatMap(([cat, items]) => items.map((i) => ({ ...i, cat })));
+
+const DELIVERY_TIERS = [ { maxMiles: 3, fee: 2.99 }, { maxMiles: 6, fee: 4.99 }, { maxMiles: 10, fee: 7.99 } ];
+function deliveryFeeFor(miles) { for (const t of DELIVERY_TIERS) if (miles <= t.maxMiles) return t.fee; return null; }
+const ADDRESS_PRESETS = [
+  { label: '212 Belinda Pkwy, Mt Juliet (2.1 mi)', miles: 2.1 },
+  { label: '4400 Lebanon Rd, Mt Juliet (5.4 mi)', miles: 5.4 },
+  { label: 'Downtown Nashville, TN (19 mi)', miles: 19 },
+];
+
+let view = 'browse'; // browse | checkout | confirm
+let cartOpen = false;
+let activeCat = 'All';
+let searchQ = '';
+let cart = []; // { item, qty }
+let fulfil = 'pickup'; // pickup | delivery
+let addressIdx = null;
+let name = '', phone = '';
+let orderNo = null;
+
+function cartLine(id) { return cart.find((l) => l.item.id === id); }
+function add(id) {
+  const item = ALL.find((i) => i.id === id);
+  if (!item || item.stock === 'out') return;
+  const l = cartLine(id);
+  if (l) l.qty += 1; else cart.push({ item, qty: 1 });
+  render();
+}
+function dec(id) {
+  const l = cartLine(id); if (!l) return;
+  l.qty -= 1; if (l.qty <= 0) cart = cart.filter((x) => x.item.id !== id);
+  render();
+}
+function inc(id) { add(id); }
+function setCat(c) { activeCat = c; render(); }
+function onSearch(v) { searchQ = v; render(); }
+function openCart() { cartOpen = true; render(); }
+function closeCart() { cartOpen = false; render(); }
+function setFulfil(f) { fulfil = f; if (f === 'pickup') addressIdx = null; render(); }
+function pickAddress(i) { addressIdx = i; render(); }
+function deliveryOk() { return fulfil === 'pickup' || (addressIdx !== null && deliveryFeeFor(ADDRESS_PRESETS[addressIdx].miles) !== null); }
+
+function computeTotals() {
+  const subtotal = r2(cart.reduce((s, l) => s + l.qty * l.item.price, 0));
+  const taxable = r2(cart.reduce((s, l) => s + (l.item.tax === 'taxable' ? l.qty * l.item.price : 0), 0));
+  const tax = r2(taxable * (TAX_PCT / 100));
+  const deliveryFee = (fulfil === 'delivery' && addressIdx !== null) ? (deliveryFeeFor(ADDRESS_PRESETS[addressIdx].miles) || 0) : 0;
+  const total = r2(subtotal + tax + deliveryFee);
+  return { subtotal, tax, deliveryFee, total };
+}
+
+function goCheckout() { if (!cart.length || !deliveryOk()) return; cartOpen = false; view = 'checkout'; render(); }
+function backToCart() { view = 'browse'; cartOpen = true; render(); }
+function setName(v) { name = v; }
+function setPhone(v) { phone = v; }
+function placeOrder() {
+  if (!name.trim() || !phone.trim()) return;
+  orderNo = 'SK-' + (10000 + Math.floor(Math.random() * 900));
+  view = 'confirm'; render();
+}
+function resetToBrowse() {
+  cart = []; fulfil = 'pickup'; addressIdx = null; name = ''; phone = ''; orderNo = null;
+  view = 'browse'; cartOpen = false; render();
+}
+
+function rowHtml(i) {
+  const l = cartLine(i.id);
+  const out = i.stock === 'out';
+  return `<div class="prow ${out ? 'off' : ''}">
+    <div class="ic">${i.ic}</div>
+    <div class="grow">
+      <div class="nm">${i.nm}</div>
+      <div class="meta">
+        <span class="pr">${money(i.price)}</span>
+        ${i.snap ? '<span class="tag snap">🟢 SNAP</span>' : ''}
+        ${out ? '<span class="tag out">Out of stock today</span>' : '<span class="tag ok">Usually in stock</span>'}
+      </div>
+    </div>
+    ${out ? '' : (l
+      ? `<div class="stepper"><button onclick="dec('${i.id}')">−</button><span class="q">${l.qty}</span><button onclick="inc('${i.id}')">+</button></div>`
+      : `<button class="addbtn" onclick="add('${i.id}')">✚ Add</button>`)}
+  </div>`;
+}
+
+function browseHtml() {
+  const items = ALL.filter((i) => (activeCat === 'All' || i.cat === activeCat) && (!searchQ || i.nm.toLowerCase().includes(searchQ.toLowerCase())));
+  const count = cart.reduce((s, l) => s + l.qty, 0);
+  const t = computeTotals();
+  return `
+    <div class="topbar">
+      <div class="storeic">🛒</div>
+      <div class="titlewrap"><div class="t1">Shopkiraana</div><div class="t2">Mt. Juliet, TN · Indian grocery</div></div>
+    </div>
+    <div class="searchbar"><input class="input" placeholder="Search rice, dal, spices…" value="${searchQ.replace(/"/g, '')}" oninput="onSearch(this.value)" /></div>
+    <div class="catrow">${['All', ...Object.keys(CATALOG)].map((c) => `<button class="catchip ${c === activeCat ? 'on' : ''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>
+    <div class="list">${items.map(rowHtml).join('') || '<div class="emptyrow">No items match — try another search.</div>'}</div>
+    ${count > 0 ? `<div class="strip" onclick="openCart()"><div class="n">${count}</div><div class="lbl">in your cart</div><div class="amt">${money(t.subtotal)}</div><div class="chev">▲</div></div>` : ''}
+    <div class="sheet-overlay ${cartOpen ? 'open' : ''}" onclick="if(event.target===this) closeCart()">
+      <div class="sheet">
+        <div class="grabber"></div>
+        <div class="sheethead"><h3>🛍️ Your cart (${count})</h3><button class="xbtn" onclick="closeCart()">✕</button></div>
+        <div class="toggle2">
+          <button class="${fulfil === 'pickup' ? 'on' : ''}" onclick="setFulfil('pickup')">🛍️ Pickup</button>
+          <button class="${fulfil === 'delivery' ? 'on' : ''}" onclick="setFulfil('delivery')">🚚 Delivery</button>
+        </div>
+        ${fulfil === 'delivery' ? deliveryBlockHtml() : ''}
+        ${cart.map((l) => `<div class="line"><div class="ic">${l.item.ic}</div><div class="body"><div class="nm">${l.item.nm}</div><div class="ls">${l.qty} × ${money(l.item.price)}${l.item.tax === 'exempt' ? ' · tax-exempt' : ''}</div></div><div class="amt">${money(l.qty * l.item.price)}</div></div>`).join('') || '<div class="emptyrow">Your cart is empty — add something from the list.</div>'}
+        <div class="totals">
+          <div class="row2"><span>Subtotal</span><span class="amt">${money(t.subtotal)}</span></div>
+          <div class="infonote">Tax and any delivery fee are added at checkout.</div>
+        </div>
+        <button class="btn" ${(!cart.length || !deliveryOk()) ? 'disabled' : ''} onclick="goCheckout()">Checkout →</button>
+      </div>
+    </div>
+  `;
+}
+
+function deliveryBlockHtml() {
+  const chosen = addressIdx !== null ? ADDRESS_PRESETS[addressIdx] : null;
+  const fee = chosen ? deliveryFeeFor(chosen.miles) : null;
+  return `
+    <div class="presetrow">
+      ${ADDRESS_PRESETS.map((a, i) => `<button class="preset ${addressIdx === i ? 'on' : ''}" onclick="pickAddress(${i})">📍 ${a.label}</button>`).join('')}
+    </div>
+    ${chosen
+      ? (fee !== null
+          ? `<div class="feenote ok">🚚 Delivery fee ${money(fee)} — ${chosen.miles} mi from the store</div>`
+          : `<div class="feenote bad">🚫 Delivery isn't available at this address yet — try Pickup, or a closer address.</div>`)
+      : `<div class="infonote" style="margin-bottom:10px;">Pick your address to see the delivery fee.</div>`}
+  `;
+}
+
+function checkoutHtml() {
+  const t = computeTotals();
+  const recap = fulfil === 'pickup' ? '🛍️ Pickup at the store' : `🚚 Delivery to ${ADDRESS_PRESETS[addressIdx].label} · ${money(t.deliveryFee)}`;
+  const timeOptions = fulfil === 'pickup'
+    ? ['Today, 5:30 PM', 'Today, 6:00 PM', 'Tomorrow, 10:00 AM']
+    : ['Today, 6:00–7:00 PM', 'Today, 7:00–8:00 PM'];
+  return `
+    <div class="topbar">
+      <button class="iconbtn" onclick="backToCart()">←</button>
+      <div class="titlewrap"><div class="t1">Checkout</div><div class="t2">Back returns to your cart</div></div>
+    </div>
+    <div class="co-body">
+      <div class="reccard" onclick="backToCart()"><span>${recap}</span><span class="chev">✎ edit</span></div>
+      <div class="sectitle">Contact</div>
+      <div class="fieldrow">
+        <label class="field"><span>Name</span><input class="input" value="${name}" oninput="setName(this.value)" placeholder="Priya Patel" /></label>
+      </div>
+      <label class="field"><span>Phone</span><input class="input" value="${phone}" oninput="setPhone(this.value)" placeholder="(615) 555-0148" /></label>
+      <div class="sectitle">${fulfil === 'pickup' ? 'Pickup time' : 'Delivery window'}</div>
+      <select class="input">${timeOptions.map((o) => `<option>${o}</option>`).join('')}</select>
+      <div class="sectitle">Order summary</div>
+      <div class="totals" style="border-top:none; padding-top:0;">
+        <div class="row2"><span>Subtotal</span><span class="amt">${money(t.subtotal)}</span></div>
+        ${fulfil === 'delivery' ? `<div class="row2"><span>Delivery fee</span><span class="amt">${money(t.deliveryFee)}</span></div>` : ''}
+        <div class="row2"><span>Tax</span><span class="amt">${money(t.tax)}</span></div>
+        <div class="infonote">Computed per item — SNAP-eligible items are tax-exempt, not one flat rate.</div>
+        <div class="row2 grand"><span>Total</span><span class="amt">${money(t.total)}</span></div>
+      </div>
+      <div class="paynote"><span class="ic">💳</span><span>Pay when you get your order — card or cash, nothing charged now.</span></div>
+      <button class="btn" ${(!name.trim() || !phone.trim()) ? 'disabled' : ''} onclick="placeOrder()">Place order — ${money(t.total)}</button>
+    </div>
+  `;
+}
+
+function confirmHtml() {
+  const t = computeTotals();
+  const when = fulfil === 'pickup' ? 'Ready for pickup ~6:00 PM today' : 'Out for delivery ~6:30 PM today';
+  return `
+    <div class="confirmwrap">
+      <div class="big">✅</div>
+      <h3>Order placed</h3>
+      <p>We'll text ${phone || 'you'} when it's ${fulfil === 'pickup' ? 'ready' : 'on its way'}.</p>
+      <div class="kv">
+        <div><span>Order</span><b>${orderNo}</b></div>
+        <div><span>${fulfil === 'pickup' ? 'Pickup' : 'Delivery'}</span><b>${when}</b></div>
+        <div><span>Total due</span><b>${money(t.total)}</b></div>
+      </div>
+      <button class="btn ghost" style="width:auto; padding:10px 20px;" onclick="resetToBrowse()">← Back to store</button>
+    </div>
+  `;
+}
+
+function render() {
+  const el = document.getElementById('screen');
+  el.innerHTML = view === 'checkout' ? checkoutHtml() : view === 'confirm' ? confirmHtml() : browseHtml();
+}
+render();
+</script>
+</body>
+</html>
