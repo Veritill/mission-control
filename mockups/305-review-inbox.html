@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #305 — Review inbox</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8; --bad: #8a3b3b; --bad-soft: #f6e4e4;
+    --blue: #2f5f8a; --blue-soft: #e7eff6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 680px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 700px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 6px; flex: none; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 14.5px; }
+  .titlewrap .t2 { font-size: 11px; color: var(--muted); }
+  .sevpill { flex: none; display: flex; gap: 5px; }
+  .sevpill span { border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 800; }
+  .sevpill .bad { background: var(--bad-soft); color: var(--bad); }
+  .sevpill .warn { background: var(--warn-soft); color: var(--warn); }
+
+  .chiprow { display: flex; gap: 6px; overflow-x: auto; padding: 6px 12px 8px; flex: none; scrollbar-width: none; }
+  .chiprow::-webkit-scrollbar { display: none; }
+  .kchip { flex: none; display: flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); border: 2px solid transparent; font-size: 11.5px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .kchip.on { border-color: var(--green); color: var(--green); background: var(--green-soft); }
+  .kchip .n { opacity: .75; font-weight: 600; }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 2px 12px 14px; }
+  .rowcard { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--rule); border-radius: 12px; padding: 11px 12px; margin-bottom: 9px; cursor: pointer; }
+  .rowcard.bad { border-left-color: var(--bad); }
+  .rowcard.warn { border-left-color: var(--warn); }
+  .rowhead { display: flex; align-items: center; gap: 9px; }
+  .rowhead .ic { font-size: 19px; flex: none; width: 22px; text-align: center; }
+  .rowhead .body { flex: 1; min-width: 0; }
+  .rowhead .nm { font-weight: 700; font-size: 13px; }
+  .rowhead .why1 { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+  .rowhead .chev { color: var(--muted); font-size: 11px; flex: none; }
+
+  .expand { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--rule); }
+  .expand .why { font-size: 12px; color: var(--ink); margin-bottom: 9px; }
+  .expand .also { font-size: 11px; color: var(--blue); cursor: pointer; margin: -4px 0 9px; }
+  .actrow { display: flex; gap: 7px; }
+  .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px; border: none; border-radius: 9px; padding: 9px 8px; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; }
+  .btn.primary { background: var(--green); color: #fff; }
+  .btn.link { background: var(--blue-soft); color: var(--blue); }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--rule); flex: none; width: 40px; }
+  .entercost { display: flex; gap: 6px; margin-bottom: 9px; }
+  .entercost input { flex: 1; padding: 8px 9px; border: 1px solid var(--rule); border-radius: 8px; font-size: 13px; font-family: inherit; }
+  .entercost button { flex: none; }
+
+  .empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 30px; text-align: center; }
+  .empty .big { font-size: 40px; }
+  .empty h3 { margin: 0; font-size: 15px; }
+  .empty p { margin: 0; font-size: 12px; color: var(--muted); }
+
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 16px; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 600; text-align: center; z-index: 20; opacity: 0; transform: translateY(6px); transition: opacity .18s, transform .18s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 30%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #305 — Review inbox</h1>
+<div class="lede">One list for everything a person must confirm across the review-inbox adapters GET /reviews
+  already computes (cost, yield, prep yield, recipe confirm, costability, onboarding ask, agent event) — worst
+  first, filterable by kind, resolve in place. Fictional example data only. Live demo: tap a row, try Confirm,
+  Fix →, and Dismiss.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Work → Review inbox</h2>
+    <div class="phone">
+      <div class="screen" id="screen"><!-- rendered by script --></div>
+    </div>
+    <div class="tap-hint">tap any row to expand its fix</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Look at everything waiting for a confirm and clear it: read why, do the fix or
+      dismiss it. Nothing else lives on this screen.</td></tr>
+    <tr><td>2. No paragraphs</td><td>A row is one line (title + a truncated why) until tapped; the full why is
+      still one sentence, never a paragraph. The fix is a single labeled button, never instructions.</td></tr>
+    <tr><td>3. Icon on every row</td><td>One icon per kind (💰 cost, 📏 yield/prep yield, 🧑‍🍳 recipe confirm,
+      🧾 costability, 📥 onboarding ask, 🤖 agent event) plus a bad/warn color strip — same icon everywhere that
+      kind of review appears (Cost check, Kitchen › boxes, Invoices already use these).</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>Collapsed: topbar + severity pills + chip row + up to 5-6 rows before
+      scrolling (2). Expanded: why + fix action + Done/Dismiss (3) — one row open at a time, others stay
+      collapsed.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Every row and its severity/fix already rode on GET /reviews's own
+      refresh (reviews.ts's adapters run before the list is read); the screen renders the rows it gets, it never
+      recomputes a verdict itself.</td></tr>
+    <tr><td>6. A way back</td><td>← at top returns to Work, named there; Review inbox is one tap from Work.</td></tr>
+    <tr><td>7. One home per function</td><td>This is a SECOND door onto facts the seven surfaces (seal queue,
+      import review, common-language review, pricing desk, cost check, yield check, golden merge) already own —
+      those screens keep doing the deep work; this inbox is the one place to see everything open at a glance and
+      clear the easy ones, never a competing editor.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>One screen, no drawer needed: the row itself expands in place
+      for the fix, the same inline-expand pattern My tasks and Products already use.</td></tr>
+  </table>
+</div>
+
+<div class="foot">
+  <h2>Kind → icon → fix shape (matches reviews.ts today)</h2>
+  <table class="checktable">
+    <tr><td>cost</td><td>💰 — fix.kind is link (upload/open, with an "also: enter what you pay" for no-product),
+      enter-cost, confirm (price still looks right), or none (made in house).</td></tr>
+    <tr><td>yield / prepyield</td><td>📏 — fix.kind is link (open the box) or confirm (accept the measured
+      ratio).</td></tr>
+    <tr><td>recipeconfirm</td><td>🧑‍🍳 — fix.kind is always link (open the box; a chef confirms there).</td></tr>
+    <tr><td>costability</td><td>🧾 — an invoice line missing a fact; fix.kind is link (open the line).</td></tr>
+    <tr><td>onboarding_ask</td><td>📥 — the one thing that would unblock the most; fix.kind is link.</td></tr>
+    <tr><td>agent_dead</td><td>🤖 — dismiss-only (fix.kind none): no in-product write exists yet for a stuck
+      agent event.</td></tr>
+    <tr><td colspan="2">common-language review, pricing desk and the seal queue keep their OWN screens
+      (reviews.ts's own doctrine: "each screen keeps its own view") — they have no reviews-table adapter today,
+      so this inbox names no chip for them rather than showing a filter with nothing behind it.</td></tr>
+  </table>
+</div>
+
+<script>
+const money = (n) => '$' + (Math.round(n*100)/100).toFixed(2);
+
+const KIND_META = {
+  cost: { ic: '💰', label: 'Cost' },
+  yield: { ic: '📏', label: 'Yield' },
+  prepyield: { ic: '📏', label: 'Prep yield' },
+  recipeconfirm: { ic: '🧑‍🍳', label: 'Recipe confirm' },
+  costability: { ic: '🧾', label: 'Costability' },
+  onboarding_ask: { ic: '📥', label: 'Onboarding ask' },
+  agent_dead: { ic: '🤖', label: 'Agent event' },
+};
+
+let rows = [
+  { id: 'r1', kind: 'costability', severity: 'bad', title: 'Basmati rice 20lb — ATL RRK', why: 'Line 3 of the ATL RRK invoice: no product is linked to this line yet; a family word is needed before it can be costed.', fix: { label: 'Open the invoice line', kind: 'link', href: '/invoices/8841?line=3' } },
+  { id: 'r2', kind: 'cost', severity: 'bad', title: 'Dried red chilli', why: 'No invoice carries Dried red chilli yet — 4 dishes wait on this family.', fix: { label: 'Upload the invoice that has it', kind: 'link', href: '/invoices', also: { label: 'Enter what you pay per pack', kind: 'enter-cost' } } },
+  { id: 'r3', kind: 'cost', severity: 'bad', title: 'Paneer', why: 'A product is mapped (Nanak Paneer 2kg) but no invoice has ever priced it.', fix: { label: 'Enter what you last paid', kind: 'enter-cost' } },
+  { id: 'r4', kind: 'prepyield', severity: 'warn', title: 'Onion-tomato masala base', why: '3 batches of 6 boxes measured 1.35×; the kitchen’s table says 1.6× — 16% lower.', fix: { label: 'Set onion-tomato masala base to 1.35×', kind: 'confirm' } },
+  { id: 'r5', kind: 'yield', severity: 'warn', title: 'Makhani gravy', why: 'This box’s batch looks small for its container — worth a look before the next cook.', fix: { label: 'Look at the box', kind: 'link', href: '/kitchen?box=makhani-gravy' } },
+  { id: 'r6', kind: 'recipeconfirm', severity: 'warn', title: 'Chicken 65', why: '3 lines proposed for Wok station — a chef hasn’t confirmed this recipe yet.', fix: { label: 'Open the box', kind: 'link', href: '/kitchen?box=chicken-65' } },
+  { id: 'r7', kind: 'onboarding_ask', severity: 'warn', title: 'Upload HYD Groceries invoices', why: '3 families with no cost wait on this vendor’s paper, unblocking 9 dishes.', fix: { label: 'Load an invoice', kind: 'link', href: '/invoices/load' } },
+  { id: 'r8', kind: 'agent_dead', severity: 'warn', title: 'Agent event failed: cost.drift', why: '5 attempts to handle this cost.drift event all failed: cost agent disabled.', fix: { label: 'Dismiss', kind: 'none' } },
+  { id: 'r9', kind: 'cost', severity: 'warn', title: 'Coconut milk', why: 'The last price is from 2026-06-02. Fine to confirm; a newer invoice will refresh it.', fix: { label: 'Confirm', kind: 'confirm' } },
+];
+
+let kindFilter = 'all';
+let expandedId = null;
+let enterCostFor = null; // row id currently showing the amount field
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function counts(){
+  const c = {};
+  for (const r of rows) c[r.kind] = (c[r.kind] || 0) + 1;
+  return c;
+}
+
+function visibleRows(){
+  const sevRank = { bad: 0, warn: 1 };
+  return rows.filter(r => kindFilter === 'all' || r.kind === kindFilter)
+    .slice().sort((a,b)=> sevRank[a.severity] - sevRank[b.severity]);
+}
+
+function pickKind(k){ kindFilter = k; expandedId = null; render(); }
+function toggleRow(id){ expandedId = expandedId === id ? null : id; enterCostFor = null; render(); }
+
+function resolve(id, action){
+  const row = rows.find(r=>r.id===id);
+  if (!row) return;
+  rows = rows.filter(r=>r.id!==id);
+  if (action === 'done' && (row.fix.kind === 'confirm')) toast('✓ Confirmed and closed');
+  else if (action === 'done') toast('✓ Marked done');
+  else toast('✕ Dismissed');
+  expandedId = null; enterCostFor = null;
+  render();
+}
+
+function openLink(id){
+  const row = rows.find(r=>r.id===id);
+  toast('→ opens ' + row.fix.href + ' (stays open here until the fact is fixed)');
+}
+
+function openEnterCost(id){ enterCostFor = id; render(); }
+
+function saveCost(id){
+  const val = document.getElementById('costamt_'+id);
+  const n = val ? parseFloat(val.value) : NaN;
+  if (isNaN(n) || n <= 0) { toast('Enter an amount first'); return; }
+  toast('💰 Saved ' + money(n) + ' — closed');
+  rows = rows.filter(r=>r.id!==id);
+  expandedId = null; enterCostFor = null;
+  render();
+}
+
+function switchToEnterCost(id){
+  const row = rows.find(r=>r.id===id);
+  if (row && row.fix.also) { row.fix = { ...row.fix.also }; enterCostFor = id; render(); }
+}
+
+function rowActions(row){
+  if (row.fix.kind === 'none') {
+    return `<div class="actrow">
+      <button class="btn primary" onclick="resolve('${row.id}','dismiss')">✕ Dismiss</button>
+    </div>`;
+  }
+  if (row.fix.kind === 'confirm') {
+    return `<div class="actrow">
+      <button class="btn primary" onclick="resolve('${row.id}','done')">✓ ${row.fix.label}</button>
+      <button class="btn ghost" onclick="resolve('${row.id}','dismiss')">✕</button>
+    </div>`;
+  }
+  if (row.fix.kind === 'enter-cost' || enterCostFor === row.id) {
+    return `
+      <div class="entercost">
+        <input id="costamt_${row.id}" type="number" step="0.01" placeholder="$ per pack" />
+        <button class="btn primary" style="flex:none;padding:8px 12px" onclick="saveCost('${row.id}')">Save</button>
+      </div>
+      <div class="actrow"><button class="btn ghost" style="flex:1;width:auto" onclick="resolve('${row.id}','dismiss')">✕ Dismiss</button></div>`;
+  }
+  // link
+  return `<div class="actrow">
+      <button class="btn link" onclick="openLink('${row.id}')">${row.fix.label} →</button>
+      <button class="btn ghost" onclick="resolve('${row.id}','done')">✓</button>
+      <button class="btn ghost" onclick="resolve('${row.id}','dismiss')">✕</button>
+    </div>
+    ${row.fix.also ? `<div class="also" onclick="switchToEnterCost('${row.id}')">or: ${row.fix.also.label}</div>` : ''}`;
+}
+
+function render() {
+  const el = document.getElementById('screen');
+  const c = counts();
+  const total = rows.length;
+  const bad = rows.filter(r=>r.severity==='bad').length;
+  const warn = rows.filter(r=>r.severity==='warn').length;
+  const vis = visibleRows();
+
+  const chips = ['all', ...Object.keys(KIND_META)].map(k => {
+    const n = k === 'all' ? total : (c[k] || 0);
+    if (k !== 'all' && !n) return '';
+    const label = k === 'all' ? 'All' : KIND_META[k].label;
+    const ic = k === 'all' ? '📋' : KIND_META[k].ic;
+    return `<button class="kchip ${kindFilter===k?'on':''}" onclick="pickKind('${k}')">${ic} ${label} <span class="n">${n}</span></button>`;
+  }).join('');
+
+  const list = vis.length ? vis.map(r => {
+    const meta = KIND_META[r.kind];
+    const open = expandedId === r.id;
+    return `<div class="rowcard ${r.severity}" onclick="${open?'':`toggleRow('${r.id}')`}">
+      <div class="rowhead" onclick="toggleRow('${r.id}')">
+        <div class="ic">${meta.ic}</div>
+        <div class="body">
+          <div class="nm">${r.title}</div>
+          ${open ? '' : `<div class="why1">${r.why}</div>`}
+        </div>
+        <div class="chev">${open ? '▲' : '▼'}</div>
+      </div>
+      ${open ? `<div class="expand">
+        <div class="why">${r.why}</div>
+        ${rowActions(r)}
+      </div>` : ''}
+    </div>`;
+  }).join('') : `<div class="empty">
+      <div class="big">✅</div>
+      <h3>All clear</h3>
+      <p>Nothing of this kind needs you right now.</p>
+    </div>`;
+
+  el.innerHTML = `
+    <div class="topbar">
+      <button class="iconbtn" title="Back to Work">←</button>
+      <div class="titlewrap">
+        <div class="t1">Review inbox</div>
+        <div class="t2">${total} open</div>
+      </div>
+      <div class="sevpill">${bad?`<span class="bad">${bad}</span>`:''}${warn?`<span class="warn">${warn}</span>`:''}</div>
+    </div>
+    <div class="chiprow">${chips}</div>
+    <div class="body-pad">${list}</div>
+    <div class="toast" id="toast"></div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
