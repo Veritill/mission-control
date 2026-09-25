@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #316 — Price watch</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8; --bad: #8a3b3b; --bad-soft: #f6e4e4;
+    --blue: #2f5f8a; --blue-soft: #e7eff6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 700px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 980px; margin: 0 auto; }
+  .col { width: 340px; }
+  .col h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 340px; height: 700px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 6px; flex: none; }
+  .iconbtn { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 15px; cursor: pointer; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 14.5px; }
+  .titlewrap .t2 { font-size: 11px; color: var(--muted); }
+
+  .walkpill { margin: 0 12px 8px; flex: none; display: flex; align-items: center; gap: 8px; background: var(--blue-soft); color: var(--blue); border-radius: 999px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .walkpill .n { margin-left: auto; opacity: .85; }
+
+  .tabrow { display: flex; gap: 6px; padding: 0 12px 10px; flex: none; }
+  .tabbtn { flex: 1; padding: 8px 4px; border-radius: 10px; background: var(--chip); color: var(--chip-ink); border: none; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+  .tabbtn.on { background: var(--green); color: #fff; }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 2px 12px 14px; }
+
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+  .cardtitle { font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 6px; }
+  .bigrow { display: flex; justify-content: space-between; align-items: baseline; }
+  .bignum { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .bignum.up { color: var(--bad); }
+  .bignum.down { color: var(--green); }
+  .sub { font-size: 11.5px; color: var(--muted); }
+  .totalsrow { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--rule); font-size: 12.5px; }
+  .totalsrow .amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .sectionhead { font-size: 12px; font-weight: 800; color: var(--ink); margin: 12px 0 6px; display: flex; align-items: center; gap: 5px; }
+
+  .itemrow { display: flex; align-items: center; gap: 9px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px 11px; margin-bottom: 8px; }
+  .itemrow .ic { font-size: 19px; flex: none; width: 22px; text-align: center; }
+  .itemrow .body { flex: 1; min-width: 0; }
+  .itemrow .nm { font-weight: 700; font-size: 13px; }
+  .itemrow .meta { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .itemrow .gap { text-align: right; flex: none; }
+  .itemrow .gap .amt { font-weight: 800; font-size: 13px; font-variant-numeric: tabular-nums; }
+  .itemrow .gap.up .amt { color: var(--bad); }
+  .itemrow .gap.down .amt { color: var(--green); }
+  .itemrow .gap .arrow { font-size: 12px; }
+
+  .basketrow { display: flex; align-items: center; gap: 9px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px 11px; margin-bottom: 8px; cursor: pointer; }
+  .basketrow .ic { font-size: 19px; flex: none; width: 22px; text-align: center; }
+  .basketrow .body { flex: 1; min-width: 0; }
+  .basketrow .nm { font-weight: 700; font-size: 13px; }
+  .basketrow .meta { font-size: 11px; color: var(--muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .basketrow .price { font-size: 12.5px; font-weight: 700; flex: none; font-variant-numeric: tabular-nums; }
+  .basketrow .rm { flex: none; width: 26px; height: 26px; border-radius: 999px; border: none; background: var(--bad-soft); color: var(--bad); font-size: 13px; font-weight: 800; cursor: pointer; }
+
+  .addbtn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; background: var(--green-soft); color: var(--green); border: 1.5px dashed var(--green); border-radius: 12px; padding: 10px; font-weight: 700; font-size: 13px; cursor: pointer; margin-bottom: 10px; }
+
+  .empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 30px; text-align: center; }
+  .empty .big { font-size: 40px; }
+  .empty h3 { margin: 0; font-size: 15px; }
+  .empty p { margin: 0; font-size: 12px; color: var(--muted); }
+
+  .sheet-overlay { position: absolute; inset: 0; background: rgba(10,14,12,.45); display: none; align-items: flex-end; z-index: 5; }
+  .sheet-overlay.open { display: flex; }
+  .sheet { background: var(--card); width: 100%; border-radius: 16px 16px 0 0; padding: 14px 14px 16px; max-height: 88%; overflow-y: auto; box-shadow: 0 -8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; }
+  .sheet .grabber { width: 36px; height: 4px; border-radius: 3px; background: var(--rule); margin: 0 auto 10px; flex: none; }
+  .sheet h3 { font-size: 15px; margin: 0 0 4px; display: flex; align-items: center; gap: 6px; }
+  .sheet .sub { font-size: 11.5px; color: var(--muted); margin: 0 0 10px; }
+
+  .searchbox { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; font-size: 13px; font-family: inherit; margin-bottom: 10px; }
+  .pickrow { display: flex; align-items: center; gap: 9px; padding: 8px 4px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+  .pickrow:last-child { border-bottom: none; }
+  .pickrow .ic { font-size: 17px; flex: none; }
+  .pickrow .nm { flex: 1; font-size: 13px; font-weight: 600; }
+  .pickrow .add { flex: none; background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+  .pickrow.done .add { background: var(--chip); color: var(--muted); }
+
+  .walkline { display: flex; align-items: center; gap: 9px; padding: 9px 4px; border-bottom: 1px solid var(--rule); }
+  .walkline:last-child { border-bottom: none; }
+  .walkline .ic { font-size: 17px; flex: none; }
+  .walkline .body { flex: 1; min-width: 0; }
+  .walkline .nm { font-weight: 700; font-size: 13px; }
+  .walkline .meta { font-size: 11px; color: var(--muted); }
+  .walkline .price { font-size: 12.5px; font-weight: 700; flex: none; font-variant-numeric: tabular-nums; }
+  .walkline .cbx { width: 22px; height: 22px; border-radius: 999px; border: 1.5px solid var(--rule); flex: none; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .walkline .cbx.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .entercost { display: flex; gap: 6px; margin: 6px 4px 10px; }
+  .entercost input { flex: 1; padding: 8px 9px; border: 1px solid var(--rule); border-radius: 8px; font-size: 13px; font-family: inherit; }
+
+  .btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .actrow { display: flex; gap: 8px; margin-top: 8px; }
+
+  .toast { position: absolute; left: 12px; right: 12px; bottom: 16px; background: var(--ink); color: #fff; padding: 9px 12px; border-radius: 10px; font-size: 12.5px; font-weight: 600; text-align: center; z-index: 20; opacity: 0; transform: translateY(6px); transition: opacity .18s, transform .18s; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .snap { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; }
+  .snap .lft { display: flex; align-items: center; gap: 8px; }
+  .snap .ic { font-size: 18px; }
+  .snap .nm { font-weight: 700; font-size: 13px; }
+  .snap .figs { font-size: 11px; color: var(--muted); }
+  .snap .chev { color: var(--muted); }
+
+  .foot { max-width: 980px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 30%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #316 — Price watch</h1>
+<div class="lede">Issue #10/#11 built the basket, competitor observations and the comparison card
+  (<code>GET /price-watch/today</code>) and the weekly tag-walk task (<code>POST /price-watch/walk</code>,
+  <code>POST /tasks/:id/walk</code>) with no screen anywhere. This mockup is that screen. Fictional example
+  data only. Live demo: switch Compare/Basket, tap the walk pill, add or remove a basket item, tap a
+  dearer/cheaper row.</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Pricing → 🏷️ card (the entry point)</h2>
+    <div class="phone">
+      <div class="screen" id="entry"><!-- rendered by script --></div>
+    </div>
+    <div class="tap-hint">tap the card to open Price watch</div>
+  </div>
+  <div class="col">
+    <h2>Price watch</h2>
+    <div class="phone">
+      <div class="screen" id="screen"><!-- rendered by script --></div>
+    </div>
+    <div class="tap-hint">tap 🚶 for the walk, + to add, ✕ to remove, a row to see its gap</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>"Keep our prices in line with named competitors": the Compare tab is the
+      verdict, the Basket tab is what feeds it, the walk pill is how a fresh tag gets recorded. One job, three
+      necessary views of it — never an unrelated second function bolted on.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Every row is one line (name + gap, or name + competitors chip); the "why"
+      for a gap is the competitor name and dollar figure only, nothing longer.</td></tr>
+    <tr><td>3. Icon on every row</td><td>🍅🧅🥛🍚🫘🫓 per item (the same family pictures Products/Ingredients
+      already use), 📈 dearer / 📉 cheaper, 🚶 the walk, 🏷️ the entry card — same icon, same meaning,
+      everywhere.</td></tr>
+    <tr><td>4. ≤7 things on a phone</td><td>Compare tab: the summary card (1) + up to 5 dearer/cheaper rows
+      before scrolling (2). Basket tab: the walk pill (1) + Add button (2) + up to 5 basket rows (3). Nothing
+      computed beyond what already scrolls into view.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>The whole screen is one read: <code>GET /price-watch/today</code>
+      for Compare (already the finished comparisonCard arithmetic) and <code>GET /price-watch/basket</code> +
+      <code>GET /price-watch/summary</code> for Basket — no client-side recomputation of a ceiling or a gap,
+      the server already did it.</td></tr>
+    <tr><td>6. A way back</td><td>← at top returns to Pricing, named there; Price watch is one tap from
+      Pricing, which is one tap from Work.</td></tr>
+    <tr><td>7. One home per function</td><td>This is the ONE screen for the basket, the comparison and the
+      walk link — Pricing's card is a teaser, never a second editor; My tasks keeps showing the walk task in
+      its own queue as it does every other task, this screen's pill just jumps straight to it.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>The entry is a card on the existing Pricing screen (rule 8:
+      a card before a new screen), and the walk itself opens as a bottom sheet here rather than a fourth
+      screen, reusing the exact per-line record shape <code>POST /tasks/:id/walk</code> already
+      supports.</td></tr>
+  </table>
+</div>
+
+<div class="foot">
+  <h2>Field map (matches priceWatch.ts / routes/priceWatch.ts today)</h2>
+  <table class="checktable">
+    <tr><td>Compare tab</td><td><code>GET /price-watch/today</code> → <code>card</code>: basketCount,
+      comparedCount, dearer[]/cheaper[] (id, name, baseUnit, ourPrice, competitor, competitorPrice, gapUsd,
+      gapPct, icon), basketTotal, competitorTotal, lastWalkDate.</td></tr>
+    <tr><td>Basket tab</td><td><code>GET /price-watch/basket</code> (rows to edit) + <code>GET
+      /price-watch/summary</code> (current price + per-competitor latest/ceiling for the meta line);
+      <code>POST</code>/<code>PATCH /price-watch/basket[/:id]</code> add/edit, no delete route today — the
+      mockup's ✕ deactivates (<code>active:false</code>), matching what PATCH already accepts, rather than a
+      hard delete the API does not offer.</td></tr>
+    <tr><td>Add item picker</td><td>Searches the existing catalog (items) and the ingredient list the same way
+      Ingredients' own picker does; no new search endpoint — a real build reuses <code>GET /items?q=</code>.</td></tr>
+    <tr><td>Walk pill + sheet</td><td><code>POST /price-watch/walk</code> builds/refreshes the week's task;
+      the sheet lists its <code>lines[]</code> (name, competitor, done, price/unit if answered);
+      <code>POST /tasks/:id/walk</code> records one line by hand (a photo lane exists server-side too,
+      reusing the invoice reader — left out of this mockup's quick-entry sheet, since a camera capture flow
+      already has its own pattern in Load invoice and doesn't need re-designing here).</td></tr>
+  </table>
+</div>
+
+<script>
+const money = (n) => '$' + (Math.round(n*100)/100).toFixed(2);
+const ICONS = { tomatoes: '🍅', onions: '🧅', milk: '🥛', rice: '🍚', dal: '🫘', atta: '🫓', paneer: '🧀', ghee: '🧈' };
+
+let basket = [
+  { id: 'b1', icon: 'tomatoes', name: 'Tomatoes', baseUnit: 'lb', currentPrice: 1.49, competitors: ['Kroger', 'Patel Brothers'], matchMarginPct: 5, active: true },
+  { id: 'b2', icon: 'onions', name: 'Onions (yellow)', baseUnit: 'lb', currentPrice: 0.99, competitors: ['Kroger'], matchMarginPct: 5, active: true },
+  { id: 'b3', icon: 'milk', name: 'Whole milk, gallon', baseUnit: 'gal', currentPrice: 4.29, competitors: ['Kroger', 'Publix'], matchMarginPct: 3, active: true },
+  { id: 'b4', icon: 'rice', name: 'Basmati rice 20lb', baseUnit: 'lb', currentPrice: 1.65, competitors: ['Patel Brothers', 'India Bazaar'], matchMarginPct: 8, active: true },
+  { id: 'b5', icon: 'dal', name: 'Toor dal', baseUnit: 'lb', currentPrice: 1.89, competitors: ['Patel Brothers'], matchMarginPct: 8, active: true },
+  { id: 'b6', icon: 'atta', name: 'Atta, 20lb bag', baseUnit: 'lb', currentPrice: 0.72, competitors: ['India Bazaar'], matchMarginPct: 8, active: true },
+];
+
+let compare = {
+  basketCount: 24, comparedCount: 19,
+  basketTotal: 42.18, competitorTotal: 38.60,
+  dearer: [
+    { id: 'b4', icon: 'rice', name: 'Basmati rice 20lb', ourPrice: 1.65, competitor: 'Patel Brothers', competitorPrice: 1.42, gapUsd: 0.23, gapPct: 16.2 },
+    { id: 'b5', icon: 'dal', name: 'Toor dal', ourPrice: 1.89, competitor: 'Patel Brothers', competitorPrice: 1.75, gapUsd: 0.14, gapPct: 8.0 },
+    { id: 'b1', icon: 'tomatoes', name: 'Tomatoes', ourPrice: 1.49, competitor: 'Kroger', competitorPrice: 1.39, gapUsd: 0.10, gapPct: 7.2 },
+  ],
+  cheaper: [
+    { id: 'b6', icon: 'atta', name: 'Atta, 20lb bag', ourPrice: 0.72, competitor: 'India Bazaar', competitorPrice: 0.85, gapUsd: -0.13, gapPct: -15.3 },
+    { id: 'b2', icon: 'onions', name: 'Onions (yellow)', ourPrice: 0.99, competitor: 'Kroger', competitorPrice: 1.09, gapUsd: -0.10, gapPct: -9.2 },
+  ],
+  lastWalkDate: '2026-09-22',
+};
+
+let walk = {
+  week: '2026-09-22',
+  lines: [
+    { keyValueItemId: 'b1', name: 'Tomatoes', competitor: 'Kroger', done: true, price: 1.39, unit: 'lb' },
+    { keyValueItemId: 'b1', name: 'Tomatoes', competitor: 'Patel Brothers', done: true, price: 1.45, unit: 'lb' },
+    { keyValueItemId: 'b4', name: 'Basmati rice 20lb', competitor: 'Patel Brothers', done: true, price: 1.42, unit: 'lb' },
+    { keyValueItemId: 'b4', name: 'Basmati rice 20lb', competitor: 'India Bazaar', done: false },
+    { keyValueItemId: 'b5', name: 'Toor dal', competitor: 'Patel Brothers', done: true, price: 1.75, unit: 'lb' },
+    { keyValueItemId: 'b3', name: 'Whole milk, gallon', competitor: 'Kroger', done: false },
+    { keyValueItemId: 'b3', name: 'Whole milk, gallon', competitor: 'Publix', done: false },
+    { keyValueItemId: 'b6', name: 'Atta, 20lb bag', competitor: 'India Bazaar', done: true, price: 0.85, unit: 'lb' },
+  ],
+};
+
+const CATALOG_PICKS = [
+  { icon: 'paneer', name: 'Paneer 1lb', already: false },
+  { icon: 'ghee', name: 'Ghee, 32oz', already: false },
+  { icon: 'milk', name: 'Whole milk, gallon', already: true },
+];
+
+let tab = 'compare';
+let walkOpen = false;
+let addOpen = false;
+let enterFor = null; // walk line key currently showing the amount field
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._h); toast._h = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function setTab(t){ tab = t; render(); }
+function openWalk(){ walkOpen = true; render(); }
+function closeWalk(){ walkOpen = false; enterFor = null; render(); }
+function openAdd(){ addOpen = true; render(); }
+function closeAdd(){ addOpen = false; render(); }
+
+function removeItem(id, ev){
+  ev.stopPropagation();
+  basket = basket.filter(b => b.id !== id);
+  toast('✕ Removed from the basket');
+  render();
+}
+
+function addPick(name){
+  toast('🏷️ Added ' + name + ' to the basket');
+  closeAdd();
+}
+
+function walkKey(l){ return l.keyValueItemId + '::' + l.competitor; }
+function findWalkLine(key){ return walk.lines.find(l => walkKey(l) === key); }
+function openEnter(key){ enterFor = key; render(); }
+function saveWalkLine(key){
+  const l = findWalkLine(key);
+  if (!l) return;
+  const val = document.getElementById('wamt_' + key);
+  const n = val ? parseFloat(val.value) : NaN;
+  if (isNaN(n) || n <= 0) { toast('Enter a price first'); return; }
+  l.done = true; l.price = n; l.unit = basket.find(b=>b.id===l.keyValueItemId)?.baseUnit || 'unit';
+  enterFor = null;
+  toast('✓ Recorded ' + money(n) + ' at ' + l.competitor);
+  render();
+}
+
+function renderEntry(){
+  const el = document.getElementById('entry');
+  el.innerHTML = `
+    <div class="topbar">
+      <button class="iconbtn" title="Back to Work">←</button>
+      <div class="titlewrap"><div class="t1">Pricing</div><div class="t2">shelf price suggestions</div></div>
+    </div>
+    <div class="body-pad">
+      <div class="card" style="cursor:pointer" onclick="document.querySelectorAll('.col')[1].scrollIntoView({behavior:'smooth'})">
+        <div class="snap" style="padding:0">
+          <div class="lft"><div class="ic">🏷️</div><div>
+            <div class="nm">Price watch</div>
+            <div class="figs">3 dearer, 2 cheaper of 19 compared · basket ${money(compare.basketTotal)} vs ${money(compare.competitorTotal)}</div>
+          </div></div>
+          <div class="chev">›</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cardtitle">Suggested shelf prices</div>
+        <div class="sub">4 items ready to review — this screen is unchanged by #316</div>
+      </div>
+    </div>
+  `;
+}
+
+function render() {
+  renderEntry();
+  const el = document.getElementById('screen');
+  const walkDone = walk.lines.filter(l => l.done).length;
+  const gapClass = compare.basketTotal > compare.competitorTotal ? 'up' : 'down';
+  const gapAmt = compare.basketTotal - compare.competitorTotal;
+
+  const compareBody = `
+    <div class="card">
+      <div class="cardtitle">Basket vs best competitor price</div>
+      <div class="bigrow">
+        <div class="bignum ${gapClass}">${gapAmt >= 0 ? '+' : ''}${money(gapAmt)}</div>
+        <div class="sub">${compare.comparedCount} of ${compare.basketCount} compared</div>
+      </div>
+      <div class="totalsrow"><span>Our basket</span><span class="amt">${money(compare.basketTotal)}</span></div>
+      <div class="totalsrow"><span>Best competitor</span><span class="amt">${money(compare.competitorTotal)}</span></div>
+    </div>
+    <div class="sectionhead">📈 Dearer than the best price (${compare.dearer.length})</div>
+    ${compare.dearer.map(r => `
+      <div class="itemrow">
+        <div class="ic">${ICONS[r.icon]}</div>
+        <div class="body"><div class="nm">${r.name}</div><div class="meta">vs ${r.competitor} ${money(r.competitorPrice)}</div></div>
+        <div class="gap up"><div class="amt">+${money(r.gapUsd)}</div><div class="arrow">${r.gapPct}%</div></div>
+      </div>`).join('')}
+    <div class="sectionhead">📉 Cheaper than the best price (${compare.cheaper.length})</div>
+    ${compare.cheaper.map(r => `
+      <div class="itemrow">
+        <div class="ic">${ICONS[r.icon]}</div>
+        <div class="body"><div class="nm">${r.name}</div><div class="meta">vs ${r.competitor} ${money(r.competitorPrice)}</div></div>
+        <div class="gap down"><div class="amt">${money(r.gapUsd)}</div><div class="arrow">${r.gapPct}%</div></div>
+      </div>`).join('')}
+  `;
+
+  const basketBody = basket.length ? `
+    <button class="addbtn" onclick="openAdd()">+ Add a basket item</button>
+    ${basket.map(b => `
+      <div class="basketrow" onclick="toast('${b.name} — edit competitors / margin (not in this mockup)')">
+        <div class="ic">${ICONS[b.icon]}</div>
+        <div class="body">
+          <div class="nm">${b.name}</div>
+          <div class="meta">vs ${b.competitors.join(', ')} · ${b.matchMarginPct}% match margin</div>
+        </div>
+        <div class="price">${money(b.currentPrice)}/${b.baseUnit}</div>
+        <button class="rm" onclick="removeItem('${b.id}', event)">✕</button>
+      </div>`).join('')}
+  ` : `
+    <button class="addbtn" onclick="openAdd()">+ Add a basket item</button>
+    <div class="empty"><div class="big">🏷️</div><h3>No items watched yet</h3><p>Add the things customers remember — tomatoes, onions, milk, rice.</p></div>
+  `;
+
+  el.innerHTML = `
+    <div class="topbar">
+      <button class="iconbtn" title="Back to Pricing">←</button>
+      <div class="titlewrap"><div class="t1">Price watch</div><div class="t2">${basket.length} items watched</div></div>
+    </div>
+    <div class="walkpill" onclick="openWalk()">🚶 This week's tag walk <span class="n">${walkDone} of ${walk.lines.length} done ›</span></div>
+    <div class="tabrow">
+      <button class="tabbtn ${tab==='compare'?'on':''}" onclick="setTab('compare')">Compare</button>
+      <button class="tabbtn ${tab==='basket'?'on':''}" onclick="setTab('basket')">Basket</button>
+    </div>
+    <div class="body-pad">${tab === 'compare' ? compareBody : basketBody}</div>
+
+    <div class="sheet-overlay ${walkOpen?'open':''}">
+      <div class="sheet">
+        <div class="grabber"></div>
+        <h3>🚶 This week's tag walk</h3>
+        <div class="sub">Week of ${walk.week} · ${walkDone} of ${walk.lines.length} tags recorded</div>
+        ${walk.lines.map(l => {
+          const key = walkKey(l);
+          const showEnter = enterFor === key;
+          return `<div class="walkline">
+            <div class="cbx ${l.done?'on':''}">${l.done?'✓':''}</div>
+            <div class="body"><div class="nm">${l.name}</div><div class="meta">${l.competitor}</div></div>
+            ${l.done ? `<div class="price">${money(l.price)}/${l.unit}</div>` : `<button class="btn" style="flex:none;padding:6px 10px;font-size:11.5px" onclick="openEnter('${key}')">Enter</button>`}
+          </div>
+          ${showEnter ? `<div class="entercost"><input id="wamt_${key}" type="number" step="0.01" placeholder="$ per ${basket.find(b=>b.id===l.keyValueItemId)?.baseUnit || 'unit'}" /><button class="btn" style="flex:none;padding:8px 12px" onclick="saveWalkLine('${key}')">Save</button></div>` : ''}`;
+        }).join('')}
+        <div class="actrow"><button class="btn ghost" onclick="closeWalk()">Close</button></div>
+      </div>
+    </div>
+
+    <div class="sheet-overlay ${addOpen?'open':''}">
+      <div class="sheet">
+        <div class="grabber"></div>
+        <h3>🏷️ Add a basket item</h3>
+        <div class="sub">Search the catalog — the things customers remember</div>
+        <input class="searchbox" placeholder="Search products…" />
+        ${CATALOG_PICKS.map(p => `
+          <div class="pickrow ${p.already?'done':''}">
+            <div class="ic">${ICONS[p.icon]}</div>
+            <div class="nm">${p.name}</div>
+            <button class="add" ${p.already?'disabled':''} onclick="addPick('${p.name}')">${p.already?'Watched':'+ Add'}</button>
+          </div>`).join('')}
+        <div class="actrow"><button class="btn ghost" onclick="closeAdd()">Close</button></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
