@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #286 — Products data desk (owner/admin density)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --warn: #8a6a1f; --warn-soft: #f7efd8; --bad: #8a3b3b; --bad-soft: #f6e4e4;
+    --blue: #2f5f8a; --blue-soft: #e7eff6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 14px/1.45 "Source Sans 3", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 720px; margin: 0 auto 22px; text-align: center; }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  .section { margin: 0 auto 30px; }
+  .section h2 { font-size: 14px; margin: 0 0 3px; color: var(--ink); }
+  .section .sub { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+  .badge { display: inline-block; font-size: 10.5px; padding: 2px 8px; border-radius: 999px; font-weight: 700;
+    background: var(--green-soft); color: var(--green); margin-right: 6px; }
+
+  /* laptop chrome */
+  .laptop { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0,0,0,.16); }
+  .chrome { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #e9e7dd; border-bottom: 1px solid var(--rule); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #d8d4c6; }
+  .chrome .url { margin-left: 10px; font-size: 11px; color: var(--muted); background: var(--paper); border-radius: 6px;
+    padding: 3px 10px; flex: 1; max-width: 320px; }
+
+  .shell { display: flex; align-items: center; gap: 4px; padding: 8px 14px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .shell .tab { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--muted); padding: 5px 10px; border-radius: 8px; }
+  .shell .tab.on { background: var(--green-soft); color: var(--green); font-weight: 700; }
+  .shell .gear { margin-left: auto; font-size: 15px; color: var(--muted); }
+
+  .toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); }
+  .input { padding: 7px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); font-size: 12.5px; font-family: inherit; color: var(--ink); }
+  .search { flex: 1; min-width: 200px; max-width: 320px; }
+  .laneset { display: flex; gap: 5px; flex-wrap: wrap; }
+  .lane { font-size: 11px; padding: 4px 9px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-weight: 600; }
+  .lane.on { background: var(--green); color: #fff; }
+  .spacer { flex: 1; }
+  .btn { display: inline-flex; align-items: center; gap: 5px; background: var(--green); color: #fff; border: none;
+    border-radius: 8px; padding: 7px 12px; font-weight: 700; font-size: 12px; cursor: pointer; white-space: nowrap; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--rule); }
+  .filterchip { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-soft); color: var(--blue);
+    font-size: 11.5px; font-weight: 700; padding: 5px 10px; border-radius: 999px; }
+  .filterchip .x { cursor: pointer; opacity: .7; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th { text-align: left; padding: 8px 10px; font-size: 10.5px; text-transform: uppercase; letter-spacing: .03em;
+    color: var(--muted); border-bottom: 1px solid var(--rule); white-space: nowrap; background: #f6f4ec; position: sticky; top: 0; }
+  tbody td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: middle; white-space: nowrap; }
+  tbody tr.item:hover { background: #fafaf5; }
+  .name { display: flex; align-items: center; gap: 8px; }
+  .name .ic { font-size: 16px; width: 20px; text-align: center; flex: none; }
+  .name .t { font-weight: 700; font-size: 12.5px; }
+  .name .s { font-size: 10.5px; color: var(--muted); }
+  .mono { font-variant-numeric: tabular-nums; }
+  .chev { cursor: pointer; color: var(--muted); font-size: 11px; }
+  .status { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .status.ok { background: var(--green-soft); color: var(--green); }
+  .status.needs { background: var(--bad-soft); color: var(--bad); }
+  .status.optional { background: var(--warn-soft); color: var(--warn); }
+  .status.stale { background: var(--chip); color: var(--chip-ink); }
+  .kitchen { font-size: 11px; color: var(--muted); }
+  .prov { font-size: 12px; }
+  tr.subrow td { background: #f4f6f2; padding: 6px 10px; border-bottom: 1px solid var(--rule); font-size: 11.5px; }
+  tr.subrow td.first { padding-left: 44px; color: var(--muted); font-style: normal; }
+  tr.subhead td { background: #eef1ea; font-size: 10px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); padding: 5px 10px; }
+  tr.subhead td.first { padding-left: 44px; }
+  .vname { font-weight: 700; }
+  .vdesc { color: var(--muted); }
+  tr.selected td { background: var(--green-soft); }
+  input[type=checkbox] { width: 14px; height: 14px; accent-color: var(--green); }
+
+  .editcell { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 2px solid var(--green);
+    border-radius: 7px; padding: 3px 8px; box-shadow: 0 0 0 3px var(--green-soft); }
+  .editcell input { border: none; outline: none; font: inherit; font-weight: 700; width: 64px; font-variant-numeric: tabular-nums; }
+  .editcell .ok { color: var(--green); cursor: pointer; }
+  .editcell .no { color: var(--bad); cursor: pointer; }
+  .caret { display: inline-block; width: 1px; height: 13px; background: var(--ink); animation: blink 1s steps(1) infinite; vertical-align: middle; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hint { font-size: 11px; color: var(--muted); margin-top: 6px; padding: 0 14px 10px; }
+
+  .bulkbar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: var(--green-soft);
+    border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+  .bulkbar b { color: var(--green); font-size: 12.5px; }
+  .bulkbar select, .bulkbar .input { font-size: 12px; }
+
+  .foot-legend { max-width: 1240px; margin: 6px auto 0; font-size: 11.5px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+  .foot-legend span { white-space: nowrap; }
+
+  /* phone */
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+  .phone { width: 300px; height: 620px; background: var(--paper); border-radius: 24px; border: 8px solid #23261f;
+    overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); flex: none; }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .ptop { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; flex: none; }
+  .back { font-size: 13px; color: var(--muted); }
+  .ptop h1 { font-size: 15px; margin: 0; font-weight: 700; flex: 1; }
+  .psearch { padding: 0 12px 8px; flex: none; }
+  .plist { flex: 1; overflow-y: auto; padding: 0 12px 14px; }
+  .prow { display: flex; align-items: center; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .prow .ic { font-size: 17px; width: 22px; text-align: center; flex: none; }
+  .prow .t1 { font-weight: 700; font-size: 12.5px; }
+  .prow .t2 { font-size: 10.5px; color: var(--muted); }
+  .prow .right { margin-left: auto; text-align: right; flex: none; }
+  .prow .right .n { font-weight: 700; font-size: 12px; }
+  .prow .chev { color: var(--muted); font-size: 11px; margin-left: 4px; }
+  .pexpand { background: #f4f6f2; border-radius: 10px; margin: 4px 0 8px; padding: 8px 10px; font-size: 11.5px; }
+  .pexpand .frow { display: flex; justify-content: space-between; padding: 3px 0; }
+  .pexpand .frow .k { color: var(--muted); }
+  .pexpand .actrow { display: flex; gap: 6px; margin-top: 8px; }
+  .pexpand .btn { flex: 1; font-size: 11px; padding: 6px; }
+  .colh { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); text-align: center; margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 class="page">Mockup #286 — Products data desk</h1>
+<div class="lede">Issue #286 (split of #283): one screen for an Owner/Admin to check and edit product facts and
+  vendor lines, fewest taps — every item fact in one row, vendor lines as sub-rows, edit in place, bulk-edit on
+  a selection, a vendor filter reusing the same grid. Fictional example data only.</div>
+
+<!-- A — default grid, one item expanded -->
+<div class="section">
+  <h2><span class="badge">A</span>Grid — every item fact in one row, vendor lines expanded</h2>
+  <p class="sub">Same Products screen (screens.md §4) — lanes and search unchanged; the row itself now carries the
+    full fact set instead of hiding it behind a detail page. Tapping ▾ opens Basmati Rice's two vendor lines inline.</p>
+  <div class="laptop">
+    <div class="chrome"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">veritill.app/items</div></div>
+    <div class="shell">
+      <div class="tab">📅 Today</div><div class="tab">🧰 Work</div><div class="tab">📚 Books</div>
+      <div class="tab on">🧺 Products</div><div class="gear">⚙</div>
+    </div>
+    <div class="toolbar">
+      <input class="input search" placeholder="🔍 Search name, barcode, PLU, vendor code, brand…" />
+      <div class="laneset">
+        <span class="lane">⚠ Needs data 3</span><span class="lane">◌ Optional 2</span>
+        <span class="lane">🕰 Stale 1</span><span class="lane on">All 10</span>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn ghost">Vendor ▾</button>
+      <button class="btn ghost">Sort: name ▾</button>
+      <button class="btn">+ New item</button>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr>
+        <th></th><th>Item</th><th>Brand</th><th>Department / shelf</th><th>Storage</th><th>On-hand</th>
+        <th>Cost/base</th><th>Price</th><th>Last vendor</th><th>Last bought</th><th>Status</th><th></th>
+      </tr></thead>
+      <tbody>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🍚</span><div><div class="t">Basmati Rice 20lb</div><div class="s">2 vendor lines</div></div></div></td>
+          <td>Kohinoor</td><td>Grocery / Grains &amp; rice</td><td>📦 dry</td>
+          <td class="mono">34 bag</td><td class="mono">$0.048/oz</td><td class="mono">$0.079/oz</td>
+          <td>Aadya Foods</td><td>3d ago</td>
+          <td><span class="status ok">⭐ complete</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="subhead"><td class="first" colspan="1">Vendor</td><td>SKU</td><td colspan="2">Printed description</td><td>Pack</td><td>Cost/base</td><td>Catalog price</td><td>Last bought</td><td colspan="2">Provenance</td></tr>
+        <tr class="subrow">
+          <td class="first"></td><td class="vname">Aadya Foods</td><td class="vdesc" colspan="2">"BASMATI RICE 20LB PREM"</td>
+          <td class="mono">1 × 20 lb</td><td class="mono">$0.048/oz</td><td class="mono">$0.052/oz</td><td>3d ago</td>
+          <td colspan="2" class="prov">📄 stated</td>
+        </tr>
+        <tr class="subrow">
+          <td class="first"></td><td class="vname">ATL RRK</td><td class="vdesc" colspan="2">"RICE BASMATI 20#"</td>
+          <td class="mono">1 × 20 lb</td><td class="mono">$0.051/oz</td><td class="mono">$0.055/oz</td><td>41d ago</td>
+          <td colspan="2" class="prov">✨ guess</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🧀</span><div><div class="t">Paneer 2lb block</div><div class="s">1 vendor line</div></div></div></td>
+          <td>Verka</td><td>Dairy / Cheese &amp; paneer</td><td>🧊 cooler</td>
+          <td class="mono">12 ea</td><td class="mono">$2.10/lb</td><td class="mono">$3.49/lb</td>
+          <td>HYD Wholesale</td><td>yesterday</td>
+          <td><span class="status needs">⚠ needs data</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🌶️</span><div><div class="t">Dried Red Chilli 5lb</div><div class="s">3 vendor lines</div></div></div></td>
+          <td>—</td><td>Grocery / Spices</td><td>📦 dry</td>
+          <td class="mono">8 bag</td><td class="mono">$0.31/oz</td><td class="mono">$0.49/oz</td>
+          <td>RD Distributors</td><td>12d ago</td>
+          <td><span class="status optional">◌ optional gap</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🍗</span><div><div class="t">Chicken Thigh, bone-in case</div><div class="s">1 vendor line</div></div></div></td>
+          <td>—</td><td>Meat &amp; seafood / Poultry</td><td>❄️ freezer</td>
+          <td class="mono">6 case</td><td class="mono">$1.89/lb</td><td class="kitchen">🍳 kitchen-use</td>
+          <td>RD Distributors</td><td>today</td>
+          <td><span class="status ok">⭐ complete</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🫓</span><div><div class="t">Naan, house-made 6pk</div><div class="s">house-made</div></div></div></td>
+          <td>—</td><td>Bakery / Bread</td><td>🧊 cooler</td>
+          <td class="mono">40 ea</td><td class="mono">—</td><td class="mono">$3.99</td>
+          <td>—</td><td>—</td>
+          <td><span class="status ok">⭐ complete</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🧅</span><div><div class="t">Yellow Onion 25lb bag</div><div class="s">2 vendor lines</div></div></div></td>
+          <td>—</td><td>Produce / Onions &amp; roots</td><td>📦 dry</td>
+          <td class="mono">5 bag</td><td class="mono">$0.024/lb</td><td class="mono">$0.039/lb</td>
+          <td>OM Produce</td><td>today</td>
+          <td><span class="status needs">⚠ needs data</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🍯</span><div><div class="t">Ghee, jarred 32oz</div><div class="s">2 vendor lines</div></div></div></td>
+          <td>Nanak</td><td>Grocery / Oils &amp; ghee</td><td>📦 dry</td>
+          <td class="mono">22 ea</td><td class="mono">$0.31/oz</td><td class="mono">$0.49/oz</td>
+          <td>Aadya Foods</td><td>62d ago</td>
+          <td><span class="status stale">🕰 not bought 60d</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🥛</span><div><div class="t">Whole Milk, gallon</div><div class="s">1 vendor line</div></div></div></td>
+          <td>Borden</td><td>Dairy / Milk</td><td>🧊 cooler</td>
+          <td class="mono">14 ea</td><td class="mono">$2.79</td><td class="mono">$4.29</td>
+          <td>RD Distributors</td><td>yesterday</td>
+          <td><span class="status ok">⭐ complete</span></td>
+          <td class="chev">▾</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🌾</span><div><div class="t">Toor Dal 4lb bag</div><div class="s">2 vendor lines</div></div></div></td>
+          <td>Laxmi</td><td>Grocery / Lentils &amp; dal</td><td>📦 dry</td>
+          <td class="mono">18 bag</td><td class="mono">$0.062/oz</td><td class="mono">$0.099/oz</td>
+          <td>HYD Wholesale</td><td>5d ago</td>
+          <td><span class="status ok">⭐ complete</span></td>
+          <td class="chev">▾</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- B — cell edited in place -->
+<div class="section">
+  <h2><span class="badge">B</span>A cell, edited in place</h2>
+  <p class="sub">Tap a fact, it becomes an input right there — no drawer, no page. Same row, same screen.</p>
+  <div class="laptop" style="max-width:900px;margin:0 auto;">
+    <div class="chrome"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">veritill.app/items</div></div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th></th><th>Item</th><th>Brand</th><th>Department / shelf</th><th>Storage</th><th>On-hand</th><th>Cost/base</th><th>Price</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🧀</span><div><div class="t">Paneer 2lb block</div><div class="s">1 vendor line</div></div></div></td>
+          <td>Verka</td><td>Dairy / Cheese &amp; paneer</td><td>🧊 cooler</td>
+          <td class="mono">12 ea</td><td class="mono">$2.10/lb</td>
+          <td><span class="editcell"><input value="3.79" /> /lb<span class="caret"></span><span class="ok">✓</span><span class="no">✕</span></span></td>
+          <td><span class="status needs">⚠ needs data</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="hint">Enter saves · Esc cancels · the edit posts the same door the item detail page already uses — one write path, not two.</div>
+  </div>
+</div>
+
+<!-- C — bulk edit on selection -->
+<div class="section">
+  <h2><span class="badge">C</span>Three rows selected — column bulk-edit</h2>
+  <p class="sub">Check rows, pick a column, set one value, apply to the selection only — the same bulk door Products already has, not a second grid.</p>
+  <div class="laptop">
+    <div class="chrome"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">veritill.app/items</div></div>
+    <div class="bulkbar">
+      <b>3 selected</b>
+      <select class="input"><option>Set column: Department / shelf</option></select>
+      <span>to</span>
+      <select class="input"><option>Grocery / Grains &amp; rice</option></select>
+      <button class="btn">Apply to 3</button>
+      <button class="btn ghost">Cancel</button>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr><th></th><th>Item</th><th>Brand</th><th>Department / shelf</th><th>Storage</th><th>On-hand</th><th>Cost/base</th><th>Price</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr class="item selected">
+          <td><input type="checkbox" checked /></td>
+          <td><div class="name"><span class="ic">🍚</span><div class="t">Basmati Rice 20lb</div></div></td>
+          <td>Kohinoor</td><td>Grocery / Grains &amp; rice</td><td>📦 dry</td>
+          <td class="mono">34 bag</td><td class="mono">$0.048/oz</td><td class="mono">$0.079/oz</td>
+          <td><span class="status ok">⭐ complete</span></td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🧀</span><div class="t">Paneer 2lb block</div></div></td>
+          <td>Verka</td><td>Dairy / Cheese &amp; paneer</td><td>🧊 cooler</td>
+          <td class="mono">12 ea</td><td class="mono">$2.10/lb</td><td class="mono">$3.49/lb</td>
+          <td><span class="status needs">⚠ needs data</span></td>
+        </tr>
+        <tr class="item selected">
+          <td><input type="checkbox" checked /></td>
+          <td><div class="name"><span class="ic">🍯</span><div class="t">Ghee, jarred 32oz</div></div></td>
+          <td>Nanak</td><td>Grocery / Oils</td><td>📦 dry</td>
+          <td class="mono">22 ea</td><td class="mono">$0.31/oz</td><td class="mono">$0.49/oz</td>
+          <td><span class="status stale">🕰 stale</span></td>
+        </tr>
+        <tr class="item selected">
+          <td><input type="checkbox" checked /></td>
+          <td><div class="name"><span class="ic">🌾</span><div class="t">Toor Dal 4lb bag</div></div></td>
+          <td>Laxmi</td><td>Grocery / Lentils</td><td>📦 dry</td>
+          <td class="mono">18 bag</td><td class="mono">$0.062/oz</td><td class="mono">$0.099/oz</td>
+          <td><span class="status ok">⭐ complete</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- D — vendor filter, same grid -->
+<div class="section">
+  <h2><span class="badge">D</span>Vendor filter — one vendor's catalog, same grid</h2>
+  <p class="sub">The vendor journey's "Bulk edit" link becomes a link to this screen with a vendor chip on —
+    no second grid to maintain. Rows pivot to that vendor's own offerings.</p>
+  <div class="laptop">
+    <div class="chrome"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="url">veritill.app/items?vendor=aadya-foods</div></div>
+    <div class="toolbar">
+      <input class="input search" placeholder="🔍 Search name, barcode, PLU, vendor code, brand…" />
+      <span class="filterchip">🏭 Vendor: Aadya Foods<span class="x">✕</span></span>
+      <span class="spacer"></span>
+      <button class="btn ghost">📖 Full catalog (46)</button>
+    </div>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead><tr>
+        <th></th><th>Item</th><th>SKU</th><th>Printed description</th><th>Pack</th>
+        <th>Cost/base</th><th>Catalog price</th><th>Last bought</th><th>Provenance</th>
+      </tr></thead>
+      <tbody>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🍚</span><div class="t">Basmati Rice 20lb</div></div></td>
+          <td class="mono">AF-2201</td><td class="vdesc">"BASMATI RICE 20LB PREM"</td>
+          <td class="mono">1 × 20 lb</td><td class="mono">$0.048/oz</td><td class="mono">$0.052/oz</td>
+          <td>3d ago</td><td class="prov">📄 stated</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🍯</span><div class="t">Ghee, jarred 32oz</div></div></td>
+          <td class="mono">AF-1180</td><td class="vdesc">"GHEE COW 32OZ JAR"</td>
+          <td class="mono">1 × 32 oz</td><td class="mono">$0.31/oz</td><td class="mono">$0.34/oz</td>
+          <td>62d ago</td><td class="prov">📄 stated</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🌶️</span><div class="t">Dried Red Chilli 5lb</div></div></td>
+          <td class="mono">AF-0847</td><td class="vdesc">"CHILLI DRY RED 5LB"</td>
+          <td class="mono">1 × 5 lb</td><td class="mono">$0.31/oz</td><td class="mono">$0.36/oz</td>
+          <td>12d ago</td><td class="prov">✨ guess</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">📦</span><div class="t"><em>not linked yet</em></div></div></td>
+          <td class="mono">AF-3390</td><td class="vdesc">"TURMERIC POWDER 1LB"</td>
+          <td class="mono">1 × 1 lb</td><td class="mono">—</td><td class="mono">$0.28/oz</td>
+          <td>—</td><td class="prov">🔗 link</td>
+        </tr>
+        <tr class="item">
+          <td><input type="checkbox" /></td>
+          <td><div class="name"><span class="ic">🌾</span><div class="t">Toor Dal 4lb bag</div></div></td>
+          <td class="mono">AF-1922</td><td class="vdesc">"DAL TOOR 4LB"</td>
+          <td class="mono">1 × 4 lb</td><td class="mono">$0.062/oz</td><td class="mono">$0.065/oz</td>
+          <td>5d ago</td><td class="prov">📄 stated</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<!-- E — phone -->
+<div class="section">
+  <h2><span class="badge">E</span>Phone — first line only, tap expands</h2>
+  <p class="sub">Same screen, mobile-first cut: one line per item, tap opens its facts inline. Seven things or fewer before scrolling.</p>
+  <div class="stage">
+    <div>
+      <p class="colh">Collapsed list</p>
+      <div class="phone">
+        <div class="screen">
+          <div class="ptop"><span class="back">‹ Today</span><h1>Products</h1></div>
+          <div class="psearch"><input class="input" style="width:100%" placeholder="🔍 Search or scan…" /></div>
+          <div class="plist">
+            <div class="prow"><span class="ic">🍚</span><div><div class="t1">Basmati Rice 20lb</div><div class="t2">Grocery · 📦 dry</div></div><div class="right"><div class="n">34 bag</div></div><span class="chev">▾</span></div>
+            <div class="prow"><span class="ic">🧀</span><div><div class="t1">Paneer 2lb block</div><div class="t2">⚠ needs data</div></div><div class="right"><div class="n">12 ea</div></div><span class="chev">▾</span></div>
+            <div class="prow"><span class="ic">🌶️</span><div><div class="t1">Dried Red Chilli 5lb</div><div class="t2">◌ optional gap</div></div><div class="right"><div class="n">8 bag</div></div><span class="chev">▾</span></div>
+            <div class="prow"><span class="ic">🍗</span><div><div class="t1">Chicken Thigh, case</div><div class="t2">❄️ freezer · 🍳</div></div><div class="right"><div class="n">6 case</div></div><span class="chev">▾</span></div>
+            <div class="prow"><span class="ic">🍯</span><div><div class="t1">Ghee, jarred 32oz</div><div class="t2">🕰 not bought 60d</div></div><div class="right"><div class="n">22 ea</div></div><span class="chev">▾</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="colh">Tap → row expands</p>
+      <div class="phone">
+        <div class="screen">
+          <div class="ptop"><span class="back">‹ Today</span><h1>Products</h1></div>
+          <div class="psearch"><input class="input" style="width:100%" placeholder="🔍 Search or scan…" /></div>
+          <div class="plist">
+            <div class="prow"><span class="ic">🍚</span><div><div class="t1">Basmati Rice 20lb</div><div class="t2">Grocery · 📦 dry</div></div><div class="right"><div class="n">34 bag</div></div><span class="chev">▴</span></div>
+            <div class="pexpand">
+              <div class="frow"><span class="k">Brand</span><span>Kohinoor</span></div>
+              <div class="frow"><span class="k">Cost / base</span><span>$0.048/oz</span></div>
+              <div class="frow"><span class="k">Price</span><span>$0.079/oz</span></div>
+              <div class="frow"><span class="k">Last vendor</span><span>Aadya Foods · 3d ago</span></div>
+              <div class="frow"><span class="k">Vendor lines</span><span>2 — Aadya Foods, ATL RRK</span></div>
+              <div class="actrow"><button class="btn ghost">✏ Edit</button><button class="btn">📖 Vendors (2)</button></div>
+            </div>
+            <div class="prow"><span class="ic">🧀</span><div><div class="t1">Paneer 2lb block</div><div class="t2">⚠ needs data</div></div><div class="right"><div class="n">12 ea</div></div><span class="chev">▾</span></div>
+            <div class="prow"><span class="ic">🌶️</span><div><div class="t1">Dried Red Chilli 5lb</div><div class="t2">◌ optional gap</div></div><div class="right"><div class="n">8 bag</div></div><span class="chev">▾</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="foot-legend">
+  <span><b>📦</b> dry · <b>🧊</b> cooler · <b>❄️</b> freezer</span>
+  <span><b>📄</b> stated (printed) · <b>✨</b> guess (AI) · <b>✓</b> user-confirmed</span>
+  <span><b>⭐</b> complete · <b>⚠</b> needs data · <b>◌</b> optional gap · <b>🕰</b> not bought 60d</span>
+  <span><b>🍳</b> kitchen-use, no retail price</span>
+  <span>One screen: default grid, edit, bulk, vendor filter and phone are states of the SAME Products route — no new screen.</span>
+</div>
+
+</div>
+</body>
+</html>
