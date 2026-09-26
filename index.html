@@ -107,7 +107,7 @@ a{color:var(--accent)}
   const has = (i, n) => (i.labels||[]).some((l) => l.name === n);
   const label = (i, p) => ((i.labels||[]).find((l) => l.name.startsWith(p))||{name:''}).name.slice(p.length);
   const SIG = /—\s*([a-z][\w:-]*(?: [a-z]+)?)\s*(?:\(agent run\))?\s*$/im;
-  const signer = (b) => { const s = String(b||'').trim(); if (/^\*\*(Kiran|Approved by Kiran|Confirmed by Kiran|Dismissed by Kiran)/i.test(s)) return 'kiran'; if (/\(planner\)|\(planner tick/i.test(s)) return 'planner'; const m = SIG.exec(s); return m ? m[1].trim().toLowerCase() : 'core seat'; };
+  const signer = (b) => { const s = String(b||'').trim(); if (/^\*\*(Kiran|Approved by Kiran|Confirmed by Kiran|Dismissed by Kiran)/i.test(s)) return 'kiran'; if (/\(planner\)|\(planner tick/i.test(s)) return 'planner'; const m = SIG.exec(s); return m ? m[1].trim().toLowerCase() : 'unsigned'; };
   // The progress note (agentic-build.md 4b): one comment per role per issue, edited as steps complete.
   const NOTE_HEAD = /^(🟢|⚪|⏸)\s*(Working|Done|Stopped)\s*·\s*([^·\n]+?)\s*(?:·\s*(.*?))?\s*·\s*started\s+(\d\d:\d\d)\s*UTC\s*·\s*updated\s+(\d\d:\d\d)\s*UTC/u;
   function parseNote(c) { const b = String(c.body||'').trim(); const m = NOTE_HEAD.exec(b); if (!m) return null; const steps = [...b.matchAll(/^- \[( |x)\] (.+)$/gm)].map((x) => ({ done: x[1] === 'x', label: x[2].trim() })); const nowLine = (/^Now:\s*(.+)$/m.exec(b)||[])[1] || ''; return { state: m[2].toLowerCase(), role: m[3].trim(), extra: (m[4]||'').trim(), started: m[5], updated: m[6], steps, now: nowLine, at: c.updated_at || c.created_at, url: c.html_url }; }
@@ -154,7 +154,7 @@ a{color:var(--accent)}
         gh('GET', `/repos/${REPO}/issues?state=open&per_page=100`),
         gh('GET', `/repos/${REPO}/issues?state=closed&per_page=100&sort=updated`),
         gh('GET', `/repos/${REPO}/pulls?state=open&per_page=30`),
-        gh('GET', `/repos/${REPO}/actions/runs?per_page=15`).catch(() => ({ workflow_runs: [] })),
+        Promise.all([gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?branch=main&per_page=8`), gh('GET', `/repos/${REPO}/actions/runs?status=queued&per_page=50`)]).then(([ci, q]) => ({ workflow_runs: ci.workflow_runs||[], queued: (q.workflow_runs||[]).length })).catch(() => ({ workflow_runs: [], queued: 0 })),
         Promise.all(['main','staging','deploy'].map((b) => gh('GET', `/repos/${REPO}/branches/${b}`).then((r) => ({ branch:b, sha:r.commit.sha, message:r.commit.commit.message.split(/\r?\n/)[0], at:r.commit.commit.committer.date })).catch((e) => ({ branch:b, sha:'', message:'', at:'', error: String(e && e.message || e) })))),
         gh('GET', `/repos/${REPO}/branches?per_page=100`).catch(() => []),
         gh('GET', `/repos/${REPO}/milestones?state=all&per_page=50&sort=due_on&direction=asc`).catch(() => []),
@@ -195,12 +195,12 @@ a{color:var(--accent)}
       // right now: one row per lane with the live checklist from its progress note
       const soon = AGENTS.filter(a=>a.cron).map(a=>({a, t:nextRun(a.cron)})).filter(x=>x.t).sort((x,y)=>x.t<y.t?-1:1)[0];
       const stepBar = (pn) => pn && pn.steps.length ? `<div class="steps">${pn.steps.map((st) => `<span class="${st.done?'on':''}" title="${esc(st.label)}">${st.done?'✓':'·'} ${esc(st.label.replace(/\s*\(.*\)$/,''))}</span>`).join('')}</div>` : '';
-      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}${prs.length ? ' · '+prs.length+' pull request'+(prs.length===1?'':'s')+' waiting for Core' : ''}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · ${PAUSED ? 'agents are PAUSED until further notice' : 'agents wake on events within a minute'}</div></div></div>` +
+      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}${prs.length ? ' · '+prs.length+' pull request'+(prs.length===1?'':'s')+' waiting for Core' : ''}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · ${PAUSED ? 'agents are PAUSED until further notice' : (runsR.queued ? runsR.queued+' run'+(runsR.queued===1?'':'s')+' queued for a free runner' : 'agents wake on events within a minute when a runner is free')}</div></div></div>` +
         lanes.flatMap((l) => l.tasks.map((t) => { const pn = t.pn; const coreNext = nextRun(AGENTS.find((a) => a.role==='core-agent').cron);
           const icon = t.pr ? '🔀' : t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪';
           const line = t.pr ? `pull request <a href="${t.pr.html_url}" target="_blank" rel="noreferrer">#${t.pr.number}</a> open · waiting for the Core agent to review and merge${coreNext ? ' (next in '+until(coreNext)+')' : ''}`
             : pn ? (pn.state==='working' ? (t.active ? 'working' : 'no movement for '+ago(pn.at)) + ' · ' + esc(pn.role) : pn.state==='done' ? 'done · '+esc(pn.extra||'') : 'stopped · '+esc(pn.extra||''))
-            : (t.beat ? 'commits landing, no note yet' : t.note ? 'last note '+ago(t.note.at)+' ago by '+esc(t.note.by) : 'no worker activity yet, the lane picks it up on its next run');
+            : (t.beat ? 'commits landing, no note yet' : t.note ? 'last note '+ago(t.note.at)+' ago by '+esc(t.note.by) : 'no note yet; a run for this lane is queued or none has started');
           return `<div class="row"><span class="ic">${icon}</span><div class="body"><div class="t">${LANE_ICON[l.lane]||''} ${l.lane}: <a href="${t.cur.html_url}" target="_blank" rel="noreferrer">#${t.cur.number} ${esc(t.cur.title)}</a></div><div class="s">${line}${!t.pr && t.movedAt ? ' · moved '+ago(t.movedAt)+' ago' : ''}${has(t.cur,'needs-kiran')?' · waiting on you':''}</div>${t.pr ? '' : stepBar(pn)}${!t.pr && pn && pn.now && pn.state==='working' ? `<div class="q">Now: ${esc(pn.now)}</div>` : ''}${!t.pr && t.beat ? `<div class="s">last commit ${ago(t.beat.at)} ago on ${esc(t.beat.name)}: <a href="${t.beat.url}" target="_blank" rel="noreferrer">${esc(t.beat.message.slice(0,90))}</a></div>` : ''}</div></div>`; })).join('');
 
       // needs you
@@ -259,10 +259,12 @@ a{color:var(--accent)}
     const prefix = act === 'approve' ? '**Approved by Kiran.**' : act === 'confirm' ? '**Confirmed by Kiran** (goes to the backlog).' : act === 'dismiss' ? '**Dismissed by Kiran.**' : '**Kiran:**';
     try {
       await gh('POST', `/repos/${REPO}/issues/${n}/comments`, { body: `${prefix}${text ? ' '+text : ''}\n\n_via Mission Control_` });
+      // one request per label (never the whole array): an agent may be relabelling the same issue seconds apart
       const issue = await gh('GET', `/repos/${REPO}/issues/${n}`);
-      let labels = issue.labels.map((l) => l.name).filter((l) => l !== 'needs-kiran' && l !== 'status:blocked');
-      if (act === 'dismiss') await gh('PATCH', `/repos/${REPO}/issues/${n}`, { state:'closed', state_reason:'not_planned', labels });
-      else { if (!labels.some((l) => l.startsWith('status:'))) labels.push('status:ready'); await gh('PATCH', `/repos/${REPO}/issues/${n}`, { labels }); }
+      const has = issue.labels.map((l) => l.name);
+      for (const l of ['needs-kiran', 'status:blocked']) if (has.includes(l)) await gh('DELETE', `/repos/${REPO}/issues/${n}/labels/${encodeURIComponent(l)}`).catch(() => {});
+      if (act === 'dismiss') await gh('PATCH', `/repos/${REPO}/issues/${n}`, { state:'closed', state_reason:'not_planned' });
+      else if (!has.some((l) => l.startsWith('status:') && l !== 'status:blocked')) await gh('POST', `/repos/${REPO}/issues/${n}/labels`, { labels: ['status:ready'] });
       await load();
     } catch (e) { showErr(e.message); }
   }
