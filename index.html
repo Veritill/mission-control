@@ -66,7 +66,6 @@ a{color:var(--accent)}
       <div style="padding:0 14px 14px"><textarea id="fb" placeholder="What did you see, where, and what did you expect?"></textarea><div class="btns"><button class="pri" id="send">Send</button><span class="muted" id="fbnote"></span></div></div>
     </div>
 
-    <div class="card" id="now"></div>
     <div class="card" id="pipeline"></div>
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
@@ -200,17 +199,7 @@ a{color:var(--accent)}
       const totalDone = lanes.reduce((a,l)=>a+l.done,0), total = lanes.reduce((a,l)=>a+l.total,0);
       $('summary').textContent = `${totalDone} of ${total} tasks done · read just now`;
 
-      // right now: one row per lane with the live checklist from its progress note
-      const soon = AGENTS.filter(a=>a.cron).map(a=>({a, t:nextRun(a.cron)})).filter(x=>x.t).sort((x,y)=>x.t<y.t?-1:1)[0];
       const stepBar = (pn) => pn && pn.steps.length ? `<div class="steps">${pn.steps.map((st) => `<span class="${st.done?'on':''}" title="${esc(st.label)}">${st.done?'✓':'·'} ${esc(st.label.replace(/\s*\(.*\)$/,''))}</span>`).join('')}</div>` : '';
-      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}${prs.length ? ' · '+prs.length+' pull request'+(prs.length===1?'':'s')+' in flight (see the pipeline)' : ''}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · ${PAUSED ? 'agents are PAUSED until further notice' : (runsR.queued ? runsR.queued+' run'+(runsR.queued===1?'':'s')+' queued for a free runner' : 'agents wake on events within a minute when a runner is free')}</div></div></div>` +
-        lanes.flatMap((l) => l.tasks.map((t) => { const pn = t.pn; const coreNext = nextRun(AGENTS.find((a) => a.role==='core-agent').cron);
-          const icon = t.pr ? '🔀' : t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪';
-          const line = t.pr ? `pull request <a href="${t.pr.html_url}" target="_blank" rel="noreferrer">#${t.pr.number}</a> open · waiting for the Core agent to review and merge${coreNext ? ' (next in '+until(coreNext)+')' : ''}`
-            : pn ? (pn.state==='working' ? (t.active ? 'working' : 'no movement for '+ago(pn.at)) + ' · ' + esc(pn.role) : pn.state==='done' ? 'done · '+esc(pn.extra||'') : 'stopped · '+esc(pn.extra||''))
-            : (t.beat ? 'commits landing, no note yet' : t.note ? 'last note '+ago(t.note.at)+' ago by '+esc(t.note.by) : 'no note yet; a run for this lane is queued or none has started');
-          return `<div class="row"><span class="ic">${icon}</span><div class="body"><div class="t">${LANE_ICON[l.lane]||''} ${l.lane}: <a href="${t.cur.html_url}" target="_blank" rel="noreferrer">#${t.cur.number} ${esc(t.cur.title)}</a></div><div class="s">${line}${!t.pr && t.movedAt ? ' · moved '+ago(t.movedAt)+' ago' : ''}${has(t.cur,'needs-kiran')?' · waiting on you':''}</div>${t.pr ? '' : stepBar(pn)}${!t.pr && pn && pn.now && pn.state==='working' ? `<div class="q">Now: ${esc(pn.now)}</div>` : ''}${!t.pr && t.beat ? `<div class="s">last commit ${ago(t.beat.at)} ago on ${esc(t.beat.name)}: <a href="${t.beat.url}" target="_blank" rel="noreferrer">${esc(t.beat.message.slice(0,90))}</a></div>` : ''}</div></div>`; })).join('');
-
       const st = branches.find((b)=>b.branch==='staging'), pr = branches.find((b)=>b.branch==='deploy');
       // THE PIPELINE (Kiran 2026-09-27): one table, one row per thing in flight, who has it, what it waits for, what
       // happens next and a rough time. Estimates are medians measured from this repository's own recent history.
@@ -231,7 +220,8 @@ a{color:var(--accent)}
       const rows = [];
       prs.forEach((p, k) => {
         const c = ciOf(k); const lane = label(p,'lane:') || (p.head.ref.split('/')[1] || 'core'); const green = c.test==='success' && c.e2e==='success'; const red = c.test==='failure' || c.e2e==='failure';
-        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane,
+        const ciWord = (n, v) => v==='running' ? n+' running' : v==='success' ? n+' ✓' : v==='failure' ? n+' ✗' : n+' queued';
+        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: green || red ? '' : ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e),
           where: green ? 'tests green' : red ? 'tests failed' : c.test==='none' ? 'tests queued' : 'tests running',
           who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : 'CI',
           waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
@@ -239,11 +229,13 @@ a{color:var(--accent)}
           eta: green ? eta(10) : red ? eta(BUILD_MIN) + ' rough' : eta((c.test==='none' ? ciWait : 0) + ciMedMin + 10) });
       });
       lanes.forEach((l) => l.tasks.forEach((t) => { if (t.pr) return; const pn = t.pn; const startedMin = pn && pn.state==='working' ? (now - new Date(pn.at).getTime())/60000 : null;
-        rows.push({ ic: t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪', item:`#${t.cur.number} ${t.cur.title}`, url:t.cur.html_url, lane:l.lane,
+        rows.push({ ic: t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪', item:`#${t.cur.number} ${t.cur.title}`, url:t.cur.html_url, lane:l.lane, steps: pn, detail: pn && pn.state==='working' && pn.now ? 'Now: '+pn.now : (pn && pn.state==='stopped' ? pn.extra : (t.beat ? 'last commit '+ago(t.beat.at)+' ago: '+t.beat.message.slice(0,80) : '')),
           where: t.active ? 'being built' : pn && pn.state==='stopped' ? 'stopped' : 'claimed, no movement',
           who: t.active ? l.lane + ' lane' : 'nobody yet',
           waits: t.active ? 'the lane to finish and open a pull request' : `a free agent runner (${agQueued.length} queued)`,
           next: 'a pull request, then tests', eta: t.active ? eta(Math.max(5, BUILD_MIN - (startedMin||0))) + ' rough' : eta(agWait + BUILD_MIN) + ' rough' }); }));
+      const prBranches = new Set(prs.map((p) => p.head.ref));
+      [...ciActive, ...ciQueued].filter((r) => !prBranches.has(r.head_branch)).forEach((r) => rows.push({ ic:'🧪', item:`${r.head_branch === 'main' ? 'main' : r.head_branch} · ${r.display_title}`, url:r.html_url, lane: r.head_branch === 'main' ? 'core' : (r.head_branch.split('/')[1] || 'core'), where: r.status === 'in_progress' ? 'tests running' : 'tests queued', who:'CI', waits: r.status === 'in_progress' ? 'the tests to finish' : `a free test runner (${ciQueued.length} queued)`, next: r.head_branch === 'main' ? 'staging moves to this commit; Core does a full pass' : 'green, then Core reviews', eta: eta((r.status === 'in_progress' ? 0 : ciWait) + ciMedMin) }));
       openI.filter((i) => has(i,'status:ready') && i.title !== 'Planner log').forEach((i) => rows.push({ ic:'○', item:`#${i.number} ${i.title}`, url:i.html_url, lane:label(i,'lane:')||'core', where:'ready', who:'nobody yet', waits:`a free agent runner (${agQueued.length} queued)`, next:'a lane claims it and builds', eta: eta(agWait + BUILD_MIN) + ' rough' }));
       openI.filter((i) => has(i,'needs-kiran')).forEach((i) => rows.push({ ic:'❓', item:`#${i.number} ${i.title}`, url:i.html_url, lane:label(i,'lane:')||'core', where:'with you', who:'you', waits:'your answer or approval', next:'the planner files or unblocks the work', eta:'when you answer' }));
       const stagingAhead = (st && pr && st.sha && pr.sha && st.sha !== pr.sha) ? await gh('GET', `/repos/${REPO}/compare/${pr.sha}...${st.sha}`).then((c) => c.ahead_by).catch(() => null) : 0;
@@ -255,10 +247,10 @@ a{color:var(--accent)}
         { ic:'🧪', t:'CI (tests)', s: `${ciActive.length} of ${ciRunners} running · ${ciQueued.length} queued · ~${Math.round(ciMedMin)} min each` },
         { ic:'🚀', t:'Staging → production', s: stagingAhead ? `${stagingAhead} change${stagingAhead===1?'':'s'} ahead · your Promote` : 'production = staging' },
       ];
-      $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · median open-to-merge here ${eta(mergeMedMin)} · a merge reaches production on your Promote</div>` +
+      $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · ${workers} worker${workers===1?'':'s'} building · ${agQueued.length + ciQueued.length} runs queued · median open-to-merge ${eta(mergeMedMin)}</div>` +
         `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div></div>`).join('')}</div>` +
         (rows.length ? `<div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
-          rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a></td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
+          rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a>${r.detail ? `<div class="s">${esc(String(r.detail).slice(0,140))}</div>` : ''}${r.steps ? stepBar(r.steps) : ''}</td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
           `</tbody></table></div>` : `<div class="note">Nothing in flight.</div>`);
       } catch (e) { $('pipeline').innerHTML = `<div class="head">The pipeline</div><div class="note">could not build the pipeline view: ${esc(e && e.message || e)}</div>`; }
 
