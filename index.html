@@ -38,6 +38,7 @@ textarea{min-height:84px;resize:vertical}
 .note{font-size:13px;color:var(--muted);padding:8px 14px 12px}
 a{color:var(--accent)}
 .hidden{display:none!important}
+  .tbl{overflow-x:auto;padding:0 8px 10px}.tbl table{border-collapse:collapse;width:100%;min-width:640px;font-size:13px}.tbl th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;padding:8px 6px;border-bottom:1px solid var(--rule);white-space:nowrap}.tbl td{padding:7px 6px;border-bottom:1px solid var(--rule);vertical-align:top}.tbl tr:last-child td{border-bottom:0}.tbl .ic2{font-size:16px;width:22px}.parties{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;padding:8px 14px 4px}.party{border:1px solid var(--rule);border-radius:8px;padding:8px 10px}.party .t{font-size:13px}.party .s{margin-top:1px}
   .steps{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 2px}.steps span{font-size:12px;padding:2px 7px;border-radius:999px;background:var(--code);color:var(--muted)}.steps span.on{background:var(--ok-soft);color:var(--ok)}
 </style>
 
@@ -66,6 +67,7 @@ a{color:var(--accent)}
     </div>
 
     <div class="card" id="now"></div>
+    <div class="card" id="pipeline"></div>
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
     <div class="card" id="env"></div>
@@ -150,7 +152,7 @@ a{color:var(--accent)}
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
-      const [open, closed, prs, runsR, branches, allBranches, milestones] = await Promise.all([
+      const [open, closed, prs, runsR, branches, allBranches, milestones, runsActive, runsQueued, prsClosed, ciDone] = await Promise.all([
         gh('GET', `/repos/${REPO}/issues?state=open&per_page=100`),
         gh('GET', `/repos/${REPO}/issues?state=closed&per_page=100&sort=updated`),
         gh('GET', `/repos/${REPO}/pulls?state=open&per_page=30`),
@@ -158,6 +160,11 @@ a{color:var(--accent)}
         Promise.all(['main','staging','deploy'].map((b) => gh('GET', `/repos/${REPO}/branches/${b}`).then((r) => ({ branch:b, sha:r.commit.sha, message:r.commit.commit.message.split(/\r?\n/)[0], at:r.commit.commit.committer.date })).catch((e) => ({ branch:b, sha:'', message:'', at:'', error: String(e && e.message || e) })))),
         gh('GET', `/repos/${REPO}/branches?per_page=100`).catch(() => []),
         gh('GET', `/repos/${REPO}/milestones?state=all&per_page=50&sort=due_on&direction=asc`).catch(() => []),
+        // the pipeline view (Kiran 2026-09-27, "one view … which agent is waiting for what … some guesstimate")
+        gh('GET', `/repos/${REPO}/actions/runs?status=in_progress&per_page=50`).then((r) => r.workflow_runs||[]).catch(() => []),
+        gh('GET', `/repos/${REPO}/actions/runs?status=queued&per_page=50`).then((r) => r.workflow_runs||[]).catch(() => []),
+        gh('GET', `/repos/${REPO}/pulls?state=closed&per_page=40&sort=updated&direction=desc`).catch(() => []),
+        gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?status=success&per_page=20`).then((r) => r.workflow_runs||[]).catch(() => []),
       ]);
       // lane branches with a commit in the last hour = a worker's heartbeat, even between note edits
       const laneBranches = (allBranches||[]).filter((b) => /^(lane\/|core\/)/.test(b.name));
@@ -166,6 +173,7 @@ a{color:var(--accent)}
       const issues = [...open, ...closed].filter((i) => !i.pull_request);
       const openI = open.filter((i) => !i.pull_request);
       const inProg = openI.filter((i) => has(i,'status:in-progress'));
+      const needsCount = openI.filter((i) => has(i,'needs-kiran')).length;
       const seen = new Map(); const lastNote = new Map(); const progress = new Map();
       const comments = await Promise.all(inProg.slice(0,12).map((i) => gh('GET', `/repos/${REPO}/issues/${i.number}/comments?per_page=100`).catch(() => [])));
       inProg.slice(0,12).forEach((i, k) => {
@@ -195,13 +203,64 @@ a{color:var(--accent)}
       // right now: one row per lane with the live checklist from its progress note
       const soon = AGENTS.filter(a=>a.cron).map(a=>({a, t:nextRun(a.cron)})).filter(x=>x.t).sort((x,y)=>x.t<y.t?-1:1)[0];
       const stepBar = (pn) => pn && pn.steps.length ? `<div class="steps">${pn.steps.map((st) => `<span class="${st.done?'on':''}" title="${esc(st.label)}">${st.done?'✓':'·'} ${esc(st.label.replace(/\s*\(.*\)$/,''))}</span>`).join('')}</div>` : '';
-      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}${prs.length ? ' · '+prs.length+' pull request'+(prs.length===1?'':'s')+' waiting for Core' : ''}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · ${PAUSED ? 'agents are PAUSED until further notice' : (runsR.queued ? runsR.queued+' run'+(runsR.queued===1?'':'s')+' queued for a free runner' : 'agents wake on events within a minute when a runner is free')}</div></div></div>` +
+      $('now').innerHTML = `<div class="head">Right now</div><div class="row"><span class="ic">${workers?'🟢':'⚪'}</span><div class="body"><div class="t">${workers ? workers+' worker'+(workers===1?'':'s')+' active' : 'No worker is running'}${prs.length ? ' · '+prs.length+' pull request'+(prs.length===1?'':'s')+' in flight (see the pipeline)' : ''}</div><div class="s">${plannerLog ? 'planner last ticked '+ago(plannerLog.updated_at)+' ago' : 'the planner has not ticked yet'} · ${PAUSED ? 'agents are PAUSED until further notice' : (runsR.queued ? runsR.queued+' run'+(runsR.queued===1?'':'s')+' queued for a free runner' : 'agents wake on events within a minute when a runner is free')}</div></div></div>` +
         lanes.flatMap((l) => l.tasks.map((t) => { const pn = t.pn; const coreNext = nextRun(AGENTS.find((a) => a.role==='core-agent').cron);
           const icon = t.pr ? '🔀' : t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪';
           const line = t.pr ? `pull request <a href="${t.pr.html_url}" target="_blank" rel="noreferrer">#${t.pr.number}</a> open · waiting for the Core agent to review and merge${coreNext ? ' (next in '+until(coreNext)+')' : ''}`
             : pn ? (pn.state==='working' ? (t.active ? 'working' : 'no movement for '+ago(pn.at)) + ' · ' + esc(pn.role) : pn.state==='done' ? 'done · '+esc(pn.extra||'') : 'stopped · '+esc(pn.extra||''))
             : (t.beat ? 'commits landing, no note yet' : t.note ? 'last note '+ago(t.note.at)+' ago by '+esc(t.note.by) : 'no note yet; a run for this lane is queued or none has started');
           return `<div class="row"><span class="ic">${icon}</span><div class="body"><div class="t">${LANE_ICON[l.lane]||''} ${l.lane}: <a href="${t.cur.html_url}" target="_blank" rel="noreferrer">#${t.cur.number} ${esc(t.cur.title)}</a></div><div class="s">${line}${!t.pr && t.movedAt ? ' · moved '+ago(t.movedAt)+' ago' : ''}${has(t.cur,'needs-kiran')?' · waiting on you':''}</div>${t.pr ? '' : stepBar(pn)}${!t.pr && pn && pn.now && pn.state==='working' ? `<div class="q">Now: ${esc(pn.now)}</div>` : ''}${!t.pr && t.beat ? `<div class="s">last commit ${ago(t.beat.at)} ago on ${esc(t.beat.name)}: <a href="${t.beat.url}" target="_blank" rel="noreferrer">${esc(t.beat.message.slice(0,90))}</a></div>` : ''}</div></div>`; })).join('');
+
+      const st = branches.find((b)=>b.branch==='staging'), pr = branches.find((b)=>b.branch==='deploy');
+      // THE PIPELINE (Kiran 2026-09-27): one table, one row per thing in flight, who has it, what it waits for, what
+      // happens next and a rough time. Estimates are medians measured from this repository's own recent history.
+      try {
+      const median = (xs) => { const a = xs.filter((x) => Number.isFinite(x)).sort((x,y)=>x-y); return a.length ? a[Math.floor(a.length/2)] : null; };
+      const ciMedMin = median((ciDone||[]).map((r) => (new Date(r.updated_at) - new Date(r.run_started_at || r.created_at))/60000)) || 10;
+      const mergeMedMin = median((prsClosed||[]).filter((p) => p.merged_at).map((p) => (new Date(p.merged_at) - new Date(p.created_at))/60000)) || 30;
+      const BUILD_MIN = 45; // a lane's build from claim to pull request: not measured yet, labelled rough
+      const ciRunners = 3, agentRunners = 2;
+      const ciActive = runsActive.filter((r) => r.name === 'ci'), ciQueued = runsQueued.filter((r) => r.name === 'ci');
+      const agActive = runsActive.filter((r) => r.name === 'agents'), agQueued = runsQueued.filter((r) => r.name === 'agents');
+      const ciWait = Math.max(0, Math.ceil((ciQueued.length + ciActive.length - ciRunners) / ciRunners)) * ciMedMin;
+      const agWait = Math.max(0, Math.ceil((agQueued.length + agActive.length - agentRunners) / agentRunners)) * 15;
+      const eta = (min) => min == null ? '' : min < 3 ? 'minutes' : min < 60 ? '~' + Math.round(min/5)*5 + ' min' : '~' + (Math.round(min/30)/2) + ' h';
+      const checks = await Promise.all(prs.map((p) => gh('GET', `/repos/${REPO}/commits/${p.head.sha}/check-runs?per_page=20`).then((r) => r.check_runs||[]).catch(() => [])));
+      const ciOf = (k) => { const cr = checks[k] || []; const pick = (n) => cr.find((c) => c.name === n); const t = pick('test'), e = pick('e2e'); const stt = (c) => c ? (c.status !== 'completed' ? 'running' : c.conclusion) : 'none'; return { test: stt(t), e2e: stt(e) }; };
+      const coreBusy = agActive.some((r) => r.event === 'workflow_run' || r.event === 'pull_request' || r.event === 'pull_request_review');
+      const rows = [];
+      prs.forEach((p, k) => {
+        const c = ciOf(k); const lane = label(p,'lane:') || (p.head.ref.split('/')[1] || 'core'); const green = c.test==='success' && c.e2e==='success'; const red = c.test==='failure' || c.e2e==='failure';
+        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane,
+          where: green ? 'tests green' : red ? 'tests failed' : c.test==='none' ? 'tests queued' : 'tests running',
+          who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : 'CI',
+          waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
+          next: green ? 'merged to staging' : red ? 'a fix, then tests again' : 'green, then Core merges',
+          eta: green ? eta(10) : red ? eta(BUILD_MIN) + ' rough' : eta((c.test==='none' ? ciWait : 0) + ciMedMin + 10) });
+      });
+      lanes.forEach((l) => l.tasks.forEach((t) => { if (t.pr) return; const pn = t.pn; const startedMin = pn && pn.state==='working' ? (now - new Date(pn.at).getTime())/60000 : null;
+        rows.push({ ic: t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪', item:`#${t.cur.number} ${t.cur.title}`, url:t.cur.html_url, lane:l.lane,
+          where: t.active ? 'being built' : pn && pn.state==='stopped' ? 'stopped' : 'claimed, no movement',
+          who: t.active ? l.lane + ' lane' : 'nobody yet',
+          waits: t.active ? 'the lane to finish and open a pull request' : `a free agent runner (${agQueued.length} queued)`,
+          next: 'a pull request, then tests', eta: t.active ? eta(Math.max(5, BUILD_MIN - (startedMin||0))) + ' rough' : eta(agWait + BUILD_MIN) + ' rough' }); }));
+      openI.filter((i) => has(i,'status:ready') && i.title !== 'Planner log').forEach((i) => rows.push({ ic:'○', item:`#${i.number} ${i.title}`, url:i.html_url, lane:label(i,'lane:')||'core', where:'ready', who:'nobody yet', waits:`a free agent runner (${agQueued.length} queued)`, next:'a lane claims it and builds', eta: eta(agWait + BUILD_MIN) + ' rough' }));
+      openI.filter((i) => has(i,'needs-kiran')).forEach((i) => rows.push({ ic:'❓', item:`#${i.number} ${i.title}`, url:i.html_url, lane:label(i,'lane:')||'core', where:'with you', who:'you', waits:'your answer or approval', next:'the planner files or unblocks the work', eta:'when you answer' }));
+      const stagingAhead = (st && pr && st.sha && pr.sha && st.sha !== pr.sha) ? await gh('GET', `/repos/${REPO}/compare/${pr.sha}...${st.sha}`).then((c) => c.ahead_by).catch(() => null) : 0;
+      const parties = [
+        { ic:'🙋', t:'You', s: needsCount + ' to answer' },
+        { ic:'🗺️', t:'Planner', s: (plannerLog ? 'ticked '+ago(plannerLog.updated_at)+' ago' : 'no tick yet') + (agActive.some((r)=>r.event==='schedule'||r.event==='issue_comment') ? ' · running' : '') },
+        { ic:'🔧', t:'Lane workers', s: `${Math.min(agentRunners, agActive.filter((r)=>r.event==='issues'||r.event==='workflow_dispatch').length)} of ${agentRunners} busy · ${agQueued.length} queued` },
+        { ic:'🧱', t:'Core', s: coreBusy ? 'reviewing' : 'idle, wakes on green tests' },
+        { ic:'🧪', t:'CI (tests)', s: `${ciActive.length} of ${ciRunners} running · ${ciQueued.length} queued · ~${Math.round(ciMedMin)} min each` },
+        { ic:'🚀', t:'Staging → production', s: stagingAhead ? `${stagingAhead} change${stagingAhead===1?'':'s'} ahead · your Promote` : 'production = staging' },
+      ];
+      $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · median open-to-merge here ${eta(mergeMedMin)} · a merge reaches production on your Promote</div>` +
+        `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div></div>`).join('')}</div>` +
+        (rows.length ? `<div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
+          rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a></td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
+          `</tbody></table></div>` : `<div class="note">Nothing in flight.</div>`);
+      } catch (e) { $('pipeline').innerHTML = `<div class="head">The pipeline</div><div class="note">could not build the pipeline view: ${esc(e && e.message || e)}</div>`; }
 
       // needs you
       const needs = openI.filter((i) => has(i,'needs-kiran'));
@@ -228,7 +287,6 @@ a{color:var(--accent)}
           `</div>`; }).join('');
 
       // environments
-      const st = branches.find((b)=>b.branch==='staging'), pr = branches.find((b)=>b.branch==='deploy');
       const branchErr = branches.find((b)=>b.error);
       const promotable = st && pr && st.sha && st.sha !== pr.sha;
       const envState = branchErr ? (/403|404/.test(branchErr.error) ? 'cannot read branches: the token needs Contents: Read-only (edit the token, then Refresh)' : branchErr.error) : (promotable ? 'staging is ahead' : 'same as staging');
