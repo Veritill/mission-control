@@ -233,7 +233,17 @@ a{color:var(--accent)}
         for (const c of cmts) { if (parseNote(c)) continue; const who = signer(c.body); ev.push({ at:c.created_at, ic: who==='kiran' ? '🙋' : '💬', text:(who==='unsigned' ? '' : who+': ')+stripSig(c.body).slice(0,90), url:c.html_url }); }
         ev.sort((a,b) => a.at < b.at ? -1 : 1);
         const count = Math.max(1, ciRuns.length);
-        return { count, ev };
+        // working vs waiting on this pull request: tests = CI run durations; queued = CI created→started; Core wait =
+        // from the newest green run's end to Core's next review/merge (or now, while it still waits)
+        const dur = (a, b) => Math.max(0, (new Date(b) - new Date(a)) / 60000);
+        const testsMin = ciRuns.filter((r) => r.run_started_at).reduce((a, r) => a + dur(r.run_started_at, r.status === 'completed' ? r.updated_at : new Date().toISOString()), 0);
+        const queuedMin = ciRuns.reduce((a, r) => a + dur(r.created_at, r.run_started_at || new Date().toISOString()), 0);
+        const greens = ciRuns.filter((r) => r.conclusion === 'success').sort((a, b) => a.updated_at < b.updated_at ? 1 : -1);
+        const lastGreen = greens[0] ? greens[0].updated_at : null;
+        const reviewAfter = lastGreen ? reviews.map((r) => r.submitted_at).filter((t) => t > lastGreen).sort()[0] : null;
+        const coreWaitMin = lastGreen ? dur(lastGreen, reviewAfter || new Date().toISOString()) : 0;
+        const ageMin = dur(p.created_at, new Date().toISOString());
+        return { count, ev, testsMin, queuedMin, coreWaitMin, ageMin };
       }));
       const ciOf = (k) => { const cr = checks[k] || []; const pick = (n) => cr.find((c) => c.name === n); const t = pick('test'), e = pick('e2e'); const stt = (c) => c ? (c.status !== 'completed' ? 'running' : c.conclusion) : 'none'; return { test: stt(t), e2e: stt(e) }; };
       const coreBusy = agActive.some((r) => r.event === 'workflow_run' || r.event === 'pull_request' || r.event === 'pull_request_review');
@@ -243,7 +253,9 @@ a{color:var(--accent)}
         const ciWord = (n, v) => v==='running' ? n+' running' : v==='success' ? n+' ✓' : v==='failure' ? n+' ✗' : n+' queued';
         const lp = loops[k] || { count:1, ev:[] };
         const step = green ? 'Core review' : red ? 'fix after failed tests' : c.test==='none' ? 'tests queued' : 'tests';
-        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: `loop ${lp.count} · step: ${step}` + (green || red ? '' : ' · '+ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e)), log: lp.ev,
+        const mins = (m) => m < 1 ? '0 min' : m < 60 ? Math.round(m)+' min' : (Math.round(m/6)/10)+' h';
+        const timing = lp.ageMin != null ? ` · open ${mins(lp.ageMin)}: tests ${mins(lp.testsMin)} · queued ${mins(lp.queuedMin)} · waiting for Core ${mins(lp.coreWaitMin)}` : '';
+        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: `loop ${lp.count} · step: ${step}` + (green || red ? '' : ' · '+ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e)) + timing, log: lp.ev,
           where: green ? 'tests green' : red ? 'tests failed' : c.test==='none' ? 'tests queued' : 'tests running',
           who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : 'CI',
           waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
@@ -262,18 +274,56 @@ a{color:var(--accent)}
       openI.filter((i) => has(i,'needs-kiran')).forEach((i) => rows.push({ ic:'❓', item:`#${i.number} ${i.title}`, url:i.html_url, lane:label(i,'lane:')||'core', where:'with you', who:'you', waits:'your answer or approval', next:'the planner files or unblocks the work', eta:'when you answer' }));
       const stagingAhead = (st && pr && st.sha && pr.sha && st.sha !== pr.sha) ? await gh('GET', `/repos/${REPO}/compare/${pr.sha}...${st.sha}`).then((c) => c.ahead_by).catch(() => null) : 0;
       const parties = [
-        { ic:'🙋', t:'You', s: needsCount + ' to answer' },
-        { ic:'🗺️', t:'Planner', s: (plannerLog ? 'ticked '+ago(plannerLog.updated_at)+' ago' : 'no tick yet') + (agActive.some((r)=>r.event==='schedule'||r.event==='issue_comment') ? ' · running' : '') },
-        { ic:'🔧', t:'Lane workers', s: `${Math.min(agentRunners, agActive.filter((r)=>r.event==='issues'||r.event==='workflow_dispatch').length)} of ${agentRunners} busy · ${agQueued.length} queued` },
-        { ic:'🧱', t:'Core', s: coreBusy ? 'reviewing' : 'idle, wakes on green tests' },
-        { ic:'🧪', t:'CI (tests)', s: `${ciActive.length} of ${ciRunners} running · ${ciQueued.length} queued · ~${Math.round(ciMedMin)} min each` },
-        { ic:'🚀', t:'Staging → production', s: stagingAhead ? `${stagingAhead} change${stagingAhead===1?'':'s'} ahead · your Promote` : 'production = staging' },
+        { k:'you', ic:'🙋', t:'You', s: needsCount + ' to answer' },
+        { k:'planner', ic:'🗺️', t:'Planner', s: (plannerLog ? 'ticked '+ago(plannerLog.updated_at)+' ago' : 'no tick yet') + (agActive.some((r)=>r.event==='schedule'||r.event==='issue_comment') ? ' · running' : '') },
+        { k:'lanes', ic:'🔧', t:'Lane workers', s: `${Math.min(agentRunners, agActive.filter((r)=>r.event==='issues'||r.event==='workflow_dispatch').length)} of ${agentRunners} busy · ${agQueued.length} queued` },
+        { k:'core', ic:'🧱', t:'Core', s: coreBusy ? 'reviewing' : 'idle, wakes on green tests' },
+        { k:'ci', ic:'🧪', t:'CI (tests)', s: `${ciActive.length} of ${ciRunners} running · ${ciQueued.length} queued · ~${Math.round(ciMedMin)} min each` },
+        { k:'promote', ic:'🚀', t:'Staging → production', s: stagingAhead ? `${stagingAhead} change${stagingAhead===1?'':'s'} ahead · your Promote` : 'production = staging' },
       ];
+      const partyLine2 = { you: '', planner: '', lanes: '', core: '', ci: '', promote: '' };
+      const renderParties = () => `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div>${partyLine2[x.k] ? `<div class="s">${esc(partyLine2[x.k])}</div>` : ''}</div>`).join('')}</div>`;
       $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · ${workers} worker${workers===1?'':'s'} building · ${agQueued.length + ciQueued.length} runs queued · median open-to-merge ${eta(mergeMedMin)}</div>` +
-        `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div></div>`).join('')}</div>` +
+        renderParties() +
         (rows.length ? `<div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
           rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a>${r.detail ? `<div class="s">${esc(String(r.detail).slice(0,140))}</div>` : ''}${r.steps ? stepBar(r.steps) : ''}${r.log && r.log.length ? `<details><summary class="muted" style="cursor:pointer;font-size:12px">loop log · ${r.log.length} events</summary><div class="q" style="max-height:260px">${r.log.map((e) => `${hhmm(e.at)} ${e.ic} ${e.url ? `<a href="${e.url}" target="_blank" rel="noreferrer">${esc(e.text)}</a>` : esc(e.text)}`).join('\n')}</div></details>` : ''}</td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
           `</tbody></table></div>` : `<div class="note">Nothing in flight.</div>`);
+
+      // WORKING vs WAITING, last 24 h (Kiran 2026-09-27: "how much is the actual working time and waiting or idle time").
+      // Working = a role's job was running; waiting = the job sat queued for a runner. Read from GitHub's own timestamps:
+      // CI from run-level times (no per-job call needed), agents from the role jobs of runs that did real work.
+      (async () => {
+        try {
+          const since = new Date(Date.now() - 24*3600e3).toISOString();
+          let cache = null; try { cache = JSON.parse(localStorage.getItem('vt-util') || 'null'); } catch {}
+          let u = cache && Date.now() - cache.at < 10*60e3 ? cache.u : null;
+          if (!u) {
+            const dur = (a, b) => (a && b) ? Math.max(0, (new Date(b) - new Date(a)) / 60000) : 0;
+            const page = async (path) => { const out = []; for (let pg = 1; pg <= 4; pg++) { const r = await gh('GET', `${path}&per_page=100&page=${pg}`); const xs = r.workflow_runs || []; out.push(...xs); if (xs.length < 100) break; } return out; };
+            const ci = await page(`/repos/${REPO}/actions/workflows/ci.yml/runs?created=>=${since}`);
+            const ciBusy = ci.reduce((a, r) => a + dur(r.run_started_at, r.status === 'completed' ? r.updated_at : new Date().toISOString()), 0);
+            const ciWaits = ci.map((r) => dur(r.created_at, r.run_started_at || new Date().toISOString()));
+            const ag = await page(`/repos/${REPO}/actions/workflows/agents.yml/runs?created=>=${since}`);
+            const worked = ag.filter((r) => dur(r.run_started_at, r.updated_at) > 1.5 || r.status !== 'completed').slice(0, 80);
+            const jobsAll = (await Promise.all(worked.map((r) => gh('GET', `/repos/${REPO}/actions/runs/${r.id}/jobs?per_page=10`).then((j) => j.jobs || []).catch(() => [])))).flat();
+            const roleStat = (name) => { const js = jobsAll.filter((j) => j.name === name && j.conclusion !== 'skipped'); const busy = js.reduce((a, j) => a + dur(j.started_at, j.completed_at || new Date().toISOString()), 0); const waits = js.map((j) => dur(j.created_at, j.started_at || new Date().toISOString())); return { runs: js.length, busy, waitTotal: waits.reduce((a, b) => a + b, 0), waitMed: median(waits) || 0 }; };
+            u = { ci: { runs: ci.length, busy: ciBusy, waitTotal: ciWaits.reduce((a, b) => a + b, 0), waitMed: median(ciWaits) || 0 }, lane: roleStat('lane'), core: roleStat('core'), planner: roleStat('planner') };
+            try { localStorage.setItem('vt-util', JSON.stringify({ at: Date.now(), u })); } catch {}
+          }
+          const h = (m) => m < 60 ? Math.round(m) + ' min' : (Math.round(m / 6) / 10) + ' h';
+          const pct = (busy, machines) => Math.round(busy / (machines * 24 * 60) * 100);
+          partyLine2.lanes = `24 h: working ${h(u.lane.busy)} of ${2*24} h (${pct(u.lane.busy, 2)}%) · ${u.lane.runs} runs waited ${h(u.lane.waitTotal)} in queue, median ${h(u.lane.waitMed)}`;
+          partyLine2.core = `24 h: working ${h(u.core.busy)} (${pct(u.core.busy, 1)}% of one runner) · ${u.core.runs} runs waited ${h(u.core.waitTotal)}, median ${h(u.core.waitMed)}`;
+          partyLine2.planner = `24 h: working ${h(u.planner.busy)} · ${u.planner.runs} ticks waited ${h(u.planner.waitTotal)}, median ${h(u.planner.waitMed)}`;
+          partyLine2.ci = `24 h: testing ${h(u.ci.busy)} of ${3*24} h (${pct(u.ci.busy, 3)}%) · ${u.ci.runs} runs waited ${h(u.ci.waitTotal)} in queue, median ${h(u.ci.waitMed)}`;
+          // you: how long each open item has waited on you; promote: how long staging has been ahead
+          const waitingYou = openI.filter((i) => has(i,'needs-kiran'));
+          const labeledAt = await Promise.all(waitingYou.slice(0, 5).map((i) => gh('GET', `/repos/${REPO}/issues/${i.number}/timeline?per_page=100`).then((ev) => { const l = ev.filter((e) => e.event === 'labeled' && e.label && e.label.name === 'needs-kiran').pop(); return l ? l.created_at : i.updated_at; }).catch(() => i.updated_at)));
+          partyLine2.you = waitingYou.length ? 'waiting on you: ' + waitingYou.slice(0, 5).map((i, k) => `#${i.number} ${ago(labeledAt[k])}`).join(' · ') : 'nothing waiting on you';
+          if (stagingAhead) { const lastPromote = await gh('GET', `/repos/${REPO}/actions/workflows/promote-prod.yml/runs?per_page=1`).then((r) => (r.workflow_runs||[])[0]).catch(() => null); partyLine2.promote = lastPromote ? `last Promote ${ago(lastPromote.created_at)} ago · staging ahead since then` : ''; }
+          const strip = $('pipeline').querySelector('.parties'); if (strip) strip.outerHTML = renderParties();
+        } catch (e) { console.warn('utilisation', e); }
+      })();
       } catch (e) { $('pipeline').innerHTML = `<div class="head">The pipeline</div><div class="note">could not build the pipeline view: ${esc(e && e.message || e)}</div>`; }
 
       // needs you
