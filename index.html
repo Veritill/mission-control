@@ -215,13 +215,35 @@ a{color:var(--accent)}
       const agWait = Math.max(0, Math.ceil((agQueued.length + agActive.length - agentRunners) / agentRunners)) * 15;
       const eta = (min) => min == null ? '' : min < 3 ? 'minutes' : min < 60 ? '~' + Math.round(min/5)*5 + ' min' : '~' + (Math.round(min/30)/2) + ' h';
       const checks = await Promise.all(prs.map((p) => gh('GET', `/repos/${REPO}/commits/${p.head.sha}/check-runs?per_page=20`).then((r) => r.check_runs||[]).catch(() => [])));
+      // THE LOOP LOG (Kiran 2026-09-27: "how many times the iterative development is done … on click show the full loop
+      // log"): every push, test run, review and Core comment on the pull request, in time order. One loop = one push
+      // that started a test run; the count is how many times the branch went round push → tests → review.
+      const hhmm = (iso) => new Date(iso).toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+      const loops = await Promise.all(prs.map(async (p) => {
+        const [commits, reviews, ciRuns, cmts] = await Promise.all([
+          gh('GET', `/repos/${REPO}/pulls/${p.number}/commits?per_page=100`).catch(() => []),
+          gh('GET', `/repos/${REPO}/pulls/${p.number}/reviews?per_page=100`).catch(() => []),
+          gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?branch=${encodeURIComponent(p.head.ref)}&per_page=30`).then((r) => r.workflow_runs||[]).catch(() => []),
+          gh('GET', `/repos/${REPO}/issues/${p.number}/comments?per_page=100`).catch(() => []),
+        ]);
+        const ev = [{ at:p.created_at, ic:'🔀', text:'opened by the '+(label(p,'lane:')||p.head.ref.split('/')[1]||'core')+' lane' }];
+        for (const c of commits) { const m = (c.commit.message||'').split(/\r?\n/)[0]; ev.push({ at:c.commit.committer.date, ic:'⬆️', text:(/^Merge (branch|remote-tracking branch)/.test(m) ? 'rebased onto main' : 'push: '+m.slice(0,90)) }); }
+        for (const r of ciRuns) { const st = r.status !== 'completed' ? (r.status==='queued' ? 'tests queued' : 'tests running') : r.conclusion==='success' ? 'tests ✓' : r.conclusion==='failure' ? 'tests ✗ failed' : 'tests '+r.conclusion; ev.push({ at:r.created_at, ic:'🧪', text:st, url:r.html_url }); }
+        for (const r of reviews) { const w = r.state==='APPROVED' ? 'approved' : r.state==='CHANGES_REQUESTED' ? 'changes requested' : 'commented'; ev.push({ at:r.submitted_at, ic: r.state==='APPROVED' ? '✅' : r.state==='CHANGES_REQUESTED' ? '↩️' : '💬', text:'Core '+w+(r.body ? ': '+stripSig(r.body).slice(0,90) : ''), url:r.html_url }); }
+        for (const c of cmts) { if (parseNote(c)) continue; const who = signer(c.body); ev.push({ at:c.created_at, ic: who==='kiran' ? '🙋' : '💬', text:(who==='unsigned' ? '' : who+': ')+stripSig(c.body).slice(0,90), url:c.html_url }); }
+        ev.sort((a,b) => a.at < b.at ? -1 : 1);
+        const count = Math.max(1, ciRuns.length);
+        return { count, ev };
+      }));
       const ciOf = (k) => { const cr = checks[k] || []; const pick = (n) => cr.find((c) => c.name === n); const t = pick('test'), e = pick('e2e'); const stt = (c) => c ? (c.status !== 'completed' ? 'running' : c.conclusion) : 'none'; return { test: stt(t), e2e: stt(e) }; };
       const coreBusy = agActive.some((r) => r.event === 'workflow_run' || r.event === 'pull_request' || r.event === 'pull_request_review');
       const rows = [];
       prs.forEach((p, k) => {
         const c = ciOf(k); const lane = label(p,'lane:') || (p.head.ref.split('/')[1] || 'core'); const green = c.test==='success' && c.e2e==='success'; const red = c.test==='failure' || c.e2e==='failure';
         const ciWord = (n, v) => v==='running' ? n+' running' : v==='success' ? n+' ✓' : v==='failure' ? n+' ✗' : n+' queued';
-        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: green || red ? '' : ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e),
+        const lp = loops[k] || { count:1, ev:[] };
+        const step = green ? 'Core review' : red ? 'fix after failed tests' : c.test==='none' ? 'tests queued' : 'tests';
+        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: `loop ${lp.count} · step: ${step}` + (green || red ? '' : ' · '+ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e)), log: lp.ev,
           where: green ? 'tests green' : red ? 'tests failed' : c.test==='none' ? 'tests queued' : 'tests running',
           who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : 'CI',
           waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
@@ -250,7 +272,7 @@ a{color:var(--accent)}
       $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · ${workers} worker${workers===1?'':'s'} building · ${agQueued.length + ciQueued.length} runs queued · median open-to-merge ${eta(mergeMedMin)}</div>` +
         `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div></div>`).join('')}</div>` +
         (rows.length ? `<div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
-          rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a>${r.detail ? `<div class="s">${esc(String(r.detail).slice(0,140))}</div>` : ''}${r.steps ? stepBar(r.steps) : ''}</td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
+          rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a>${r.detail ? `<div class="s">${esc(String(r.detail).slice(0,140))}</div>` : ''}${r.steps ? stepBar(r.steps) : ''}${r.log && r.log.length ? `<details><summary class="muted" style="cursor:pointer;font-size:12px">loop log · ${r.log.length} events</summary><div class="q" style="max-height:260px">${r.log.map((e) => `${hhmm(e.at)} ${e.ic} ${e.url ? `<a href="${e.url}" target="_blank" rel="noreferrer">${esc(e.text)}</a>` : esc(e.text)}`).join('\n')}</div></details>` : ''}</td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
           `</tbody></table></div>` : `<div class="note">Nothing in flight.</div>`);
       } catch (e) { $('pipeline').innerHTML = `<div class="head">The pipeline</div><div class="note">could not build the pipeline view: ${esc(e && e.message || e)}</div>`; }
 
