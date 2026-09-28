@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #444 — Getting started as the setup journey home (eleven sections, business-type gated)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 1420px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 320px; height: 680px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); }
+  .iconbtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 13px; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 10px 12px 14px; }
+
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; }
+
+  /* before day one card */
+  .predaycard { display: flex; gap: 10px; align-items: flex-start; }
+  .predaycard .ic { font-size: 20px; flex: none; }
+  .predaycard .t { font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+  .predaycard .s { font-size: 11.5px; color: var(--muted); }
+  .predaycard .btnrow { display: flex; gap: 8px; margin-top: 8px; }
+
+  /* progress card */
+  .progresshead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .progresshead .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .progresshead .pct { font-size: 20px; font-weight: 700; }
+  .bar { height: 9px; border-radius: 5px; background: var(--rule); overflow: hidden; }
+  .bar > div { height: 100%; border-radius: 5px; background: var(--green); }
+
+  /* section group */
+  .grouphead { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 4px 2px 4px; }
+  .section-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--rule); text-decoration: none; color: inherit; }
+  .card > .section-row:first-of-type { border-top: none; }
+  .section-row .ic { width: 26px; height: 26px; border-radius: 8px; background: var(--chip); display: flex; align-items: center; justify-content: center; font-size: 14px; flex: none; }
+  .section-row .ic.done { background: var(--green-soft); }
+  .section-row .body { flex: 1; min-width: 0; }
+  .section-row .t { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .section-row .s { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .section-row .status { flex: none; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .status.done { background: var(--green-soft); color: var(--green); }
+  .status.progress { background: var(--saffron-soft); color: var(--saffron); }
+  .status.notstarted { background: var(--chip); color: var(--chip-ink); }
+  .status.skipped { background: var(--chip); color: var(--muted); }
+  .skiptag { font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 1px 6px; }
+
+  .golivecard { display: flex; gap: 10px; align-items: center; background: var(--green-soft); }
+  .golivecard .ic { font-size: 20px; flex: none; }
+  .golivecard .t { font-weight: 700; font-size: 13px; }
+  .golivecard .s { font-size: 11.5px; color: var(--muted); }
+
+  .foot { max-width: 1050px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 26%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #444 — Getting started becomes the setup journey home</h1>
+<div class="lede">setup-journey.md's own eleven module sections (§4), rendered as ONE screen (no new route, D3's own
+  recommendation: cards on the existing <code>/settings/onboarding</code> page) — the "Before day one" card up top,
+  the eleven sections grouped for scanability, "Go live" as the closing card. Business type decides which sections
+  even appear: a restaurant sees "Your kitchen", a grocery does not; a grocery's catalog-and-vendors group comes
+  first (issue #196's existing reorder, carried into the journey unchanged). Two example tenants below.</div>
+
+<div class="stage">
+
+  <div class="col">
+    <h2>1 · Restaurant, day one</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Getting started</div><div class="t2">Settings</div></div></div>
+      <div class="body-pad">
+        <div class="card predaycard">
+          <div class="ic">🗒️</div>
+          <div style="flex:1">
+            <div class="t">Before day one</div>
+            <div class="s">Gather these first: a POS export, vendor price lists, three months of invoices, your menu.</div>
+            <div class="btnrow"><div class="section-row" style="padding:0"><span class="status notstarted" style="cursor:default">10 min to read</span></div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="progresshead"><div class="k">Setup progress</div><div class="pct">18%</div></div>
+          <div class="bar"><div style="width:18%"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Getting ready</div>
+          <a class="section-row" href="#"><div class="ic done">🏢</div><div class="body"><div class="t">Your business</div><div class="s">Business type, cuisines, POS — done</div></div><div class="status done">Done</div></a>
+          <a class="section-row" href="#"><div class="ic">👥</div><div class="body"><div class="t">Your team</div><div class="s">Invite the people who work the kitchen and counter</div></div><div class="status notstarted">Not started</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Your data</div>
+          <a class="section-row" href="#"><div class="ic">🥬</div><div class="body"><div class="t">Your catalog</div><div class="s">142 staged, 12 need you</div></div><div class="status progress">In progress</div></a>
+          <a class="section-row" href="#"><div class="ic">🏬</div><div class="body"><div class="t">Your vendors and invoices</div><div class="s">Upload Shopkiraana's invoices — 41 families no cost yet</div></div><div class="status notstarted">Not started</div></a>
+          <a class="section-row" href="#"><div class="ic">🍳</div><div class="body"><div class="t">Your kitchen</div><div class="s">Adopt your prep list, propose recipes</div></div><div class="status notstarted">Not started</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Run your store</div>
+          <a class="section-row" href="#"><div class="ic">📦</div><div class="body"><div class="t">Your inventory</div><div class="s">Tracking stays off until you start the count</div></div><div class="status notstarted">Not started</div></a>
+          <a class="section-row" href="#"><div class="ic">🖥️</div><div class="body"><div class="t">Your register</div><div class="s">Enrol a device, connect the printer</div></div><div class="status notstarted">Not started</div></a>
+          <a class="section-row" href="#"><div class="ic">🌐</div><div class="body"><div class="t">Your store online <span class="skiptag">skippable</span></div><div class="s">Not this store — Owner.com handles online orders</div></div><div class="status skipped">Skipped</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">See it work</div>
+          <a class="section-row" href="#"><div class="ic">💰</div><div class="body"><div class="t">Your money</div><div class="s">Set your targets, close your first day</div></div><div class="status notstarted">Not started</div></a>
+        </div>
+
+        <div class="card golivecard">
+          <div class="ic">🚀</div>
+          <div style="flex:1"><div class="t">Go live</div><div class="s">2 of 8 sections done — see the full list</div></div>
+        </div>
+      </div>
+    </div></div>
+    <div class="tap-hint">one screen, not eleven — a restaurant here sees 8 of the 11 sections (store online skipped once, kitchen present)</div>
+  </div>
+
+  <div class="col">
+    <h2>2 · Grocery, mid-setup</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Getting started</div><div class="t2">Settings</div></div></div>
+      <div class="body-pad">
+        <div class="card">
+          <div class="progresshead"><div class="k">Setup progress</div><div class="pct">64%</div></div>
+          <div class="bar"><div style="width:64%"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Getting ready</div>
+          <a class="section-row" href="#"><div class="ic done">🏢</div><div class="body"><div class="t">Your business</div><div class="s">Grocery, retail — done</div></div><div class="status done">Done</div></a>
+          <a class="section-row" href="#"><div class="ic done">👥</div><div class="body"><div class="t">Your team</div><div class="s">2 teammates invited</div></div><div class="status done">Done</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Your catalog &amp; vendors</div>
+          <a class="section-row" href="#"><div class="ic done">🥬</div><div class="body"><div class="t">Your catalog</div><div class="s">3,018 items published</div></div><div class="status done">Done</div></a>
+          <a class="section-row" href="#"><div class="ic">🏬</div><div class="body"><div class="t">Your vendors and invoices</div><div class="s">Cost gaps — 12 red rows of 53</div></div><div class="status progress">In progress</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">Run your store</div>
+          <a class="section-row" href="#"><div class="ic done">📦</div><div class="body"><div class="t">Your inventory</div><div class="s">Opening count finished, tracking is on</div></div><div class="status done">Done</div></a>
+          <a class="section-row" href="#"><div class="ic">🖥️</div><div class="body"><div class="t">Your register</div><div class="s">Register enrolled — connect the scale next</div></div><div class="status progress">In progress</div></a>
+          <a class="section-row" href="#"><div class="ic">🌐</div><div class="body"><div class="t">Your store online</div><div class="s">Set your delivery radius and fees</div></div><div class="status notstarted">Not started</div></a>
+        </div>
+
+        <div class="card">
+          <div class="grouphead">See it work</div>
+          <a class="section-row" href="#"><div class="ic">💰</div><div class="body"><div class="t">Your money</div><div class="s">Set your targets, close your first day</div></div><div class="status notstarted">Not started</div></a>
+        </div>
+
+        <div class="card golivecard">
+          <div class="ic">🚀</div>
+          <div style="flex:1"><div class="t">Go live</div><div class="s">5 of 7 sections done — see the full list</div></div>
+        </div>
+      </div>
+    </div></div>
+    <div class="tap-hint">retail ordering (issue #196) carried into the journey: catalog &amp; vendors comes right after the basics, no kitchen section at all; "Your register" names the scale as its own in-progress need (issue #444's own gap)</div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>The home screen's one job is picking what to do next — every row states its own current state and links to the ONE place the work actually happens (Import review, Cost check, the register screen, Settings → Toast); it never re-renders that work here.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Each row is a title plus one short status line (a live count when there is one, a plain sentence when there is not); the "why" and the full what-happens/what-you-need/how-long text live behind the section's own detail screen (mockup #444's second page), never inline on this list.</td></tr>
+    <tr><td>3. Icon on every row</td><td>Every section reuses an EXISTING meaning already in the product's own icon vocabulary (🏢 business, 👥 team, 🥬 products/catalog, 🏬 vendor, 🍳 kitchen, 📦 inventory, 🖥️ register, 🌐 commerce, 💰 money) — no new picture invented for this screen.</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>Sections are grouped into small cards of 2-3 rows each (mirroring the real <code>checklistGroups</code> shape today), so no single card ever shows more than 3 rows at once, even though 11 sections exist in total across the scroll.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>Every status line reads a number <code>GET /tenant/onboarding</code> already computes (percent, costGap, openingCount, the outcomes) — nothing new is aggregated when this screen opens.</td></tr>
+    <tr><td>6. A way back</td><td>← Settings on every state; this is the existing Getting started page, not a new screen.</td></tr>
+    <tr><td>7. One home per function</td><td>A section row is a link, never a second copy of the door it wraps — Your catalog links to Import review, Your vendors and invoices links to the vendor catalog screen and the review inbox, exactly as today's checklist rows already do.</td></tr>
+    <tr><td>8. As few screens as possible</td><td>Zero new top-level routes: the eleven sections are rows/cards on the ONE existing Getting-started page; "Before day one" and "Go live" are cards at the top and bottom of that same page (D3's own recommendation), not new screens.</td></tr>
+  </table>
+</div>
+
+</body>
+</html>
