@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #444 — the "Your catalog" journey step in full (setup-journey.md §4 item 3)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 22px; text-align: center; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 1420px; margin: 0 auto; }
+  .col { width: 320px; }
+  .col h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; }
+  .phone { width: 320px; height: 680px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); }
+  .iconbtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 13px; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+
+  .body-pad { flex: 1; overflow-y: auto; padding: 10px 12px 14px; }
+
+  .head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .head .ic { width: 34px; height: 34px; border-radius: 10px; background: var(--chip); display: flex; align-items: center; justify-content: center; font-size: 18px; flex: none; }
+  .head .t { font-weight: 700; font-size: 16px; }
+  .head .pill { margin-left: auto; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; flex: none; }
+  .pill.notstarted { background: var(--chip); color: var(--chip-ink); }
+  .pill.progress { background: var(--saffron-soft); color: var(--saffron); }
+  .pill.done { background: var(--green-soft); color: var(--green); }
+
+  .facts { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+  .factrow { display: flex; gap: 8px; padding: 5px 0; font-size: 12px; }
+  .factrow:not(:last-child) { border-bottom: 1px dashed var(--rule); }
+  .factrow .k { color: var(--muted); flex: none; width: 74px; font-weight: 700; text-transform: uppercase; font-size: 9.5px; letter-spacing: .04em; padding-top: 2px; }
+  .factrow .v { flex: 1; }
+
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 12px; margin-bottom: 10px; }
+
+  .filedrop { border: 1.5px dashed var(--rule); border-radius: 10px; padding: 18px 10px; text-align: center; margin-bottom: 10px; }
+  .filedrop .ic { font-size: 22px; margin-bottom: 4px; }
+  .filedrop .t { font-size: 13px; font-weight: 700; }
+  .filedrop .s { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green); color: #fff; border: none; border-radius: 10px; padding: 10px 10px; font-weight: 700; font-size: 12.5px; flex: 1; }
+  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--rule); font-weight: 600; }
+  .btn.full { width: 100%; }
+  .btnrow { display: flex; gap: 8px; }
+
+  .agentcard { display: flex; gap: 10px; align-items: center; }
+  .agentcard .av { width: 26px; height: 26px; border-radius: 8px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 15px; flex: none; }
+  .agentcard .t { font-size: 12.5px; }
+
+  .spin { width: 15px; height: 15px; border-radius: 50%; border: 2.2px solid var(--rule); border-top-color: var(--green); flex: none; animation: sp 0.9s linear infinite; }
+  @keyframes sp { to { transform: rotate(360deg); } }
+
+  .bignum { display: flex; gap: 14px; }
+  .bignum .b { flex: 1; text-align: center; }
+  .bignum .n { font-size: 22px; font-weight: 700; }
+  .bignum .n.warn { color: var(--saffron); }
+  .bignum .n.ok { color: var(--green); }
+  .bignum .l { font-size: 10.5px; color: var(--muted); }
+
+  .donebig { text-align: center; padding: 6px 0 2px; }
+  .donebig .ic { font-size: 30px; }
+  .donebig .t { font-weight: 700; font-size: 15px; margin-top: 4px; }
+  .donebig .s { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .whytap { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); margin: 2px 0 0; }
+  .whytap .i { width: 14px; height: 14px; border-radius: 50%; border: 1.4px solid var(--muted); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex: none; }
+  .whybox { font-size: 11.5px; color: var(--chip-ink); background: var(--chip); border-radius: 8px; padding: 7px 9px; margin: 6px 0 0; }
+
+  .foot { max-width: 1050px; margin: 26px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 26%; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #444 — the "Your catalog" journey step, one section screen in full</h1>
+<div class="lede">setup-journey.md §4 item 3, the one module step this kickoff asked to be mocked in full. A tap on
+  the "Your catalog" row (mockup #444's home screen) opens this — the three expectation lines up top (what happens,
+  what you need, how long), then either a "Do it for me" hand-off to the onboarding agent or, once running, the
+  section's own live numbers with a link to wherever the real work happens (Import review). Three states below.</div>
+
+<div class="stage">
+
+  <div class="col">
+    <h2>1 · Not started</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Your catalog</div><div class="t2">Getting started</div></div></div>
+      <div class="body-pad">
+        <div class="head"><div class="ic">🥬</div><div class="t">Your catalog</div><div class="pill notstarted">Not started</div></div>
+        <div class="facts">
+          <div class="factrow"><div class="k">Happens</div><div class="v">Upload your POS export → I stage it, clean up the names and shelves, and enrich what's missing. You review and publish.</div></div>
+          <div class="factrow"><div class="k">You need</div><div class="v">The item export file from your current POS (or skip — I can build it from your invoices instead)</div></div>
+          <div class="factrow"><div class="k">How long</div><div class="v">~25 minutes for a file this size <span class="whytap"><span class="i">i</span>rough</span></div></div>
+        </div>
+
+        <div class="card">
+          <div class="filedrop"><div class="ic">📎</div><div class="t">Drop your POS export or tap to choose</div><div class="s">CSV, Excel, or a Toast/Square/Clover template — any of them work</div></div>
+          <div class="btnrow"><div class="btn full">🤖 Do it for me</div></div>
+        </div>
+        <div class="card">
+          <div class="agentcard"><div class="av">🤖</div><div class="t">No export handy? I can build your catalog from the invoices you upload instead — say so on the next step, "Your vendors and invoices."</div></div>
+        </div>
+        <div class="btnrow"><div class="btn ghost full">Skip for now</div></div>
+      </div>
+    </div></div>
+    <div class="tap-hint">the file drop is the same door Import already uses; "Do it for me" hands the file straight to <code>run_import_step</code></div>
+  </div>
+
+  <div class="col">
+    <h2>2 · In progress, needs you</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Your catalog</div><div class="t2">Getting started</div></div></div>
+      <div class="body-pad">
+        <div class="head"><div class="ic">🥬</div><div class="t">Your catalog</div><div class="pill progress">In progress</div></div>
+        <div class="facts">
+          <div class="factrow"><div class="k">Happens</div><div class="v">Staged and enriched — now the common-language review, then Publish.</div></div>
+          <div class="factrow"><div class="k">You need</div><div class="v">A few minutes to look over the items that need a decision</div></div>
+          <div class="factrow"><div class="k">How long</div><div class="v">~4 minutes left, based on your own past batches <span class="whytap"><span class="i">i</span>measured</span></div></div>
+        </div>
+
+        <div class="card">
+          <div class="bignum">
+            <div class="b"><div class="n ok">142</div><div class="l">ready to publish</div></div>
+            <div class="b"><div class="n warn">12</div><div class="l">need you</div></div>
+          </div>
+          <div class="btnrow" style="margin-top:10px"><a class="btn full" href="#">Review the 12</a></div>
+        </div>
+        <div class="card">
+          <div class="agentcard"><div class="spin"></div><div class="t">toast-retail-export.csv — 142 items staged, cleaned onto your shelves, brand and size filled in where the file left them blank.</div></div>
+        </div>
+        <div class="btnrow"><a class="btn ghost full" href="#">Publish the 142 ready now</a></div>
+      </div>
+    </div></div>
+    <div class="tap-hint">the two counts and the Review link are exactly today's Import review screen — this card never re-renders that work, it only points at it</div>
+  </div>
+
+  <div class="col">
+    <h2>3 · Done</h2>
+    <div class="phone"><div class="screen">
+      <div class="topbar"><div class="iconbtn">←</div><div class="titlewrap"><div class="t1">Your catalog</div><div class="t2">Getting started</div></div></div>
+      <div class="body-pad">
+        <div class="head"><div class="ic">🥬</div><div class="t">Your catalog</div><div class="pill done">Done</div></div>
+        <div class="facts">
+          <div class="factrow"><div class="k">Happens</div><div class="v">Your catalog is live — new items still come in the same way any time.</div></div>
+          <div class="factrow"><div class="k">You need</div><div class="v">Nothing more here</div></div>
+          <div class="factrow"><div class="k">Done means</div><div class="v">The batch is published and every item is on a real shelf</div></div>
+        </div>
+        <div class="card">
+          <div class="donebig">
+            <div class="ic">✅</div>
+            <div class="t">154 items published</div>
+            <div class="s">toast-retail-export.csv · published 2026-09-25</div>
+          </div>
+          <div class="btnrow" style="margin-top:10px"><a class="btn full" href="#">Open Products</a></div>
+        </div>
+        <div class="whybox">Add or change items any time from Products or a new import — this step doesn't lock anything, it just gets you started.</div>
+      </div>
+    </div></div>
+    <div class="tap-hint">a done section never blocks reopening it — the journey home still shows it, marked Done, with the same tap-through</div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <h2>Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Each state has one action visible without scrolling: upload/Do it for me, or Review the N, or Open Products. The facts block never asks for a decision, it only sets expectations.</td></tr>
+    <tr><td>2. No paragraphs</td><td>Happens/You need/How long are each one line; the "rough vs measured" note and the no-export alternative sit behind an ⓘ tap or their own small card, never a paragraph on the main flow.</td></tr>
+    <tr><td>3. Icon on every row</td><td>🥬 the section's own icon (matches the Products tab and the home screen's row for this exact section), 📎 upload, 🤖 the agent, ✅ done, a spinner while working — no new picture invented.</td></tr>
+    <tr><td>4. ≤7 things on screen</td><td>State 1: 3 facts + 1 drop zone + 2 buttons. State 2: 3 facts + 2 numbers + 2 links. State 3: 3 facts + 1 result + 1 button. Never more than about 7 elements on screen at once.</td></tr>
+    <tr><td>5. Fast, no on-open summary</td><td>The 142/12 counts and the time estimate are the same numbers Import review and <code>importEstimate.ts</code> already compute — nothing new is aggregated when this screen opens.</td></tr>
+    <tr><td>6. A way back</td><td>← Getting started on every state — this is a step inside the journey, never a dead end.</td></tr>
+    <tr><td>7. One home per function</td><td>Reviewing items happens ONLY on the real Import review screen; this step links there rather than re-rendering the queue, exactly as setup-journey.md §3 requires ("it never re-renders their content").</td></tr>
+    <tr><td>8. As few screens as possible</td><td>No new screen at all — this is a state of the existing Getting-started flow, reached by tapping a row, closed by the same back arrow every other section uses.</td></tr>
+  </table>
+</div>
+
+</body>
+</html>
