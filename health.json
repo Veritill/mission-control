@@ -1,0 +1,46 @@
+{
+  "at": "2026-09-30T12:33:00.062Z",
+  "windowHours": 1,
+  "roles": {
+    "lane": {
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
+    },
+    "core": {
+      "runs": 2,
+      "busyMin": 25,
+      "waitMin": 16,
+      "busyPct": 42
+    },
+    "planner": {
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
+    },
+    "ci": {
+      "runs": 2,
+      "busyMin": 8,
+      "waitMin": 0,
+      "busyPct": 4
+    }
+  },
+  "queue": {
+    "agentsQueued": 0,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
+  },
+  "runners": [],
+  "findings": [],
+  "cost": {
+    "claudeMonthly": 200,
+    "budget": 250,
+    "otherBudget": 50,
+    "railwayMonthToDate": null,
+    "railwayProjected": null,
+    "source": "unknown",
+    "note": "Railway: add the RAILWAY_TOKEN secret (Account → Tokens) on Veritill/platform so this reads the real month-to-date usage"
+  }
+}
