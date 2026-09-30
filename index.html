@@ -230,7 +230,7 @@ a{color:var(--accent)}
       const ciMedMin = median((ciDone||[]).map((r) => (new Date(r.updated_at) - new Date(r.run_started_at || r.created_at))/60000)) || 10;
       const mergeMedMin = median((prsClosed||[]).filter((p) => p.merged_at).map((p) => (new Date(p.merged_at) - new Date(p.created_at))/60000)) || 30;
       const BUILD_MIN = 45; // a lane's build from claim to pull request: not measured yet, labelled rough
-      const ciRunners = 3, agentRunners = 2;
+      const ciRunners = 2, agentRunners = 2; // 2026-09-30: the third CI runner and the separate planner runner were retired for cost (agentic-build.md §6f)
       const ciActive = runsActive.filter((r) => r.name === 'ci'), ciQueued = runsQueued.filter((r) => r.name === 'ci');
       const agActive = runsActive.filter((r) => r.name === 'agents'), agQueued = runsQueued.filter((r) => r.name === 'agents');
       const ciWait = Math.max(0, Math.ceil((ciQueued.length + ciActive.length - ciRunners) / ciRunners)) * ciMedMin;
