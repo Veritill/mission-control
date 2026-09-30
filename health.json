@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-30T12:33:00.062Z",
+  "at": "2026-09-30T18:07:26.389Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,10 +9,10 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 2,
-      "busyMin": 25,
-      "waitMin": 16,
-      "busyPct": 42
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 8,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 0
     }
   },
   "queue": {
