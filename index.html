@@ -67,6 +67,7 @@ a{color:var(--accent)}
     </div>
 
     <div class="card" id="pipeline"></div>
+    <div class="card" id="health"></div>
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
     <div class="card" id="env"></div>
@@ -127,6 +128,27 @@ a{color:var(--accent)}
 
   const money = (n) => '$' + Number(n||0).toFixed(2);
   const kfmt = (n) => n >= 1e6 ? (n/1e6).toFixed(1)+' M' : n >= 1e3 ? Math.round(n/1e3)+' k' : String(n);
+
+  // BUILD HEALTH + COST (Kiran 2026-09-30): health.json is written every hour by Veritill/platform's build-health
+  // workflow (scripts/build-health.mjs). Budget: Claude Max $200 flat + $50 for everything else the build runs on.
+  async function loadHealth() {
+    const el = $('health'); if (!el) return;
+    let h = null; try { const r = await fetch('health.json?t=' + Date.now(), { cache:'no-store' }); if (r.ok) h = await r.json(); } catch {}
+    if (!h) { el.innerHTML = `<div class="head">Build health</div><div class="note">No check has run yet. The hourly build-health job on Veritill/platform writes it.</div>`; return; }
+    const c = h.cost || {}; const rail = c.railwayProjected; const total = (c.claudeMonthly || 200) + (rail ?? 0);
+    const budget = c.budget || 250; const pct = Math.min(100, Math.round(total / budget * 100)); const over = rail != null && total > budget;
+    const costLine = rail == null
+      ? `Claude Max $${c.claudeMonthly || 200} fixed · Railway not connected yet`
+      : `Claude Max $${c.claudeMonthly || 200} + Railway ~$${Math.round(rail)} this month (so far $${Math.round(c.railwayMonthToDate || 0)}) = <b>$${Math.round(total)}</b> of $${budget}`;
+    const roleRow = (name, r) => r ? `<span class="chip ${r.busyPct >= 60 ? 'ok' : r.waitMin > r.busyMin && r.runs ? 'warn' : ''}" title="last hour: ${r.runs} runs, ${r.busyMin} min working, ${r.waitMin} min waiting for a runner">${name} ${r.busyPct}% busy · ${r.waitMin} min queued</span>` : '';
+    const fixed = (h.findings || []).filter((f) => f.level === 'fixed'), warns = (h.findings || []).filter((f) => f.level === 'warn');
+    const runnersDown = (h.runners || []).filter((r) => !r.online).map((r) => r.name);
+    el.innerHTML = `<div class="head">Build health · checked ${ago(h.at)} ago</div>
+      <div class="row"><span class="ic">${over ? '🔴' : rail == null ? '🟡' : '🟢'}</span><div class="body"><div class="t">Development cost this month</div><div class="s">${costLine}</div><div class="bar"><i style="width:${pct}%;background:${over ? 'var(--bad)' : 'var(--ok)'}"></i></div>${c.note && rail == null ? `<div class="s">${esc(c.note)}</div>` : ''}</div></div>
+      <div class="row"><span class="ic">⏱️</span><div class="body"><div class="t">Last hour, working vs waiting</div><div class="steps" style="margin-top:6px">${roleRow('Lanes', h.roles?.lane)}${roleRow('Core', h.roles?.core)}${roleRow('Planner', h.roles?.planner)}${roleRow('CI', h.roles?.ci)}</div><div class="s">${h.queue ? `${h.queue.agentsQueued + h.queue.ciQueued} runs queued now${h.queue.oldestQueuedMin ? ', oldest ' + h.queue.oldestQueuedMin + ' min' : ''}` : ''}${runnersDown.length ? ' · runners down: ' + esc(runnersDown.join(', ')) : ''}</div></div></div>
+      <div class="row"><span class="ic">${warns.length ? '⚠️' : fixed.length ? '🔧' : '✓'}</span><div class="body"><div class="t">${fixed.length ? fixed.length + ' thing' + (fixed.length === 1 ? '' : 's') + ' fixed' : 'Nothing to fix'}${warns.length ? ' · ' + warns.length + ' to look at' : ''}</div>${[...warns, ...fixed].slice(0, 6).map((f) => `<div class="s">${f.level === 'fixed' ? '✅' : '⚠️'} ${esc(f.text)}</div>`).join('')}<div class="s"><a href="https://github.com/${REPO}/issues?q=is%3Aissue+%22Build+health+log%22" target="_blank" rel="noreferrer">the log</a></div></div></div>`;
+  }
+
   async function loadSpend() {
     const el = $('spend'); if (!el) return;
     let sp = null; try { const r = await fetch('spend.json?t=' + Date.now(), { cache:'no-store' }); if (r.ok) sp = await r.json(); } catch {}
@@ -147,7 +169,7 @@ a{color:var(--accent)}
   }
 
   async function load() {
-    loadSpend();
+    loadSpend(); loadHealth();
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
