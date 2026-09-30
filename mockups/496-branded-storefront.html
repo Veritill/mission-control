@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #496 — Branded storefront: client logo, colours, name on /store and /order</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --chip: #f1efe8; --chip-ink: #4a564f; --warn-soft: #f7efd8; --warn: #8a6a1f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 720px; margin: 0 auto 10px; text-align: center; }
+  .rule2 { color: var(--ink); font-size: 13px; max-width: 720px; margin: 0 auto 22px; text-align: center; font-weight: 700; background: var(--chip); border-radius: 10px; padding: 8px 12px; }
+
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; max-width: 1180px; margin: 0 auto; align-items: flex-start; }
+  .col { width: 300px; }
+  .col h2 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 4px; text-align: center; }
+  .col .sub { font-size: 11px; color: var(--muted); text-align: center; margin: 0 0 10px; }
+
+  /* --- phone chrome, per-tenant brand variables set inline via style="--brand:...;--brand-soft:...;--ink-on-brand:...;" --- */
+  .phone { width: 300px; height: 600px; background: var(--paper); border-radius: 24px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 14px 14px 10px; flex: none; background: var(--brand); color: var(--ink-on-brand); }
+  .logotile { width: 34px; height: 34px; border-radius: 9px; background: rgba(255,255,255,.22); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; flex: none; color: var(--ink-on-brand); overflow: hidden; }
+  .logotile img { width: 100%; height: 100%; object-fit: cover; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 800; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .searchbar { padding: 10px 14px 8px; flex: none; }
+  .input { width: 100%; padding: 9px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13.5px; font-family: inherit; color: var(--ink); }
+
+  .catrow { display: flex; gap: 6px; padding: 2px 14px 10px; overflow-x: auto; scrollbar-width: none; flex: none; }
+  .catrow::-webkit-scrollbar { display: none; }
+  .catchip { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); font-size: 12px; font-weight: 600; border: none; cursor: default; white-space: nowrap; }
+  .catchip.on { background: var(--brand); color: var(--ink-on-brand); }
+
+  .list { flex: 1; overflow-y: auto; padding: 0 14px 8px; }
+  .prow { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .prow .ic { font-size: 20px; flex: none; width: 26px; text-align: center; }
+  .prow .grow { flex: 1; min-width: 0; }
+  .prow .nm { font-weight: 600; font-size: 13px; line-height: 1.3; }
+  .prow .meta { display: flex; align-items: center; gap: 6px; margin-top: 3px; flex-wrap: wrap; }
+  .prow .pr { font-weight: 700; font-size: 12.5px; color: var(--brand-ink); font-variant-numeric: tabular-nums; }
+  .tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; white-space: nowrap; background: var(--chip); color: var(--chip-ink); }
+  .addbtn { flex: none; background: var(--brand); color: var(--ink-on-brand); border: none; border-radius: 8px; padding: 7px 11px; font-size: 12px; font-weight: 700; }
+
+  .sectitle { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 12px 14px 6px; flex: none; }
+  .co-body { flex: 1; overflow-y: auto; padding: 0 14px 14px; }
+  .field { display: block; margin: 0 0 10px; }
+  .field span { display: block; font-size: 10.5px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .line { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .line .ic { font-size: 17px; flex: none; width: 24px; text-align: center; }
+  .line .body { flex: 1; min-width: 0; }
+  .line .nm { font-weight: 600; font-size: 12.5px; }
+  .line .ls { font-size: 11px; color: var(--muted); }
+  .line .amt { font-weight: 700; font-size: 12.5px; font-variant-numeric: tabular-nums; flex: none; }
+
+  .totals { border-top: 1px dashed var(--rule); margin-top: 6px; padding-top: 6px; font-size: 12.5px; }
+  .totals .row2 { display: flex; justify-content: space-between; padding: 2px 0; color: var(--muted); }
+  .totals .row2.grand { color: var(--ink); font-weight: 800; font-size: 14.5px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 6px; }
+
+  .btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--brand); color: var(--ink-on-brand); border: none; border-radius: 10px; padding: 11px 10px; font-weight: 700; font-size: 13px; cursor: default; width: 100%; margin-top: 10px; }
+
+  .confirmwrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 26px 22px; text-align: center; }
+  .confirmwrap .logotile { width: 52px; height: 52px; border-radius: 14px; font-size: 22px; margin-bottom: 4px; background: var(--brand-soft); color: var(--brand-ink); }
+  .confirmwrap h3 { margin: 0; font-size: 16.5px; }
+  .confirmwrap p { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .confirmwrap .kv { width: 100%; max-width: 230px; text-align: left; background: var(--chip); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; margin-top: 6px; }
+  .confirmwrap .kv div { display: flex; justify-content: space-between; padding: 3px 0; }
+
+  .poweredby { flex: none; text-align: center; padding: 8px 10px 12px; font-size: 10.5px; color: var(--muted); }
+  .poweredby.hidden { display: none; }
+
+  /* --- settings card panel (not a phone — a desktop settings surface) --- */
+  .settingscard { width: 300px; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 14px; box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+  .settingscard .row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .settingscard .row:last-child { border-bottom: none; }
+  .settingscard .lbl { flex: 1; font-size: 12.5px; font-weight: 600; }
+  .settingscard .lbl .s { display: block; font-weight: 400; font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+  .swatchrow { display: flex; gap: 6px; }
+  .swatch { width: 22px; height: 22px; border-radius: 6px; border: 2px solid transparent; cursor: default; }
+  .swatch.on { border-color: var(--ink); }
+  .togglepill { width: 38px; height: 22px; border-radius: 999px; background: var(--chip); position: relative; flex: none; }
+  .togglepill.on { background: #2f7d4f; }
+  .togglepill .knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 999px; background: #fff; transition: left .15s; }
+  .togglepill.on .knob { left: 18px; }
+  .logopreview { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex: none; }
+  .textinput { width: 100%; padding: 7px 9px; border: 1px solid var(--rule); border-radius: 7px; font-size: 12.5px; font-family: inherit; color: var(--ink); background: #fff; }
+
+  /* --- receipt email panel --- */
+  .emailwin { width: 340px; background: #fff; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; box-shadow: 0 6px 16px rgba(0,0,0,.08); }
+  .emailchrome { background: #f4f3ee; border-bottom: 1px solid var(--rule); padding: 8px 12px; font-size: 11px; color: var(--muted); }
+  .emailchrome b { color: var(--ink); }
+  .emailbody { padding: 0; }
+  .emailhead { padding: 20px 20px 16px; text-align: center; }
+  .emailhead .logotile { width: 44px; height: 44px; border-radius: 12px; margin: 0 auto 8px; font-size: 18px; }
+  .emailhead .biz { font-weight: 800; font-size: 15px; }
+  .emailhead .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .emailrule { height: 3px; }
+  .emailsection { padding: 16px 20px; border-bottom: 1px solid var(--rule); }
+  .emailsection:last-child { border-bottom: none; }
+  .emailsection .h { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 8px; }
+  .emailline { display: flex; justify-content: space-between; font-size: 12.5px; padding: 3px 0; }
+  .emailline.total { font-weight: 800; font-size: 14px; border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 8px; }
+  .emailfoot { text-align: center; padding: 14px 20px 20px; font-size: 10.5px; color: var(--muted); }
+
+  .tap-hint { text-align: center; font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+  .foot { max-width: 1180px; margin: 30px auto 0; font-size: 13.5px; color: var(--muted); }
+  .foot h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin: 0 0 8px; }
+  .checktable { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; }
+  .checktable td { padding: 8px 10px; border-bottom: 1px solid var(--rule); font-size: 12.5px; vertical-align: top; }
+  .checktable tr:last-child td { border-bottom: none; }
+  .checktable td:first-child { white-space: nowrap; font-weight: 700; color: var(--ink); width: 22%; }
+  .foot .tradeoffs { margin-top: 14px; }
+  .foot .tradeoffs li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<h1 class="page">Mockup #496 — Branded storefront: client logo, colours, name</h1>
+<div class="lede">Phase 1 of the customer app plan (docs/requirements/customer-app.md, issue #321) — the client's own
+  brand applied to the existing <code>/store/[slug]</code> (Shopkiraana, grocery) and <code>/order/[slug]</code>
+  (GIF, restaurant catering) doors, the checkout/confirmation screen, and a receipt email. Both panels below are
+  live demo state — nothing here reads real data, and no code ships from this issue.</div>
+<div class="rule2">Kiran's Rule 2 (2026-09-30): "a client's storefront is that client's world." One client's
+  logo/colour/name only, everywhere that client's customer looks — no other business named or visible, no
+  Veritill branding beyond an optional, hideable "Powered by Veritill."</div>
+
+<div class="stage">
+  <div class="col">
+    <h2>Settings — Business profile</h2>
+    <div class="sub">where the brand is set (no migration — one jsonb field)</div>
+    <div class="settingscard">
+      <div class="row">
+        <div class="logopreview" style="background:#f4e0c8;color:#a8501e;">SK</div>
+        <div class="lbl">Logo<span class="s">Shown on your storefront, receipts and emails</span></div>
+      </div>
+      <div class="row"><button class="btn" style="--brand:#eee;--ink-on-brand:#333;margin:0;padding:7px;font-size:11.5px;">Upload logo</button></div>
+      <div class="row">
+        <div class="lbl">Display name<span class="s">What customers see, not your legal name</span></div>
+      </div>
+      <div class="row" style="border-top:none;padding-top:0;"><input class="textinput" value="Shopkiraana" readonly /></div>
+      <div class="row">
+        <div class="lbl">Brand colour<span class="s">Buttons, header, accents</span></div>
+      </div>
+      <div class="row" style="border-top:none;padding-top:0;">
+        <div class="swatchrow">
+          <div class="swatch on" style="background:#a8501e;"></div>
+          <div class="swatch" style="background:#2f7d4f;"></div>
+          <div class="swatch" style="background:#1e5aa8;"></div>
+          <div class="swatch" style="background:#7d2f6b;"></div>
+          <div class="swatch" style="background:#333;border:2px solid var(--rule);"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="lbl">Show "Powered by Veritill"<span class="s">Off hides it everywhere for this client</span></div>
+        <div class="togglepill on"><div class="knob"></div></div>
+      </div>
+    </div>
+    <div class="tap-hint">Same three fields for every client — logo, name, one colour. GIF's own row (below) is identical, its own values.</div>
+  </div>
+
+  <div class="col">
+    <h2>Storefront — Shopkiraana</h2>
+    <div class="sub">/store/shopkiraana</div>
+    <div class="phone" style="--brand:#a8501e;--brand-soft:#f4e0c8;--brand-ink:#a8501e;--ink-on-brand:#fff;">
+      <div class="screen">
+        <div class="topbar">
+          <div class="logotile">SK</div>
+          <div class="titlewrap"><div class="t1">Shopkiraana</div><div class="t2">Mt. Juliet, TN · Indian grocery</div></div>
+        </div>
+        <div class="searchbar"><input class="input" placeholder="Search rice, dal, spices…" readonly /></div>
+        <div class="catrow">
+          <button class="catchip on">All</button><button class="catchip">Rice &amp; Grains</button><button class="catchip">Dals</button><button class="catchip">Spices</button>
+        </div>
+        <div class="list">
+          <div class="prow"><div class="ic">🌾</div><div class="grow"><div class="nm">Basmati Rice, 10 lb</div><div class="meta"><span class="pr">$14.99</span><span class="tag">🟢 SNAP</span></div></div><button class="addbtn">✚ Add</button></div>
+          <div class="prow"><div class="ic">🫘</div><div class="grow"><div class="nm">Toor Dal, 4 lb</div><div class="meta"><span class="pr">$6.49</span><span class="tag">🟢 SNAP</span></div></div><button class="addbtn">✚ Add</button></div>
+          <div class="prow"><div class="ic">🧈</div><div class="grow"><div class="nm">Cow Ghee, 32 oz</div><div class="meta"><span class="pr">$12.99</span><span class="tag">Usually in stock</span></div></div><button class="addbtn">✚ Add</button></div>
+          <div class="prow"><div class="ic">🌶️</div><div class="grow"><div class="nm">Garam Masala, 3.5 oz</div><div class="meta"><span class="pr">$4.29</span><span class="tag">Usually in stock</span></div></div><button class="addbtn">✚ Add</button></div>
+        </div>
+        <div class="poweredby">Powered by Veritill</div>
+      </div>
+    </div>
+    <div class="tap-hint">header, category chips, Add buttons all carry Shopkiraana's own colour</div>
+  </div>
+
+  <div class="col">
+    <h2>Order — Great Indian Food</h2>
+    <div class="sub">/order/gif</div>
+    <div class="phone" style="--brand:#7d1f2b;--brand-soft:#f2dade;--brand-ink:#7d1f2b;--ink-on-brand:#fff;">
+      <div class="screen">
+        <div class="topbar">
+          <div class="logotile">GIF</div>
+          <div class="titlewrap"><div class="t1">Great Indian Food</div><div class="t2">Catering · order for pickup</div></div>
+        </div>
+        <div class="sectitle" style="margin-top:14px;">Trays</div>
+        <div class="list" style="padding-top:0;">
+          <div class="prow"><div class="ic">🍛</div><div class="grow"><div class="nm">Chicken Tikka Masala</div><div class="meta"><span class="pr">Half tray $42</span></div></div><button class="addbtn">+ Half</button></div>
+          <div class="prow"><div class="ic">🍚</div><div class="grow"><div class="nm">Vegetable Biryani</div><div class="meta"><span class="pr">Half tray $34</span></div></div><button class="addbtn">+ Half</button></div>
+          <div class="prow"><div class="ic">🫓</div><div class="grow"><div class="nm">Garlic Naan (12 ct)</div><div class="meta"><span class="pr">$18</span></div></div><button class="addbtn">+ Add</button></div>
+        </div>
+        <div class="sectitle">Your order</div>
+        <div class="co-body" style="padding-top:0;">
+          <div class="line"><div class="ic">🍛</div><div class="body"><div class="nm">Chicken Tikka Masala</div><div class="ls">Half tray</div></div><div class="amt">$42.00</div></div>
+          <div class="line"><div class="ic">🫓</div><div class="body"><div class="nm">Garlic Naan (12 ct)</div><div class="ls">1 × $18.00</div></div><div class="amt">$18.00</div></div>
+          <div class="totals">
+            <div class="row2"><span>Subtotal</span><span>$60.00</span></div>
+            <div class="row2 grand"><span>Total</span><span>$60.00</span></div>
+          </div>
+          <button class="btn">Send the request</button>
+        </div>
+        <div class="poweredby hidden">Powered by Veritill</div>
+      </div>
+    </div>
+    <div class="tap-hint">GIF turned the footer off (its own Settings toggle) — this is the optional part in practice</div>
+  </div>
+
+  <div class="col">
+    <h2>Confirmation — Shopkiraana</h2>
+    <div class="sub">on-screen, right after Place order</div>
+    <div class="phone" style="--brand:#a8501e;--brand-soft:#f4e0c8;--brand-ink:#a8501e;--ink-on-brand:#fff;">
+      <div class="screen">
+        <div class="confirmwrap">
+          <div class="logotile">SK</div>
+          <h3>Order placed</h3>
+          <p>We'll text you when it's ready.</p>
+          <div class="kv">
+            <div><span>Order</span><b>SK-10482</b></div>
+            <div><span>Pickup</span><b>Today, 6:00 PM</b></div>
+            <div><span>Total due</span><b>$21.48</b></div>
+          </div>
+        </div>
+        <div class="poweredby">Powered by Veritill</div>
+      </div>
+    </div>
+    <div class="tap-hint">same logo/colour as browse — one brand throughout, not just the header</div>
+  </div>
+</div>
+
+<div class="stage" style="margin-top:26px;">
+  <div class="col" style="width:340px;">
+    <h2>Receipt email — Shopkiraana</h2>
+    <div class="sub">sent the moment the order is placed</div>
+    <div class="emailwin">
+      <div class="emailchrome">From: <b>Shopkiraana &lt;orders@shopkiraana.veritill.app&gt;</b> · To: priya@example.com</div>
+      <div class="emailrule" style="background:#a8501e;"></div>
+      <div class="emailbody">
+        <div class="emailhead">
+          <div class="logotile" style="margin:0 auto 8px;background:#f4e0c8;color:#a8501e;">SK</div>
+          <div class="biz">Shopkiraana</div>
+          <div class="sub">Order SK-10482 · pickup today, 6:00 PM</div>
+        </div>
+        <div class="emailsection">
+          <div class="h">Your order</div>
+          <div class="emailline"><span>Basmati Rice, 10 lb</span><span>$14.99</span></div>
+          <div class="emailline"><span>Toor Dal, 4 lb</span><span>$6.49</span></div>
+          <div class="emailline total"><span>Total due at pickup</span><span>$21.48</span></div>
+        </div>
+        <div class="emailfoot">Questions about this order? Reply to this email or call Shopkiraana directly.<br />Powered by Veritill</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col" style="width:340px;">
+    <h2>Receipt email — Great Indian Food</h2>
+    <div class="sub">same template, GIF's own brand, footer off</div>
+    <div class="emailwin">
+      <div class="emailchrome">From: <b>Great Indian Food &lt;orders@greatindianfood.veritill.app&gt;</b> · To: priya@example.com</div>
+      <div class="emailrule" style="background:#7d1f2b;"></div>
+      <div class="emailbody">
+        <div class="emailhead">
+          <div class="logotile" style="margin:0 auto 8px;background:#f2dade;color:#7d1f2b;">GIF</div>
+          <div class="biz">Great Indian Food</div>
+          <div class="sub">Catering request GIF-2231 · we'll call to confirm</div>
+        </div>
+        <div class="emailsection">
+          <div class="h">Your request</div>
+          <div class="emailline"><span>Chicken Tikka Masala, half tray</span><span>$42.00</span></div>
+          <div class="emailline"><span>Garlic Naan (12 ct)</span><span>$18.00</span></div>
+          <div class="emailline total"><span>Subtotal</span><span>$60.00</span></div>
+        </div>
+        <div class="emailfoot">We will call to confirm and take the deposit.</div>
+      </div>
+    </div>
+    <div class="tap-hint">no "Powered by Veritill" line at all — GIF's own toggle is off</div>
+  </div>
+</div>
+
+<div class="foot">
+  <h2>One SAME template, two brands, no leak between them</h2>
+  <table class="checktable">
+    <tr><td>The one input</td><td>Three fields, one screen: logo, display name, one accent colour — the same
+      settings card for every client (left panel above), backed by one new jsonb field
+      (<code>tenants.settings.commerce.branding</code> or a sibling under <code>catering</code>, exact key for
+      Core to land — no migration, gap 7 in customer-app.md §5). No per-page branding, no separate colour for
+      checkout vs. confirmation vs. email — one brand object read everywhere that client's customer looks.</td></tr>
+    <tr><td>Where it renders</td><td>The storefront header (logo tile + name), every button and active chip
+      (currently a hardcoded green in <code>/store/[slug]</code>'s CSS), the confirmation screen's own logo mark,
+      and the receipt email's header band and accent rule — six render sites reading one object, not six copies
+      of a colour.</td></tr>
+    <tr><td>No cross-tenant leak</td><td>Shopkiraana's panels never mention GIF and GIF's panels never mention
+      Shopkiraana — each tenant's storefront is generated from that tenant's own row only, the same isolation
+      the public routes already enforce by slug. There is no "browse other Veritill stores" anywhere, matching
+      Rule 2 exactly: no "my businesses" list surfaces inside a client's own store.</td></tr>
+    <tr><td>"Powered by Veritill" is real, optional</td><td>Shown above with it ON (Shopkiraana, left phone/email)
+      and OFF (GIF, right phone/email) — the exact same code path, one boolean, not two different footers to
+      build and keep in sync.</td></tr>
+  </table>
+
+  <h2 style="margin-top:18px;">Against the eight screens.md §0 checks</h2>
+  <table class="checktable">
+    <tr><td>1. One job</td><td>Unchanged from the shipped screens (#239 for /store, the existing /order) — this
+      phase changes only header/accent/logo/footer, never the flow or the action visible on each step.</td></tr>
+    <tr><td>2. No paragraphs</td><td>The settings card is three labelled rows plus one toggle, no explanatory text
+      beyond the twelve-word captions already used elsewhere in Settings.</td></tr>
+    <tr><td>3. Icon on every row</td><td>The logo tile IS the icon for "this business" everywhere it appears —
+      header, confirmation, email — the same image, never a different mark for the same business on two
+      screens (the exact rule check 3 already states for every other picture in the product).</td></tr>
+    <tr><td>4-8</td><td>Unaffected — this phase adds no new screen (the settings card is a new row on the existing
+      Settings → Business profile area, not a new page) and no new step in either storefront's flow.</td></tr>
+  </table>
+  <ul class="tradeoffs">
+    <li><b>No real logo asset exists yet</b> for either Shopkiraana or GIF in this codebase — the tiles above are
+      placeholder initials in the brand colour, exactly what the real screen shows before a client uploads one
+      (the same "SK"/"GIF" fallback a person's own initials avatar already uses elsewhere in the product).</li>
+    <li><b>One colour, not a full theme.</b> This phase reads one accent colour, not a full light/dark palette —
+      matching gap 7's own size (S) in customer-app.md. A client who wants their own font or a second colour is a
+      bigger, unscoped ask, named as a later follow-up if Kiran wants it, not guessed here.</li>
+    <li><b>The domain (shop.&lt;client-domain&gt;) is issue #498</b>, not this one — the slug in the URL bar
+      (<code>/store/shopkiraana</code>) stays a Veritill-hosted path in this phase; a client's own domain is the
+      next approved gap.</li>
+  </ul>
+</div>
+</body>
+</html>
