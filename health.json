@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-01T01:32:22.396Z",
+  "at": "2026-10-01T02:27:08.208Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 7,
+      "busyMin": 35,
+      "waitMin": 28,
+      "busyPct": 29
     },
     "core": {
       "runs": 0,
@@ -15,32 +15,37 @@
       "busyPct": 0
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 3,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 5
     },
     "ci": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 3,
+      "busyMin": 17,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 9
     }
   },
   "queue": {
     "agentsQueued": 0,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 1,
+    "oldestQueuedMin": 5
   },
   "runners": [],
-  "findings": [],
+  "findings": [
+    {
+      "level": "warn",
+      "text": "projected development cost $2793086 exceeds the $250 budget (Railway projected $2792886.27)"
+    }
+  ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": null,
-    "railwayProjected": null,
-    "source": "unknown",
-    "note": "Railway: add the RAILWAY_TOKEN secret (Account → Tokens) on Veritill/platform so this reads the real month-to-date usage"
+    "railwayMonthToDate": 1370826.58,
+    "railwayProjected": 2792886.27,
+    "source": "railway-api",
+    "note": "usage × Railway's published rates; the plan base fee is not included"
   }
 }
