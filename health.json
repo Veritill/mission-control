@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-02T14:05:49.432Z",
+  "at": "2026-10-02T19:29:23.533Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -36,15 +36,15 @@
   "findings": [
     {
       "level": "warn",
-      "text": "projected development cost $271 exceeds the $250 budget (Railway projected $70.81)"
+      "text": "projected development cost $272 exceeds the $250 budget (Railway projected $71.71)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 36.64,
-    "railwayProjected": 70.81,
+    "railwayMonthToDate": 37.23,
+    "railwayProjected": 71.71,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
