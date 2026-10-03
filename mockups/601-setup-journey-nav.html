@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #601 — The setup journey you can see and walk (every step, every vendor, done · now · skipped · later, the work inline)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2; --skip: #8a8f88;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 14px; text-align: center; }
+  .toggle { display: flex; justify-content: center; gap: 8px; margin: 0 auto 22px; }
+  .toggle button { border: 1px solid var(--rule); background: var(--card); color: var(--ink); border-radius: 999px; padding: 7px 16px; font: inherit; font-size: 13.5px; cursor: pointer; }
+  .toggle button.on { background: var(--green); border-color: var(--green); color: #fff; font-weight: 700; }
+  .wrap { max-width: 1420px; margin: 0 auto; }
+  section.opt { background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 18px 18px 8px; margin: 0 auto 26px; }
+  section.opt h2 { font-size: 17px; margin: 0 0 2px; }
+  section.opt h2 .tag { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-left: 8px; font-weight: 600; }
+  section.opt .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+  .col { width: 320px; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; font-weight: 600; }
+  .phone { width: 320px; height: 690px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .iconbtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 13px; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+  .body-pad { flex: 1; overflow-y: auto; padding: 10px 12px 14px; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; }
+
+  /* status pictures — one picture per state, identical everywhere on the page */
+  .st { width: 20px; height: 20px; border-radius: 50%; flex: none; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; line-height: 1; }
+  .st.done { background: var(--green); color: #fff; }
+  .st.now { border: 2.5px solid var(--saffron); color: var(--saffron); background: var(--saffron-soft); }
+  .st.skip { border: 2px dashed var(--skip); color: var(--skip); }
+  .st.todo { border: 2px solid var(--rule); color: transparent; }
+  .st.work { border: 2.5px solid var(--rule); border-top-color: var(--green); animation: spin 1s linear infinite; }
+  .st.sm { width: 14px; height: 14px; font-size: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .word { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+  .word.done { color: var(--green); } .word.now { color: var(--saffron); } .word.skip { color: var(--skip); } .word.todo { color: var(--muted); } .word.work { color: var(--green); }
+
+  /* the sticky "next" chip (law 1) */
+  .nextchip { display: flex; align-items: center; gap: 8px; background: var(--saffron-soft); border: 1px solid #e8cfae; border-radius: 12px; padding: 8px 10px; margin-bottom: 10px; }
+  .nextchip .lbl { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--saffron); flex: none; }
+  .nextchip .t { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nextchip .go { flex: none; background: var(--saffron); color: #fff; border: none; border-radius: 8px; padding: 5px 10px; font-size: 11.5px; font-weight: 700; }
+
+  .bar { height: 8px; border-radius: 4px; background: var(--rule); overflow: hidden; margin: 4px 0 2px; }
+  .bar > div { height: 100%; background: var(--green); }
+  .barrow { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  .barrow b { color: var(--ink); font-size: 13px; }
+
+  /* option A — the ladder */
+  .rung { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-top: 1px solid var(--rule); }
+  .rung:first-child { border-top: none; }
+  .rung .ic { font-size: 18px; width: 24px; text-align: center; flex: none; }
+  .rung .nm { flex: 1; min-width: 0; }
+  .rung .nm .n1 { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rung .nm .n2 { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+  .rung.done .nm .n1 { color: var(--muted); font-weight: 600; }
+  .rung .right { flex: none; display: flex; align-items: center; gap: 6px; }
+  .rung .right .chev { color: var(--muted); font-size: 12px; }
+  .vendor { margin-left: 33px; border-top: 1px dashed var(--rule); padding: 7px 0; }
+  .vendor .vh { display: flex; align-items: center; gap: 8px; }
+  .vendor .vh .ic { font-size: 14px; width: 18px; text-align: center; flex: none; }
+  .vendor .vh .vn { flex: 1; font-size: 12.5px; font-weight: 700; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dots { display: flex; gap: 10px; margin: 4px 0 0 26px; flex-wrap: wrap; }
+  .dot { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; color: var(--muted); }
+  .dot b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .work { margin: 8px 0 2px 26px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 9px 10px; }
+  .work .wt { font-size: 12.5px; font-weight: 700; margin-bottom: 4px; }
+  .work .wo { font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 6px; }
+  .drop { border: 1.5px dashed var(--rule); border-radius: 10px; padding: 10px; text-align: center; font-size: 11.5px; color: var(--muted); margin-bottom: 8px; }
+  .drop .b { display: inline-block; margin-top: 6px; background: var(--chip); border-radius: 8px; padding: 4px 9px; font-size: 11px; color: var(--ink); font-weight: 600; }
+  .steps { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .steps li { display: flex; gap: 7px; font-size: 11.5px; align-items: center; }
+  .steps li span:first-child { flex: none; }
+  .btnrow { display: flex; gap: 6px; }
+  .btn { flex: 1; border: none; border-radius: 9px; padding: 7px 10px; font-size: 12px; font-weight: 700; background: var(--green); color: #fff; text-align: center; }
+  .btn.ghost { background: var(--chip); color: var(--ink); flex: none; }
+  .btn.saff { background: var(--saffron); }
+  .btn.sm { padding: 4px 9px; font-size: 11px; flex: none; }
+  .resume { border: 1px solid var(--skip); color: var(--ink); background: transparent; border-radius: 8px; padding: 3px 8px; font-size: 10.5px; font-weight: 700; flex: none; }
+  .why { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; color: var(--muted); margin-bottom: 6px; }
+  .why .i { width: 13px; height: 13px; border-radius: 50%; border: 1.3px solid var(--muted); display: inline-flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; }
+
+  /* the verify wizard, inline */
+  .wiz .wh { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .wiz .wh b { color: var(--ink); font-size: 12.5px; }
+  .item { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; border-top: 1px solid var(--rule); }
+  .item .pic { width: 30px; height: 30px; border-radius: 7px; background: var(--chip); display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
+  .item .f { flex: 1; min-width: 0; }
+  .item .f .nm { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .f .facts { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 3px; }
+  .chip { font-size: 10px; background: var(--chip); color: var(--chip-ink); border-radius: 999px; padding: 2px 7px; white-space: nowrap; }
+  .chip.gold { background: #fff6dc; color: #8a6400; }
+  .chip.ask { background: var(--saffron-soft); color: var(--saffron); font-weight: 700; }
+  .chip.opt { border: 1px dashed var(--rule); background: transparent; color: var(--muted); }
+  .chip.src { background: var(--green-soft); color: var(--green); }
+  .item .ok { flex: none; width: 24px; height: 24px; border-radius: 7px; background: var(--green-soft); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; margin-top: 3px; }
+
+  /* option B — the floor map */
+  .map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+  .tile { position: relative; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 8px 6px 6px; text-align: center; min-height: 78px; }
+  .tile.now { border-color: var(--saffron); box-shadow: 0 0 0 2px var(--saffron-soft); }
+  .tile.done { background: var(--green-soft); border-color: #cfe3d5; }
+  .tile.skip { border-style: dashed; }
+  .tile .pic { font-size: 22px; line-height: 1; }
+  .tile .tn { font-size: 10.5px; font-weight: 700; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile .tv { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile .st { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; font-size: 9px; background-color: var(--card); }
+  .tile .st.done { background-color: var(--green); }
+  .tile .st.now { background-color: var(--saffron-soft); }
+  .tile .arrow { position: absolute; right: -9px; top: 50%; transform: translateY(-50%); color: var(--rule); font-size: 11px; }
+  .board .bh { display: flex; align-items: center; gap: 8px; margin: 2px 0 6px; }
+  .board .bh .ic { font-size: 18px; }
+  .board .bh .t { font-size: 13.5px; font-weight: 800; flex: 1; }
+  .vcard { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 8px 10px; margin-bottom: 8px; }
+  .vcard.now { border-color: var(--saffron); }
+  .vcard .vh { display: flex; align-items: center; gap: 8px; }
+  .vcard .vh .ic { font-size: 15px; flex: none; }
+  .vcard .vh .vn { flex: 1; font-size: 12.5px; font-weight: 700; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ministeps { display: flex; gap: 4px; margin-top: 6px; }
+  .ms { flex: 1; border-radius: 8px; padding: 5px 4px; text-align: center; background: var(--chip); }
+  .ms.done { background: var(--green-soft); } .ms.now { background: var(--saffron-soft); } .ms.skip { background: transparent; border: 1px dashed var(--skip); }
+  .ms .l { font-size: 9.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .ms .v { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--card); border-top-left-radius: 18px; border-top-right-radius: 18px; box-shadow: 0 -10px 30px rgba(0,0,0,.18); padding: 8px 12px 14px; max-height: 76%; overflow-y: auto; }
+  .sheet .grab { width: 36px; height: 4px; border-radius: 2px; background: var(--rule); margin: 0 auto 8px; }
+  .dim { position: absolute; inset: 0; background: rgba(30,42,36,.35); }
+
+  /* option C — card + drawer */
+  .rail { display: flex; gap: 4px; align-items: center; margin-bottom: 8px; }
+  .rail i { flex: 1; height: 6px; border-radius: 3px; background: var(--rule); }
+  .rail i.done { background: var(--green); } .rail i.now { background: var(--saffron); } .rail i.skip { background: repeating-linear-gradient(90deg, var(--skip) 0 3px, transparent 3px 6px); }
+  .hist { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--rule); font-size: 12px; }
+  .hist .t { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hist .tm { font-size: 10.5px; color: var(--muted); flex: none; }
+  .hist.skip .t { color: var(--skip); }
+  .maprow { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-top: 1px solid var(--rule); }
+  .maprow .ic { font-size: 16px; width: 22px; text-align: center; flex: none; }
+  .maprow .t { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .maprow .t small { display: block; font-size: 10.5px; color: var(--muted); font-weight: 400; }
+  .maprow.sub { padding-left: 22px; }
+
+  /* page-level: scorecards, tables */
+  table.score { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0 6px; }
+  table.score th, table.score td { text-align: left; padding: 5px 8px; border-top: 1px solid var(--rule); vertical-align: top; }
+  table.score th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-top: none; }
+  .ok { color: var(--green); font-weight: 800; } .warn { color: var(--saffron); font-weight: 800; } .bad { color: var(--danger); font-weight: 800; }
+  .proscons { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; margin: 6px 0 10px; }
+  .proscons div { flex: 1 1 280px; }
+  .proscons ul { margin: 4px 0 0; padding-left: 18px; }
+  .twocol { display: flex; gap: 22px; flex-wrap: wrap; }
+  .twocol > div { flex: 1 1 380px; }
+  .journey { list-style: none; margin: 0; padding: 0; }
+  .journey li { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-top: 1px solid var(--rule); font-size: 13px; }
+  .journey li .ic { width: 24px; text-align: center; font-size: 17px; flex: none; }
+  .journey li .n { flex: 1; min-width: 0; }
+  .journey li .n small { display: block; color: var(--muted); font-size: 11.5px; }
+  .journey li code { font-size: 11px; background: var(--chip); border-radius: 5px; padding: 1px 5px; white-space: nowrap; }
+  .gap { color: var(--danger); font-weight: 700; font-size: 11px; }
+  .rec { background: var(--green-soft); border: 1px solid #cfe3d5; border-radius: 14px; padding: 12px 16px; margin: 0 0 26px; font-size: 14px; }
+  .hidden { display: none !important; }
+  @media (max-width: 720px) { .phone { width: 300px; height: 660px; } .col { width: 300px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="page">Mockup #601 — The setup journey you can see and walk</h1>
+  <p class="lede">Settings → Getting started, redesigned: every step and every vendor visible at once as done · now · skipped · later, any of them tappable, the work done right there — while the agent still points at ONE next thing. Three shapes, both personas. Example data only; nothing here is a real business.</p>
+  <div class="toggle" id="personaToggle">
+    <button class="on" data-p="restaurant">🍛 Restaurant — Saffron Kitchen</button>
+    <button data-p="grocery">🛒 Grocery — Deshi Bazaar</button>
+  </div>
+
+  <section class="opt">
+    <h2>The two defects every option must visibly fix <span class="tag">Kiran, production walk 2026-10-03</span></h2>
+    <table class="score">
+      <tr><th style="width:38%">What happened</th><th>Fix, visible on every option below</th></tr>
+      <tr><td>"I have skipped shopkiraana catalog but history shows a tick for it."</td><td>Skipped has its own picture <span class="st skip sm" style="vertical-align:middle">»</span> and word <span class="word skip">Skipped</span>, never a tick; the row carries <b>Resume</b> right where it is shown (#599's <code>askHistory[].skipped</code> + un-skip).</td></tr>
+      <tr><td>"I have entered three vendors so I can't see next vendors … if I want to come back to first vendor how to come there?"</td><td>All three vendors are always on screen under <b>Your vendors</b>, each with catalog · checked · invoices and its number. Tap any vendor to work on it (the drop zone or the wizard opens inline). The agent's <b>Next</b> chip keeps recommending one thing (law 1); the person is never limited to it.</td></tr>
+    </table>
+  </section>
+
+  <section class="opt">
+    <h2>The whole process in the owner's words <span class="tag">one line per step · the picture · the number that proves it done · where the API has it today</span></h2>
+    <p class="sub">This IS what the screen shows — the ladder in option A is exactly this list. <span class="gap">GAP</span> marks a number <code>GET /tenant/onboarding</code> cannot supply yet (contract gaps at the bottom); everything else is a field already on that response.</p>
+    <div class="twocol">
+      <div>
+        <h3 style="font-size:13px;margin:0 0 4px">🍛 Restaurant</h3>
+        <ul class="journey">
+          <li><span class="ic">🏪</span><div class="n">Your business <small>answered · 3 vendors named · Toast</small></div><code>sections[your-business]</code></li>
+          <li><span class="ic">🚚</span><div class="n">Your vendors — per vendor: <small>catalog on file (277 rows) → items checked &amp; published (271 of 277) → invoices loaded (38 of 41 lines costable)</small></div><span><code>nextAsk</code> <code>o3.byVendor</code> <span class="gap">GAP vendors[]</span></span></li>
+          <li><span class="ic">🧺</span><div class="n">Your products are ingredients <small>59 of 112 families costed (395 in the starter list)</small></div><span><code>costGap</code> <span class="gap">GAP familiesMapped</span></span></li>
+          <li><span class="ic">👨‍🍳</span><div class="n">Your prep boxes <small>38 of 101 recipes confirmed by a chef · ~3 h left</small></div><code>boxesConfirmed</code></li>
+          <li><span class="ic">🍽️</span><div class="n">Your menu <small>143 dishes, from Toast (or a menu file)</small></div><span><code>outcomes[o2].detail</code> <span class="gap">GAP menu.source</span></span></li>
+          <li><span class="ic">💲</span><div class="n">Every dish costed <small>61% · 53 red cost rows</small></div><code>outcomes[o2]</code></li>
+          <li><span class="ic">🔌</span><div class="n">Your register <small>none enrolled yet</small></div><code>sections[your-register]</code> <code>o7</code></li>
+          <li><span class="ic">👥</span><div class="n">Your team <small>just you</small></div><code>sections[your-team]</code></li>
+          <li><span class="ic">💰</span><div class="n">Your money <small>targets not set</small></div><code>sections[your-money]</code> <code>o6</code></li>
+          <li><span class="ic">🚀</span><div class="n">Go live <small>1 skipped so far</small></div><code>sections[go-live].skippedSections</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="font-size:13px;margin:0 0 4px">🛒 Retail grocery</h3>
+        <ul class="journey">
+          <li><span class="ic">🏪</span><div class="n">Your business <small>answered · 3 vendors named · Toast Retail</small></div><code>sections[your-business]</code></li>
+          <li><span class="ic">🛒</span><div class="n">Your catalog <small>items export (1,942 rows) → sales export → 1,730 on shelves, 212 staged</small></div><code>catalogShelved</code> <code>nextAsk</code></li>
+          <li><span class="ic">🚚</span><div class="n">Your vendors — per vendor: <small>catalog → checked &amp; published → invoices</small></div><span><code>o3.byVendor</code> <span class="gap">GAP vendors[]</span></span></li>
+          <li><span class="ic">🏷️</span><div class="n">Products priced <small>1,618 of 1,942 priced · price watch 0 items</small></div><span class="gap">GAP priced {n, total}</span></li>
+          <li><span class="ic">📦</span><div class="n">Opening count <small>1,942 to count · ~16 h (rough) · tracking off</small></div><code>openingCount</code> <code>sections[your-inventory]</code></li>
+          <li><span class="ic">⚖️</span><div class="n">Register and scale <small>no register · scale not connected</small></div><code>sections[your-register]</code></li>
+          <li><span class="ic">🌐</span><div class="n">Store online <small>no address yet</small></div><code>sections[your-store-online]</code></li>
+          <li><span class="ic">👥</span><div class="n">Your team <small>just you</small></div><code>sections[your-team]</code></li>
+          <li><span class="ic">💰</span><div class="n">Your money <small>targets not set</small></div><code>sections[your-money]</code></li>
+          <li><span class="ic">🚀</span><div class="n">Go live <small>1 skipped so far</small></div><code>sections[go-live]</code></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTION A -->
+  <section class="opt" id="optA">
+    <h2>Option A — The ladder <span class="tag">recommended</span></h2>
+    <p class="sub">One page. The whole journey is a ladder of rungs (the list above, verbatim); vendors are sub-rungs with three dots each. Tap any rung and its work opens right under it — a drop zone, the wizard, the Toast fields. The sticky <b>Next</b> chip is the agent's one recommendation; the history is the ladder itself (done rungs keep their time and output). Left phone: the person tapped a vendor the agent did NOT point at — and can. Right phone: the ten-at-a-time wizard, inline.</p>
+    <div class="stage">
+      <div class="col"><h3>Home · a vendor tapped, the drop zone inline</h3><div class="phone"><div class="screen" id="A1"></div></div></div>
+      <div class="col"><h3>Same page · the verify wizard inline, then its output</h3><div class="phone"><div class="screen" id="A2"></div></div></div>
+    </div>
+    <div class="proscons">
+      <div><b>For</b><ul><li>The map and the work are the SAME surface — no layer to come back from.</li><li>Skipped looks skipped exactly where it is resumed.</li><li>Zero new routes; the history list and the section cards collapse into one list.</li></ul></div>
+      <div><b>Against</b><ul><li>Ten rungs on a phone — done rungs collapse to one line, the fold shows the chip, the bar and five rungs.</li><li>Rung pictures are emoji until eight icon files ship (vendor · ingredient · prep box · dish · register · team · money · go live).</li></ul></div>
+    </div>
+    <table class="score">
+      <tr><th style="width:36px">#</th><th style="width:36%">Check</th><th>Option A</th></tr>
+      <tr><td>1</td><td>One job, action visible</td><td><span class="ok">✓</span> finish setup; the Next chip is above the fold on every scroll (sticky)</td></tr>
+      <tr><td>2</td><td>No paragraphs</td><td><span class="ok">✓</span> one line per rung; "why" behind ⓘ; guide steps collapsed</td></tr>
+      <tr><td>3</td><td>A picture on every row, the same everywhere</td><td><span class="warn">△</span> status pictures are one set; rung pictures are emoji stand-ins — 8 new <code>public/icons</code> files named</td></tr>
+      <tr><td>4</td><td>≤ 7 things on a phone</td><td><span class="warn">△</span> above the fold: chip · bar · 5 rungs = 7; done rungs one line each; vendor sub-rungs open only inside Your vendors</td></tr>
+      <tr><td>5</td><td>Under 300 ms</td><td><span class="ok">✓</span> every number is already on <code>GET /tenant/onboarding</code> or a named S-size read; nothing computed on open</td></tr>
+      <tr><td>6</td><td>A way back</td><td><span class="ok">✓</span> Settings named at the top; the work never leaves the page; a done rung's chevron opens its real home</td></tr>
+      <tr><td>7</td><td>One home per function</td><td><span class="ok">✓</span> the wizard is ONE shared component (#594); Import review keeps it as its home; the drop zones post to the same doors</td></tr>
+      <tr><td>8</td><td>As few screens as possible</td><td><span class="ok">✓</span> no new screen; the session block, the section cards and the history fold into one list</td></tr>
+      <tr><td>9</td><td>Built for someone who does not read</td><td><span class="ok">✓</span> where am I = the saffron rung; what is happening = the status picture; what next = the one saffron button</td></tr>
+      <tr><td>10</td><td>Walked, not reasoned</td><td><span class="ok">✓</span> <code>first-day.spec.ts</code> asserts: a skipped rung never shows a tick; tapping vendor 1 after vendor 3 opens vendor 1's work</td></tr>
+    </table>
+  </section>
+
+  <!-- OPTION B -->
+  <section class="opt" id="optB">
+    <h2>Option B — The floor map <span class="tag">most picture-first</span></h2>
+    <p class="sub">The journey drawn as the place itself: the back door (vendors) → the walk-in (ingredients) → prep → the pass (menu) → costing → the till → the office → the OPEN sign; a grocery walks back door → shelves → price tags → count → till and scale → online → office → OPEN. Each station is a tile with its number and status ring. Below the map, the tapped station's board (one card per vendor); a step's work opens in a bottom sheet.</p>
+    <div class="stage">
+      <div class="col"><h3>Home · the map, the vendors board</h3><div class="phone"><div class="screen" id="B1"></div></div></div>
+      <div class="col"><h3>A vendor step tapped · the wizard in a sheet</h3><div class="phone"><div class="screen" id="B2"></div></div></div>
+    </div>
+    <div class="proscons">
+      <div><b>For</b><ul><li>No reading needed: the owner recognises their own floor.</li><li>Nine tiles fit one phone screen with every number visible.</li><li>The board shows all vendors side by side.</li></ul></div>
+      <div><b>Against</b><ul><li>Three layers (map → board → sheet): the whole map is hidden while working.</li><li>Map art per business type and a sheet per work kind — more to build and keep the same.</li><li>Nine pictures of places, none in the icon set yet.</li></ul></div>
+    </div>
+    <table class="score">
+      <tr><th style="width:36px">#</th><th style="width:36%">Check</th><th>Option B</th></tr>
+      <tr><td>1</td><td>One job, action visible</td><td><span class="ok">✓</span> the "Do this next" banner sits under the map</td></tr>
+      <tr><td>2</td><td>No paragraphs</td><td><span class="ok">✓</span> tiles carry a name and a number only</td></tr>
+      <tr><td>3</td><td>A picture on every row</td><td><span class="ok">✓</span> strongest — a picture of the place for every station (9 new icon files)</td></tr>
+      <tr><td>4</td><td>≤ 7 things</td><td><span class="ok">✓</span> map (one thing) + banner + 3 vendor cards</td></tr>
+      <tr><td>5</td><td>Under 300 ms</td><td><span class="ok">✓</span> same fields as A</td></tr>
+      <tr><td>6</td><td>A way back</td><td><span class="warn">△</span> sheet → board → map is two dismissals; the sheet must name its station at the top</td></tr>
+      <tr><td>7</td><td>One home per function</td><td><span class="ok">✓</span> same shared wizard and doors</td></tr>
+      <tr><td>8</td><td>As few screens</td><td><span class="warn">△</span> no new route, but a sheet for every work kind plus two map drawings</td></tr>
+      <tr><td>9</td><td>For someone who does not read</td><td><span class="ok">✓</span> strongest</td></tr>
+      <tr><td>10</td><td>Walked</td><td><span class="ok">✓</span> same assertions as A plus "the sheet names its station"</td></tr>
+    </table>
+  </section>
+
+  <!-- OPTION C -->
+  <section class="opt" id="optC">
+    <h2>Option C — The approved card, plus a map drawer <span class="tag">smallest change</span></h2>
+    <p class="sub">Keep the approved session block (#428) and the section cards exactly as they are; add a progress rail across the top of the card ("step 2 of 10 · Your vendors"), render a skipped history row as Skipped with Resume (#599), and add one button, <b>See every step</b>, which opens a bottom sheet listing every section and vendor with its status — tap one to make it the card's current ask.</p>
+    <div class="stage">
+      <div class="col"><h3>The card · rail, ask, history with a skipped row</h3><div class="phone"><div class="screen" id="C1"></div></div></div>
+      <div class="col"><h3>"See every step" · the map drawer</h3><div class="phone"><div class="screen" id="C2"></div></div></div>
+    </div>
+    <div class="proscons">
+      <div><b>For</b><ul><li>Smallest build; the approved block and cards stay.</li><li>A drawer before a new screen (check 8).</li></ul></div>
+      <div><b>Against</b><ul><li>The whole journey is hidden until a tap — law 3 ("full progress, always") only half met.</li><li>Going to vendor 1 from vendor 3 is two taps and a drawer.</li><li>The section cards below still duplicate what the drawer shows (check 7 tension).</li></ul></div>
+    </div>
+    <table class="score">
+      <tr><th style="width:36px">#</th><th style="width:36%">Check</th><th>Option C</th></tr>
+      <tr><td>1</td><td>One job, action visible</td><td><span class="ok">✓</span> the one ask with its one button, as today</td></tr>
+      <tr><td>2</td><td>No paragraphs</td><td><span class="ok">✓</span></td></tr>
+      <tr><td>3</td><td>A picture on every row</td><td><span class="warn">△</span> same emoji stand-ins as today</td></tr>
+      <tr><td>4</td><td>≤ 7 things</td><td><span class="ok">✓</span> the card is compact</td></tr>
+      <tr><td>5</td><td>Under 300 ms</td><td><span class="ok">✓</span></td></tr>
+      <tr><td>6</td><td>A way back</td><td><span class="warn">△</span> to-and-fro is tap → drawer → tap</td></tr>
+      <tr><td>7</td><td>One home per function</td><td><span class="warn">△</span> drawer rows and the section cards both show the sections</td></tr>
+      <tr><td>8</td><td>As few screens</td><td><span class="ok">✓</span> a drawer, no route</td></tr>
+      <tr><td>9</td><td>For someone who does not read</td><td><span class="warn">△</span> "what remains" needs a tap to see</td></tr>
+      <tr><td>10</td><td>Walked</td><td><span class="ok">✓</span> the skipped-row assertion holds; the to-and-fro assertion needs the drawer open</td></tr>
+    </table>
+  </section>
+
+  <div class="rec">
+    <b>Recommendation: Option A, the ladder.</b> It is the only shape where the whole journey, the agent's one next thing and the work area are the same surface — a skipped vendor looks skipped where it is resumed, and vendor 1 is one tap away while vendor 3's wizard is open — with zero new screens and every number already on the endpoint or a named S-size read. Take option B's station pictures as the ladder's rung icons once the icon files ship (check 3), and keep option C's rail idea as the ladder's own progress bar; build C only if the approved #428 block must stay untouched this week.
+  </div>
+
+  <section class="opt">
+    <h2>Contract gaps the API needs <span class="tag">all reads over existing tables · no migration</span></h2>
+    <table class="score">
+      <tr><th style="width:38px">#</th><th style="width:34%">Field</th><th>Why the screen needs it · size</th></tr>
+      <tr><td>G1</td><td><code>asks[]</code> — every outstanding ask in tier order, each with <code>skipped: bool</code> and its <code>fix</code></td><td><code>onboardingPacing.ts</code>'s <code>outstandingAsks</code> already computes this list; today only the first non-skipped one ships as <code>nextAsk</code>. Any rung or vendor tappable with its own drop-zone door needs its own <code>fix</code>. S</td></tr>
+      <tr><td>G2</td><td><code>vendors[]</code> — per named vendor: <code>{vendorId, name, catalog: {batchId, status, rows, created, published, held} | null, invoices: {count, linesCostable, linesTotal}, skipped: {catalog, invoices}}</code></td><td>The three dots per vendor. <code>o3.byVendor</code> already carries the invoice half; the catalog half is <code>import_batches.counters</code> for the vendor's latest batch; "named" comes from <code>settings.onboarding.has.vendors</code>. S/M</td></tr>
+      <tr><td>G3</td><td><code>POST /tenant/onboarding/skip {ask | section, undo: true}</code></td><td>Resume. #599 names it for asks; sections need the same. S</td></tr>
+      <tr><td>G4</td><td><code>askHistory[].output</code> — what the answered ask produced, in numbers</td><td>Law 2 on a done rung: "277 rows read · 271 items born", never only the title and a time. S</td></tr>
+      <tr><td>G5</td><td><code>familiesMapped {mapped, total}</code> · <code>menu {dishes, source: 'toast' | 'file' | 'lists' | null}</code></td><td>The restaurant's "products are ingredients" and "your menu" rungs; the dish count exists only inside <code>o2.detail</code>'s text today. S</td></tr>
+      <tr><td>G6</td><td><code>priced {priced, total}</code> · <code>priceWatch {basket}</code></td><td>The grocery's "products priced" rung; the basket count exists on <code>/price-watch/today</code>, not here. S</td></tr>
+      <tr><td>G7</td><td>working line for an enriching batch</td><td>#593's "Enriching Restaurant Depot's 277 items — 120 of 277, $0.84" from <code>import_batches.counters</code>; the ladder shows it as the <span class="st work sm" style="vertical-align:middle"></span> state on that vendor's dot. Depends on #593</td></tr>
+      <tr><td>G8</td><td><code>fix.kind: 'verify'</code> + <code>batchId</code></td><td>The wizard inline (#594). Depends on #594/#595</td></tr>
+    </table>
+  </section>
+
+  <section class="opt">
+    <h2>What this sits on, and what it replaces</h2>
+    <table class="score">
+      <tr><th style="width:30%">Issue</th><th>Relation</th></tr>
+      <tr><td>#583 skip is a real fact; a loaded catalog gets its own check ask</td><td>Shipped. The ladder reads the same tiers; the vendor dots are those asks laid out instead of one at a time.</td></tr>
+      <tr><td>#599 skipped history row, Resume</td><td>In progress (Core seat). This mockup fixes the rendering: picture » + word Skipped + Resume, in place.</td></tr>
+      <tr><td>#593 enrich before the check ask</td><td>Depends. The "working" dot on a vendor.</td></tr>
+      <tr><td>#594 the wizard inline · #595 gold-only fields</td><td>Depends. The right-hand phones show exactly that wizard: required gaps as ⚠ asks, optional empties behind one chip.</td></tr>
+      <tr><td>#598 doors return here; sign-in lands here</td><td>Depends; unchanged.</td></tr>
+      <tr><td>#428 session block (states 1–4)</td><td>Superseded in part: state 4's history list becomes the ladder's done rungs; states 1–3 (the ask, inline answer, upload) live inside the current rung unchanged.</td></tr>
+      <tr><td>#444 journey-home mockups</td><td>Superseded: the section cards become rungs of one list.</td></tr>
+      <tr><td>#563 the definition of done</td><td>Refs. Laws 1–3 each have a place on the screen: the Next chip, the output line on every done rung, the ladder itself.</td></tr>
+    </table>
+  </section>
+</div>
+
+<script>
+// ---------- example data, both personas (shapes mirror GET /tenant/onboarding; GAP fields are named above) ----------
+const P = {
+  restaurant: {
+    name: 'Saffron Kitchen', kind: 'Indian restaurant', pct: 24, done: 2, total: 10,
+    next: { title: "Check Restaurant Depot's catalog", out: '277 rows read · 271 items waiting for your look' },
+    vendorsIdx: 1,
+    steps: [
+      { ic: '🏪', n: 'Your business', s: 'done', v: 'Answered · 3 vendors · Toast', t: '9:12' },
+      { ic: '🚚', n: 'Your vendors', s: 'now', v: '1 of 3 vendors', vendors: true },
+      { ic: '🧺', n: 'Your products are ingredients', s: 'todo', v: '59 of 112 families costed' },
+      { ic: '👨‍🍳', n: 'Your prep boxes', s: 'todo', v: '38 of 101 confirmed · ~3 h' },
+      { ic: '🍽️', n: 'Your menu', s: 'todo', v: '143 dishes from Toast' },
+      { ic: '💲', n: 'Every dish costed', s: 'todo', v: '61% · 53 red cost rows' },
+      { ic: '🔌', n: 'Your register', s: 'todo', v: 'none enrolled yet' },
+      { ic: '👥', n: 'Your team', s: 'todo', v: 'just you' },
+      { ic: '💰', n: 'Your money', s: 'todo', v: 'targets not set' },
+      { ic: '🚀', n: 'Go live', s: 'todo', v: '1 skipped so far' },
+    ],
+    vendors: [
+      { n: 'Restaurant Depot', dots: [{ l: 'catalog', s: 'done', v: '277 rows' }, { l: 'checked', s: 'now', v: '0 of 271' }, { l: 'invoices', s: 'todo', v: '—' }], out: '277 rows read · 271 items born' },
+      { n: 'Shopkiraana', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
+      { n: 'Sysco', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
+    ],
+    wizard: { vendor: 'Restaurant Depot', page: 1, pages: 28, items: [
+      { pic: '🧈', n: 'Butter, unsalted 36 lb', facts: [['gold', '⭐ gold'], ['src', '🌟 library']], ok: true },
+      { pic: '🌶️', n: 'Chilli powder, hot', facts: [['ask', '⚠ which shelf? Spices · Masalas'], ['opt', '2 optional']], ok: false },
+      { pic: '🛢️', n: 'Canola oil', facts: [['gold', '⭐ gold'], ['src', '🤖 AI · case 35 lb'], ['opt', '1 optional']], ok: true },
+    ], published: 'Published 271 of 277 · 6 held (4 duplicates, 2 no barcode)' },
+    map: [
+      { ic: '🏪', n: 'Business', v: 'answered', s: 'done' }, { ic: '🚚', n: 'Back door', v: 'vendors 1 of 3', s: 'now' }, { ic: '🧺', n: 'Walk-in', v: '59 of 112', s: 'todo' },
+      { ic: '👨‍🍳', n: 'Prep', v: '38 of 101', s: 'todo' }, { ic: '🍽️', n: 'The pass', v: '143 dishes', s: 'todo' }, { ic: '💲', n: 'Costing', v: '61%', s: 'todo' },
+      { ic: '🔌', n: 'The till', v: 'none yet', s: 'todo' }, { ic: '👥', n: 'Office', v: 'team · money', s: 'todo' }, { ic: '🚀', n: 'OPEN', v: '1 skipped', s: 'todo' },
+    ],
+  },
+  grocery: {
+    name: 'Deshi Bazaar', kind: 'Indian grocery', pct: 31, done: 3, total: 10,
+    next: { title: "Check Aadya's catalog", out: '1,104 rows read · 1,081 items waiting for your look' },
+    vendorsIdx: 2,
+    steps: [
+      { ic: '🏪', n: 'Your business', s: 'done', v: 'Answered · 3 vendors · Toast Retail', t: '8:40' },
+      { ic: '🛒', n: 'Your catalog', s: 'done', v: '1,730 on shelves · 212 staged', t: '9:05' },
+      { ic: '🚚', n: 'Your vendors', s: 'now', v: '1 of 3 vendors', vendors: true },
+      { ic: '🏷️', n: 'Products priced', s: 'todo', v: '1,618 of 1,942 priced' },
+      { ic: '📦', n: 'Opening count', s: 'todo', v: '1,942 to count · ~16 h · tracking off' },
+      { ic: '⚖️', n: 'Register and scale', s: 'todo', v: 'no register · no scale' },
+      { ic: '🌐', n: 'Store online', s: 'todo', v: 'no address yet' },
+      { ic: '👥', n: 'Your team', s: 'todo', v: 'just you' },
+      { ic: '💰', n: 'Your money', s: 'todo', v: 'targets not set' },
+      { ic: '🚀', n: 'Go live', s: 'todo', v: '1 skipped so far' },
+    ],
+    vendors: [
+      { n: 'Aadya', dots: [{ l: 'catalog', s: 'done', v: '1,104 rows' }, { l: 'checked', s: 'now', v: '0 of 1,081' }, { l: 'invoices', s: 'todo', v: '—' }], out: '1,104 rows read · 1,081 items born' },
+      { n: 'ATL RRK', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
+      { n: 'HYD Foods', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
+    ],
+    wizard: { vendor: 'Aadya', page: 1, pages: 109, items: [
+      { pic: '🌾', n: 'Aashirvaad atta 20 lb', facts: [['gold', '⭐ gold'], ['src', '🌐 web · 20 lb']], ok: true },
+      { pic: '🫘', n: 'Toor dal', facts: [['ask', '⚠ net contents? 2 lb · 4 lb'], ['src', '🌟 library · brand']], ok: false },
+      { pic: '🧴', n: 'Dabur Amla hair oil', facts: [['gold', '⭐ gold'], ['src', '🤖 AI · 300 ml']], ok: true },
+    ], published: 'Published 1,077 of 1,081 · 4 held (duplicates)' },
+    map: [
+      { ic: '🏪', n: 'Business', v: 'answered', s: 'done' }, { ic: '🚚', n: 'Back door', v: 'vendors 1 of 3', s: 'now' }, { ic: '🛒', n: 'Shelves', v: '1,730 on', s: 'done' },
+      { ic: '🏷️', n: 'Price tags', v: '1,618 of 1,942', s: 'todo' }, { ic: '📦', n: 'Count', v: '1,942 to go', s: 'todo' }, { ic: '⚖️', n: 'Till + scale', v: 'none yet', s: 'todo' },
+      { ic: '🌐', n: 'Online', v: 'no address', s: 'todo' }, { ic: '👥', n: 'Office', v: 'team · money', s: 'todo' }, { ic: '🚀', n: 'OPEN', v: '1 skipped', s: 'todo' },
+    ],
+  },
+};
+
+const WORD = { done: 'Done', now: 'Now', skip: 'Skipped', todo: 'Later', work: 'Working' };
+const GLYPH = { done: '✓', now: '▶', skip: '»', todo: '', work: '' };
+const st = (s, sm) => `<span class="st ${s}${sm ? ' sm' : ''}" aria-label="${WORD[s]}">${GLYPH[s]}</span>`;
+const word = (s) => `<span class="word ${s}">${WORD[s]}</span>`;
+
+function topbar(d, sub) {
+  return `<div class="topbar"><div class="iconbtn" aria-label="Back to Settings">‹</div><div class="titlewrap"><div class="t1">Getting started</div><div class="t2">Settings · ${d.name}${sub ? ' · ' + sub : ''}</div></div><div class="iconbtn" aria-label="Setup agent on">🤖</div></div>`;
+}
+function nextchip(d) {
+  return `<div class="nextchip"><span class="lbl">Next</span><span class="t">${d.next.title}</span><button class="go">Go</button></div>`;
+}
+function progress(d) {
+  return `<div class="card" style="padding:8px 12px"><div class="barrow"><span><b>${d.done} of ${d.total}</b> steps</span><span>${d.pct}% of your own facts</span></div><div class="bar"><div style="width:${d.pct}%"></div></div></div>`;
+}
+function dropZone(v) {
+  return `<div class="work"><div class="wt">Upload ${v}'s catalog</div><div class="why"><span class="i">i</span> why?</div>
+    <ul class="steps"><li><span>📧</span><span>Ask ${v} for the price list as CSV or PDF</span></li><li><span>📁</span><span>Or find it in your email attachments</span></li></ul>
+    <div class="drop">Drop the file here, or<br><span class="b">📁 Choose a file</span></div>
+    <div class="btnrow"><button class="btn">Upload the catalog</button><button class="btn ghost">Skip for now</button></div></div>`;
+}
+function wizard(w, inRung) {
+  return `<div class="${inRung ? 'work' : ''} wiz"><div class="wh"><b>Check ${w.vendor}'s items</b><span>page ${w.page} of ${w.pages} · 10 at a time</span></div>
+    ${w.items.map((it) => `<div class="item"><div class="pic">${it.pic}</div><div class="f"><div class="nm">${it.n}</div><div class="facts">${it.facts.map(([k, t]) => `<span class="chip ${k}">${t}</span>`).join('')}</div></div>${it.ok ? '<div class="ok">✓</div>' : '<div class="ok" style="background:var(--saffron-soft);color:var(--saffron)">?</div>'}</div>`).join('')}
+    <div class="item" style="justify-content:center;color:var(--muted);font-size:11px;padding:4px 0">… 7 more on this page</div>
+    <div class="btnrow" style="margin-top:6px"><button class="btn saff">Accept &amp; continue</button><button class="btn ghost">Later</button></div></div>`;
+}
+function vendorRow(v, opts) {
+  const dots = v.dots.map((dt) => `<span class="dot">${st(dt.s, true)}<span>${dt.l}</span><b>${dt.v}</b></span>`).join('');
+  const skipped = v.dots[0].s === 'skip';
+  const now = v.dots.some((dt) => dt.s === 'now');
+  let body = '';
+  if (opts.showDrop && v.tapped) body = dropZone(v.n);
+  if (opts.showWizard && now) body = wizard(opts.wizard, true);
+  if (opts.showPublished && now) body = `<div class="work"><div class="wo">✓ ${opts.published}</div><div class="dots" style="margin-left:0"><span class="dot">${st('done', true)}<span>catalog</span><b>277 rows</b></span><span class="dot">${st('done', true)}<span>checked</span><b>271 of 277</b></span><span class="dot">${st('now', true)}<span>invoices</span><b>next</b></span></div></div>`;
+  return `<div class="vendor"><div class="vh"><span class="ic">🏬</span><span class="vn">${v.n}</span>${skipped ? '<button class="resume">Resume</button>' : ''}${now ? word('now') : skipped ? word('skip') : v.tapped ? '<span class="word" style="color:var(--muted)">tapped</span>' : ''}</div>
+    <div class="dots">${dots}</div>${v.out ? `<div style="margin:3px 0 0 26px;font-size:10.5px;color:var(--green);font-weight:600">${v.out}</div>` : ''}${body}</div>`;
+}
+function ladder(d, opts) {
+  return `<div class="card" style="padding:4px 12px">${d.steps.map((s) => {
+    const open = s.vendors;
+    return `<div class="rung ${s.s}"><span class="ic">${s.ic}</span>${st(s.s)}<div class="nm"><div class="n1">${s.n}</div><div class="n2">${s.v}${s.t ? ' · ' + s.t : ''}</div></div><div class="right">${word(s.s)}<span class="chev">${open ? '▾' : '›'}</span></div></div>
+      ${open ? d.vendors.map((v) => vendorRow(v, opts)).join('') : ''}`;
+  }).join('')}</div>`;
+}
+
+// ---------- option A ----------
+function renderA(d) {
+  document.getElementById('A1').innerHTML = `${topbar(d)}<div class="body-pad">${nextchip(d)}${progress(d)}${ladder(d, { showDrop: true })}</div>`;
+  const d2 = JSON.parse(JSON.stringify(d));
+  d2.vendors.forEach((v) => { v.tapped = false; });
+  document.getElementById('A2').innerHTML = `${topbar(d)}<div class="body-pad">${nextchip(d)}${progress(d)}${ladder(d2, { showWizard: true, wizard: d.wizard })}
+    <div class="card" style="border-color:#cfe3d5;background:var(--green-soft)"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--green)">After the last page</div><div style="font-size:12.5px;font-weight:700">✓ ${d.wizard.published}</div><div style="font-size:11px;color:var(--muted)">The rung turns green; Next moves to the next vendor's catalog.</div></div></div>`;
+}
+
+// ---------- option B ----------
+function renderB(d) {
+  const tiles = d.map.map((t, i) => `<div class="tile ${t.s}">${st(t.s, true)}<div class="pic">${t.ic}</div><div class="tn">${t.n}</div><div class="tv">${t.v}</div>${i % 3 !== 2 ? '<span class="arrow">▶</span>' : ''}</div>`).join('');
+  const cards = d.vendors.map((v) => {
+    const now = v.dots.some((dt) => dt.s === 'now');
+    const skipped = v.dots[0].s === 'skip';
+    return `<div class="vcard ${now ? 'now' : ''}"><div class="vh"><span class="ic">🏬</span><span class="vn">${v.n}</span>${skipped ? '<button class="resume">Resume</button>' : now ? '<button class="btn sm saff">Check</button>' : '<button class="btn sm ghost">Upload</button>'}</div>
+      <div class="ministeps">${v.dots.map((dt) => `<div class="ms ${dt.s}"><div class="l">${dt.l}</div><div class="v">${dt.s === 'skip' ? '»' : dt.v}</div></div>`).join('')}</div></div>`;
+  }).join('');
+  const board = `<div class="board"><div class="bh"><span class="ic">🚚</span><span class="t">Back door — your vendors</span><span class="word now">Now</span></div>
+    <div class="nextchip"><span class="lbl">Do this next</span><span class="t">${d.next.title}</span><button class="go">Go</button></div>${cards}</div>`;
+  document.getElementById('B1').innerHTML = `${topbar(d)}<div class="body-pad"><div class="map">${tiles}</div>${board}</div>`;
+  document.getElementById('B2').innerHTML = `${topbar(d)}<div class="body-pad"><div class="map">${tiles}</div>${board}</div><div class="dim"></div>
+    <div class="sheet"><div class="grab"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:15px">🏬</span><span style="font-size:12.5px;font-weight:800;flex:1">${d.wizard.vendor} · checked &amp; published</span><span class="iconbtn" style="width:22px;height:22px">✕</span></div>${wizard(d.wizard, false)}</div>`;
+}
+
+// ---------- option C ----------
+function renderC(d) {
+  const rail = d.steps.map((s) => `<i class="${s.s}"></i>`).join('');
+  const vs = d.vendors;
+  const card = `<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:18px">🤖</span><span style="font-weight:700;font-size:13px;flex:1">Setup agent</span><span class="chip" style="background:var(--green-soft);color:var(--green);font-weight:700">On</span></div>
+    <div class="rail">${rail}</div><div style="font-size:11px;color:var(--muted);margin-bottom:8px">Step ${d.vendorsIdx + 1} of ${d.total} · Your vendors · ${d.pct}%</div>
+    <div style="font-size:14px;font-weight:700">${d.next.title}</div><div class="why"><span class="i">i</span> why?</div>
+    <div style="font-size:11.5px;color:var(--green);font-weight:600;margin-bottom:8px">${d.next.out}</div>
+    <div class="btnrow"><button class="btn">Check and publish</button><button class="btn ghost">Skip for now</button></div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)"><span>History</span><span>3</span></div>
+    <div class="hist">${st('done', true)}<span class="t">Upload ${vs[0].n}'s catalog</span><span class="tm">${vs[0].out} · 9:41</span></div>
+    <div class="hist skip">${st('skip', true)}<span class="t">Upload ${vs[1].n}'s catalog</span>${word('skip')}<button class="resume">Resume</button></div>
+    <div class="hist">${st('done', true)}<span class="t">Tell us what you have today</span><span class="tm">3 vendors · 9:12</span></div>
+    <div class="btnrow" style="margin-top:10px"><button class="btn ghost" style="flex:1">🗺️ See every step</button><button class="btn ghost">Pause</button></div></div>`;
+  const sections = `<div class="card" style="padding:6px 12px"><div style="font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:4px 0">Sections (as today)</div>
+    ${d.steps.slice(0, 3).map((s) => `<div class="maprow"><span class="ic">${s.ic}</span><span class="t">${s.n}<small>${s.v}</small></span>${word(s.s)}</div>`).join('')}<div class="maprow" style="justify-content:center;color:var(--muted);font-size:11px">… 7 more cards</div></div>`;
+  document.getElementById('C1').innerHTML = `${topbar(d)}<div class="body-pad">${card}${sections}</div>`;
+  const rows = d.steps.map((s) => {
+    const r = `<div class="maprow"><span class="ic">${s.ic}</span>${st(s.s, true)}<span class="t">${s.n}<small>${s.v}</small></span>${s.s === 'skip' ? '<button class="resume">Resume</button>' : ''}<span class="chev" style="color:var(--muted)">›</span></div>`;
+    if (!s.vendors) return r;
+    return r + d.vendors.map((v) => { const now = v.dots.some((dt) => dt.s === 'now'); const sk = v.dots[0].s === 'skip'; return `<div class="maprow sub"><span class="ic">🏬</span>${st(now ? 'now' : sk ? 'skip' : 'todo', true)}<span class="t">${v.n}<small>${v.dots.map((dt) => dt.l + ' ' + dt.v).join(' · ')}</small></span>${sk ? '<button class="resume">Resume</button>' : ''}</div>`; }).join('');
+  }).join('');
+  document.getElementById('C2').innerHTML = `${topbar(d)}<div class="body-pad">${card}</div><div class="dim"></div><div class="sheet" style="max-height:82%"><div class="grab"></div><div style="display:flex;align-items:center;gap:8px;margin-bottom:2px"><span style="font-size:15px">🗺️</span><span style="font-size:12.5px;font-weight:800;flex:1">Every step · tap one to work on it</span><span class="iconbtn" style="width:22px;height:22px">✕</span></div>${rows}</div>`;
+}
+
+function render(p) {
+  const d = P[p];
+  renderA(d); renderB(d); renderC(d);
+  document.querySelectorAll('#personaToggle button').forEach((b) => b.classList.toggle('on', b.dataset.p === p));
+}
+document.querySelectorAll('#personaToggle button').forEach((b) => b.addEventListener('click', () => render(b.dataset.p)));
+render('restaurant');
+</script>
+</body>
+</html>
