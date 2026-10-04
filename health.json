@@ -1,54 +1,66 @@
 {
-  "at": "2026-10-04T16:43:22.866Z",
+  "at": "2026-10-04T17:42:12.482Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 51,
-      "waitMin": 0,
-      "busyPct": 43
+      "runs": 6,
+      "busyMin": 39,
+      "waitMin": 20,
+      "busyPct": 32
     },
     "core": {
-      "runs": 6,
-      "busyMin": 23,
-      "waitMin": 4,
-      "busyPct": 39
+      "runs": 7,
+      "busyMin": 75,
+      "waitMin": 27,
+      "busyPct": 125
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 2,
+      "busyMin": 2,
+      "waitMin": 46,
+      "busyPct": 3
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 40,
-      "waitMin": 31,
-      "busyPct": 22
+      "runs": 14,
+      "busyMin": 346,
+      "waitMin": 0,
+      "busyPct": 192
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 0,
+    "ciQueued": 6,
+    "oldestQueuedMin": 32
   },
   "runners": [],
   "findings": [
     {
-      "level": "fixed",
-      "text": "main is red on e2e only (run 37215921635): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+      "level": "warn",
+      "text": "run 37220019754 (ci) queued 23 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $90.16)"
+      "text": "run 37219922171 (ci) queued 25 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 37219770266 (ci) queued 27 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 37219455738 (ci) queued 32 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $90.77)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 48.13,
-    "railwayProjected": 90.16,
+    "railwayMonthToDate": 48.48,
+    "railwayProjected": 90.77,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
