@@ -1,78 +1,54 @@
 {
-  "at": "2026-10-04T04:42:47.633Z",
+  "at": "2026-10-04T05:39:52.764Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 8,
-      "waitMin": 0,
-      "busyPct": 7
+      "runs": 15,
+      "busyMin": 180,
+      "waitMin": 44,
+      "busyPct": 150
     },
     "core": {
-      "runs": 12,
-      "busyMin": 51,
-      "waitMin": 19,
-      "busyPct": 85
+      "runs": 14,
+      "busyMin": 54,
+      "waitMin": 5,
+      "busyPct": 90
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 1,
-      "waitMin": 10,
-      "busyPct": 1
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
       "runs": 15,
-      "busyMin": 469,
+      "busyMin": 363,
       "waitMin": 0,
-      "busyPct": 261
+      "busyPct": 202
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 7,
-    "oldestQueuedMin": 47
+    "agentsQueued": 4,
+    "ciQueued": 4,
+    "oldestQueuedMin": 22
   },
   "runners": [],
   "findings": [
     {
       "level": "warn",
-      "text": "run 37176633770 (ci) queued 24 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37179453516 (agents) queued 22 min for label 'agents' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 37176548126 (ci) queued 26 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37176536202 (ci) queued 26 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37176467778 (ci) queued 27 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37176028819 (ci) queued 36 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37175961618 (ci) queued 37 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37175478029 (ci) queued 47 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $284 exceeds the $250 budget (Railway projected $84.04)"
+      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $84.68)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 44.29,
-    "railwayProjected": 84.04,
+    "railwayMonthToDate": 44.66,
+    "railwayProjected": 84.68,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
