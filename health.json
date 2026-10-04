@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-04T18:43:55.862Z",
+  "at": "2026-10-04T18:46:06.581Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,34 +9,38 @@
       "busyPct": 2
     },
     "core": {
-      "runs": 10,
-      "busyMin": 53,
+      "runs": 11,
+      "busyMin": 51,
       "waitMin": 12,
-      "busyPct": 89
+      "busyPct": 85
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 1,
+      "runs": 2,
+      "busyMin": 2,
       "waitMin": 10,
-      "busyPct": 1
+      "busyPct": 3
     },
     "ci": {
-      "runs": 11,
-      "busyMin": 282,
+      "runs": 12,
+      "busyMin": 256,
       "waitMin": 0,
-      "busyPct": 157
+      "busyPct": 142
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 4,
-    "oldestQueuedMin": 22
+    "agentsQueued": 2,
+    "ciQueued": 6,
+    "oldestQueuedMin": 24
   },
   "runners": [],
   "findings": [
     {
       "level": "warn",
-      "text": "run 37224139181 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37224272760 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 37224139181 (ci) queued 24 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
