@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #693 — Getting started is the first tab until Go live (Today's row · Reopen setup · the 30-day ask)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --skip: #8a8f88;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 880px; margin: 0 auto 14px; text-align: center; }
+  .toggle { display: flex; justify-content: center; gap: 8px; margin: 0 auto 22px; }
+  .toggle button { border: 1px solid var(--rule); background: var(--card); color: var(--ink); border-radius: 999px; padding: 7px 16px; font: inherit; font-size: 13.5px; cursor: pointer; }
+  .toggle button.on { background: var(--green); border-color: var(--green); color: #fff; font-weight: 700; }
+  .wrap { max-width: 1420px; margin: 0 auto; }
+  section.opt { background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 18px 18px 10px; margin: 0 auto 26px; }
+  section.opt h2 { font-size: 17px; margin: 0 0 2px; }
+  section.opt h2 .tag { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-left: 8px; font-weight: 600; }
+  section.opt .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+  .col { width: 320px; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; font-weight: 600; }
+  .phone { width: 320px; height: 640px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); display: flex; flex-direction: column; }
+  .screen { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+  .body-pad { flex: 1; overflow-y: auto; padding: 10px 12px 14px; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; }
+  .card .ct { font-size: 13px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+  .card .cs { font-size: 12px; color: var(--muted); }
+  .bar { height: 8px; border-radius: 4px; background: var(--rule); overflow: hidden; margin: 6px 0 4px; }
+  .bar > div { height: 100%; background: var(--green); }
+  .btn { display: inline-block; border: none; border-radius: 9px; padding: 8px 12px; font-size: 12.5px; font-weight: 700; background: var(--green); color: #fff; text-align: center; cursor: pointer; }
+  .btn.ghost { background: var(--chip); color: var(--ink); }
+  .btn.saff { background: var(--saffron); }
+  .btn.block { display: block; width: 100%; margin-top: 8px; }
+  .annot { font-size: 12px; color: var(--saffron); background: var(--saffron-soft); border: 1px solid #e8cfae; border-radius: 10px; padding: 6px 9px; margin: 8px 0; }
+
+  /* bottom tab bar (phone) */
+  .tabbar { display: flex; border-top: 1px solid var(--rule); background: var(--card); flex: none; }
+  .tabbar .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 7px 2px 8px; font-size: 9px; color: var(--muted); }
+  .tabbar .tab .ic { font-size: 16px; }
+  .tabbar .tab.on { color: var(--green); font-weight: 700; }
+  .tabbar .tab.on .ic { filter: none; }
+  .tabbar .tab.first { position: relative; }
+  .tabbar .tab.first::after { content: ''; position: absolute; top: 1px; right: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--saffron); }
+
+  /* desktop rail */
+  .desk { width: 760px; background: var(--paper); border-radius: 14px; border: 1px solid var(--rule); overflow: hidden; display: flex; box-shadow: 0 10px 26px rgba(0,0,0,.18); }
+  .rail { width: 168px; background: var(--card); border-right: 1px solid var(--rule); padding: 10px 0; flex: none; }
+  .rail .r { display: flex; align-items: center; gap: 9px; padding: 8px 14px; font-size: 12.5px; color: var(--muted); }
+  .rail .r .ic { font-size: 15px; width: 18px; text-align: center; }
+  .rail .r.on { color: var(--green); font-weight: 700; background: var(--green-soft); border-right: 3px solid var(--green); }
+  .rail .r.first { position: relative; }
+  .rail .r.first::after { content: 'NEW'; position: absolute; right: 10px; font-size: 8px; background: var(--saffron); color: #fff; border-radius: 4px; padding: 1px 4px; font-weight: 800; }
+  .desk .main { flex: 1; padding: 14px 16px; min-height: 420px; }
+  .desk .main h4 { margin: 0 0 10px; font-size: 14px; }
+
+  .skip-list { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 2px; }
+  .skip-row { display: flex; align-items: center; gap: 7px; font-size: 12px; }
+  .skip-row .dot { width: 14px; height: 14px; border-radius: 50%; border: 2px dashed var(--skip); flex: none; }
+  .skip-row a { color: var(--ink); text-decoration: underline; }
+
+  /* confirm dialog overlay */
+  .overlay { position: absolute; inset: 0; background: rgba(20,24,20,.45); display: flex; align-items: flex-end; }
+  .sheet { background: var(--card); border-radius: 16px 16px 0 0; padding: 14px 14px 16px; width: 100%; }
+  .sheet h4 { margin: 0 0 6px; font-size: 14px; }
+  .sheet p { margin: 0 0 8px; font-size: 12px; color: var(--muted); }
+  .sheet .btnrow { display: flex; gap: 8px; margin-top: 10px; }
+  .sheet .btnrow .btn { flex: 1; }
+
+  .ask-card { background: var(--saffron-soft); border: 1px solid #e8cfae; border-radius: 14px; padding: 10px 12px; }
+  .ask-card .q { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .ask-card .btnrow { display: flex; gap: 8px; }
+  .ask-card .btnrow .btn { flex: 1; }
+
+  .caption { font-size: 11.5px; color: var(--muted); text-align: center; margin-top: 8px; }
+  .legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--muted); }
+  .legend b { color: var(--ink); }
+  table.decisions { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  table.decisions th, table.decisions td { border-top: 1px solid var(--rule); padding: 7px 6px; text-align: left; vertical-align: top; }
+  table.decisions th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="page">Mockup #693 — Getting started, the nav tail</h1>
+  <p class="lede">Kiran's own question: "move Getting started to the top of the left nav bar so the onboarding agent is invoked easily. But when to stop showing Getting started needs your suggestion." The rule is already agreed in chat — this mockup is the LOOK of the four moments it produces, for both businesses.</p>
+  <div class="toggle">
+    <button class="on" onclick="setBiz('restaurant', this)">🍽️ Great Indian Food (restaurant)</button>
+    <button onclick="setBiz('grocery', this)">🛒 Shopkiraana (grocery)</button>
+  </div>
+
+  <section class="opt">
+    <h2>1 — Before Go live <span class="tag">Getting started takes Today's slot</span></h2>
+    <p class="sub">The phone keeps seven tabs; Getting started replaces Today in the owner's row, never adds an eighth. Staff roles (no Settings) never see it — their bar is unchanged. Today itself is still one tap away, inside Getting started's own station board, never removed from the product.</p>
+    <div class="stage">
+      <div class="col">
+        <h3>Phone · owner</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Getting started</div><div class="t2 biz-text" data-r="Great Indian Food · 62% set up" data-g="Shopkiraana · 48% set up"></div></div></div>
+          <div class="body-pad">
+            <div class="card"><div class="ct">🧑‍🍳 Your kitchen</div><div class="cs biz-text" data-r="7 of 12 boxes confirmed" data-g="—"></div></div>
+            <div class="card"><div class="ct">📦 <span class="biz-text" data-r="Your register" data-g="Opening count"></span></div><div class="cs biz-text" data-r="not started" data-g="214 of 640 counted"></div></div>
+            <div class="card"><div class="ct">💰 Your money</div><div class="cs">targets set, no day closed yet</div></div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on first"><span class="ic">🚀</span>Getting started</div>
+            <div class="tab"><span class="ic">📄</span>Invoices</div>
+            <div class="tab"><span class="ic">🥬</span>Products</div>
+            <div class="tab"><span class="ic">✅</span>My tasks</div>
+            <div class="tab"><span class="ic">🍳</span><span class="biz-text" data-r="Kitchen" data-g="Menu"></span></div>
+            <div class="tab"><span class="ic">🏷️</span>Pricing</div>
+            <div class="tab"><span class="ic">⚙️</span>Settings</div>
+          </div>
+        </div></div>
+        <p class="caption">The orange dot is the only new mark on the bar — the same "something needs you" dot every other tab already uses.</p>
+      </div>
+      <div class="col">
+        <h3>Phone · staff (no Settings)</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Today</div><div class="t2">Tue, Oct 6</div></div></div>
+          <div class="body-pad">
+            <div class="card"><div class="ct">💰 Today vs plan</div><div class="cs">$412 ahead of plan</div></div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on"><span class="ic">🏠</span>Today</div>
+            <div class="tab"><span class="ic">✅</span>My tasks</div>
+            <div class="tab"><span class="ic">🍳</span><span class="biz-text" data-r="Kitchen" data-g="Products"></span></div>
+          </div>
+        </div></div>
+        <p class="caption">A Cook or a Cashier role has no Settings screen (<code>screen.settings</code> compiled off) — this bar never changes for them, before or after Go live.</p>
+      </div>
+      <div class="col">
+        <h3>Desktop rail · owner</h3>
+        <div class="desk">
+          <div class="rail">
+            <div class="r on first"><span class="ic">🚀</span>Getting started</div>
+            <div class="r"><span class="ic">📄</span>Invoices</div>
+            <div class="r"><span class="ic">🥬</span>Products</div>
+            <div class="r"><span class="ic">✅</span>My tasks</div>
+            <div class="r"><span class="ic">🍳</span><span class="biz-text" data-r="Kitchen" data-g="Menu"></span></div>
+            <div class="r"><span class="ic">🏷️</span>Pricing</div>
+            <div class="r"><span class="ic">⚙️</span>Settings</div>
+          </div>
+          <div class="main">
+            <h4 class="biz-text" data-r="Your kitchen" data-g="Opening count"></h4>
+            <p style="color:var(--muted);font-size:13px">The same Getting-started page already built (station map, setup session block) — only the rail position moves.</p>
+          </div>
+        </div>
+        <p class="caption">Same rule: the rail slot Today used to hold is where the new row sits, first and highlighted — nothing added below it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <h2>2 — Day 30 of real sales, still not live <span class="tag">asked once, never silently</span></h2>
+    <p class="sub">If receipts have been landing for 30 days and nobody has tapped Go live, the setup session's own ask queue (the same one-at-a-time card that already asks for a vendor's invoices) adds one more tier, right where the owner is already looking.</p>
+    <div class="stage">
+      <div class="col">
+        <h3>Phone · Getting started, day 30</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Getting started</div><div class="t2 biz-text" data-r="Great Indian Food · 91% set up" data-g="Shopkiraana · 88% set up"></div></div></div>
+          <div class="body-pad">
+            <div class="ask-card">
+              <div class="q">Are you open? Tap Go live and I will step back.</div>
+              <div class="btnrow"><div class="btn ghost" onclick="alert('Not yet — asked again only if another 30 days of sales pass with no tap.')">Not yet</div><div class="btn saff" onclick="alert('Opens the same confirm sheet as the Go live button below.')">Yes, we're open</div></div>
+            </div>
+            <div class="card"><div class="ct">💰 Your money</div><div class="cs">30 days of real sales recorded</div></div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on first"><span class="ic">🚀</span>Getting started</div>
+            <div class="tab"><span class="ic">📄</span>Invoices</div>
+            <div class="tab"><span class="ic">🥬</span>Products</div>
+            <div class="tab"><span class="ic">✅</span>My tasks</div>
+            <div class="tab"><span class="ic">⚙️</span>Settings</div>
+          </div>
+        </div></div>
+        <p class="caption">Fired from <code>receipts</code>' own first row + 30 days, same read the money reasons already do — never a guess from the calendar alone.</p>
+      </div>
+      <div class="col">
+        <h3>What makes it fire, once</h3>
+        <div class="card" style="width:100%">
+          <div class="ct">The rule</div>
+          <ul style="margin:0;padding-left:18px;font-size:12.5px;color:var(--ink)">
+            <li>30 days after the tenant's first <code>receipts</code> row</li>
+            <li><code>checklistDismissed</code> is still false</li>
+            <li>one ask, after every data tier the agent already ranks</li>
+            <li>answered by the SAME Go live tap below — never a second question</li>
+            <li>a "Not yet" never asks again until another 30 days of real sales pass</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <h2>3 — The tap: "We're open — go live" <span class="tag">on the go-live section itself</span></h2>
+    <p class="sub">Getting started's own last row gains the real button. The confirm names, by title, what is still skipped — nothing hidden, nothing guessed.</p>
+    <div class="stage">
+      <div class="col">
+        <h3>Phone · the go-live card</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Getting started</div><div class="t2">Go live</div></div></div>
+          <div class="body-pad">
+            <div class="card">
+              <div class="ct">🚀 Go live</div>
+              <div class="cs">Shows your outcomes as numbers, and what is still open — including anything skipped along the way.</div>
+              <div class="skip-list">
+                <div class="skip-row"><span class="dot"></span><a href="#" class="biz-text" data-r="Your register" data-g="Your store online"></a>, skipped</div>
+                <div class="skip-row"><span class="dot"></span><a href="#">Your team</a>, skipped</div>
+              </div>
+              <button class="btn block saff" onclick="document.getElementById('golive-sheet').style.display='flex'">We're open — go live</button>
+            </div>
+          </div>
+          <div id="golive-sheet" class="overlay" style="display:none">
+            <div class="sheet">
+              <h4>Go live?</h4>
+              <p>This takes Getting started off your tab bar. You can still reach it any time from Settings.</p>
+              <p><b>Still skipped:</b> <span class="biz-text" data-r="Your register, Your team" data-g="Your store online, Your team"></span></p>
+              <div class="btnrow"><div class="btn ghost" onclick="document.getElementById('golive-sheet').style.display='none'">Not yet</div><div class="btn saff" onclick="document.getElementById('golive-sheet').style.display='none'; alert('checklistDismissed=true, onboarding.wentLiveAt=now — the tab leaves the bar.')">Yes, we're open</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="caption">Tapping "Not yet" just closes the sheet — nothing is written, nothing skipped is forced.</p>
+      </div>
+      <div class="col">
+        <h3>What the tap writes</h3>
+        <div class="card" style="width:100%">
+          <table class="decisions">
+            <tr><th>Setting</th><th>Becomes</th></tr>
+            <tr><td><code>settings.onboarding.checklistDismissed</code></td><td><code>true</code></td></tr>
+            <tr><td><code>settings.onboarding.wentLiveAt</code></td><td>today's date</td></tr>
+          </table>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px">Same <code>PATCH /tenant/settings</code> door Reopen setup below also uses, just the other direction. No new route.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt">
+    <h2>4 — After Go live: two tails, never gone for good</h2>
+    <p class="sub">The tab leaves the bar and Today returns to first. For 14 days, Today still names what was skipped. Forever after, Settings → Getting started keeps one button to bring the tab back.</p>
+    <div class="stage">
+      <div class="col">
+        <h3>Phone · Today, day 6 of 14</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Today</div><div class="t2">Fri, Oct 9</div></div></div>
+          <div class="body-pad">
+            <div class="card"><div class="ct">💰 Today vs plan</div><div class="cs">$286 ahead of plan</div></div>
+            <div class="card">
+              <div class="ct">🚀 <span class="biz-text" data-r="Setup: 2 things skipped" data-g="Setup: 2 things skipped"></span></div>
+              <div class="cs">Your register, Your team — finish any time</div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on"><span class="ic">🏠</span>Today</div>
+            <div class="tab"><span class="ic">📄</span>Invoices</div>
+            <div class="tab"><span class="ic">🥬</span>Products</div>
+            <div class="tab"><span class="ic">✅</span>My tasks</div>
+            <div class="tab"><span class="ic">⚙️</span>Settings</div>
+          </div>
+        </div></div>
+        <p class="caption">Getting started is gone from the bar — Today is first again, with its own one row of "what's left," reading the same <code>skippedSections</code> the journey screen already computes. Gone after 14 days from <code>wentLiveAt</code>.</p>
+      </div>
+      <div class="col">
+        <h3>Phone · Settings → Getting started, day 90</h3>
+        <div class="phone"><div class="screen">
+          <div class="topbar"><div class="titlewrap"><div class="t1">Getting started</div><div class="t2">Live since Oct 6</div></div></div>
+          <div class="body-pad">
+            <div class="card"><div class="ct">You're live</div><div class="cs">98% set up · 2 things still skipped</div><button class="btn block" onclick="alert(\"checklistDismissed=false — the tab returns to the bar.\")">Reopen setup</button></div>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><span class="ic">🏠</span>Today</div>
+            <div class="tab"><span class="ic">✅</span>My tasks</div>
+            <div class="tab on"><span class="ic">⚙️</span>Settings</div>
+          </div>
+        </div></div>
+        <p class="caption">Reached through the gear, same as today, for ever — the day a register or a second location is added, this is where that work resumes.</p>
+      </div>
+    </div>
+    <p class="caption" style="margin-top:4px">No API change beyond the two settings keys above and the one derived "N skipped" count on <code>GET /money/today</code> — everything else already exists on <code>GET /tenant/onboarding</code>.</p>
+  </section>
+
+  <section class="opt">
+    <h2>Scorecard against the eight checks</h2>
+    <div class="legend">
+      <span>✓ 1 one job: the bar row is one tap to the setup session, nothing else</span>
+      <span>✓ 3 the orange dot is the ONE existing "needs you" mark, no new picture</span>
+      <span>✓ 4 still seven tabs, never eight</span>
+      <span>✓ 6 Settings → Getting started is the forever way back</span>
+      <span>✓ 7 one home: no second onboarding entry point created</span>
+      <span>△ 2 the Today skip row and the ask card need real copy review on a long skipped-list (3+ names) — named for the build, not guessed here</span>
+    </div>
+  </section>
+
+  <p class="caption">Rule already approved by Kiran in chat (see the issue) — this mockup is the LOOK only. Refs #563, #601. — screen-agent (agent run)</p>
+</div>
+<script>
+function setBiz(kind, btn) {
+  document.querySelectorAll('.toggle button').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.biz-text').forEach(el => {
+    el.textContent = kind === 'restaurant' ? el.dataset.r : el.dataset.g;
+  });
+}
+setBiz('restaurant', document.querySelector('.toggle button'));
+</script>
+</body>
+</html>
