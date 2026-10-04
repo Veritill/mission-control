@@ -1,58 +1,71 @@
 {
-  "at": "2026-10-04T18:46:06.581Z",
+  "at": "2026-10-04T19:37:04.309Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 2,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 2
+      "busyPct": 0
     },
     "core": {
-      "runs": 11,
-      "busyMin": 51,
-      "waitMin": 12,
-      "busyPct": 85
+      "runs": 9,
+      "busyMin": 78,
+      "waitMin": 7,
+      "busyPct": 131
     },
     "planner": {
-      "runs": 2,
-      "busyMin": 2,
-      "waitMin": 10,
-      "busyPct": 3
+      "runs": 1,
+      "busyMin": 4,
+      "waitMin": 2,
+      "busyPct": 7
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 256,
+      "runs": 8,
+      "busyMin": 228,
       "waitMin": 0,
-      "busyPct": 142
+      "busyPct": 127
     }
   },
   "queue": {
-    "agentsQueued": 2,
-    "ciQueued": 6,
-    "oldestQueuedMin": 24
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 31
   },
   "runners": [],
+  "conflicted": [
+    {
+      "number": 726,
+      "branch": "lane/pos/724"
+    },
+    {
+      "number": 710,
+      "branch": "lane/recipes/688"
+    }
+  ],
+  "runless": [],
+  "ciKicked": {},
+  "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "run 37224272760 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "2 pull request(s) conflicted with main; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
-      "text": "run 37224139181 (ci) queued 24 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37226976251 (ci) queued 31 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $91.41)"
+      "text": "projected development cost $292 exceeds the $250 budget (Railway projected $91.83)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 48.85,
-    "railwayProjected": 91.41,
+    "railwayMonthToDate": 49.13,
+    "railwayProjected": 91.83,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
