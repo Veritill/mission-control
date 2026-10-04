@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-04T10:25:30.856Z",
+  "at": "2026-10-04T12:48:09.403Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 8,
-      "busyMin": 72,
-      "waitMin": 7,
-      "busyPct": 60
+      "runs": 11,
+      "busyMin": 75,
+      "waitMin": 29,
+      "busyPct": 63
     },
     "core": {
-      "runs": 7,
-      "busyMin": 34,
-      "waitMin": 8,
-      "busyPct": 56
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 131,
-      "waitMin": 63,
-      "busyPct": 73
+      "runs": 2,
+      "busyMin": 14,
+      "waitMin": 0,
+      "busyPct": 8
     }
   },
   "queue": {
@@ -36,19 +36,19 @@
   "findings": [
     {
       "level": "fixed",
-      "text": "main is red on e2e only (run 37194007453): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+      "text": "main is red on e2e only (run 37195381608): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $87.32)"
+      "text": "projected development cost $288 exceeds the $250 budget (Railway projected $88.23)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 46.39,
-    "railwayProjected": 87.32,
+    "railwayMonthToDate": 46.99,
+    "railwayProjected": 88.23,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
