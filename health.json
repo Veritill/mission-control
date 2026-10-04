@@ -1,50 +1,54 @@
 {
-  "at": "2026-10-03T23:27:00.514Z",
+  "at": "2026-10-04T00:24:50.698Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 12,
-      "busyMin": 107,
-      "waitMin": 0,
-      "busyPct": 89
+      "runs": 17,
+      "busyMin": 122,
+      "waitMin": 25,
+      "busyPct": 102
     },
     "core": {
-      "runs": 7,
-      "busyMin": 33,
-      "waitMin": 1,
-      "busyPct": 56
+      "runs": 9,
+      "busyMin": 26,
+      "waitMin": 2,
+      "busyPct": 43
     },
     "planner": {
       "runs": 1,
       "busyMin": 3,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 4
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 19,
+      "runs": 10,
+      "busyMin": 176,
       "waitMin": 0,
-      "busyPct": 11
+      "busyPct": 98
     }
   },
   "queue": {
     "agentsQueued": 2,
-    "ciQueued": 0,
-    "oldestQueuedMin": 13
+    "ciQueued": 3,
+    "oldestQueuedMin": 25
   },
   "runners": [],
   "findings": [
     {
       "level": "warn",
-      "text": "projected development cost $280 exceeds the $250 budget (Railway projected $80.14)"
+      "text": "run 37163514412 (ci) queued 25 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $281 exceeds the $250 budget (Railway projected $80.76)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 42.49,
-    "railwayProjected": 80.14,
+    "railwayMonthToDate": 42.79,
+    "railwayProjected": 80.76,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
