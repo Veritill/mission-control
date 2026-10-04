@@ -1,66 +1,54 @@
 {
-  "at": "2026-10-04T17:42:12.482Z",
+  "at": "2026-10-04T18:43:55.862Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 39,
-      "waitMin": 20,
-      "busyPct": 32
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 0,
+      "busyPct": 2
     },
     "core": {
-      "runs": 7,
-      "busyMin": 75,
-      "waitMin": 27,
-      "busyPct": 125
+      "runs": 10,
+      "busyMin": 53,
+      "waitMin": 12,
+      "busyPct": 89
     },
     "planner": {
-      "runs": 2,
-      "busyMin": 2,
-      "waitMin": 46,
-      "busyPct": 3
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 10,
+      "busyPct": 1
     },
     "ci": {
-      "runs": 14,
-      "busyMin": 346,
+      "runs": 11,
+      "busyMin": 282,
       "waitMin": 0,
-      "busyPct": 192
+      "busyPct": 157
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 6,
-    "oldestQueuedMin": 32
+    "agentsQueued": 1,
+    "ciQueued": 4,
+    "oldestQueuedMin": 22
   },
   "runners": [],
   "findings": [
     {
       "level": "warn",
-      "text": "run 37220019754 (ci) queued 23 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37224139181 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 37219922171 (ci) queued 25 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37219770266 (ci) queued 27 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37219455738 (ci) queued 32 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $90.77)"
+      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $91.41)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 48.48,
-    "railwayProjected": 90.77,
+    "railwayMonthToDate": 48.85,
+    "railwayProjected": 91.41,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
