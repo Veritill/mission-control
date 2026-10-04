@@ -1,58 +1,54 @@
 {
-  "at": "2026-10-04T15:47:59.467Z",
+  "at": "2026-10-04T16:43:22.866Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 57,
-      "waitMin": 33,
-      "busyPct": 47
+      "runs": 5,
+      "busyMin": 51,
+      "waitMin": 0,
+      "busyPct": 43
     },
     "core": {
-      "runs": 5,
-      "busyMin": 53,
-      "waitMin": 9,
-      "busyPct": 88
+      "runs": 6,
+      "busyMin": 23,
+      "waitMin": 4,
+      "busyPct": 39
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 32,
-      "waitMin": 4,
-      "busyPct": 54
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 25,
-      "waitMin": 12,
-      "busyPct": 14
+      "runs": 5,
+      "busyMin": 40,
+      "waitMin": 31,
+      "busyPct": 22
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 24
+    "oldestQueuedMin": 0
   },
   "runners": [],
   "findings": [
     {
-      "level": "warn",
-      "text": "main is RED (run 37195381608, failed: e2e) for 28 min — staging is not moving until a fix lands"
+      "level": "fixed",
+      "text": "main is red on e2e only (run 37215921635): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "warn",
-      "text": "run 37212825777 (agents) queued 24 min for label 'planner' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $89.6)"
+      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $90.16)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 47.82,
-    "railwayProjected": 89.6,
+    "railwayMonthToDate": 48.13,
+    "railwayProjected": 90.16,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
