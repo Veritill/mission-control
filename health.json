@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-04T02:54:41.833Z",
+  "at": "2026-10-04T03:48:34.044Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 25,
-      "waitMin": 7,
-      "busyPct": 21
+      "runs": 5,
+      "busyMin": 49,
+      "waitMin": 15,
+      "busyPct": 41
     },
     "core": {
-      "runs": 11,
-      "busyMin": 30,
-      "waitMin": 4,
-      "busyPct": 50
+      "runs": 12,
+      "busyMin": 54,
+      "waitMin": 9,
+      "busyPct": 90
     },
     "planner": {
       "runs": 0,
@@ -22,45 +22,37 @@
     },
     "ci": {
       "runs": 11,
-      "busyMin": 358,
+      "busyMin": 365,
       "waitMin": 0,
-      "busyPct": 199
+      "busyPct": 203
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 6,
-    "oldestQueuedMin": 46
+    "ciQueued": 4,
+    "oldestQueuedMin": 60
   },
   "runners": [],
   "findings": [
     {
       "level": "warn",
-      "text": "run 37170579198 (ci) queued 37 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37174160720 (ci) queued 20 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 37170294962 (ci) queued 43 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37172152123 (ci) queued 60 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 37170167857 (ci) queued 45 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 37170156720 (ci) queued 46 min for label 'veritill' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $82.59)"
+      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $83.29)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 43.64,
-    "railwayProjected": 82.59,
+    "railwayMonthToDate": 43.96,
+    "railwayProjected": 83.29,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
