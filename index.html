@@ -170,6 +170,12 @@ a{color:var(--accent)}
 
   async function load() {
     loadSpend(); loadHealth();
+    // issue #728: health.json already names which open PRs are conflicted with main vs. just missing a CI run
+    // (build-health.mjs, issue #719) — read the same file here so the pipeline table can tell the two apart
+    // instead of folding both into "tests queued".
+    const health = await fetch('health.json?t=' + Date.now(), { cache:'no-store' }).then((r) => r.ok ? r.json() : null).catch(() => null);
+    const conflictedNums = new Set(((health && health.conflicted) || []).map((c) => c.number));
+    const runlessNums = new Set(((health && health.runless) || []).map((c) => c.number));
     if (!token) { $('setup').classList.remove('hidden'); $('app').classList.add('hidden'); $('summary').textContent = 'not connected'; return; }
     $('setup').classList.add('hidden'); $('app').classList.remove('hidden'); $('summary').textContent = 'reading…';
     try {
@@ -272,17 +278,19 @@ a{color:var(--accent)}
       const rows = [];
       prs.forEach((p, k) => {
         const c = ciOf(k); const lane = label(p,'lane:') || (p.head.ref.split('/')[1] || 'core'); const green = c.test==='success' && c.e2e==='success'; const red = c.test==='failure' || c.e2e==='failure';
+        const conflicted = c.test==='none' && conflictedNums.has(p.number);
+        const runless = c.test==='none' && !conflicted && runlessNums.has(p.number);
         const ciWord = (n, v) => v==='running' ? n+' running' : v==='success' ? n+' ✓' : v==='failure' ? n+' ✗' : n+' queued';
         const lp = loops[k] || { count:1, ev:[] };
-        const step = green ? 'Core review' : red ? 'fix after failed tests' : c.test==='none' ? 'tests queued' : 'tests';
+        const step = green ? 'Core review' : red ? 'fix after failed tests' : conflicted ? 'conflicts, needs a rebase' : runless ? 'no CI run yet' : c.test==='none' ? 'tests queued' : 'tests';
         const mins = (m) => m < 1 ? '0 min' : m < 60 ? Math.round(m)+' min' : (Math.round(m/6)/10)+' h';
         const timing = lp.ageMin != null ? ` · open ${mins(lp.ageMin)}: tests ${mins(lp.testsMin)} · queued ${mins(lp.queuedMin)} · waiting for Core ${mins(lp.coreWaitMin)}` : '';
-        rows.push({ ic:'🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: `loop ${lp.count} · step: ${step}` + (green || red ? '' : ' · '+ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e)) + timing, log: lp.ev,
-          where: green ? 'tests green' : red ? 'tests failed' : c.test==='none' ? 'tests queued' : 'tests running',
-          who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : 'CI',
-          waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
-          next: green ? 'merged to staging' : red ? 'a fix, then tests again' : 'green, then Core merges',
-          eta: green ? eta(10) : red ? eta(BUILD_MIN) + ' rough' : eta((c.test==='none' ? ciWait : 0) + ciMedMin + 10) });
+        rows.push({ ic: conflicted ? '⚠️' : '🔀', item:`PR #${p.number} ${p.title}`, url:p.html_url, lane, detail: `loop ${lp.count} · step: ${step}` + (green || red || conflicted || runless ? '' : ' · '+ciWord('test', c.test)+' · '+ciWord('e2e', c.e2e)) + timing, log: lp.ev,
+          where: green ? 'tests green' : red ? 'tests failed' : conflicted ? 'conflicts with main' : runless ? 'no CI run yet' : c.test==='none' ? 'tests queued' : 'tests running',
+          who: green ? (coreBusy ? 'Core, reviewing' : 'Core, wakes on green') : red ? lane+' lane' : (conflicted || runless) ? 'Core' : 'CI',
+          waits: green ? 'Core to review and merge' : red ? 'the lane to fix and push' : conflicted ? 'Core to merge main into this branch' : runless ? 'Core to dispatch a CI run' : (c.test==='none' ? `a free test runner (${ciQueued.length} queued)` : 'the tests to finish'),
+          next: green ? 'merged to staging' : red ? 'a fix, then tests again' : conflicted ? 'a rebase, then tests' : runless ? 'a CI run, then tests' : 'green, then Core merges',
+          eta: green ? eta(10) : red ? eta(BUILD_MIN) + ' rough' : (conflicted || runless) ? eta(ciMedMin + 10) + ' rough' : eta((c.test==='none' ? ciWait : 0) + ciMedMin + 10) });
       });
       lanes.forEach((l) => l.tasks.forEach((t) => { if (t.pr) return; const pn = t.pn; const startedMin = pn && pn.state==='working' ? (now - new Date(pn.at).getTime())/60000 : null;
         rows.push({ ic: t.active ? '🟢' : pn && pn.state==='stopped' ? '⏸' : '⚪', item:`#${t.cur.number} ${t.cur.title}`, url:t.cur.html_url, lane:l.lane, steps: pn, detail: pn && pn.state==='working' && pn.now ? 'Now: '+pn.now : (pn && pn.state==='stopped' ? pn.extra : (t.beat ? 'last commit '+ago(t.beat.at)+' ago: '+t.beat.message.slice(0,80) : '')),
