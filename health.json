@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-05T16:40:16.356Z",
+  "at": "2026-10-05T17:22:23.511Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 49,
-      "waitMin": 15,
-      "busyPct": 40
+      "runs": 12,
+      "busyMin": 60,
+      "waitMin": 2,
+      "busyPct": 50
     },
     "core": {
-      "runs": 2,
-      "busyMin": 42,
-      "waitMin": 1,
-      "busyPct": 70
+      "runs": 5,
+      "busyMin": 27,
+      "waitMin": 14,
+      "busyPct": 44
     },
     "planner": {
       "runs": 0,
@@ -21,50 +21,64 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 12,
+      "runs": 8,
+      "busyMin": 158,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 88
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 2,
+    "ciQueued": 3,
+    "oldestQueuedMin": 27
   },
   "runners": [],
   "conflicted": [],
   "runless": [
     {
-      "number": 799,
-      "branch": "lane/money/797",
-      "sha": "bea4365d1fa5070fd3971995bfa5d871fc65c7a7"
+      "number": 802,
+      "branch": "lane/onboarding/750",
+      "sha": "bded4ec681aedac236f696d19c981ac9d15d0f5d"
+    },
+    {
+      "number": 801,
+      "branch": "core/796",
+      "sha": "baf945279b06c0ddd9b0ff37bd9126f9a983c0cf"
     }
   ],
   "ciKicked": {
-    "bea4365d1fa5070fd3971995bfa5d871fc65c7a7": "2026-10-05T16:40:01.272Z"
+    "bded4ec681aedac236f696d19c981ac9d15d0f5d": "2026-10-05T17:22:06.960Z",
+    "baf945279b06c0ddd9b0ff37bd9126f9a983c0cf": "2026-10-05T17:22:06.960Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "reset 1 dead run(s) back to ready (no note movement for 3 h, no PR)"
+      "text": "kicked CI on #802 (token push left it run-less)"
     },
     {
       "level": "fixed",
-      "text": "kicked CI on #799 (token push left it run-less)"
+      "text": "kicked CI on #801 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $300 exceeds the $250 budget (Railway projected $99.7)"
+      "text": "run 37344601126 (ci) queued 26 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 37344465151 (ci) queued 27 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $300 exceeds the $250 budget (Railway projected $100.07)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 54.49,
-    "railwayProjected": 99.7,
+    "railwayMonthToDate": 54.72,
+    "railwayProjected": 100.07,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
