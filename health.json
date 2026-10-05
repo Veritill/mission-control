@@ -1,54 +1,66 @@
 {
-  "at": "2026-10-05T12:34:17.073Z",
+  "at": "2026-10-05T13:53:53.021Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 10,
-      "busyMin": 65,
-      "waitMin": 8,
-      "busyPct": 54
+      "runs": 4,
+      "busyMin": 33,
+      "waitMin": 4,
+      "busyPct": 28
     },
     "core": {
-      "runs": 9,
-      "busyMin": 43,
-      "waitMin": 7,
-      "busyPct": 72
+      "runs": 6,
+      "busyMin": 9,
+      "waitMin": 2,
+      "busyPct": 15
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 5,
-      "waitMin": 17,
-      "busyPct": 9
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 112,
+      "runs": 3,
+      "busyMin": 33,
       "waitMin": 0,
-      "busyPct": 62
+      "busyPct": 18
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 16
+    "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
-  "runless": [],
-  "ciKicked": {},
+  "runless": [
+    {
+      "number": 795,
+      "branch": "lane/recipes/793",
+      "sha": "1ae812da50464222bde1cfef27870c4c2c8440cf"
+    }
+  ],
+  "ciKicked": {
+    "1ae812da50464222bde1cfef27870c4c2c8440cf": "2026-10-05T13:53:38.439Z"
+  },
   "conflictWoken": {},
   "findings": [
     {
+      "level": "fixed",
+      "text": "kicked CI on #795 (token push left it run-less)"
+    },
+    {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.28)"
+      "text": "projected development cost $299 exceeds the $250 budget (Railway projected $98.91)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 53.47,
-    "railwayProjected": 98.28,
+    "railwayMonthToDate": 53.9,
+    "railwayProjected": 98.91,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
