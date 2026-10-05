@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-05T13:53:53.021Z",
+  "at": "2026-10-05T16:40:16.356Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 33,
-      "waitMin": 4,
-      "busyPct": 28
+      "runs": 5,
+      "busyMin": 49,
+      "waitMin": 15,
+      "busyPct": 40
     },
     "core": {
-      "runs": 6,
-      "busyMin": 9,
-      "waitMin": 2,
-      "busyPct": 15
+      "runs": 2,
+      "busyMin": 42,
+      "waitMin": 1,
+      "busyPct": 70
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 33,
+      "runs": 1,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 18
+      "busyPct": 7
     }
   },
   "queue": {
@@ -36,31 +36,35 @@
   "conflicted": [],
   "runless": [
     {
-      "number": 795,
-      "branch": "lane/recipes/793",
-      "sha": "1ae812da50464222bde1cfef27870c4c2c8440cf"
+      "number": 799,
+      "branch": "lane/money/797",
+      "sha": "bea4365d1fa5070fd3971995bfa5d871fc65c7a7"
     }
   ],
   "ciKicked": {
-    "1ae812da50464222bde1cfef27870c4c2c8440cf": "2026-10-05T13:53:38.439Z"
+    "bea4365d1fa5070fd3971995bfa5d871fc65c7a7": "2026-10-05T16:40:01.272Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #795 (token push left it run-less)"
+      "text": "reset 1 dead run(s) back to ready (no note movement for 3 h, no PR)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #799 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $299 exceeds the $250 budget (Railway projected $98.91)"
+      "text": "projected development cost $300 exceeds the $250 budget (Railway projected $99.7)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 53.9,
-    "railwayProjected": 98.91,
+    "railwayMonthToDate": 54.49,
+    "railwayProjected": 99.7,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
