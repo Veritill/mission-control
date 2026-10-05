@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #742 — Business knowledge, one tree instead of six lists</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 920px; margin: 0 auto 22px; text-align: center; }
+  section.opt { background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 18px 18px 14px; margin: 0 auto 26px; max-width: 1420px; }
+  section.opt h2 { font-size: 16px; margin: 0 0 2px; }
+  section.opt h2 .tag { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-left: 8px; font-weight: 600; }
+  section.opt .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; max-width: 980px; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+  .col { width: 320px; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; text-align: center; font-weight: 600; }
+  .phone { width: 320px; height: 660px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .phone.short { height: 560px; }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 12px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); flex: none; }
+  .iconbtn { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: var(--chip); border: none; border-radius: 8px; font-size: 13px; color: var(--ink); flex: none; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); }
+  .body-pad { flex: 1; overflow-y: auto; padding: 10px 12px 14px; position: relative; }
+  .tap-hint { text-align: center; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+
+  /* provenance line — requirement 1 */
+  .prov { display: flex; align-items: center; gap: 6px; background: var(--green-soft); border: 1px solid #cfe3d5; border-radius: 10px; padding: 7px 9px; margin-bottom: 8px; font-size: 11.5px; }
+  .prov .ptxt { flex: 1; min-width: 0; color: var(--ink); }
+  .prov .ptxt b { font-weight: 700; }
+  .prov .pmuted { color: var(--muted); }
+  .prov .plink { flex: none; background: none; border: none; color: var(--green); font-weight: 700; font-size: 11.5px; padding: 0; text-decoration: underline; }
+  .prov .pinfo { flex: none; width: 15px; height: 15px; border-radius: 50%; border: 1.3px solid var(--green); color: var(--green); background: #fff; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .whybox { font-size: 11px; color: var(--chip-ink); background: var(--chip); border-radius: 8px; padding: 7px 9px; margin: 0 0 8px; }
+
+  /* review banner — requirement 2, single banner, opens a sheet */
+  .reviewbar { display: flex; align-items: center; gap: 8px; background: var(--saffron-soft); border: 1px solid #e8cfae; border-radius: 10px; padding: 8px 10px; margin-bottom: 10px; }
+  .reviewbar .ic { font-size: 15px; flex: none; }
+  .reviewbar .t { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 700; color: var(--saffron); }
+  .reviewbar .chev { color: var(--saffron); font-size: 13px; flex: none; }
+
+  /* search */
+  .searchbox { display: flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 10px; margin-bottom: 10px; }
+  .searchbox .ic { font-size: 13px; color: var(--muted); flex: none; }
+  .searchbox input { border: none; outline: none; font: inherit; font-size: 12.5px; flex: 1; background: transparent; color: var(--ink); }
+  .searchbox input::placeholder { color: var(--muted); }
+
+  /* the tree — requirement 2/3 */
+  .tree { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
+  .row { display: flex; align-items: center; gap: 7px; padding: 9px 10px; border-top: 1px solid var(--rule); }
+  .row:first-child { border-top: none; }
+  .row .chev { width: 12px; flex: none; color: var(--muted); font-size: 11px; text-align: center; }
+  .row .ic { font-size: 16px; flex: none; width: 20px; text-align: center; }
+  .row .book { font-size: 11px; flex: none; margin-left: -2px; }
+  .row .nm { flex: 1; min-width: 0; }
+  .row .nm .n1 { font-size: 12.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .nm .n2 { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .deptchip { flex: none; font-size: 9.5px; font-weight: 700; background: var(--chip); color: var(--chip-ink); border-radius: 999px; padding: 2px 7px; white-space: nowrap; }
+  .row .count { flex: none; font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .row .rowbtns { flex: none; display: flex; gap: 3px; margin-left: 2px; }
+  .rowbtn { width: 20px; height: 20px; border-radius: 6px; border: none; background: var(--chip); color: var(--chip-ink); font-size: 10px; display: flex; align-items: center; justify-content: center; }
+  .rowbtn.danger { color: var(--danger); }
+  .row.shelf { padding-left: 24px; background: #fdfcfa; }
+  .row.fam { padding-left: 42px; }
+  .row.hl { background: #fff6dc; }
+  .addrow { display: flex; align-items: center; gap: 7px; padding: 8px 10px; border-top: 1px dashed var(--rule); color: var(--green); font-size: 11.5px; font-weight: 700; }
+  .addrow.shelf { padding-left: 24px; }
+  .addrow.fam { padding-left: 42px; }
+  .addrow .plus { width: 16px; height: 16px; border-radius: 50%; border: 1.4px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 10px; flex: none; }
+  .foldrow { text-align: center; padding: 6px; font-size: 10.5px; color: var(--muted); border-top: 1px solid var(--rule); }
+  .foldrow.shelf { padding-left: 24px; }
+
+  .legend { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--muted); margin: 7px 2px 2px; }
+
+  /* small cards below the tree — requirement 2 */
+  .minicard { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 8px 10px; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+  .minicard .ic { font-size: 15px; flex: none; }
+  .minicard .t { flex: 1; min-width: 0; font-size: 12px; font-weight: 700; }
+  .minicard .s { font-size: 10.5px; color: var(--muted); }
+  .minicard .chev { color: var(--muted); font-size: 12px; flex: none; }
+
+  /* dialogs / sheet */
+  .dim { position: absolute; inset: 0; background: rgba(30,42,36,.4); }
+  .modal { position: absolute; left: 16px; right: 16px; top: 50%; transform: translateY(-50%); background: var(--card); border-radius: 14px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  .modal .mt { font-size: 13.5px; font-weight: 700; margin-bottom: 4px; }
+  .modal .ms { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .modal .mwarn { font-size: 12px; color: var(--danger); background: var(--danger-soft); border-radius: 8px; padding: 6px 8px; margin: 6px 0 10px; font-weight: 600; }
+  .modal input.minput { width: 100%; font: inherit; font-size: 13px; padding: 7px 9px; border: 1px solid var(--rule); border-radius: 8px; margin: 6px 0 10px; color: var(--ink); }
+  .modal .btnrow { display: flex; gap: 8px; }
+  .btn { flex: 1; border: none; border-radius: 9px; padding: 8px 10px; font-size: 12px; font-weight: 700; background: var(--green); color: #fff; text-align: center; }
+  .btn.ghost { background: var(--chip); color: var(--ink); }
+  .btn.danger { background: var(--danger); }
+  .btn.full { width: 100%; }
+  .mergebox { background: var(--green-soft); border: 1px solid #cfe3d5; border-radius: 9px; padding: 8px 9px; margin: 6px 0 10px; font-size: 12px; }
+  .mergebox b { display: block; margin-bottom: 4px; }
+
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--card); border-top-left-radius: 18px; border-top-right-radius: 18px; box-shadow: 0 -10px 30px rgba(0,0,0,.18); padding: 8px 12px 14px; max-height: 80%; overflow-y: auto; }
+  .sheet .grab { width: 36px; height: 4px; border-radius: 2px; background: var(--rule); margin: 0 auto 8px; }
+  .sheethead { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .sheethead .t { font-size: 13px; font-weight: 800; flex: 1; }
+  .sugg { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--rule); }
+  .sugg:first-of-type { border-top: none; }
+  .sugg .ic { font-size: 15px; flex: none; width: 20px; text-align: center; }
+  .sugg .f { flex: 1; min-width: 0; font-size: 11.5px; }
+  .sugg .f b { font-weight: 700; }
+  .sugg .btns { flex: none; display: flex; gap: 4px; }
+  .sugg .btns button { font-size: 10.5px; font-weight: 700; border: none; border-radius: 7px; padding: 4px 7px; }
+  .sugg .btns .yes { background: var(--green); color: #fff; }
+  .sugg .btns .no { background: var(--chip); color: var(--chip-ink); }
+
+  .foot table.score { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; font-size: 12.5px; }
+  .foot table.score td, .foot table.score th { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .foot table.score tr:last-child td { border-bottom: none; }
+  .foot table.score td:first-child { white-space: nowrap; font-weight: 700; width: 4%; }
+  .foot table.score td:nth-child(2) { width: 24%; font-weight: 600; }
+  .ok { color: var(--green); font-weight: 800; }
+  .warn { color: var(--saffron); font-weight: 800; }
+  .rec { background: var(--green-soft); border: 1px solid #cfe3d5; border-radius: 14px; padding: 12px 16px; margin: 0 auto 26px; max-width: 1420px; font-size: 13.5px; }
+  @media (max-width: 720px) { .phone, .phone.short { width: 300px; } .col { width: 300px; } }
+</style>
+</head>
+<body>
+
+<h1 class="page">Mockup #742 — Business knowledge, one tree instead of six busy lists</h1>
+<p class="lede">Settings → Business knowledge, redesigned around issue #742: today's six flat facets (Review ·
+  Departments · Shelves · Families · Brands · Recognition) — each a paragraph plus a flat list, with nothing on
+  screen saying where the words came from — become one line of provenance, one banner for the review queue (opened
+  as a sheet, not a tab), ONE tree (Category → Shelf → Family, department shown as a chip), and two small cards for
+  Brands and Recognition below it. Add / rename / delete on every row, one tap each, the same three affordances at
+  every level. Example data only — two invented personas, nothing here is a real business.</p>
+
+<section class="opt">
+  <h2>1 · The home screen, collapsed <span class="tag">requirement 1 + 2</span></h2>
+  <p class="sub">The provenance line names where the words came from, with a one-tap "change" straight to the
+    interview's cuisine pick and an ⓘ for the why. The old "358 suggestions" review tab is now a single banner —
+    tap it and the existing review opens as a sheet (section 5), never the page's default view. Below that: a
+    search box, then the tree, collapsed to one row per category with its shelf and family counts and its
+    department as a small chip. Four category rows fit above the fold; the rest is an ordinary scroll, same as
+    Today's own why-rows list.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>🍛 Restaurant — Saffron Kitchen</h3>
+      <div class="phone"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Restaurant · Indian cuisine</b> <span class="pmuted">(Getting started)</span></span><button class="plink">change</button><button class="pinfo">i</button></div>
+          <div class="reviewbar"><span class="ic">🗣️</span><span class="t">358 suggestions from your master lists — review</span><span class="chev">›</span></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or ingredient" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">›</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">12 shelves · 84 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🍗</span><div class="nm"><div class="n1">Meat &amp; Seafood</div><div class="n2">4 shelves · 22 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🥛</span><div class="nm"><div class="n1">Dairy</div><div class="n2">3 shelves · 14 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🌾</span><div class="nm"><div class="n1">Dry Goods &amp; Grains</div><div class="n2">9 shelves · 61 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🌶️</span><div class="nm"><div class="n1">Spices &amp; Seasonings</div><div class="n2">6 shelves · 48 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🍞</span><div class="nm"><div class="n1">Bakery</div><div class="n2">2 shelves · 9 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🥤</span><div class="nm"><div class="n1">Beverage</div><div class="n2">3 shelves · 11 ingredients</div></div><span class="deptchip">Beverage</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">📦</span><div class="nm"><div class="n1">Packaging</div><div class="n2">2 shelves · 7 ingredients</div></div><span class="deptchip">Packaging</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🧽</span><div class="nm"><div class="n1">Cleaning &amp; Supplies</div><div class="n2">2 shelves · 6 ingredients</div></div><span class="deptchip">Cleaning</span></div>
+          </div>
+          <div class="minicard"><span class="ic">🏷️</span><div><div class="t">Brands</div><div class="s">322 words your invoices and lists recognise</div></div><span class="chev">›</span></div>
+          <div class="minicard"><span class="ic">🧠</span><div><div class="t">Recognition</div><div class="s">1,840 printed phrases matched to an ingredient, no AI needed</div></div><span class="chev">›</span></div>
+        </div>
+      </div></div>
+      <div class="tap-hint">9 fixed categories, always visible top-to-bottom; the department chip is tappable and edits that category's cost bucket in place</div>
+    </div>
+    <div class="col">
+      <h3>🛒 Grocery — Deshi Bazaar</h3>
+      <div class="phone"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Grocery · Indian cuisine</b> <span class="pmuted">(Getting started)</span></span><button class="plink">change</button><button class="pinfo">i</button></div>
+          <div class="reviewbar"><span class="ic">🗣️</span><span class="t">214 suggestions from your master lists — review</span><span class="chev">›</span></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or product" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">›</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">8 shelves · 56 products</div></div><span class="deptchip">Aisle 1</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🍗</span><div class="nm"><div class="n1">Meat &amp; Seafood</div><div class="n2">3 shelves · 19 products</div></div><span class="deptchip">Aisle 5</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🥛</span><div class="nm"><div class="n1">Dairy &amp; Frozen</div><div class="n2">5 shelves · 38 products</div></div><span class="deptchip">Aisle 4</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🌾</span><div class="nm"><div class="n1">Dry Goods &amp; Grains</div><div class="n2">11 shelves · 142 products</div></div><span class="deptchip">Aisle 2</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🌶️</span><div class="nm"><div class="n1">Spices &amp; Seasonings</div><div class="n2">7 shelves · 93 products</div></div><span class="deptchip">Aisle 2</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🍪</span><div class="nm"><div class="n1">Bakery &amp; Snacks</div><div class="n2">6 shelves · 71 products</div></div><span class="deptchip">Aisle 6</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🥤</span><div class="nm"><div class="n1">Beverage</div><div class="n2">4 shelves · 48 products</div></div><span class="deptchip">Aisle 7</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🧽</span><div class="nm"><div class="n1">Household &amp; Cleaning</div><div class="n2">3 shelves · 29 products</div></div><span class="deptchip">Aisle 8</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">💄</span><div class="nm"><div class="n1">Health &amp; Beauty</div><div class="n2">2 shelves · 17 products</div></div><span class="deptchip">Aisle 9</span></div>
+          </div>
+          <div class="minicard"><span class="ic">🏷️</span><div><div class="t">Brands</div><div class="s">486 words your invoices and lists recognise</div></div><span class="chev">›</span></div>
+          <div class="minicard"><span class="ic">🧠</span><div><div class="t">Recognition</div><div class="s">3,120 printed phrases matched to a product, no AI needed</div></div><span class="chev">›</span></div>
+        </div>
+      </div></div>
+      <div class="tap-hint">a grocery's department is its aisle — the exact same chip, the exact same tap-to-edit as the restaurant's cost bucket</div>
+    </div>
+  </div>
+</section>
+
+<section class="opt">
+  <h2>2 · ⓘ tapped — the why, in one line <span class="tag">requirement 1</span></h2>
+  <p class="sub">Tapping the ⓘ opens a short plain-English note right under the provenance line — never a paragraph
+    left sitting on the screen. It collapses back on a second tap.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>🍛 Restaurant — ⓘ open</h3>
+      <div class="phone short"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Restaurant · Indian cuisine</b> <span class="pmuted">(Getting started)</span></span><button class="plink">change</button><button class="pinfo">i</button></div>
+          <div class="whybox">We used Veritill's master list for an Indian restaurant to pre-fill your categories, shelves and ingredients when you answered the setup interview. Nothing here is locked — add, rename or remove anything below; the shared list itself never changes.</div>
+          <div class="reviewbar"><span class="ic">🗣️</span><span class="t">358 suggestions from your master lists — review</span><span class="chev">›</span></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or ingredient" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">›</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">12 shelves · 84 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row"><span class="chev">›</span><span class="ic">🍗</span><div class="nm"><div class="n1">Meat &amp; Seafood</div><div class="n2">4 shelves · 22 ingredients</div></div><span class="deptchip">Food</span></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tap-hint">one short note, one tap to open and one to close — never a paragraph left on screen</div>
+    </div>
+  </div>
+</section>
+
+<section class="opt">
+  <h2>3 · Expand a category → a shelf → its ingredients <span class="tag">requirement 2 + 3</span></h2>
+  <p class="sub">Tap a category row to expand its shelves; tap a shelf to expand its families (ingredients or
+    products). A 📘 marks a row that came from a platform starter list — still renamable and removable for this
+    business only, the shared list is never touched. Every shelf and family row carries the same three affordances:
+    ✎ rename, 🗑 delete (with a confirm naming what moves), and a dashed "+ Add" row under its parent. Categories
+    themselves have no ✎/🗑 — they are the machine's fixed 9, per CLAUDE.md; only their department chip is editable.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>🍛 Restaurant — Produce ▸ Leafy greens</h3>
+      <div class="phone"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Restaurant · Indian cuisine</b></span><button class="plink">change</button><button class="pinfo">i</button></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or ingredient" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">12 shelves · 84 ingredients</div></div><span class="deptchip">Food</span></div>
+
+            <div class="row shelf"><span class="chev">▾</span><span class="book">📘</span><div class="nm"><div class="n1">Leafy greens</div><div class="n2">9 ingredients · 23 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam hl"><span class="ic">🧺</span><div class="nm"><div class="n1">Spinach</div><div class="n2">3 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam"><span class="ic">🧺</span><div class="nm"><div class="n1">Methi</div><div class="n2">2 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam"><span class="ic">🧺</span><div class="nm"><div class="n1">Curry leaves</div><div class="n2">1 product</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="foldrow shelf">… 6 more ingredients on this shelf</div>
+            <div class="addrow fam"><span class="plus">+</span>Add an ingredient to Leafy greens</div>
+
+            <div class="row shelf"><span class="chev">›</span><span class="book">📘</span><div class="nm"><div class="n1">Root vegetables</div><div class="n2">7 ingredients · 18 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row shelf"><span class="chev">›</span><div class="nm"><div class="n1">Herbs &amp; Aromatics</div><div class="n2">4 ingredients · 6 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="foldrow">… 9 more shelves under Produce</div>
+            <div class="addrow shelf"><span class="plus">+</span>Add a shelf to Produce</div>
+          </div>
+          <div class="legend"><span class="book">📘</span> from your starter list — yours to rename or remove; the shared list itself never changes</div>
+        </div>
+      </div></div>
+      <div class="tap-hint">Herbs &amp; Aromatics has no 📘 — it was added by hand and behaves identically</div>
+    </div>
+    <div class="col">
+      <h3>🛒 Grocery — Produce ▸ Root vegetables</h3>
+      <div class="phone"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Grocery · Indian cuisine</b></span><button class="plink">change</button><button class="pinfo">i</button></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or product" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">8 shelves · 56 products</div></div><span class="deptchip">Aisle 1</span></div>
+
+            <div class="row shelf"><span class="chev">▾</span><span class="book">📘</span><div class="nm"><div class="n1">Root vegetables</div><div class="n2">6 products lines · 41 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam"><span class="ic">🧺</span><div class="nm"><div class="n1">Potato</div><div class="n2">4 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam"><span class="ic">🧺</span><div class="nm"><div class="n1">Onion</div><div class="n2">5 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row fam hl"><span class="ic">🧺</span><div class="nm"><div class="n1">Ginger</div><div class="n2">2 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="foldrow shelf">… 3 more products on this shelf</div>
+            <div class="addrow fam"><span class="plus">+</span>Add a product line to Root vegetables</div>
+
+            <div class="row shelf"><span class="chev">›</span><span class="book">📘</span><div class="nm"><div class="n1">Leafy greens</div><div class="n2">5 product lines · 14 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="row shelf"><span class="chev">›</span><div class="nm"><div class="n1">Fruits</div><div class="n2">3 product lines · 9 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="foldrow">… 5 more shelves under Produce</div>
+            <div class="addrow shelf"><span class="plus">+</span>Add a shelf to Produce</div>
+          </div>
+          <div class="legend"><span class="book">📘</span> from your starter list — yours to rename or remove; the shared list itself never changes</div>
+        </div>
+      </div></div>
+      <div class="tap-hint">highlighted row (Ginger) is where the search demo in section 4 lands</div>
+    </div>
+  </div>
+</section>
+
+<section class="opt">
+  <h2>4 · Search jumps straight to a match <span class="tag">requirement 2</span></h2>
+  <p class="sub">Typing in the search box filters as you type and auto-expands the tree to the matching
+    category and shelf — no separate results screen, no second list to maintain.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>🛒 Grocery — typed "ginger"</h3>
+      <div class="phone short"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="searchbox" style="border-color:var(--green)"><span class="ic">🔍</span><input value="ginger" readonly /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">1 match</div></div><span class="deptchip">Aisle 1</span></div>
+            <div class="row shelf"><span class="chev">▾</span><span class="book">📘</span><div class="nm"><div class="n1">Root vegetables</div><div class="n2">1 match</div></div></div>
+            <div class="row fam hl"><span class="ic">🧺</span><div class="nm"><div class="n1">Ginger</div><div class="n2">2 SKUs</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+          </div>
+          <div class="legend">every other category and shelf collapses out of the way while a search is active</div>
+        </div>
+      </div></div>
+      <div class="tap-hint">one search box for the whole tree — no separate search per facet</div>
+    </div>
+  </div>
+</section>
+
+<section class="opt">
+  <h2>5 · Add / rename / delete — the same three taps at every level <span class="tag">requirement 3</span></h2>
+  <p class="sub">A rename that collides with an existing shelf name offers "merge into" instead of silently
+    creating a second shelf of the same name. A delete always names what moves before asking you to confirm.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>Add a shelf</h3>
+      <div class="phone short"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">12 shelves · 84 ingredients</div></div><span class="deptchip">Food</span></div>
+            <div class="row shelf"><span class="chev">›</span><span class="book">📘</span><div class="nm"><div class="n1">Leafy greens</div><div class="n2">9 ingredients</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+            <div class="addrow shelf"><span class="plus">+</span>Add a shelf to Produce</div>
+          </div>
+          <div class="dim"></div>
+          <div class="modal">
+            <div class="mt">Add a shelf to Produce</div>
+            <input class="minput" value="Exotic vegetables" />
+            <div class="btnrow"><button class="btn ghost">Cancel</button><button class="btn">Add</button></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tap-hint">the + row under a category or shelf opens this — one field, one Add</div>
+    </div>
+    <div class="col">
+      <h3>Rename a shelf — name collides</h3>
+      <div class="phone short"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">12 shelves</div></div><span class="deptchip">Food</span></div>
+            <div class="row shelf"><span class="chev">›</span><div class="nm"><div class="n1">Herbs &amp; Aromatics</div><div class="n2">4 ingredients</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+          </div>
+          <div class="dim"></div>
+          <div class="modal">
+            <div class="mt">Rename "Herbs &amp; Aromatics"</div>
+            <input class="minput" value="Leafy greens" />
+            <div class="mergebox"><b>A shelf named "Leafy greens" already exists.</b>Merge "Herbs &amp; Aromatics" into it instead? Its 4 ingredients and 6 products move there.</div>
+            <div class="btnrow"><button class="btn ghost">Cancel</button><button class="btn">Merge into "Leafy greens"</button></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tap-hint">renaming to an existing name offers merge instead of two shelves sharing a name — requirement 3</div>
+    </div>
+    <div class="col">
+      <h3>Delete a shelf — names what moves</h3>
+      <div class="phone short"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="tree">
+            <div class="row"><span class="chev">▾</span><span class="ic">🌾</span><div class="nm"><div class="n1">Dry Goods &amp; Grains</div><div class="n2">9 shelves</div></div><span class="deptchip">Food</span></div>
+            <div class="row shelf"><span class="chev">›</span><div class="nm"><div class="n1">Odds &amp; ends (old)</div><div class="n2">3 ingredients · 12 products</div></div><div class="rowbtns"><button class="rowbtn">✎</button><button class="rowbtn danger">🗑</button></div></div>
+          </div>
+          <div class="dim"></div>
+          <div class="modal">
+            <div class="mt">Delete "Odds &amp; ends (old)"?</div>
+            <div class="mwarn">12 products and 3 ingredients on this shelf move to "needs a shelf" — nothing is deleted from your catalog.</div>
+            <div class="btnrow"><button class="btn ghost">Cancel</button><button class="btn danger">Delete the shelf</button></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tap-hint">the same confirm shape at the ingredient level: "N products on Spinach move to 'needs an ingredient'"</div>
+    </div>
+  </div>
+</section>
+
+<section class="opt">
+  <h2>6 · The review banner opens as a sheet <span class="tag">requirement 2</span></h2>
+  <p class="sub">The old "Review" tab — today the page's default, opening view — is now a banner you tap on purpose;
+    it opens the existing common-language review UNCHANGED, as a bottom sheet over the tree, never a competing
+    default screen. Accept/skip here is the exact same door the review already uses.</p>
+  <div class="stage">
+    <div class="col">
+      <h3>🛒 Grocery — review sheet open</h3>
+      <div class="phone"><div class="screen">
+        <div class="topbar"><div class="iconbtn">‹</div><div class="titlewrap"><div class="t1">Business knowledge</div><div class="t2">Settings</div></div></div>
+        <div class="body-pad">
+          <div class="prov"><span class="ptxt">Your words come from <b>Grocery · Indian cuisine</b></span><button class="plink">change</button></div>
+          <div class="reviewbar"><span class="ic">🗣️</span><span class="t">214 suggestions from your master lists — review</span><span class="chev">›</span></div>
+          <div class="searchbox"><span class="ic">🔍</span><input placeholder="Search a category, shelf or product" /></div>
+          <div class="tree">
+            <div class="row"><span class="chev">›</span><span class="ic">🥬</span><div class="nm"><div class="n1">Produce</div><div class="n2">8 shelves · 56 products</div></div><span class="deptchip">Aisle 1</span></div>
+          </div>
+          <div class="dim"></div>
+          <div class="sheet">
+            <div class="grab"></div>
+            <div class="sheethead"><span class="ic">🗣️</span><span class="t">214 suggestions from your master lists</span><button class="iconbtn" style="width:22px;height:22px">✕</button></div>
+            <div class="sugg"><span class="ic">🧺</span><div class="f"><b>12 products</b> on "Snacks (old)" could move to your listed shelf <b>Namkeen &amp; Snacks</b></div><div class="btns"><button class="yes">Move</button><button class="no">Skip</button></div></div>
+            <div class="sugg"><span class="ic">🏷️</span><div class="f">The word <b>"Veggies"</b> isn't on your list — file it under <b>Produce</b>?</div><div class="btns"><button class="yes">File</button><button class="no">Skip</button></div></div>
+            <div class="sugg"><span class="ic">🧺</span><div class="f"><b>Toor Dal</b> and <b>Arhar Dal</b> look like the same ingredient — fold them together?</div><div class="btns"><button class="yes">Fold</button><button class="no">Skip</button></div></div>
+            <div class="sugg" style="justify-content:center;color:var(--muted);font-size:11px">… 211 more, worst first</div>
+          </div>
+        </div>
+      </div></div>
+      <div class="tap-hint">✕ or swipe down closes the sheet; the tree underneath never re-renders this same content a second way</div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  <section class="opt">
+    <h2>Against screens.md §0's eight checks</h2>
+    <table class="score">
+      <tr><th>#</th><th>Check</th><th>This mockup</th></tr>
+      <tr><td>1</td><td>One job, action visible</td><td><span class="ok">✓</span> see and edit your words; every row's own + / ✎ / 🗑 is visible without a sub-menu</td></tr>
+      <tr><td>2</td><td>No paragraphs</td><td><span class="ok">✓</span> one line per row; the provenance "why" and every confirm sit behind an ⓘ tap or a short modal, never a standing paragraph</td></tr>
+      <tr><td>3</td><td>A picture on every row, same picture per meaning</td><td><span class="ok">✓</span> one emoji per category everywhere it appears (🥬 Produce, 🍗 Meat, etc.), 🧺 for every family/ingredient row (already the product's own convention), 📘 for "from a platform list," ✎/🗑/🔍/+ reused identically at every level — stand-ins for edit.svg/cancel.svg/search.svg already in <code>apps/web/public/icons</code></td></tr>
+      <tr><td>4</td><td>≤ 7 things on a phone</td><td><span class="ok">✓</span> above the fold: provenance line, review banner, search box, 4 category rows = 7; the tree scrolls for the rest exactly like Today's why-rows</td></tr>
+      <tr><td>5</td><td>Under 300 ms</td><td>N/A — static mockup; every count shown already exists on <code>GET /item-model</code>'s <code>unlisted</code>/<code>families</code> payload or a direct count, nothing new to aggregate on open</td></tr>
+      <tr><td>6</td><td>A way back</td><td><span class="ok">✓</span> Settings named at the top on every screen; the sheet and every modal close back to the exact same tree, never a dead end</td></tr>
+      <tr><td>7</td><td>One home per function</td><td><span class="ok">✓</span> ONE tree instead of three overlapping lists (Departments/Shelves/Families used to show the same facts three ways); the review banner opens the SAME review component unchanged, never a second copy</td></tr>
+      <tr><td>8</td><td>As few screens as possible</td><td><span class="ok">✓</span> no new screen or route — six facets fold into one tree + 2 cards + 1 sheet + inline add/rename/delete modals, all on the existing <code>/settings/knowledge</code> page</td></tr>
+    </table>
+  </section>
+  <div class="rec">
+    <b>What this replaces:</b> the Departments, Shelves and Families facets (three flat lists all showing the
+    same category → shelf → family relationship from three different angles, each with its own re-apply button
+    and its own paragraph) fold into the one tree above. Brands and Recognition — which were never hierarchical
+    to begin with — become two small summary cards under the tree, tapping through to their own detail. The
+    Review facet, formerly the page's own busy default view, becomes a single banner that opens the unchanged
+    review UI as a sheet. Nothing about the underlying data model changes — this is a render-and-interaction
+    redesign over the same <code>GET /item-model</code> response, add/rename/remove reusing the existing
+    <code>POST /item-model/vocabulary</code>, <code>/subcategory/refile</code> and <code>/ingredients/:id</code>
+    doors; the build ticket is separate from this mockup.
+  </div>
+</div>
+
+</body>
+</html>
