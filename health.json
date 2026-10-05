@@ -1,80 +1,79 @@
 {
-  "at": "2026-10-05T05:13:58.569Z",
+  "at": "2026-10-05T06:16:14.572Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 11,
-      "busyMin": 116,
-      "waitMin": 24,
-      "busyPct": 96
+      "runs": 5,
+      "busyMin": 25,
+      "waitMin": 13,
+      "busyPct": 21
     },
     "core": {
       "runs": 6,
-      "busyMin": 54,
+      "busyMin": 56,
       "waitMin": 0,
-      "busyPct": 90
+      "busyPct": 93
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 43,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 71
+      "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 29,
+      "runs": 5,
+      "busyMin": 49,
       "waitMin": 0,
-      "busyPct": 16
+      "busyPct": 27
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 32
+    "oldestQueuedMin": 70
   },
   "runners": [],
-  "conflicted": [],
-  "runless": [
+  "conflicted": [
     {
       "number": 749,
-      "branch": "lane/onboarding/742",
-      "sha": "c040895ed2e828d76179dcf5bfb4928e77a320e5"
-    },
+      "branch": "lane/onboarding/742"
+    }
+  ],
+  "runless": [
     {
-      "number": 741,
-      "branch": "lane/onboarding/739",
-      "sha": "670da01a421ba60460123997ce8db64a1b82d5b6"
+      "number": 753,
+      "branch": "core/744",
+      "sha": "c13d14b9bac027d8ff8305f1cf97fda8bfdc8e1e"
     }
   ],
   "ciKicked": {
-    "c040895ed2e828d76179dcf5bfb4928e77a320e5": "2026-10-05T05:13:44.979Z",
-    "670da01a421ba60460123997ce8db64a1b82d5b6": "2026-10-05T05:13:44.979Z"
+    "c13d14b9bac027d8ff8305f1cf97fda8bfdc8e1e": "2026-10-05T06:16:02.356Z"
   },
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #749 (token push left it run-less)"
+      "level": "warn",
+      "text": "1 pull request(s) conflicted with main; Core is not idle (no dispatch)"
     },
     {
       "level": "fixed",
-      "text": "kicked CI on #741 (token push left it run-less)"
+      "text": "kicked CI on #753 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "run 37264617164 (agents) queued 32 min for label 'planner' and no runner with that label is online — a runner is down"
+      "text": "run 37266280667 (agents) queued 70 min for label 'planner' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.83)"
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $96)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 51.39,
-    "railwayProjected": 95.83,
+    "railwayMonthToDate": 51.65,
+    "railwayProjected": 96,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
