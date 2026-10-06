@@ -1,70 +1,62 @@
 {
-  "at": "2026-10-06T03:18:14.235Z",
+  "at": "2026-10-06T04:50:54.167Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 38,
-      "waitMin": 12,
-      "busyPct": 31
+      "runs": 5,
+      "busyMin": 55,
+      "waitMin": 20,
+      "busyPct": 46
     },
     "core": {
-      "runs": 9,
-      "busyMin": 66,
-      "waitMin": 6,
-      "busyPct": 110
+      "runs": 5,
+      "busyMin": 58,
+      "waitMin": 1,
+      "busyPct": 96
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 1,
-      "waitMin": 10,
-      "busyPct": 1
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 154,
+      "runs": 7,
+      "busyMin": 117,
       "waitMin": 0,
-      "busyPct": 86
+      "busyPct": 65
     }
   },
   "queue": {
-    "agentsQueued": 16,
+    "agentsQueued": 1,
     "ciQueued": 3,
-    "oldestQueuedMin": 22
+    "oldestQueuedMin": 28
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 836,
-      "branch": "lane/onboarding/822",
-      "sha": "99f74a199d2fa5d162bd6a9f712b287cac4a8403"
-    }
-  ],
-  "ciKicked": {
-    "99f74a199d2fa5d162bd6a9f712b287cac4a8403": "2026-10-06T03:17:59.442Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #836 (token push left it run-less)"
+      "level": "warn",
+      "text": "run 37413870514 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 37406563239 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 37413425838 (ci) queued 28 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $305 exceeds the $250 budget (Railway projected $105.42)"
+      "text": "projected development cost $307 exceeds the $250 budget (Railway projected $106.53)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 57.64,
-    "railwayProjected": 105.42,
+    "railwayMonthToDate": 58.18,
+    "railwayProjected": 106.53,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
