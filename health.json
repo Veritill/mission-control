@@ -1,66 +1,70 @@
 {
-  "at": "2026-10-06T13:59:19.394Z",
+  "at": "2026-10-06T15:06:11.202Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 9,
-      "busyMin": 102,
-      "waitMin": 6,
-      "busyPct": 85
+      "runs": 11,
+      "busyMin": 76,
+      "waitMin": 81,
+      "busyPct": 63
     },
     "core": {
-      "runs": 5,
-      "busyMin": 31,
-      "waitMin": 19,
-      "busyPct": 51
+      "runs": 1,
+      "busyMin": 3,
+      "waitMin": 0,
+      "busyPct": 5
     },
     "planner": {
-      "runs": 4,
-      "busyMin": 18,
-      "waitMin": 22,
-      "busyPct": 30
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 32,
+      "runs": 1,
+      "busyMin": 11,
       "waitMin": 0,
-      "busyPct": 18
+      "busyPct": 6
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 6
+    "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
   "runless": [
     {
-      "number": 871,
-      "branch": "lane/pos/870",
-      "sha": "8884aad3e6bf9d9e503070d7757f993135664353"
+      "number": 882,
+      "branch": "lane/money/880",
+      "sha": "2f4a28aef076abe9366251e3fe7aa6f3ada09dfd"
     }
   ],
   "ciKicked": {
-    "8884aad3e6bf9d9e503070d7757f993135664353": "2026-10-06T13:59:04.211Z"
+    "2f4a28aef076abe9366251e3fe7aa6f3ada09dfd": "2026-10-06T15:05:57.042Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #871 (token push left it run-less)"
+      "text": "kicked CI on #882 (token push left it run-less)"
+    },
+    {
+      "level": "info",
+      "text": "lanes waited longer than they worked this hour (81 min queued vs 76 min building)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $309 exceeds the $250 budget (Railway projected $109.39)"
+      "text": "projected development cost $310 exceeds the $250 budget (Railway projected $109.7)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 60.54,
-    "railwayProjected": 109.39,
+    "railwayMonthToDate": 60.81,
+    "railwayProjected": 109.7,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
