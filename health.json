@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-06T19:33:08.284Z",
+  "at": "2026-10-06T20:29:43.412Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 46,
-      "waitMin": 0,
-      "busyPct": 38
+      "runs": 2,
+      "busyMin": 9,
+      "waitMin": 3,
+      "busyPct": 7
     },
     "core": {
-      "runs": 3,
-      "busyMin": 4,
-      "waitMin": 0,
-      "busyPct": 7
+      "runs": 12,
+      "busyMin": 31,
+      "waitMin": 3,
+      "busyPct": 52
     },
     "planner": {
       "runs": 0,
@@ -21,46 +21,34 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 23,
+      "runs": 9,
+      "busyMin": 131,
       "waitMin": 0,
-      "busyPct": 13
+      "busyPct": 73
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 890,
-      "branch": "lane/pos/873",
-      "sha": "748aff4005517b3da52e475330ed11f87dec40ba"
-    }
-  ],
-  "ciKicked": {
-    "748aff4005517b3da52e475330ed11f87dec40ba": "2026-10-06T19:32:57.156Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #890 (token push left it run-less)"
-    },
-    {
       "level": "warn",
-      "text": "projected development cost $311 exceeds the $250 budget (Railway projected $111.32)"
+      "text": "projected development cost $312 exceeds the $250 budget (Railway projected $111.95)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 62,
-    "railwayProjected": 111.32,
+    "railwayMonthToDate": 62.34,
+    "railwayProjected": 111.95,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
