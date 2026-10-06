@@ -1,66 +1,58 @@
 {
-  "at": "2026-10-06T08:33:21.790Z",
+  "at": "2026-10-06T09:42:30.092Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 26,
-      "waitMin": 13,
-      "busyPct": 22
+      "runs": 1,
+      "busyMin": 5,
+      "waitMin": 0,
+      "busyPct": 4
     },
     "core": {
       "runs": 5,
-      "busyMin": 62,
-      "waitMin": 30,
-      "busyPct": 103
+      "busyMin": 29,
+      "waitMin": 20,
+      "busyPct": 49
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 4,
+      "busyPct": 1
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 21,
+      "runs": 1,
+      "busyMin": 11,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 6
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 865,
-      "branch": "core/850",
-      "sha": "6991419885dc2bd986305ade7cc9242bf48b1950"
-    }
-  ],
-  "ciKicked": {
-    "6991419885dc2bd986305ade7cc9242bf48b1950": "2026-10-06T08:33:12.296Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #865 (token push left it run-less)"
+      "text": "reset 1 dead run(s) back to ready (no note movement for 3 h, no PR)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $308 exceeds the $250 budget (Railway projected $107.85)"
+      "text": "projected development cost $308 exceeds the $250 budget (Railway projected $108.29)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 59.28,
-    "railwayProjected": 107.85,
+    "railwayMonthToDate": 59.58,
+    "railwayProjected": 108.29,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
