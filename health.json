@@ -1,76 +1,66 @@
 {
-  "at": "2026-10-07T02:38:41.541Z",
+  "at": "2026-10-07T08:37:32.381Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 7,
-      "waitMin": 5,
-      "busyPct": 6
+      "runs": 2,
+      "busyMin": 17,
+      "waitMin": 15,
+      "busyPct": 14
     },
     "core": {
-      "runs": 9,
-      "busyMin": 19,
-      "waitMin": 7,
-      "busyPct": 32
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 8,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 13
+      "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 135,
+      "runs": 1,
+      "busyMin": 10,
       "waitMin": 0,
-      "busyPct": 75
+      "busyPct": 6
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 17
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
   "runless": [
     {
-      "number": 911,
-      "branch": "lane/onboarding/907",
-      "sha": "f99be4930291051cc77b5d8097a26158e84673f4"
-    },
-    {
-      "number": 910,
-      "branch": "lane/onboarding/905",
-      "sha": "9beea1cc5502bbb8ea1c8c85da891c1d41a63256"
+      "number": 913,
+      "branch": "lane/recipes/912",
+      "sha": "f456a4c8fa2bea5d8ab9c953d0961d12d5a6e64b"
     }
   ],
   "ciKicked": {
-    "f99be4930291051cc77b5d8097a26158e84673f4": "2026-10-07T02:38:28.089Z",
-    "9beea1cc5502bbb8ea1c8c85da891c1d41a63256": "2026-10-07T02:38:28.089Z"
+    "f456a4c8fa2bea5d8ab9c953d0961d12d5a6e64b": "2026-10-07T08:37:23.574Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #911 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #910 (token push left it run-less)"
+      "text": "kicked CI on #913 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $315 exceeds the $250 budget (Railway projected $114.81)"
+      "text": "projected development cost $316 exceeds the $250 budget (Railway projected $116.04)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 63.99,
-    "railwayProjected": 114.81,
+    "railwayMonthToDate": 65.24,
+    "railwayProjected": 116.04,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
