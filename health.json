@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-07T00:15:13.373Z",
+  "at": "2026-10-07T01:17:20.086Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 4,
+      "busyMin": 38,
+      "waitMin": 7,
+      "busyPct": 32
     },
     "core": {
       "runs": 5,
-      "busyMin": 9,
+      "busyMin": 8,
       "waitMin": 1,
-      "busyPct": 14
+      "busyPct": 13
     },
     "planner": {
       "runs": 0,
@@ -22,9 +22,9 @@
     },
     "ci": {
       "runs": 4,
-      "busyMin": 42,
+      "busyMin": 43,
       "waitMin": 0,
-      "busyPct": 23
+      "busyPct": 24
     }
   },
   "queue": {
@@ -34,33 +34,21 @@
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 897,
-      "branch": "core/one-indian-cuisine",
-      "sha": "5e04b7f1647e0c0f7d3606492077e232029da9e5"
-    }
-  ],
-  "ciKicked": {
-    "5e04b7f1647e0c0f7d3606492077e232029da9e5": "2026-10-07T00:15:04.424Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #897 (token push left it run-less)"
-    },
-    {
       "level": "warn",
-      "text": "projected development cost $313 exceeds the $250 budget (Railway projected $113.46)"
+      "text": "projected development cost $314 exceeds the $250 budget (Railway projected $113.95)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 63.27,
-    "railwayProjected": 113.46,
+    "railwayMonthToDate": 63.54,
+    "railwayProjected": 113.95,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
