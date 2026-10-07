@@ -1,30 +1,30 @@
 {
-  "at": "2026-10-07T12:39:04.828Z",
+  "at": "2026-10-07T14:14:19.526Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 22,
-      "waitMin": 19,
-      "busyPct": 18
+      "runs": 3,
+      "busyMin": 36,
+      "waitMin": 34,
+      "busyPct": 30
     },
     "core": {
-      "runs": 1,
+      "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 0
     },
     "ci": {
       "runs": 1,
-      "busyMin": 10,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 7
     }
   },
   "queue": {
@@ -36,31 +36,35 @@
   "conflicted": [],
   "runless": [
     {
-      "number": 919,
-      "branch": "lane/onboarding/908",
-      "sha": "58eeaa47d6b5b665ce74d25353d3c39c8a53ce67"
+      "number": 921,
+      "branch": "lane/onboarding/920",
+      "sha": "71742e229c9031ced08976e7ec48c02a3446c1c7"
     }
   ],
   "ciKicked": {
-    "58eeaa47d6b5b665ce74d25353d3c39c8a53ce67": "2026-10-07T12:38:54.051Z"
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-07T14:14:08.784Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #919 (token push left it run-less)"
+      "text": "kicked CI on #921 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 37622666579): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $317 exceeds the $250 budget (Railway projected $116.89)"
+      "text": "projected development cost $317 exceeds the $250 budget (Railway projected $117.32)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 66.16,
-    "railwayProjected": 116.89,
+    "railwayMonthToDate": 66.55,
+    "railwayProjected": 117.32,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
