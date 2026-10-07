@@ -1,30 +1,30 @@
 {
-  "at": "2026-10-06T23:18:23.016Z",
+  "at": "2026-10-07T00:15:13.373Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 17,
-      "waitMin": 12,
-      "busyPct": 14
-    },
-    "core": {
-      "runs": 1,
+      "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
-    "planner": {
-      "runs": 1,
-      "busyMin": 1,
+    "core": {
+      "runs": 5,
+      "busyMin": 9,
       "waitMin": 1,
-      "busyPct": 1
+      "busyPct": 14
+    },
+    "planner": {
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 11,
+      "runs": 4,
+      "busyMin": 42,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 23
     }
   },
   "queue": {
@@ -36,31 +36,31 @@
   "conflicted": [],
   "runless": [
     {
-      "number": 894,
-      "branch": "lane/pos/874",
-      "sha": "023015918df89d465107d315f5ed33eabc60ac26"
+      "number": 897,
+      "branch": "core/one-indian-cuisine",
+      "sha": "5e04b7f1647e0c0f7d3606492077e232029da9e5"
     }
   ],
   "ciKicked": {
-    "023015918df89d465107d315f5ed33eabc60ac26": "2026-10-06T23:18:13.630Z"
+    "5e04b7f1647e0c0f7d3606492077e232029da9e5": "2026-10-07T00:15:04.424Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #894 (token push left it run-less)"
+      "text": "kicked CI on #897 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $313 exceeds the $250 budget (Railway projected $113.05)"
+      "text": "projected development cost $313 exceeds the $250 budget (Railway projected $113.46)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 63,
-    "railwayProjected": 113.05,
+    "railwayMonthToDate": 63.27,
+    "railwayProjected": 113.46,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
