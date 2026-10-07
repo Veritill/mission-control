@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-07T21:41:29.207Z",
+  "at": "2026-10-07T22:14:06.117Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -28,31 +28,59 @@
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
-  "runless": [],
-  "ciKicked": {},
+  "runless": [
+    {
+      "number": 926,
+      "branch": "core/922-artifact-quota",
+      "sha": "705621155d9171e5126360c5324f72e07586e871"
+    },
+    {
+      "number": 925,
+      "branch": "lane/onboarding/924",
+      "sha": "b5978ef165ea942222cc4f0344f1fa4d33203115"
+    },
+    {
+      "number": 921,
+      "branch": "lane/onboarding/920",
+      "sha": "71742e229c9031ced08976e7ec48c02a3446c1c7"
+    }
+  ],
+  "ciKicked": {
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-07T22:13:52.166Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-07T22:13:52.166Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-07T22:13:52.166Z"
+  },
   "conflictWoken": {},
   "findings": [
     {
-      "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 435 min — staging is not moving until a fix lands"
+      "level": "fixed",
+      "text": "kicked CI on #926 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #925 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #921 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $320 exceeds the $250 budget (Railway projected $119.68)"
+      "text": "projected development cost $320 exceeds the $250 budget (Railway projected $119.88)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 68.04,
-    "railwayProjected": 119.68,
+    "railwayMonthToDate": 68.14,
+    "railwayProjected": 119.88,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
