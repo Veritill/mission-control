@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-08T02:14:24.991Z",
+  "at": "2026-10-08T09:25:35.242Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -52,9 +52,9 @@
     }
   ],
   "ciKicked": {
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-08T02:14:14.284Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-08T02:14:14.284Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-08T02:14:14.284Z"
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-08T09:25:22.423Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-08T09:25:22.423Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-08T09:25:22.423Z"
   },
   "conflictWoken": {},
   "findings": [
@@ -72,19 +72,19 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 708 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 1139 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $321 exceeds the $250 budget (Railway projected $121.08)"
+      "text": "projected development cost $321 exceeds the $250 budget (Railway projected $121.41)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 68.7,
-    "railwayProjected": 121.08,
+    "railwayMonthToDate": 69.33,
+    "railwayProjected": 121.41,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
