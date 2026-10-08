@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-08T16:53:36.543Z",
+  "at": "2026-10-08T22:29:25.083Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,10 +9,10 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 4,
+      "busyMin": 16,
+      "waitMin": 2,
+      "busyPct": 26
     },
     "planner": {
       "runs": 0,
@@ -28,9 +28,9 @@
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 6
   },
   "runners": [],
   "conflicted": [],
@@ -52,9 +52,9 @@
     }
   ],
   "ciKicked": {
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-08T16:53:21.984Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-08T16:53:21.984Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-08T16:53:21.984Z"
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-08T22:29:11.903Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-08T22:29:11.903Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-08T22:29:11.903Z"
   },
   "conflictWoken": {},
   "findings": [
@@ -72,19 +72,19 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 1587 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 1923 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $321 exceeds the $250 budget (Railway projected $121.17)"
+      "text": "projected development cost $321 exceeds the $250 budget (Railway projected $121.22)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 69.8,
-    "railwayProjected": 121.17,
+    "railwayMonthToDate": 70.17,
+    "railwayProjected": 121.22,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
