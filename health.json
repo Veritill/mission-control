@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-09T09:38:59.248Z",
+  "at": "2026-10-09T17:10:20.317Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 15,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 0
     },
     "core": {
-      "runs": 1,
-      "busyMin": 18,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 30
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 10,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 0
     }
   },
   "queue": {
@@ -35,6 +35,16 @@
   "runners": [],
   "conflicted": [],
   "runless": [
+    {
+      "number": 934,
+      "branch": "lane/recipes/932",
+      "sha": "e5a97f19da0e8954e97c0c167af65e96aca61ab9"
+    },
+    {
+      "number": 933,
+      "branch": "lane/recipes/931",
+      "sha": "30349b0885b851978d716ea7d64bf84e6edabf0c"
+    },
     {
       "number": 929,
       "branch": "core/928-ghapi-at-file",
@@ -57,32 +67,54 @@
     }
   ],
   "ciKicked": {
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-09T08:55:26.112Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-09T08:55:26.112Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-09T08:55:26.112Z",
-    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-09T09:38:44.562Z"
+    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-09T17:10:01.973Z",
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-09T17:10:01.973Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-09T17:10:01.973Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-09T17:10:01.973Z",
+    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-09T17:10:01.973Z",
+    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-09T17:10:01.973Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
+      "text": "kicked CI on #934 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #933 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
       "text": "kicked CI on #929 (token push left it run-less)"
     },
     {
-      "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 2592 min — staging is not moving until a fix lands"
+      "level": "fixed",
+      "text": "kicked CI on #926 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #925 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #921 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $346 exceeds the $250 budget (Railway projected $145.8)"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 3044 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $346 exceeds the $250 budget (Railway projected $145.84)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 71.06,
-    "railwayProjected": 145.8,
+    "railwayMonthToDate": 72.38,
+    "railwayProjected": 145.84,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
