@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-10T09:47:09.121Z",
+  "at": "2026-10-10T15:33:28.435Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 12,
-      "waitMin": 5,
-      "busyPct": 10
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "core": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 10,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 0
     }
   },
   "queue": {
@@ -72,13 +72,13 @@
     }
   ],
   "ciKicked": {
-    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-10T08:55:01.726Z",
-    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-10T08:55:01.726Z",
-    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-10T08:55:01.726Z",
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-10T08:55:01.726Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-10T08:55:01.726Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-10T08:55:01.726Z",
-    "fcdf0d7c50f3f618a5feed4a7a2dea3e58686a5b": "2026-10-10T09:46:52.307Z"
+    "fcdf0d7c50f3f618a5feed4a7a2dea3e58686a5b": "2026-10-10T15:33:08.439Z",
+    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-10T15:33:08.439Z",
+    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-10T15:33:08.439Z",
+    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-10T15:33:08.439Z",
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-10T15:33:08.439Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-10T15:33:08.439Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-10T15:33:08.439Z"
   },
   "conflictWoken": {},
   "findings": [
@@ -87,20 +87,44 @@
       "text": "kicked CI on #936 (token push left it run-less)"
     },
     {
-      "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 4041 min — staging is not moving until a fix lands"
+      "level": "fixed",
+      "text": "kicked CI on #934 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #933 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #929 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #926 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #925 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #921 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $343 exceeds the $250 budget (Railway projected $142.83)"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 4387 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $342 exceeds the $250 budget (Railway projected $142.18)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 74.52,
-    "railwayProjected": 142.83,
+    "railwayMonthToDate": 75.61,
+    "railwayProjected": 142.18,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
