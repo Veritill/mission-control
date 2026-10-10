@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-10T01:54:00.236Z",
+  "at": "2026-10-10T08:55:19.157Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -67,12 +67,12 @@
     }
   ],
   "ciKicked": {
-    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-10T01:53:44.184Z",
-    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-10T01:53:44.184Z",
-    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-10T01:53:44.184Z",
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-10T01:53:44.184Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-10T01:53:44.184Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-10T01:53:44.184Z"
+    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-10T08:55:01.726Z",
+    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-10T08:55:01.726Z",
+    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-10T08:55:01.726Z",
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-10T08:55:01.726Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-10T08:55:01.726Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-10T08:55:01.726Z"
   },
   "conflictWoken": {},
   "findings": [
@@ -102,19 +102,19 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 3567 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 3989 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $345 exceeds the $250 budget (Railway projected $144.82)"
+      "text": "projected development cost $343 exceeds the $250 budget (Railway projected $143.04)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 73.56,
-    "railwayProjected": 144.82,
+    "railwayMonthToDate": 74.39,
+    "railwayProjected": 143.04,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
