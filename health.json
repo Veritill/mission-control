@@ -1,10 +1,10 @@
 {
-  "at": "2026-10-11T23:57:05.809Z",
+  "at": "2026-10-11T23:59:48.212Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 76,
+      "runs": 7,
+      "busyMin": 77,
       "waitMin": 1,
       "busyPct": 64
     },
@@ -30,11 +30,16 @@
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 3
   },
   "runners": [],
   "conflicted": [],
   "runless": [
+    {
+      "number": 937,
+      "branch": "lane/pos/875",
+      "sha": "550315b707569387663520013798ca1332ba5929"
+    },
     {
       "number": 936,
       "branch": "lane/money/935",
@@ -78,41 +83,18 @@
     "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-11T23:56:45.831Z",
     "705621155d9171e5126360c5324f72e07586e871": "2026-10-11T23:56:45.831Z",
     "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-11T23:56:45.831Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-11T23:56:45.831Z"
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-11T23:56:45.831Z",
+    "550315b707569387663520013798ca1332ba5929": "2026-10-11T23:59:31.386Z"
   },
   "conflictWoken": {},
   "findings": [
     {
       "level": "fixed",
-      "text": "kicked CI on #936 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #934 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #933 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #929 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #926 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #925 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #921 (token push left it run-less)"
+      "text": "kicked CI on #937 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 6330 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 6333 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
