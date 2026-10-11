@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-11T20:32:08.668Z",
+  "at": "2026-10-11T23:57:05.809Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 6,
+      "busyMin": 76,
+      "waitMin": 1,
+      "busyPct": 64
     },
     "core": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 10,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 5
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -72,13 +72,13 @@
     }
   ],
   "ciKicked": {
-    "fcdf0d7c50f3f618a5feed4a7a2dea3e58686a5b": "2026-10-11T20:31:50.497Z",
-    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-11T20:31:50.497Z",
-    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-11T20:31:50.497Z",
-    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-11T20:31:50.497Z",
-    "705621155d9171e5126360c5324f72e07586e871": "2026-10-11T20:31:50.497Z",
-    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-11T20:31:50.497Z",
-    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-11T20:31:50.497Z"
+    "fcdf0d7c50f3f618a5feed4a7a2dea3e58686a5b": "2026-10-11T23:56:45.831Z",
+    "e5a97f19da0e8954e97c0c167af65e96aca61ab9": "2026-10-11T23:56:45.831Z",
+    "30349b0885b851978d716ea7d64bf84e6edabf0c": "2026-10-11T23:56:45.831Z",
+    "d5368205725fa0c225b8e15826a208c1eea7717d": "2026-10-11T23:56:45.831Z",
+    "705621155d9171e5126360c5324f72e07586e871": "2026-10-11T23:56:45.831Z",
+    "b5978ef165ea942222cc4f0344f1fa4d33203115": "2026-10-11T23:56:45.831Z",
+    "71742e229c9031ced08976e7ec48c02a3446c1c7": "2026-10-11T23:56:45.831Z"
   },
   "conflictWoken": {},
   "findings": [
@@ -112,19 +112,19 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 6126 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 37622666579, failed: e2e,e2e-report) for 6330 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $132.86)"
+      "text": "projected development cost $332 exceeds the $250 budget (Railway projected $131.92)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 79.28,
-    "railwayProjected": 132.86,
+    "railwayMonthToDate": 79.79,
+    "railwayProjected": 131.92,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
