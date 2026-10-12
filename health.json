@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-12T19:52:20.288Z",
+  "at": "2026-10-12T20:44:18.108Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 3,
-      "waitMin": 0,
-      "busyPct": 2
+      "runs": 7,
+      "busyMin": 52,
+      "waitMin": 45,
+      "busyPct": 44
     },
     "core": {
-      "runs": 6,
-      "busyMin": 15,
-      "waitMin": 0,
-      "busyPct": 25
+      "runs": 4,
+      "busyMin": 38,
+      "waitMin": 12,
+      "busyPct": 64
     },
     "planner": {
       "runs": 0,
@@ -21,43 +21,82 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 57,
+      "runs": 11,
+      "busyMin": 197,
       "waitMin": 0,
-      "busyPct": 32
+      "busyPct": 109
     }
   },
   "queue": {
-    "agentsQueued": 34,
-    "ciQueued": 0,
-    "oldestQueuedMin": 4
+    "agentsQueued": 1,
+    "ciQueued": 5,
+    "oldestQueuedMin": 33
   },
   "runners": [],
-  "conflicted": [
+  "conflicted": [],
+  "runless": [
     {
-      "number": 962,
-      "branch": "feat/961-go-live-gate"
+      "number": 975,
+      "branch": "lane/recipes/967",
+      "sha": "d7725f201a738b42c2f06fb1d5579510209af3f5"
+    },
+    {
+      "number": 974,
+      "branch": "lane/money/969",
+      "sha": "ef755ab48b00bf432340da84ce971d39373a3ea3"
+    },
+    {
+      "number": 973,
+      "branch": "fix/963-engine-bugs",
+      "sha": "5e5c7624d330b9909123bfda087048ceb6994982"
     }
   ],
-  "runless": [],
-  "ciKicked": {},
+  "ciKicked": {
+    "d7725f201a738b42c2f06fb1d5579510209af3f5": "2026-10-12T20:43:55.715Z",
+    "ef755ab48b00bf432340da84ce971d39373a3ea3": "2026-10-12T20:43:55.715Z",
+    "5e5c7624d330b9909123bfda087048ceb6994982": "2026-10-12T20:43:55.715Z"
+  },
   "conflictWoken": {},
   "findings": [
     {
-      "level": "warn",
-      "text": "1 pull request(s) conflicted with main; Core is not idle (no dispatch)"
+      "level": "fixed",
+      "text": "kicked CI on #975 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #974 (token push left it run-less)"
+    },
+    {
+      "level": "fixed",
+      "text": "kicked CI on #973 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $132.85)"
+      "text": "run 38303927783 (ci) queued 20 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 38303644071 (ci) queued 23 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 38303458361 (ci) queued 24 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 38302518432 (ci) queued 33 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $133.05)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 85.04,
-    "railwayProjected": 132.85,
+    "railwayMonthToDate": 85.33,
+    "railwayProjected": 133.05,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
