@@ -1,54 +1,63 @@
 {
-  "at": "2026-10-12T18:53:26.984Z",
+  "at": "2026-10-12T19:52:20.288Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 23,
-      "waitMin": 16,
-      "busyPct": 19
+      "runs": 1,
+      "busyMin": 3,
+      "waitMin": 0,
+      "busyPct": 2
     },
     "core": {
-      "runs": 5,
+      "runs": 6,
       "busyMin": 15,
-      "waitMin": 2,
-      "busyPct": 24
+      "waitMin": 0,
+      "busyPct": 25
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 37,
+      "runs": 5,
+      "busyMin": 57,
       "waitMin": 0,
-      "busyPct": 21
+      "busyPct": 32
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 34,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 4
   },
   "runners": [],
-  "conflicted": [],
+  "conflicted": [
+    {
+      "number": 962,
+      "branch": "feat/961-go-live-gate"
+    }
+  ],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $132.71)"
+      "text": "1 pull request(s) conflicted with main; Core is not idle (no dispatch)"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $132.85)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 84.75,
-    "railwayProjected": 132.71,
+    "railwayMonthToDate": 85.04,
+    "railwayProjected": 132.85,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
