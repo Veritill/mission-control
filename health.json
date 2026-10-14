@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-14T12:45:38.962Z",
+  "at": "2026-10-14T13:59:49.888Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 9,
-      "waitMin": 0,
-      "busyPct": 7
+      "runs": 2,
+      "busyMin": 16,
+      "waitMin": 7,
+      "busyPct": 13
     },
     "core": {
-      "runs": 4,
-      "busyMin": 19,
-      "waitMin": 6,
-      "busyPct": 32
+      "runs": 1,
+      "busyMin": 4,
+      "waitMin": 0,
+      "busyPct": 7
     },
     "planner": {
       "runs": 0,
@@ -21,46 +21,59 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 18,
+      "runs": 2,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 7
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 0,
     "ciQueued": 0,
-    "oldestQueuedMin": 3
+    "oldestQueuedMin": 0
   },
   "runners": [],
-  "conflicted": [],
+  "conflicted": [
+    {
+      "number": 1021,
+      "branch": "lane/onboarding/1012"
+    }
+  ],
   "runless": [
     {
       "number": 1022,
       "branch": "lane/onboarding/1020",
-      "sha": "79b0b21abdb32b2272c3362530d6e7469e171820"
+      "sha": "6c07f8055750f04dd69e52e1469f76eb17e8bf26"
     }
   ],
   "ciKicked": {
-    "79b0b21abdb32b2272c3362530d6e7469e171820": "2026-10-14T12:45:21.874Z"
+    "6c07f8055750f04dd69e52e1469f76eb17e8bf26": "2026-10-14T13:59:35.615Z"
   },
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "warn",
+      "text": "1 pull request(s) conflicted with main; Core is not idle (no dispatch)"
+    },
     {
       "level": "fixed",
       "text": "kicked CI on #1022 (token push left it run-less)"
     },
     {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 38566220586): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+    },
+    {
       "level": "warn",
-      "text": "projected development cost $333 exceeds the $250 budget (Railway projected $133.27)"
+      "text": "projected development cost $334 exceeds the $250 budget (Railway projected $133.57)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 94.25,
-    "railwayProjected": 133.27,
+    "railwayMonthToDate": 94.59,
+    "railwayProjected": 133.57,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
