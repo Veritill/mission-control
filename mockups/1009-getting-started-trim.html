@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mockup #1009 — Getting started: one progress number (on the OPEN tile), no duplicate cards, real POS directions in the subtask pane</title>
+<title>Mockup #1009 — Getting started trimmed: the percent rides on the OPEN tile, the section cards go, per-POS connect-or-export directions live inside the Items/Sales pane</title>
 <style>
   :root {
     --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
@@ -14,33 +14,45 @@
   html, body { margin: 0; padding: 0; }
   body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
   h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
-  .lede { color: var(--muted); font-size: 14px; max-width: 920px; margin: 0 auto 10px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 10px; text-align: center; }
   .legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 0 auto 22px; }
   .legend span { display: inline-flex; align-items: center; gap: 5px; }
-  .wrap { max-width: 1600px; margin: 0 auto; }
+  .wrap { max-width: 1480px; margin: 0 auto; }
   .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
   .col { width: 320px; }
-  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; text-align: center; font-weight: 600; min-height: 50px; line-height: 1.3; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; text-align: center; font-weight: 600; min-height: 36px; line-height: 1.3; }
   .col h3 b { display: block; color: var(--ink); }
-  .phone { width: 320px; min-height: 780px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
-  .screen { display: flex; flex-direction: column; min-height: 764px; }
+  /* frames grow to their content (992's second commit) — no inner scroll, every state's work area visible */
+  .phone { width: 320px; min-height: 760px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { display: flex; flex-direction: column; min-height: 744px; }
   .topbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); }
   .iconbtn { height: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--chip); border: none; border-radius: 8px; font-size: 11.5px; color: var(--ink); flex: none; padding: 0 8px; font-weight: 600; }
   .titlewrap { flex: 1; min-width: 0; }
   .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .body-pad { flex: 1; padding: 0 12px 14px; overflow: hidden; }
+  .body-pad { flex: 1; padding: 0 12px 14px; }
 
+  /* law 1: the sticky Next chip */
   .nextbar { position: sticky; top: 0; z-index: 2; background: var(--paper); padding: 8px 0; border-bottom: 1px solid var(--rule); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; border: 1px solid var(--green); background: var(--green); color: #fff; text-decoration: none; white-space: nowrap; }
   .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 600; }
   .btn.sm { padding: 5px 10px; font-size: 12px; }
   .btn.full { width: 100%; }
+  .nextbar .btn { max-width: 100%; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .nextbar .spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--rule); border-top-color: var(--green); flex: none; }
   .progress { font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
 
+  /* icons: the shipped line-icon files inlined as symbols, recoloured by currentColor exactly as Icon.tsx does */
   .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
   .ic.s { width: 15px; height: 15px; }
   .ic.xs { width: 12px; height: 12px; }
 
+  /* "What Veritill set up for you" — collapsed to one line (#837's own collapsed state) */
+  .adopted { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); background: var(--chip); border-radius: 9px; padding: 5px 9px; margin-bottom: 8px; }
+  .adopted b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .adopted .sp { flex: 1; }
+  .adopted .tap { color: var(--green); font-weight: 700; }
+
+  /* the main tiles — SetupFloorMap's own look, 4 to a phone row */
   .map { display: flex; flex-wrap: wrap; gap: 10px 8px; margin-bottom: 10px; }
   .tile { width: 64px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; position: relative; }
   .ring { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--rule); color: var(--muted); display: flex; align-items: center; justify-content: center; background: transparent; position: relative; }
@@ -55,68 +67,120 @@
   .tile.sel .ring.now { color: var(--green); border-color: var(--green); }
   .tile.sel::after { content: ""; position: absolute; left: 50%; bottom: -11px; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--rule); }
   .tile.sel .tn { color: var(--ink); }
-  .tile.highlight .ring { box-shadow: 0 0 0 3px rgba(181,101,29,.35); }
+  /* NEW (#1009 A): the OPEN tile carries the percent — the END of all the tasks, as Kiran asked */
+  .tile .pct { font-size: 13px; font-weight: 800; color: var(--green); line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .tile .pct.done { color: var(--green); }
+  /* NEW (#1009 B): a faint ⓘ on each tile — tap it for what you need / how long / done means / outside steps */
+  .tile .info { position: absolute; top: -3px; right: 5px; width: 13px; height: 13px; border-radius: 50%; border: 1.2px solid var(--muted); font-size: 8px; font-weight: 700; color: var(--muted); display: flex; align-items: center; justify-content: center; background: var(--paper); line-height: 1; }
+  .tile.sel .info { border-color: var(--ink); color: var(--ink); background: var(--ink); color: #fff; }
 
-  .board { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 9px 11px 11px; margin: 2px 0 10px; }
-  .board .bh { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
-  .board .bh .t { font-weight: 700; font-size: 13px; flex: 1; }
-  .board .row { font-size: 11.5px; color: var(--muted); margin: 4px 0; }
-  .board .row b { color: var(--ink); }
-  .chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; border: 1px solid var(--rule); background: var(--chip); border-radius: 999px; padding: 3px 9px; margin: 2px 4px 2px 0; }
-  .glist { display: flex; flex-direction: column; margin-top: 2px; }
-  .gsteps { list-style: none; margin: 4px 0 2px; padding: 0 0 0 2px; display: flex; flex-direction: column; gap: 5px; }
-  .gsteps li { display: flex; gap: 7px; align-items: flex-start; font-size: 11.5px; }
-  .skiprow { margin-top: 8px; }
-  .skipbtn { font-size: 11.5px; color: var(--muted); border: none; background: none; font-weight: 600; padding: 0; text-decoration: underline; cursor: pointer; }
-
-  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 11px 13px; margin-bottom: 10px; }
-  .card .ch { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .card .k { font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 700; }
-  .orow { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-top: 1px solid var(--rule); }
-  .orow:first-of-type { border-top: none; }
-  .orow .e { font-size: 16px; flex: none; }
-  .orow .ot { flex: 1; min-width: 0; }
-  .orow .on { font-size: 12.5px; font-weight: 600; }
-  .orow .od { font-size: 10.5px; color: var(--muted); }
-  .orow .ov { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; flex: none; }
-
-  .cut { position: relative; opacity: .5; }
-  .cut::after { content: "REMOVED"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; letter-spacing: .08em; color: var(--danger); background: repeating-linear-gradient(135deg, rgba(179,57,44,.06), rgba(179,57,44,.06) 8px, rgba(179,57,44,.12) 8px, rgba(179,57,44,.12) 16px); border: 1.5px dashed var(--danger); border-radius: 14px; }
-
+  /* the agent card, and the ⓘ pane that reuses its look */
   .agentcard { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px 10px; margin-bottom: 10px; }
   .agenthead { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .agenthead .av { width: 26px; height: 26px; border-radius: 8px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 15px; flex: none; }
   .agenthead .nm { font-weight: 700; font-size: 12.5px; flex: 1; }
   .agenthead .pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green); flex: none; }
+  .agenthead .pause { font-size: 11px; color: var(--muted); border: 1px solid var(--rule); border-radius: 8px; padding: 2px 7px; }
+  .didline { font-size: 11.5px; color: var(--muted); background: var(--chip); border-radius: 9px; padding: 6px 9px; margin-bottom: 9px; display: flex; gap: 6px; align-items: center; }
+  .didline .ic { color: var(--green); }
+  .panehead { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .panehead .nm { font-weight: 700; font-size: 13px; flex: 1; display: inline-flex; gap: 6px; align-items: center; }
+  .panehead .ring { width: 26px; height: 26px; }
+  .krow { display: flex; gap: 8px; align-items: flex-start; font-size: 11.5px; margin-bottom: 6px; }
+  .krow .kl { color: var(--muted); font-weight: 700; font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em; min-width: 62px; padding-top: 2px; }
+  .krow .kv { flex: 1; display: flex; flex-wrap: wrap; gap: 4px 6px; }
+  .krow .kv span { display: inline-flex; gap: 4px; align-items: center; }
+  .krow .kv b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  /* THE SUBTASK STRIP — same visual language as the main tiles, smaller */
   .strip { border-top: 1px solid var(--rule); padding-top: 8px; margin-bottom: 8px; }
   .striplabel { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
-  .striprow.steps { background: var(--chip); border-radius: 12px; padding: 8px 6px 6px; margin-bottom: 4px; display: flex; gap: 8px; }
-  .mini { width: 90px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; position: relative; flex: none; }
+  .striplabel .ic { width: 13px; height: 13px; }
+  .striprow { display: flex; gap: 8px; margin-bottom: 10px; }
+  .striprow.steps { background: var(--chip); border-radius: 12px; padding: 8px 6px 6px; margin-bottom: 4px; }
+  .mini { width: 80px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; position: relative; flex: none; }
   .mini .ring { width: 34px; height: 34px; }
-  .mini .tn { font-size: 10px; font-weight: 700; line-height: 1.15; }
-  .mini .tv { font-size: 9px; color: var(--muted); line-height: 1.15; }
+  .mini .tn { font-size: 10px; font-weight: 700; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
+  .mini .tv { font-size: 9px; color: var(--muted); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .mini .sw { font-size: 9px; color: var(--skip); line-height: 1; }
+  .mini .sw.now { color: var(--green); font-weight: 700; }
   .mini.sel .ring { border-color: var(--ink); color: var(--ink); border-width: 2.5px; }
   .mini.sel .ring.now { color: var(--green); border-color: var(--green); }
+  .mini.sel .ring.done { color: #fff; }
   .mini.sel::after { content: ""; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--chip); }
+  .initials { font-size: 11.5px; font-weight: 800; letter-spacing: .02em; }
+  .ring.v1 { background: #e3efe6; border-color: #c7dccd; color: #2f7d4f; }
+  .ring.v2 { background: var(--saffron-soft); border-color: #ead7bf; color: var(--saffron); }
+  .ring.v3 { background: #e4ecf5; border-color: #cbd8e8; color: #35557a; }
+  .ring.now.v1, .ring.now.v2, .ring.now.v3 { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+  .mini.sel .ring.v1, .mini.sel .ring.v2, .mini.sel .ring.v3 { border-color: var(--ink); }
+  .mini.sel .ring.now.v1, .mini.sel .ring.now.v2, .mini.sel .ring.now.v3 { border-color: var(--green); }
+  .dots { display: flex; gap: 3px; margin-top: 1px; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; border: 1.3px solid var(--rule); display: block; }
+  .dots i.d { background: var(--green); border-color: var(--green); }
+  .dots i.n { border-color: var(--green); }
+  .dots i.k { border-style: dashed; border-color: var(--skip); }
 
-  .ask { font-size: 13.5px; font-weight: 700; line-height: 1.3; margin: 2px 0 6px; display: flex; gap: 7px; align-items: center; }
+  /* the work area */
+  .ask { font-size: 14px; font-weight: 700; line-height: 1.3; margin: 2px 0 2px; display: flex; gap: 7px; align-items: center; }
   .ask .ic { color: var(--green); }
-  .gatebox { border: 1px solid var(--rule); border-radius: 12px; padding: 9px 10px; margin-bottom: 8px; background: var(--paper); }
-  .gatebox .q { font-size: 12.5px; font-weight: 600; margin-bottom: 7px; }
-  .gatebtns { display: flex; gap: 6px; }
-  .gatebtns .btn { flex: 1; padding: 7px 4px; font-size: 11.5px; }
-  .out { display: flex; align-items: flex-start; gap: 7px; font-size: 11.5px; color: var(--chip-ink); background: var(--green-soft); border-radius: 9px; padding: 7px 9px; margin-bottom: 8px; }
-  .out .ic { color: var(--green); margin-top: 1px; }
+  .q { font-size: 13.5px; font-weight: 700; line-height: 1.3; margin: 6px 0 8px; }
+  .qbtns { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .whytap { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .whytap .i { width: 14px; height: 14px; border-radius: 50%; border: 1.4px solid var(--muted); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex: none; }
+  .drop { border: 1.5px dashed var(--rule); border-radius: 12px; padding: 10px; text-align: center; margin-bottom: 8px; background: var(--paper); }
+  .drop .dl { font-size: 11.5px; color: var(--muted); margin-bottom: 8px; display: flex; gap: 6px; justify-content: center; align-items: center; }
+  .drop .choices { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; }
+  .choice { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: var(--ink); width: 72px; }
+  .choice .box { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; color: var(--green); }
+  .out { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--chip-ink); background: var(--green-soft); border-radius: 9px; padding: 6px 9px; margin-bottom: 8px; }
+  .out .ic { color: var(--green); }
   .out b { color: var(--ink); font-variant-numeric: tabular-nums; }
-  .steplist { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-  .steplist li { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; }
-  .drop { border: 1.5px dashed var(--rule); border-radius: 12px; padding: 10px; text-align: center; margin-bottom: 8px; background: var(--paper); font-size: 11.5px; color: var(--muted); }
-  .reup { font-size: 11px; color: var(--green); font-weight: 700; text-decoration: underline; }
-  .fields { display: flex; flex-direction: column; gap: 6px; margin: 2px 0 8px; }
-  .fields input { border: 1px solid var(--rule); border-radius: 8px; padding: 6px 8px; font-size: 12px; background: var(--card); }
-  .fields label { font-size: 10.5px; color: var(--muted); font-weight: 600; margin-bottom: 1px; display: block; }
+  .out .sp { flex: 1; }
+  .out .tap { color: var(--green); font-weight: 700; font-size: 11px; }
+  .line { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--muted); margin-bottom: 7px; }
+  .line b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .line .sp { flex: 1; }
+  .line .tap { color: var(--green); font-weight: 700; font-size: 11px; }
+  .actions { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+  .actions .sp { flex: 1; }
+  .skipbtn { font-size: 11.5px; color: var(--muted); border: none; background: none; font-weight: 600; padding: 0; }
+  .backlink { font-size: 11px; color: var(--muted); text-decoration: underline; display: inline-flex; gap: 3px; align-items: center; margin-bottom: 6px; }
 
-  .notes { max-width: 1200px; margin: 34px auto 0; background: var(--card); border: 1px solid var(--rule); border-radius: 16px; padding: 18px 20px; }
+  /* guide steps (GuideSteps.tsx: a chip collapsed, icon-led steps once open) */
+  .gchip { display: inline-flex; gap: 5px; align-items: center; font-size: 11px; background: var(--chip); border-radius: 999px; padding: 3px 9px; font-weight: 600; margin: 2px 4px 2px 0; color: var(--ink); }
+  .gchip.open { background: var(--green-soft); color: var(--green); }
+  .gsteps { list-style: none; margin: 6px 0 8px; padding: 0 0 0 2px; display: flex; flex-direction: column; gap: 5px; }
+  .gsteps li { display: flex; gap: 7px; font-size: 11.5px; align-items: flex-start; line-height: 1.3; }
+  .gsteps li .em { flex: none; width: 16px; text-align: center; }
+  .gsteps li a { color: var(--green); text-decoration: underline; }
+  .gsteps.tight { margin-top: 4px; }
+  .inp { display: block; width: 100%; border: 1px solid var(--rule); border-radius: 9px; padding: 6px 9px; font-size: 11.5px; background: var(--card); color: var(--muted); margin-bottom: 6px; }
+  .tinyinfo { display: flex; gap: 5px; align-items: center; font-size: 10.5px; color: var(--muted); margin: 2px 0 8px; }
+  .tinyinfo .i { width: 13px; height: 13px; border-radius: 50%; border: 1.3px solid var(--muted); display: inline-flex; align-items: center; justify-content: center; font-size: 8.5px; font-weight: 700; flex: none; }
+
+  /* the O1–O7 card */
+  .ocard { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 6px 12px 4px; margin-bottom: 10px; }
+  .ocard .k { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 4px 0 4px; font-weight: 700; }
+  .orow { display: flex; gap: 8px; align-items: center; font-size: 11.5px; padding: 5px 0; border-top: 1px solid var(--rule); }
+  .orow .em { width: 18px; text-align: center; flex: none; }
+  .orow .ol { flex: 1; min-width: 0; }
+  .orow .ol b { display: block; font-size: 11.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .orow .ol span { display: block; font-size: 10px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .orow .ov { font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; flex: none; }
+  .orow .ov.dim { color: var(--muted); }
+
+  /* the ghost of a removed block */
+  .gone { position: relative; border: 1.5px dashed #cfc9b8; border-radius: 12px; padding: 7px 10px; margin-bottom: 8px; color: var(--skip); background: repeating-linear-gradient(135deg, transparent 0 7px, rgba(0,0,0,.035) 7px 14px); }
+  .gone .gt { text-decoration: line-through; font-weight: 700; font-size: 11.5px; color: #9a9c95; }
+  .gone .gs { text-decoration: line-through; font-size: 10px; color: #a3a59e; line-height: 1.35; }
+  .gone .gl { font-size: 10px; color: var(--saffron); font-weight: 700; margin-top: 3px; display: flex; gap: 4px; align-items: center; }
+  .gone .gl::before { content: "✕"; font-size: 9px; }
+  .gone.opt { border-color: #e2c9a8; }
+  .gone.opt .gl .tag { font-size: 8.5px; background: var(--saffron-soft); color: var(--saffron); border-radius: 6px; padding: 0 5px; margin-left: 4px; letter-spacing: .04em; }
+
+  /* notes under the stage */
+  .notes { max-width: 1120px; margin: 34px auto 0; background: var(--card); border: 1px solid var(--rule); border-radius: 16px; padding: 18px 20px; }
   .notes h2 { font-size: 16px; margin: 0 0 8px; }
   .notes h2 + p { margin-top: 0; }
   .notes p, .notes li { font-size: 13.5px; color: var(--chip-ink); }
@@ -126,6 +190,9 @@
   .notes code { font-size: 12px; background: var(--chip); border-radius: 5px; padding: 1px 5px; }
   .ok { color: var(--green); font-weight: 700; }
   .tri { color: var(--saffron); font-weight: 700; }
+  .opt { border: 1px solid var(--rule); border-radius: 12px; padding: 10px 14px; margin: 8px 0; }
+  .opt.rec { border-color: var(--green); background: var(--green-soft); }
+  .opt h4 { margin: 0 0 4px; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -136,217 +203,417 @@
   <symbol id="i-ingredients" viewBox="0 0 24 24"><path d="M4 10h16l-1.5 9a1 1 0 0 1-1 .8H6.5a1 1 0 0 1-1-.8L4 10Z"/><path d="M4 10l2-4h12l2 4"/><path d="M9 10v9M15 10v9"/></symbol>
   <symbol id="i-prep" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="6" rx="1.5"/><path d="M6 13 16 4.5c1-.9 2.5-.2 2.2 1.1L17 10.5 7.5 13"/></symbol>
   <symbol id="i-pass" viewBox="0 0 24 24"><path d="M3.5 7h17"/><path d="M7 7v6.5a1 1 0 0 0 1 1h2.5l1 2 1-2H15a1 1 0 0 0 1-1V7"/></symbol>
-  <symbol id="i-costing" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8"/></symbol>
+  <symbol id="i-costing" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8"/><circle cx="8.3" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="8.3" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="8.3" cy="19" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="19" r="0.6" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-register" viewBox="0 0 24 24"><path d="M5.5 10 7 4.5h10l1.5 5.5"/><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M4 14.5h16"/><path d="M12 10v4.5"/></symbol>
   <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M15.3 13a4.6 4.6 0 0 1 5.2 4.3"/></symbol>
   <symbol id="i-money" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10"/><path d="M14.5 9.3c-.4-.9-1.4-1.3-2.5-1.3-1.5 0-2.7.8-2.7 2s1.1 1.7 2.7 2c1.6.3 2.7.9 2.7 2.1s-1.2 2-2.7 2c-1.2 0-2.2-.5-2.6-1.4"/></symbol>
   <symbol id="i-golive" viewBox="0 0 24 24"><path d="M8 3h9a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8"/><path d="M8 3 4 5v14l4 2"/><circle cx="14.5" cy="12" r="0.7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-shelves" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M3.5 9.5h17M3.5 15.5h17"/><path d="M8 6.5v3M14 6.5v3M8 12.5v3M17 12.5v3"/></symbol>
+  <symbol id="i-count" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M3.5 10h17M3.5 15h17"/><circle cx="8" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="12.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-online" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.5 2.3 4 5.3 4 8.5s-1.5 6.2-4 8.5c-2.5-2.3-4-5.3-4-8.5s1.5-6.2 4-8.5Z"/></symbol>
+  <symbol id="i-pricing" viewBox="0 0 24 24"><path d="M12.5 3.5h5a1 1 0 0 1 1 1v5a1 1 0 0 1-.3.7l-8.8 8.8a1 1 0 0 1-1.4 0l-5.2-5.2a1 1 0 0 1 0-1.4l8.8-8.8a1 1 0 0 1 .7-.3Z"/><circle cx="15.5" cy="7.5" r="1.3"/></symbol>
+  <symbol id="i-invoices" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h6M9 8.5h2"/></symbol>
   <symbol id="i-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5a1 1 0 0 1 1-1h2.2l1-1.7a1 1 0 0 1 .9-.5h5.8a1 1 0 0 1 .9.5l1 1.7H19a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><circle cx="12" cy="13" r="3.3"/></symbol>
+  <symbol id="i-products" viewBox="0 0 24 24"><path d="M6 8h12l-1 12.5a1 1 0 0 1-1 .9H8a1 1 0 0 1-1-.9L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-verify" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 4.5V3h6v1.5"/><path d="M8.5 13 11 15.5l4.5-5"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M12 17v-6M9.5 13.5 12 11l2.5 2.5"/></symbol>
+  <symbol id="i-paste" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 4.5V3h6v1.5"/><path d="M9 11h6M9 14.5h6M9 18h4"/></symbol>
   <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
   <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 9-12h-6l1-6Z"/></symbol>
-  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M11.5 12H20M16 12v3.5M19 12v2.5"/></symbol>
-  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M4.5 15.5V19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-3.5"/></symbol>
-  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5"/><path d="M6 8h12v3a6 6 0 0 1-12 0V8Z"/><path d="M12 17v4"/></symbol>
+  <symbol id="i-sales" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 16l4-5 3 3 5-7"/></symbol>
 </svg>
 
-<h1 class="page">Mockup #1009 — one progress number, no duplicate cards, real POS directions where you browse to them</h1>
-<p class="lede">Kiran's staging walk (2026-10-14): drop the "Setup progress" bar (it is the same number the map already shows) and the nine section cards below it (a tile already shows each one's state); the percent should sit at the end of the tasks, on the OPEN tile. Browsing to a POS step that is not the agent's current ask should show real connect-or-export directions for that POS, not a bare "not reached yet" line.</p>
+<h1 class="page">Mockup #1009 — Getting started, trimmed</h1>
+<p class="lede">The percent rides on the OPEN tile at the end of the tasks. The "Setup progress" bar and the nine section cards go — what was unique on them lands behind each tile's ⓘ. The per-POS directions (connect if you have credentials, else export and upload) live inside the Items and Sales steps themselves, every time, not only while the agent is asking.</p>
 <div class="legend">
   <span><i class="ring done" style="width:14px;height:14px;border-width:1.5px"></i> done</span>
-  <span><i class="ring now" style="width:14px;height:14px;border-width:1.5px;box-shadow:0 0 0 2px var(--green-soft)"></i> now</span>
+  <span><i class="ring now" style="width:14px;height:14px;border-width:1.5px;box-shadow:0 0 0 2px var(--green-soft)"></i> now (the agent's pick)</span>
   <span><i class="ring skip" style="width:14px;height:14px;border-width:1.5px"></i> skipped</span>
-  <span style="color:var(--danger);font-weight:700">⬚ removed in this mockup</span>
+  <span><i class="ring" style="width:14px;height:14px;border-width:1.5px"></i> later</span>
+  <span><i style="display:inline-block;border:5px solid transparent;border-bottom-color:var(--rule);width:0;height:0"></i> you're here (what you tapped)</span>
+  <span><i style="display:inline-block;width:22px;height:12px;border:1.5px dashed #cfc9b8;border-radius:4px;background:repeating-linear-gradient(135deg,transparent 0 4px,rgba(0,0,0,.05) 4px 8px)"></i> removed — where it used to be</span>
 </div>
 
 <div class="wrap">
 <div class="stage">
 
-<!-- ===================== PHONE 1: TODAY, annotated ===================== -->
+<!-- ===================== F1: the whole page after the trim ===================== -->
 <div class="col">
-  <h3><b>1 · Today</b> everything Kiran scrolled past to find his next step</h3>
+  <h3><b>F1 · The whole page after the trim</b> Percent on the OPEN tile; Setup progress, the nine section cards and the three number cards are gone (ghosts show where)</h3>
   <div class="phone"><div class="screen">
     <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
     <div class="body-pad">
-      <div class="nextbar"><a class="btn sm">Next: Upload Metro Produce's catalog</a></div>
-      <div class="progress">7 of 10 steps · 82% of your own facts · ~25 min left</div>
-      <div class="map" style="margin-bottom:6px">
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span></div>
-        <div class="tile"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">0 min</span></div>
-      </div>
-      <div class="agentcard" style="padding:6px 10px"><div class="row" style="margin:2px 0;color:var(--muted);font-size:11px">⋯ agent card, boxes/cost-gap/counted cards ⋯</div></div>
-      <div class="card cut" style="padding:9px 13px">
-        <div class="ch"><div class="k">Setup progress</div><div style="font-size:18px;font-weight:700">82%</div></div>
-        <div class="row" style="height:8px;background:var(--rule);border-radius:4px;margin:2px 0"></div>
-        <div class="row" style="font-size:10.5px">same number as the progress line above — a second bar for it</div>
-      </div>
-      <div class="card cut" style="padding:9px 13px">
-        <div class="row" style="font-weight:700;font-size:12.5px">Your business <span class="chip" style="font-size:9.5px;padding:1px 6px">Done</span></div>
-        <div class="row" style="font-size:10.5px">whatHappens · ⓘ · Go</div>
-      </div>
-      <div class="card cut" style="padding:9px 13px">
-        <div class="row" style="font-weight:700;font-size:12.5px">Your vendors and invoices <span class="chip" style="font-size:9.5px;padding:1px 6px">In progress</span></div>
-        <div class="row" style="font-size:10.5px">whatHappens · ⓘ · Go · Skip</div>
-      </div>
-      <div class="row" style="text-align:center;color:var(--muted);font-size:11px;margin-top:4px">+ 7 more section cards, one per tile above ↓</div>
-    </div>
-  </div></div>
-</div>
-
-<!-- ===================== PHONE 2: AFTER, home trimmed ===================== -->
-<div class="col">
-  <h3><b>2 · After</b> the whole screen — map, one outcomes card, Go live. Nothing else.</h3>
-  <div class="phone"><div class="screen">
-    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
-    <div class="body-pad">
-      <div class="nextbar"><a class="btn sm">Next: Upload Metro Produce's catalog</a></div>
-      <div class="progress">7 of 10 steps · 82% of your own facts · ~25 min left</div>
+      <div class="nextbar"><a class="btn sm">Next: Spice Route's invoices</a></div>
+      <div class="progress">5 of 9 steps · 82% of your own facts · ~40 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes · <b>48</b> dishes set up for you<span class="sp"></span><span class="tap">▸</span></div>
       <div class="map">
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span></div>
-        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span></div>
-        <div class="tile highlight"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv" style="color:var(--saffron);font-weight:700">82% · 3 left</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">2 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">48 dishes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">41 of 61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">1 register</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring skip"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="sw">Skipped</span><span class="tv">Just you</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">82%</span><span class="tv">3 steps left</span></div>
       </div>
-      <div class="agentcard" style="padding:8px 10px"><div class="agenthead" style="margin-bottom:0"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span></div></div>
-      <div class="card">
-        <div class="ch"><div class="k">Is this store actually running on this yet?</div></div>
-        <div class="orow"><span class="e">📦</span><div class="ot"><div class="on">Inventory you can trust</div><div class="od">counting in progress</div></div><div class="ov">—</div></div>
-        <div class="orow"><span class="e">🍽️</span><div class="ot"><div class="on">Every dish costed</div><div class="od">38 of 61 boxes confirmed</div></div><div class="ov">62%</div></div>
-        <div class="orow"><span class="e">🧾</span><div class="ot"><div class="on">Invoice lines costable</div><div class="od">worst: Spice Route 40 of 90</div></div><div class="ov">74%</div></div>
-        <div class="orow" style="color:var(--muted);font-size:10.5px">+ O4–O7 (on time · orders · money · register) ↓</div>
-      </div>
-      <div class="card">
-        <div class="row" style="font-weight:700;font-size:13px">Go live</div>
-        <div class="row">Shows your outcomes as numbers, and what is still open.</div>
-        <a class="btn sm" style="margin-top:6px">We're open — go live</a>
-      </div>
-    </div>
-  </div></div>
-</div>
 
-<!-- ===================== PHONE 3: a no-strip tile's own ⓘ ===================== -->
-<div class="col">
-  <h3><b>3 · Till, tapped</b> no vendor/POS strip here — the tile opens its own ⓘ panel right under the map</h3>
-  <div class="phone"><div class="screen">
-    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
-    <div class="body-pad">
-      <div class="nextbar"><a class="btn sm">Next: Upload Metro Produce's catalog</a></div>
-      <div class="progress">7 of 10 steps · 82% of your own facts · ~25 min left</div>
-      <div class="map" style="margin-bottom:4px">
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span></div>
-        <div class="tile"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span></div>
-        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span></div>
-        <div class="tile sel"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span></div>
-        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">82% · 3 left</span></div>
-      </div>
-      <div class="board">
-        <div class="bh"><a class="btn sm ghost">← Back</a><span class="t">Till and scale</span></div>
-        <div class="row">A device pairs as your till; a scale pairs if you weigh anything.</div>
-        <div class="row"><b>What you need:</b> an iPad or Android tablet, your printer's network name</div>
-        <div class="row"><b>How long:</b> about 20 min</div>
-        <div class="row"><b>Done means:</b> a register is enrolled and one drawer has opened and closed</div>
-        <div class="glist">
-          <span class="chip">▸ Set up a register tablet</span>
-          <span class="chip">▸ Receipt printer on your network</span>
-          <span class="chip">▾ Connect the scale</span>
-          <ul class="gsteps">
-            <li>🔌 Plug the scale's serial-LAN bridge into your network</li>
-            <li>📶 Find its IP address on the bridge's own label</li>
-            <li>⌨️ Type that address into the Scale row below</li>
-          </ul>
-          <span class="chip">▸ Card payments</span>
-        </div>
-        <div class="skiprow"><button class="skipbtn">Skip for now</button></div>
-        <a class="btn sm" style="margin-top:8px">Go to Till and scale</a>
-      </div>
-    </div>
-  </div></div>
-</div>
-
-<!-- ===================== PHONE 4: POS Items, browsed — Toast (connector) ===================== -->
-<div class="col">
-  <h3><b>4 · POS · Items, browsed</b> Toast has a connector — the credentials question, answered right here</h3>
-  <div class="phone"><div class="screen">
-    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
-    <div class="body-pad">
-      <div class="nextbar"><a class="btn sm">Next: Upload Metro Produce's catalog</a></div>
-      <div class="progress">7 of 10 steps · 82% of your own facts · ~25 min left</div>
       <div class="agentcard">
-        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span></div>
-        <button type="button" class="chip" style="margin-bottom:8px">← Back door (the agent's current ask)</button>
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Published Spice Route's 92 items</div>
         <div class="strip">
-          <div class="striplabel"><svg class="ic s"><use href="#i-register"/></svg> Your POS · Toast</div>
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors</div>
+          <div class="striprow">
+            <div class="mini"><span class="ring done v1"><span class="initials">MP</span></span><span class="tn">Metro Produce</span><span class="dots"><i class="d"></i><i class="d"></i><i class="d"></i></span><span class="tv">3 of 3</span></div>
+            <div class="mini sel"><span class="ring now v2"><span class="initials">SR</span></span><span class="tn">Spice Route</span><span class="dots"><i class="d"></i><i class="d"></i><i class="n"></i></span><span class="tv">2 of 3</span></div>
+            <div class="mini"><span class="ring done v3"><span class="initials">HD</span></span><span class="tn">Harbor Dairy</span><span class="dots"><i class="d"></i><i class="d"></i><i class="d"></i></span><span class="tv">3 of 3</span></div>
+          </div>
           <div class="striprow steps">
-            <div class="mini sel"><span class="ring"><svg class="ic s"><use href="#i-upload"/></svg></span><span class="tn">Items</span></div>
-            <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-upload"/></svg></span><span class="tn">Sales</span></div>
+            <div class="mini"><span class="ring done"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span><span class="tv">96 rows</span></div>
+            <div class="mini"><span class="ring done"><svg class="ic"><use href="#i-verify"/></svg></span><span class="tn">Check</span><span class="tv">92 live</span></div>
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span><span class="sw now">Now</span></div>
           </div>
         </div>
-        <div class="ask"><svg class="ic"><use href="#i-key"/></svg> Your items — from Toast</div>
-        <div class="gatebox">
-          <div class="q">Do you have API access for Toast?</div>
-          <div class="gatebtns">
-            <button class="btn sm">Yes</button>
-            <button class="btn sm ghost">No</button>
-            <button class="btn sm ghost">Not sure</button>
+        <div class="ask"><svg class="ic"><use href="#i-invoices"/></svg> Spice Route's invoices</div>
+        <div class="drop">
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-camera"/></svg></span>A photo</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
           </div>
+          <a class="btn full">Read this invoice</a>
         </div>
-        <div class="row" style="font-size:11px;color:var(--muted)">Yes → the connect steps, then your Client ID / secret / Restaurant GUID, right here. No → the export steps below. Not sure → two things to check first.</div>
-        <ul class="steplist" style="margin-top:8px;opacity:.55">
-          <li>🏬 Toast Web → Retail → Item management → Item Library</li>
-          <li>⋯ Tap the ⋯ next to Publish</li>
-          <li>📤 Choose Export items → all items, all columns</li>
-          <li>📥 Drop the downloaded file below (shown once you pick No)</li>
-        </ul>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span></div>
+      </div>
+
+      <div class="gone opt"><div class="gt">👨‍🍳 Boxes confirmed — 41 of 61</div><div class="gl">removed — same number already on the Costing tile<span class="tag">OPTION A</span></div></div>
+      <div class="gone opt"><div class="gt">💲 Cost gaps — 12 red rows of 58</div><div class="gl">removed — same count already on the Back door tile<span class="tag">OPTION A</span></div></div>
+      <div class="gone opt"><div class="gt">📦 Counted — 0 of 61</div><div class="gl">removed — same number already on the Count tile / O1 row<span class="tag">OPTION A</span></div></div>
+
+      <div class="ocard">
+        <div class="k">Is this store actually running on this yet?</div>
+        <div class="orow"><span class="em">📦</span><div class="ol"><b>Inventory picture true</b><span>tracking off until the opening count</span></div><span class="ov dim">—</span></div>
+        <div class="orow"><span class="em">🍽️</span><div class="ol"><b>Every dish costed</b><span>41 of 61 boxes confirmed</span></div><span class="ov">88%</span></div>
+        <div class="orow"><span class="em">🧾</span><div class="ol"><b>Invoice lines costable</b><span>worst: Spice Route 41 of 58</span></div><span class="ov">79%</span></div>
+        <div class="orow"><span class="em">👨‍🍳</span><div class="ol"><b>Kitchen knows what to make</b><span>no 86 history yet</span></div><span class="ov dim">—</span></div>
+        <div class="orow"><span class="em">🚚</span><div class="ol"><b>Orders on time</b><span>2 vendors with order days</span></div><span class="ov">100%</span></div>
+        <div class="orow"><span class="em">💰</span><div class="ol"><b>Money daily</b><span>no day closed yet</span></div><span class="ov dim">—</span></div>
+        <div class="orow"><span class="em">🔌</span><div class="ol"><b>Register offline-ready</b><span>1 register, fresh</span></div><span class="ov">1</span></div>
+      </div>
+
+      <div class="gone"><div class="gt">SETUP PROGRESS ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 82%</div><div class="gl">removed — same percent now on the OPEN tile and the progress line</div></div>
+      <div class="gone">
+        <div class="gt">9 section cards</div>
+        <div class="gs">Your business · Your catalog · Your vendors and invoices · Your kitchen · Your inventory · Your register · Your store online · Your team · Your money</div>
+        <div class="gl">removed — title, status and number already on each tile; ⓘ and outside steps moved to the tile's ⓘ (F2)</div>
+      </div>
+
+      <div class="agentcard">
+        <div class="panehead"><span class="ring" style="width:26px;height:26px"><svg class="ic s"><use href="#i-golive"/></svg></span><span class="nm">OPEN — we're open</span></div>
+        <div class="line">Still skipped: <b>Team</b><span class="sp"></span><span class="tap">Resume</span></div>
+        <a class="btn full">We're open — go live</a>
       </div>
     </div>
   </div></div>
 </div>
 
-<!-- ===================== PHONE 5: POS Items, browsed — Square (export only) + already-done ===================== -->
+<!-- ===================== F2: a tile's ⓘ — Till ===================== -->
 <div class="col">
-  <h3><b>5 · POS · Items, browsed</b> Square has no connector — straight to export; a done step still shows its numbers</h3>
+  <h3><b>F2 · A tile's ⓘ (Till)</b> Where a section card's unique content lands for a station with no subtasks: what you need · how long · done means · outside steps · Skip</h3>
   <div class="phone"><div class="screen">
     <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
     <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Spice Route's invoices</a></div>
+      <div class="progress">4 of 9 steps · 71% of your own facts · ~60 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes · <b>48</b> dishes set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">2 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">48 dishes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">41 of 61 boxes</span></div>
+        <div class="tile sel"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring skip"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="sw">Skipped</span><span class="tv">Just you</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">71%</span><span class="tv">4 steps left</span></div>
+      </div>
+
+      <!-- the ⓘ pane opens UNDER the map, same place the Walk-in board opens — no sheet (law 2), one tap closes it -->
       <div class="agentcard">
-        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span></div>
+        <div class="panehead"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg></span><span class="nm"><svg class="ic s"><use href="#i-register"/></svg> Till</span><span class="pill" style="background:var(--chip);color:var(--muted)">Later</span></div>
+        <div class="krow"><span class="kl">You need</span><div class="kv"><span>📱 a tablet</span><span>🖨️ the printer's IP</span><span>🏦 a Stripe account</span></div></div>
+        <div class="krow"><span class="kl">How long</span><div class="kv"><span>⏱️ about <b>20 min</b> (rough)</span></div></div>
+        <div class="krow"><span class="kl">Done means</span><div class="kv"><span>🧾 <b>1</b> register enrolled · a drawer opened and closed</span></div></div>
+        <div class="krow" style="margin-top:8px"><span class="kl">Outside steps</span><div class="kv" style="display:block">
+          <span class="gchip">▸ Set up a register tablet</span>
+          <span class="gchip open">▾ Receipt printer on your network</span>
+          <ol class="gsteps tight">
+            <li><span class="em">🔌</span>Plug the TM-m30III into power and your network</li>
+            <li><span class="em">📄</span>Hold Feed while powering on to print the status sheet</li>
+            <li><span class="em">🔎</span>Find the IP address printed on that status sheet</li>
+            <li><span class="em">⌨️</span>Enter that IP under Settings → POS → Printer</li>
+            <li><span class="em">🖨️</span>Test print a receipt, then test the drawer kick</li>
+          </ol>
+          <span class="gchip">▸ Card payments</span>
+        </div></div>
+        <div class="actions" style="margin-top:10px"><span class="skipbtn">Skip for now</span><span class="sp"></span><a class="btn sm">Go to the till <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== F3: Items, Toast tenant — the credentials question ===================== -->
+<div class="col">
+  <h3><b>F3 · Items · Toast · the question</b> Browsed to Items on a Toast business: the one question first, because Toast is the one POS Veritill can connect to</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Your items from Toast</a></div>
+      <div class="progress">1 of 9 steps · 14% of your own facts · ~120 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">14%</span><span class="tv">8 steps left</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Set up 404 families · 61 prep boxes</div>
         <div class="strip">
-          <div class="striplabel"><svg class="ic s"><use href="#i-register"/></svg> Your POS · Square</div>
+          <div class="striplabel"><svg class="ic"><use href="#i-products"/></svg> Your items · from Toast</div>
           <div class="striprow steps">
-            <div class="mini sel"><span class="ring done"><svg class="ic s"><use href="#i-done"/></svg></span><span class="tn">Items</span></div>
-            <div class="mini"><span class="ring now"><svg class="ic s"><use href="#i-upload"/></svg></span><span class="tn">Sales</span></div>
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-sales"/></svg></span><span class="tn">Sales</span><span class="sw">Later</span></div>
           </div>
         </div>
-        <div class="ask"><svg class="ic"><use href="#i-done"/></svg> Your items — from Square</div>
-        <div class="out"><svg class="ic s"><use href="#i-done"/></svg> <span><b>271</b> items on shelves from this export. <a class="reup">Upload a newer file</a></span></div>
-        <div class="row" style="font-size:11px;color:var(--muted);margin-bottom:6px">Square has no connector to integrate with — exporting a file is the only path, so no credentials question is asked.</div>
-        <ul class="steplist" style="opacity:.6">
-          <li>🏬 Square Dashboard → Items &amp; orders → Items</li>
-          <li>⋯ Tap Actions → Export library</li>
-          <li>💾 Choose .xlsx or .csv</li>
-          <li>📥 Drop the downloaded file below</li>
-        </ul>
-        <div class="drop">drop zone — ready for a fresh export any time</div>
-        <button type="button" class="chip">↦ Switch to the Sales step</button>
+        <div class="ask"><svg class="ic"><use href="#i-products"/></svg> Your items from Toast</div>
+        <div class="whytap"><span class="i">i</span> why items come first</div>
+        <div class="q">Do you have API access for Toast?</div>
+        <div class="qbtns">
+          <a class="btn full"><svg class="ic xs" style="stroke:#fff"><use href="#i-plug"/></svg> Yes, I have credentials</a>
+          <a class="btn full ghost"><svg class="ic xs"><use href="#i-file"/></svg> No, I'll upload a file</a>
+          <a class="btn full ghost">I'm not sure</a>
+        </div>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== F4: after Yes — connect steps + credential fields ===================== -->
+<div class="col">
+  <h3><b>F4 · After "Yes"</b> The connect steps (posGuides.ts, real wording), then the three Toast fields and Connect — the same settings.toast write as today</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Your items from Toast</a></div>
+      <div class="progress">1 of 9 steps · 14% of your own facts · ~120 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">14%</span><span class="tv">8 steps left</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-products"/></svg> Your items · from Toast</div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-sales"/></svg></span><span class="tn">Sales</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+        <div class="ask"><svg class="ic"><use href="#i-plug"/></svg> Connect Toast</div>
+        <span class="backlink"><svg class="ic xs"><use href="#i-back"/></svg> Back to the question</span>
+        <ol class="gsteps">
+          <li><span class="em">🧾</span>Needs Toast plan Essentials or higher (ask your Toast rep)</li>
+          <li><span class="em">🔑</span><a>Toast Web → Integrations → Toast API access</a></li>
+          <li><span class="em">➕</span>Tap Manage credentials, then Create credentials</li>
+          <li><span class="em">🆔</span>Copy the Client ID and Client secret shown</li>
+          <li><span class="em">🏷️</span>Copy your Restaurant GUID from Restaurant info</li>
+          <li><span class="em">✅</span>Paste all three below and tap Connect</li>
+        </ol>
+        <span class="inp">Client ID</span>
+        <span class="inp">Client secret</span>
+        <span class="inp">Restaurant GUID</span>
+        <a class="btn full"><svg class="ic xs" style="stroke:#fff"><use href="#i-plug"/></svg> Connect</a>
+        <div class="tinyinfo"><span class="i">i</span> Connected, Veritill reads items, menu and sales itself — Sales turns done too</div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== F5: after No — export steps + drop zone ===================== -->
+<div class="col">
+  <h3><b>F5 · After "No"</b> The Toast export steps, then the drop zone — the same read → map → load → check chain (#901) as today</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Your items from Toast</a></div>
+      <div class="progress">1 of 9 steps · 14% of your own facts · ~120 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">14%</span><span class="tv">8 steps left</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-products"/></svg> Your items · from Toast</div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-sales"/></svg></span><span class="tn">Sales</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+        <div class="ask"><svg class="ic"><use href="#i-file"/></svg> Export your items from Toast</div>
+        <span class="backlink"><svg class="ic xs"><use href="#i-back"/></svg> Back to the question</span>
+        <ol class="gsteps">
+          <li><span class="em">🏬</span>Toast Web → Retail → Item management → Item Library</li>
+          <li><span class="em">⋯</span>Tap the ⋯ next to Publish</li>
+          <li><span class="em">📤</span>Choose Export items → all items, all columns</li>
+          <li><span class="em">💾</span>Pick CSV, not Excel — Excel drops barcode zeros</li>
+          <li><span class="em">📥</span>Drop the downloaded file below</li>
+        </ol>
+        <div class="drop">
+          <div class="dl"><svg class="ic s" style="color:var(--green)"><use href="#i-file"/></svg> Drop the export here</div>
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
+          </div>
+          <a class="btn full">Read this file</a>
+        </div>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== F6: Items, Square tenant — no connector, export straight away ===================== -->
+<div class="col">
+  <h3><b>F6 · Items · Square</b> No connector exists, so no question: the Square export steps and the drop zone straight away, with one honest ⓘ line</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Your items from Square</a></div>
+      <div class="progress">1 of 10 steps · 10% of your own facts · ~110 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>38</b> aisles set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Grocery · Latin</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="tv">0 of 2 vendors</span></div>
+        <div class="tile sel"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-shelves"/></svg></span><span class="tn">Shelves</span><span class="sw now">Now</span><span class="tv">0 on shelves</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-pricing"/></svg></span><span class="tn">Price tags</span><span class="tv">0 priced</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-count"/></svg></span><span class="tn">Count</span><span class="tv">Not started</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till and scale</span><span class="tv">35 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-online"/></svg></span><span class="tn">Online</span><span class="tv">15 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">10%</span><span class="tv">9 steps left</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Set up 404 families · 38 aisles</div>
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-shelves"/></svg> Shelves · from Square</div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-sales"/></svg></span><span class="tn">Sales</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+        <div class="ask"><svg class="ic"><use href="#i-file"/></svg> Export your items from Square</div>
+        <div class="tinyinfo"><span class="i">i</span> Square has no live connection in Veritill yet — export and upload</div>
+        <ol class="gsteps">
+          <li><span class="em">🏬</span>Square Dashboard → Items &amp; orders → Items</li>
+          <li><span class="em">⋯</span>Tap Actions → Export library</li>
+          <li><span class="em">💾</span>Choose .xlsx or .csv</li>
+          <li><span class="em">📥</span>Drop the downloaded file below</li>
+        </ol>
+        <div class="drop">
+          <div class="dl"><svg class="ic s" style="color:var(--green)"><use href="#i-file"/></svg> Drop the export here</div>
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
+          </div>
+          <a class="btn full">Read this file</a>
+        </div>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== F7: Items already done — output first, directions still there, Sales is now ===================== -->
+<div class="col">
+  <h3><b>F7 · Items already done</b> Browsed back to Items: what landed in numbers, the same directions collapsed under it, a newer export still welcome; Sales is now</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Your sales from Toast</a></div>
+      <div class="progress">2 of 9 steps · 31% of your own facts · ~95 min left</div>
+      <div class="adopted">📘 <b>404</b> families · <b>61</b> boxes set up for you<span class="sp"></span><span class="tap">▸</span></div>
+      <div class="map">
+        <div class="tile"><span class="info">i</span><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Business</span><span class="tv">Restaurant · Mexican</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">38 of 404 mapped</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="info">i</span><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="pct">31%</span><span class="tv">7 steps left</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Published 271 of your 277 Toast items</div>
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-products"/></svg> Your items · from Toast</div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring done"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="tv">271 live</span></div>
+            <div class="mini"><span class="ring now"><svg class="ic"><use href="#i-sales"/></svg></span><span class="tn">Sales</span><span class="sw now">Now</span></div>
+          </div>
+        </div>
+        <div class="out"><svg class="ic s"><use href="#i-done"/></svg> <b>271</b> items on shelves · <b>6</b> held<span class="sp"></span><span class="tap">Check the 6</span></div>
+        <div class="line"><b>9</b> columns understood · <b>84</b> known · <b>187</b> AI filled<span class="sp"></span><span class="tap">ⓘ</span></div>
+        <span class="gchip">▸ Export again from Toast</span>
+        <span class="gchip">▸ Connect Toast instead</span>
+        <div class="drop" style="margin-top:8px">
+          <div class="dl"><svg class="ic s" style="color:var(--green)"><use href="#i-file"/></svg> Drop a newer export here</div>
+          <a class="btn full ghost">Read this file</a>
+        </div>
+        <div class="actions"><span class="sp"></span><a class="btn sm">Done · Sales <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a></div>
       </div>
     </div>
   </div></div>
@@ -355,32 +622,58 @@
 </div><!-- /stage -->
 
 <div class="notes">
-  <h2>What this changes (web only — every number already exists on the API)</h2>
+  <h2>What this changes (web only — the API already carries every number shown)</h2>
   <table>
     <tr><th>Today</th><th>This mockup</th></tr>
-    <tr><td>A "Setup progress" card repeats <code>checklist.percent</code> in a second bar, directly under the O1–O7 card.</td><td><b>Removed.</b> The progress line already at the top of the map carries the percent; the OPEN tile's own <code>detail</code> now reads <code>"82% · 3 left"</code> (<code>stationMap.ts</code>'s <code>fromSection</code> for <code>go-live</code>, which today always shows a useless "0 min" since go-live's own <code>timeEstimate.minutes</code> is 0) instead of a time estimate that was never true.</td></tr>
-    <tr><td>Nine section cards (one per applicable section) repeat each tile's own title/status/⓵/Go/Skip.</td><td><b>Removed.</b> Tapping a tile already opens its screen or its own strip; what is unique on a card — the ⓘ (what you need/how long/done means) and the outside-Veritill guide steps — moves onto the tile itself: a tile that already hosts a strip (Back door, the POS door) shows its guides inside that subtask's own pane (phones 3–4 of mockup #992's own pattern); a tile with no strip (Till, Team, Money, Online, Your inventory) becomes <b>expandable</b> the same way the Walk-in tile already is (<code>SetupFloorMap.tsx</code>'s existing <code>expandable</code>/<code>expanded</code> mechanic, just extended to these keys) — tap it, its ⓘ + guides + "Skip for now" open right under the map (phone 3), tap again (or ← Back) to close. "Business"/"Vendors"/"Prep"/"Pass"/"Shelves"/"Count"/"Costing" keep navigating straight to their own screens, unchanged — those already show the same facts in full.</td></tr>
-    <tr><td>Three number cards (Boxes confirmed, Cost gaps, Counted) sit between the agent card and the O1–O7 card.</td><td><b>Removed</b> (the open question in the issue, answered here): Boxes confirmed is the Costing tile's own number; Cost gaps is the Back door tile's "N cards left"; Counted is the Count tile's own number. Keeping only the <b>O1–O7 outcomes card</b> (phone 2) — those are a different kind of number (how the business is actually running), not a tile restated.</td></tr>
-    <tr><td>Browsing the POS strip to Items/Sales when it is not the agent's current ask shows a bare line: "Your items — already done / not reached yet."</td><td>A new <code>PosStepBody</code> (sibling of <code>VendorStepBody.tsx</code>) always shows real directions for the POS named at intake (<code>connectors/posGuides.ts</code>): Toast (the one connector this codebase has) asks the credentials question first — Yes walks the connect steps + credential fields right here, No/Not sure walks the export steps + drop zone (phone 4); every other POS (Square, Clover, Shopify, Lightspeed…) has no connector to offer, so it shows the export steps + drop zone straight away, never a credentials question with nowhere to send it (phone 5). A step already done shows what landed ("271 items on shelves") above the same directions, so a re-upload is still one tap away — never a dead end once done.</td></tr>
-    <tr><td><code>sections[]</code>'s static <code>guides</code> include POS-flavoured entries (<code>menu-without-api</code>, <code>fill-the-gaps</code>) that duplicate what the per-POS body now says.</td><td>Those two guide keys drop from <code>guidesForSection</code> (api-design note only — no schema change); every other guide key (register-tablet, receipt-printer, card-payments, scale, invite-team, set-your-targets, your-tax-rates, online-card-payments, open-your-store, opening-count, invoices-where, invoices-auto-forward, get-the-price-list) stays data in <code>guides.ts</code>, now surfaced from the matching tile/strip instead of a section card.</td></tr>
+    <tr><td>Two progress figures: the floor map's line AND a "Setup progress" card further down, both <code>checklist.percent</code>.</td><td><b>A.</b> The card goes. The OPEN tile's own <code>detail</code> becomes the percent plus "N steps left" (the same <code>journeyProgress</code> numbers the line already uses) — the percent sits at the END of the tasks, as Kiran asked. The line above the map stays (law 3). <code>stationMap.ts</code>'s go-live tile reads <code>progress</code> instead of its own time estimate (today a never-true "0 min", since go-live has no formal done and a zero estimate); nothing else changes.</td></tr>
+    <tr><td>Nine section cards below the outcomes: title · status pill · whatHappens · ⓘ · outside steps · Go · Skip for now.</td><td><b>B.</b> They go. Title, status and the one number are already on each tile. What was unique lands behind a small ⓘ on each tile (F2): what you need · how long · done means · the outside steps (<code>guides[]</code>) · Go · Skip for now. The pane opens under the map in the same spot the Walk-in board opens — <code>SetupFloorMap.tsx</code>'s existing <code>expandable</code>/<code>expanded</code> mechanic, extended to a small ⓘ corner on every tile; the tile body itself still navigates as today — never a sheet, never a navigation (law 2) — and "← Back" closes it.</td></tr>
+    <tr><td>Three number cards (Boxes confirmed · Cost gaps · Counted) between the agent card and the outcomes.</td><td><b>Open question</b> (A or B below). Each repeats a tile: Costing's detail is boxes/dishes confirmed; Back door's detail is the cost-gap card count (<code>cardsLeft</code>); Count's detail is the opening count.</td></tr>
+    <tr><td>"Is this store actually running on this yet?" (O1–O7) and the Go live card.</td><td>Stay as they are — the outcomes are results, not tile states; Go live is the only action on this page that is not a tile (#693).</td></tr>
+    <tr><td>Per-POS directions appear only while the POS items/sales ask is the agent's CURRENT ask (<code>SetupAgentSession.tsx</code>'s <code>posStage</code>). Browsing the strip to Items/Sales otherwise shows "Your items — already done / not reached yet."</td><td><b>C.</b> A <code>PosStepBody</code> (sibling of <code>VendorStepBody.tsx</code>) renders the Items and Sales steps every time, for the POS the intake named (<code>settings.onboarding.pos</code> → <code>connectors/posGuides.ts</code>): Toast asks the one question first (F3), then connect steps + credential fields (F4) or export steps + drop zone (F5); every other POS goes straight to export + drop zone with one honest ⓘ line (F6); a done step shows what landed above the same directions, collapsed, so a newer export is still welcome (F7).</td></tr>
   </table>
 
-  <h2>The eight checks (screens.md §0)</h2>
+  <h2>Where every piece of a section card goes</h2>
+  <table>
+    <tr><th>On the card today</th><th>New home</th></tr>
+    <tr><td>Title · status pill</td><td>The tile's name and ring (already there).</td></tr>
+    <tr><td>whatHappens (one sentence)</td><td>Dropped from the screen (check 2) — its facts are the tile's detail; the ⓘ pane's rows carry the rest.</td></tr>
+    <tr><td>ⓘ what you need / how long / done means</td><td>The tile's ⓘ pane (F2), three icon-led rows.</td></tr>
+    <tr><td>GuideCards (outside steps)</td><td>Stations with a strip: inside the matching step pane (Items/Sales → the per-POS steps, F3–F7; Back door → the Catalog/Invoices panes, already built in #992). Stations with no strip (Till, Team, Money, Online, Count): the tile's ⓘ pane (F2).</td></tr>
+    <tr><td>Go</td><td>Tapping the tile itself (unchanged) and a Go button in the ⓘ pane.</td></tr>
+    <tr><td>Skip for now</td><td>A ghost action in the ⓘ pane (F2) — the same <code>POST /tenant/onboarding/skip {section}</code> write; the OPEN card's "Still skipped" line still names it (F1).</td></tr>
+    <tr><td><code>guides[]</code> keys <code>menu-without-api</code>, <code>fill-the-gaps</code></td><td>Covered by the Items pane's own POS directions (F4's "Connected, Veritill reads items, menu and sales itself"; F7's "Check the 6" on the held items), so they drop from <code>GUIDES_BY_SECTION</code>. Every other key stays data in <code>guides.ts</code>. The only API-visible change, documented in api-design.</td></tr>
+  </table>
+
+  <h2>The one decision for Kiran — the three number cards</h2>
+  <div class="opt rec">
+    <h4>Option A (recommended) — the three number cards go too; only the O1–O7 card stays</h4>
+    <p style="margin:0">Why: each of the three repeats a number already on a tile (Costing, Back door, Count), and screens.md §0 check 7 calls two homes for one number a defect; the O1–O7 rows keep the same facts as outcomes beside the other six, so nothing is lost.</p>
+  </div>
+  <div class="opt">
+    <h4>Option B — they stay</h4>
+    <p style="margin:0">Three more cards between the agent and the outcomes; a Confirm / Fix / Continue button each — the same taps the Costing, Back door and Count tiles already offer.</p>
+  </div>
+
+  <h2>The checks (screens.md §0)</h2>
   <table>
     <tr><th>#</th><th>Check</th><th>Score</th><th>Evidence</th></tr>
-    <tr><td>1</td><td>One job, action visible</td><td class="ok">✓</td><td>One Next chip at the top; one button per tile's own panel (Go to Till and scale / We're open).</td></tr>
-    <tr><td>2</td><td>No paragraphs</td><td class="ok">✓</td><td>Every ⓘ fact is one short line; guide steps are ≤12 words each (unchanged from #534).</td></tr>
-    <tr><td>3</td><td>A picture on every row, the same everywhere</td><td class="ok">✓</td><td>Reuses the shipped tile icons and <code>GuideCards</code>' own icon-per-step rows — nothing new to draw.</td></tr>
-    <tr><td>4</td><td>≤ 7 things on a phone</td><td class="ok">✓</td><td>Phone 2: chip, progress line, 10 tiles (one glance), one agent row, one outcomes card, one Go-live card — the nine section cards and three number cards are exactly what this trims away.</td></tr>
-    <tr><td>5</td><td>Under 300 ms</td><td class="ok">✓</td><td>No new read anywhere — every fact shown already rides on the one <code>GET /tenant/onboarding</code> call this page already makes.</td></tr>
-    <tr><td>6</td><td>A way back</td><td class="ok">✓</td><td>← Back closes a tile's own panel (phone 3); ← Back door returns from the POS strip to the agent's current ask (phone 4).</td></tr>
-    <tr><td>7</td><td>One home per function</td><td class="ok">✓</td><td>A section's state now lives in exactly one place — its tile — instead of a tile AND a card saying the same thing twice.</td></tr>
-    <tr><td>8</td><td>As few screens as possible</td><td class="ok">✓</td><td>Zero new screens; one small extension to <code>SetupFloorMap.tsx</code>'s existing expand mechanic, one new small component (<code>PosStepBody</code>) beside the existing <code>VendorStepBody</code>.</td></tr>
+    <tr><td>1</td><td>One job, action visible</td><td class="ok">✓</td><td>One ask under the strip, one primary button per frame (Read this invoice / Yes / Connect / Read this file / Done · Sales); the Next chip is sticky.</td></tr>
+    <tr><td>2</td><td>No paragraphs</td><td class="ok">✓</td><td>Every line ≤ 12 words; what you need / how long / done means are icon rows behind a tile's ⓘ; the "Setup progress" explainer sentence is gone with its card.</td></tr>
+    <tr><td>3</td><td>A picture on every row, the same everywhere</td><td class="tri">△</td><td>Tiles and strip reuse the shipped icon files. New meanings needing a file before build: <code>plug</code> (connect), <code>sales</code> (the Sales step), <code>file</code> (an export). Guide step icons are the emoji the data in <code>guides.ts</code>/<code>posGuides.ts</code> already carries — a stopgap, as there.</td></tr>
+    <tr><td>4</td><td>≤ 7 things on a phone</td><td class="ok">✓</td><td>Below the map: the agent card · (A) the O1–O7 card · the OPEN card — three things where today there are fourteen (agent, 3 numbers, outcomes, Setup progress, 7–9 sections, Go live). In the agent card: did line · strip · ask · one work block · one button · skip.</td></tr>
+    <tr><td>5</td><td>Under 300 ms</td><td class="ok">✓</td><td>No new read: tiles, percent, ⓘ rows, guides and the POS kind all ride on the <code>GET /tenant/onboarding</code> payload the page already loads; fewer cards to paint.</td></tr>
+    <tr><td>6</td><td>A way back</td><td class="ok">✓</td><td>Settings at the top; "← Back" closes a ⓘ pane; "Back to the question" inside the POS pane; every strip tile is a tap back; the Next chip always returns to the agent's own pick.</td></tr>
+    <tr><td>7</td><td>One home per function</td><td class="ok">✓</td><td>One percent (the OPEN tile + line, same number), one place per section's facts (its tile + ⓘ), one place for a POS's directions (its step pane). Option A removes the last three duplicated numbers.</td></tr>
+    <tr><td>8</td><td>As few screens as possible</td><td class="ok">✓</td><td>Zero new screens; one pane (the tile ⓘ) and one component (<code>PosStepBody</code>) added; two blocks (Setup progress, section cards) removed.</td></tr>
+    <tr><td>9</td><td>For someone who does not read</td><td class="ok">✓</td><td>Where am I: the caret under the tapped tile. What is happening: the ring (done / now / skipped) and the OPEN tile's percent. What next: the one primary button. Yes / No / Not sure are three buttons, not a form.</td></tr>
+    <tr><td>10</td><td>The first five minutes are walked</td><td class="tri">△</td><td>After the build: walk both fresh personas on staging; <code>first-five-minutes.spec.ts</code> / <code>first-day.spec.ts</code> drop their Setup-progress-bar and section-card assertions and gain the OPEN-tile percent, the tile ⓘ, and the POS pane's connect-or-export branches.</td></tr>
   </table>
 
-  <h2>Not in scope / named follow-ups</h2>
-  <p>No API change beyond documenting the two dropped guide keys; no migration. "Which POS was named at intake" and its guide (<code>connectors/posGuides.ts</code>) already exist — this only gives them a permanent home instead of a transient one tied to being the current ask. The three number cards' exact fate (removed outright vs. folded into their own tile's ⓘ) is the one open call on this issue — this mockup proposes removing them outright, since every number already has a tile.</p>
-  <p style="margin:0;color:var(--muted);font-size:12px">Example data only — invented vendor/POS names, no client records. — lane-worker (agent run)</p>
+  <h2>About this version</h2>
+  <p>Revised from the five-frame version published earlier today (commit <code>e73e1a2</code>, kept in git history): adds the ghosts of every removed block in F1, the Toast "No" branch (F5) and the done-state Items step (F7) as their own frames, and the A/B question on the three number cards, which the brief asks Kiran to decide rather than the mockup.</p>
+  <h2>Where every number already comes from</h2>
+  <p><code>GET /tenant/onboarding</code>: <code>checklist.percent</code> + <code>sections[]</code> draw the progress line AND the OPEN tile's percent/steps-left (<code>journeyProgress</code>, one function); <code>sections[].whatYouNeed / timeEstimate / doneMeans / guides / skippable</code> fill a tile's ⓘ pane; <code>vendors[]</code> draws the Back door strip; <code>nextAsk.fix.posKind / posLabel / posGuide</code> (issue #532) name the POS and its connect/check/export steps — <code>PosStepBody</code> reads the same fields off <code>settings.onboarding.pos</code> when browsing to a step that is not the current ask; <code>catalogShelved {published, staged}</code> (#479) is the "271 on shelves · 6 held" line; <code>askHistory[]</code> names Items/Sales as done. Nothing here needs a migration or a new route.</p>
+  <p style="margin:0;color:var(--muted);font-size:12px">Example data only — invented businesses and vendors, no client names or records. — screen-agent (agent run)</p>
 </div>
 </div>
 </body>
