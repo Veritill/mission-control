@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #992 — Setup agent: the subtask strip (per vendor catalog → check → invoices, the work inline, back and forth by tap)</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2; --skip: #8a8f88;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 10px; text-align: center; }
+  .legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 0 auto 22px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .wrap { max-width: 1480px; margin: 0 auto; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; }
+  .col { width: 320px; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; text-align: center; font-weight: 600; min-height: 36px; line-height: 1.3; }
+  .col h3 b { display: block; color: var(--ink); }
+  .phone { width: 320px; height: 760px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .iconbtn { height: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--chip); border: none; border-radius: 8px; font-size: 11.5px; color: var(--ink); flex: none; padding: 0 8px; font-weight: 600; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .body-pad { flex: 1; overflow-y: auto; padding: 0 12px 14px; }
+
+  /* law 1: the sticky Next chip */
+  .nextbar { position: sticky; top: 0; z-index: 2; background: var(--paper); padding: 8px 0; border-bottom: 1px solid var(--rule); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; border: 1px solid var(--green); background: var(--green); color: #fff; text-decoration: none; white-space: nowrap; }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 600; }
+  .btn.sm { padding: 5px 10px; font-size: 12px; }
+  .btn.full { width: 100%; }
+  .nextbar .btn { max-width: 100%; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .nextbar .spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--rule); border-top-color: var(--green); flex: none; }
+  .progress { font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+
+  /* icons: the shipped line-icon files inlined as symbols, recoloured by currentColor exactly as Icon.tsx does */
+  .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .ic.s { width: 15px; height: 15px; }
+  .ic.xs { width: 12px; height: 12px; }
+
+  /* the main tiles — SetupFloorMap's own look, 4 to a phone row */
+  .map { display: flex; flex-wrap: wrap; gap: 10px 8px; margin-bottom: 10px; }
+  .tile { width: 64px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; position: relative; }
+  .ring { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--rule); color: var(--muted); display: flex; align-items: center; justify-content: center; background: transparent; position: relative; }
+  .ring.done { background: var(--green); border-color: var(--green); color: #fff; }
+  .ring.now { border-color: var(--green); color: var(--green); border-width: 2.5px; box-shadow: 0 0 0 3px var(--green-soft); }
+  .ring.skip { border-style: dashed; border-color: var(--skip); color: var(--skip); }
+  .tile .tn { font-size: 10px; font-weight: 700; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 64px; }
+  .tile .tv { font-size: 9px; color: var(--muted); line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 64px; }
+  .tile .sw { font-size: 9px; color: var(--skip); line-height: 1; }
+  .tile .sw.now { color: var(--green); font-weight: 700; }
+  /* "you're here" — the tile the person tapped; a caret points at the row it opened below */
+  .tile.sel .ring { border-color: var(--ink); color: var(--ink); border-width: 2.5px; }
+  .tile.sel .ring.now { color: var(--green); border-color: var(--green); }
+  .tile.sel::after { content: ""; position: absolute; left: 50%; bottom: -11px; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--rule); }
+  .tile.sel .tn { color: var(--ink); }
+
+  /* the agent card */
+  .agentcard { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px 10px; margin-bottom: 10px; }
+  .agenthead { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .agenthead .av { width: 26px; height: 26px; border-radius: 8px; background: var(--green-soft); display: flex; align-items: center; justify-content: center; font-size: 15px; flex: none; }
+  .agenthead .nm { font-weight: 700; font-size: 12.5px; flex: 1; }
+  .agenthead .pill { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green); flex: none; }
+  .agenthead .pause { font-size: 11px; color: var(--muted); border: 1px solid var(--rule); border-radius: 8px; padding: 2px 7px; }
+  .didline { font-size: 11.5px; color: var(--muted); background: var(--chip); border-radius: 9px; padding: 6px 9px; margin-bottom: 9px; display: flex; gap: 6px; align-items: center; }
+  .didline .ic { color: var(--green); }
+
+  /* THE SUBTASK STRIP (new) — same visual language as the main tiles, smaller, with a group label */
+  .strip { border-top: 1px solid var(--rule); padding-top: 8px; margin-bottom: 8px; }
+  .striplabel { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; margin: 0 0 6px; display: flex; align-items: center; gap: 6px; }
+  .striplabel .ic { width: 13px; height: 13px; }
+  .striprow { display: flex; gap: 8px; margin-bottom: 10px; }
+  .striprow.steps { background: var(--chip); border-radius: 12px; padding: 8px 6px 6px; margin-bottom: 4px; }
+  .mini { width: 80px; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; position: relative; flex: none; }
+  .mini .ring { width: 34px; height: 34px; }
+  .mini .tn { font-size: 10px; font-weight: 700; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
+  .mini .tv { font-size: 9px; color: var(--muted); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .mini .sw { font-size: 9px; color: var(--skip); line-height: 1; }
+  .mini .sw.now { color: var(--green); font-weight: 700; }
+  .mini.sel .ring { border-color: var(--ink); color: var(--ink); border-width: 2.5px; }
+  .mini.sel .ring.now { color: var(--green); border-color: var(--green); }
+  .mini.sel .ring.done { color: #fff; }
+  .mini.sel::after { content: ""; position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--chip); }
+  .initials { font-size: 11.5px; font-weight: 800; letter-spacing: .02em; }
+  .ring.v1 { background: #e3efe6; border-color: #c7dccd; color: #2f7d4f; }
+  .ring.v2 { background: var(--saffron-soft); border-color: #ead7bf; color: var(--saffron); }
+  .ring.v3 { background: #e4ecf5; border-color: #cbd8e8; color: #35557a; }
+  .ring.now.v1, .ring.now.v2, .ring.now.v3 { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+  .mini.sel .ring.v1, .mini.sel .ring.v2, .mini.sel .ring.v3 { border-color: var(--ink); }
+  .mini.sel .ring.now.v1, .mini.sel .ring.now.v2, .mini.sel .ring.now.v3 { border-color: var(--green); }
+  .dots { display: flex; gap: 3px; margin-top: 1px; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; border: 1.3px solid var(--rule); display: block; }
+  .dots i.d { background: var(--green); border-color: var(--green); }
+  .dots i.n { border-color: var(--green); }
+  .dots i.k { border-style: dashed; border-color: var(--skip); }
+  .badge { position: absolute; top: -4px; right: -4px; width: 14px; height: 14px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; }
+  .badge .ic { width: 9px; height: 9px; stroke-width: 2.5; }
+
+  /* the work area of the current subtask */
+  .ask { font-size: 14px; font-weight: 700; line-height: 1.3; margin: 2px 0 2px; display: flex; gap: 7px; align-items: center; }
+  .ask .ic { color: var(--green); }
+  .whytap { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .whytap .i { width: 14px; height: 14px; border-radius: 50%; border: 1.4px solid var(--muted); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex: none; }
+  .drop { border: 1.5px dashed var(--rule); border-radius: 12px; padding: 10px; text-align: center; margin-bottom: 8px; background: var(--paper); }
+  .drop .choices { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px; }
+  .choice { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: var(--ink); width: 72px; }
+  .choice .box { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; color: var(--green); }
+  .out { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--chip-ink); background: var(--green-soft); border-radius: 9px; padding: 6px 9px; margin-bottom: 8px; }
+  .out .ic { color: var(--green); }
+  .out b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .line { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--muted); margin-bottom: 7px; }
+  .line b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .line .sp { flex: 1; }
+  .line .tap { color: var(--green); font-weight: 700; font-size: 11px; }
+  .gold { display: flex; align-items: center; gap: 7px; font-size: 11.5px; background: var(--saffron-soft); border-radius: 9px; padding: 6px 9px; margin-bottom: 8px; color: var(--chip-ink); }
+  .gold .star { color: var(--saffron); font-size: 13px; }
+  .gold b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .gold .sp { flex: 1; }
+  .actions { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+  .actions .sp { flex: 1; }
+  .skipbtn { font-size: 11.5px; color: var(--muted); border: none; background: none; font-weight: 600; padding: 0; }
+
+  /* the wizard page (pages of ten) */
+  .wiz { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
+  .wiz .ph { display: flex; align-items: center; gap: 6px; padding: 6px 9px; font-size: 11px; color: var(--muted); background: var(--chip); font-variant-numeric: tabular-nums; }
+  .wiz .ph b { color: var(--ink); }
+  .wiz .ph .sp { flex: 1; }
+  .wrow { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-top: 1px solid var(--rule); }
+  .wrow .pic { width: 30px; height: 30px; border-radius: 8px; background: var(--chip); display: flex; align-items: center; justify-content: center; font-size: 16px; flex: none; }
+  .wrow .wt { flex: 1; min-width: 0; }
+  .wrow .n { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wrow .m { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wrow .m .g { color: var(--saffron); }
+  .wrow .ok { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid var(--rule); display: flex; align-items: center; justify-content: center; color: var(--muted); flex: none; }
+  .wrow .ok.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .wrow .more { font-size: 10.5px; color: var(--muted); text-align: center; width: 100%; }
+
+  /* enrich progress (#983's card) */
+  .prog { border: 1px solid var(--rule); border-radius: 12px; padding: 8px 10px; margin-bottom: 8px; }
+  .prog .t { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .prog .bar { height: 8px; border-radius: 4px; background: var(--chip); overflow: hidden; margin-bottom: 5px; }
+  .prog .bar i { display: block; height: 100%; background: var(--green); border-radius: 4px; }
+  .prog .nums { display: flex; gap: 10px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; flex-wrap: wrap; }
+  .prog .nums b { color: var(--ink); }
+
+  /* the history list */
+  .hist { border-top: 1px solid var(--rule); padding-top: 6px; }
+  .hist .hh { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 4px; font-weight: 700; }
+  .hrow { display: flex; align-items: center; gap: 7px; font-size: 11.5px; padding: 4px 0; }
+  .hrow .ic { color: var(--green); }
+  .hrow .ic.k { color: var(--skip); }
+  .hrow .ht { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hrow .ho { color: var(--muted); font-size: 10.5px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hrow .tm { color: var(--muted); font-size: 10.5px; font-variant-numeric: tabular-nums; flex: none; }
+  .hrow .res { font-size: 10.5px; color: var(--green); font-weight: 700; border: 1px solid var(--rule); border-radius: 7px; padding: 1px 6px; flex: none; }
+
+  /* flat alternative strip */
+  .flat { display: flex; gap: 6px; overflow: hidden; padding: 8px 6px 6px; background: var(--chip); border-radius: 12px; margin-bottom: 8px; position: relative; }
+  .flat::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 46px; background: linear-gradient(90deg, rgba(241,239,232,0), var(--chip)); }
+  .grp { display: flex; flex-direction: column; gap: 3px; flex: none; }
+  .grp .gl { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; padding-left: 2px; }
+  .grp .gr { display: flex; gap: 4px; }
+  .grp .mini { width: 48px; }
+  .grp .mini .tn { max-width: 48px; font-size: 9px; }
+
+  /* notes under the stage */
+  .notes { max-width: 1120px; margin: 34px auto 0; background: var(--card); border: 1px solid var(--rule); border-radius: 16px; padding: 18px 20px; }
+  .notes h2 { font-size: 16px; margin: 0 0 8px; }
+  .notes h2 + p { margin-top: 0; }
+  .notes p, .notes li { font-size: 13.5px; color: var(--chip-ink); }
+  .notes table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 8px 0 16px; }
+  .notes th, .notes td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--rule); vertical-align: top; }
+  .notes th { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-top: none; }
+  .notes code { font-size: 12px; background: var(--chip); border-radius: 5px; padding: 1px 5px; }
+  .ok { color: var(--green); font-weight: 700; }
+  .tri { color: var(--saffron); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-business" viewBox="0 0 24 24"><path d="M4 9.5 5 4.5h14l1 5"/><path d="M4 9.5c0 1.2 1 2 2 2s2-.8 2-2 1-2 2-2 2 .8 2 2 1 2 2 2 2-.8 2-2 1-2 2-2 2 .8 2 2"/><path d="M5 11.3V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7.7"/><path d="M9.5 20v-5h5v5"/></symbol>
+  <symbol id="i-vendors" viewBox="0 0 24 24"><path d="M4 9 12 5l8 4-8 4-8-4Z"/><path d="M4 9v7l8 4 8-4V9"/><path d="M12 13v7"/></symbol>
+  <symbol id="i-ingredients" viewBox="0 0 24 24"><path d="M4 10h16l-1.5 9a1 1 0 0 1-1 .8H6.5a1 1 0 0 1-1-.8L4 10Z"/><path d="M4 10l2-4h12l2 4"/><path d="M9 10v9M15 10v9"/></symbol>
+  <symbol id="i-prep" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="6" rx="1.5"/><path d="M6 13 16 4.5c1-.9 2.5-.2 2.2 1.1L17 10.5 7.5 13"/></symbol>
+  <symbol id="i-pass" viewBox="0 0 24 24"><path d="M3.5 7h17"/><path d="M7 7v6.5a1 1 0 0 0 1 1h2.5l1 2 1-2H15a1 1 0 0 0 1-1V7"/></symbol>
+  <symbol id="i-costing" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M8 7h8"/><circle cx="8.3" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="12" r="0.6" fill="currentColor" stroke="none"/><circle cx="8.3" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="15.5" r="0.6" fill="currentColor" stroke="none"/><circle cx="8.3" cy="19" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="0.6" fill="currentColor" stroke="none"/><circle cx="15.7" cy="19" r="0.6" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-register" viewBox="0 0 24 24"><path d="M5.5 10 7 4.5h10l1.5 5.5"/><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M4 14.5h16"/><path d="M12 10v4.5"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M15.3 13a4.6 4.6 0 0 1 5.2 4.3"/></symbol>
+  <symbol id="i-money" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10"/><path d="M14.5 9.3c-.4-.9-1.4-1.3-2.5-1.3-1.5 0-2.7.8-2.7 2s1.1 1.7 2.7 2c1.6.3 2.7.9 2.7 2.1s-1.2 2-2.7 2c-1.2 0-2.2-.5-2.6-1.4"/></symbol>
+  <symbol id="i-golive" viewBox="0 0 24 24"><path d="M8 3h9a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8"/><path d="M8 3 4 5v14l4 2"/><circle cx="14.5" cy="12" r="0.7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-shelves" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M3.5 9.5h17M3.5 15.5h17"/><path d="M8 6.5v3M14 6.5v3M8 12.5v3M17 12.5v3"/></symbol>
+  <symbol id="i-count" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M3.5 10h17M3.5 15h17"/><circle cx="8" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="12.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-online" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.5 2.3 4 5.3 4 8.5s-1.5 6.2-4 8.5c-2.5-2.3-4-5.3-4-8.5s1.5-6.2 4-8.5Z"/></symbol>
+  <symbol id="i-pricing" viewBox="0 0 24 24"><path d="M12.5 3.5h5a1 1 0 0 1 1 1v5a1 1 0 0 1-.3.7l-8.8 8.8a1 1 0 0 1-1.4 0l-5.2-5.2a1 1 0 0 1 0-1.4l8.8-8.8a1 1 0 0 1 .7-.3Z"/><circle cx="15.5" cy="7.5" r="1.3"/></symbol>
+  <symbol id="i-invoices" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h6M9 8.5h2"/></symbol>
+  <symbol id="i-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5a1 1 0 0 1 1-1h2.2l1-1.7a1 1 0 0 1 .9-.5h5.8a1 1 0 0 1 .9.5l1 1.7H19a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><circle cx="12" cy="13" r="3.3"/></symbol>
+  <symbol id="i-products" viewBox="0 0 24 24"><path d="M6 8h12l-1 12.5a1 1 0 0 1-1 .9H8a1 1 0 0 1-1-.9L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-verify" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 4.5V3h6v1.5"/><path d="M8.5 13 11 15.5l4.5-5"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M12 17v-6M9.5 13.5 12 11l2.5 2.5"/></symbol>
+  <symbol id="i-paste" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 4.5V3h6v1.5"/><path d="M9 11h6M9 14.5h6M9 18h4"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 9-12h-6l1-6Z"/></symbol>
+</svg>
+
+<h1 class="page">Mockup #992 — Setup agent: the subtasks live inside the agent section</h1>
+<p class="lede">Tap a main task; its subtasks appear as a strip at the top of the Setup agent card, and the work itself happens right under the strip. No vendor list section anywhere. Tap any subtask tile to go back or forward.</p>
+<div class="legend">
+  <span><i class="ring done" style="width:14px;height:14px;border-width:1.5px"></i> done</span>
+  <span><i class="ring now" style="width:14px;height:14px;border-width:1.5px;box-shadow:0 0 0 2px var(--green-soft)"></i> now (the agent's pick)</span>
+  <span><i class="ring skip" style="width:14px;height:14px;border-width:1.5px"></i> skipped</span>
+  <span><i class="ring" style="width:14px;height:14px;border-width:1.5px"></i> later</span>
+  <span><i style="display:inline-block;border:5px solid transparent;border-bottom-color:var(--rule);width:0;height:0"></i> you're here (what you tapped)</span>
+</div>
+
+<div class="wrap">
+<div class="stage">
+
+<!-- ===================== PHONE 1: back door tapped — Metro Produce · Upload catalog ===================== -->
+<div class="col">
+  <h3><b>1 · Back door tapped</b> Metro Produce · upload its catalog (the agent's own next ask)</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Upload Metro Produce's catalog</a></div>
+      <div class="progress">2 of 10 steps · 20% of your own facts · ~95 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Set up 404 families · 61 prep boxes</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors</div>
+          <div class="striprow">
+            <div class="mini sel"><span class="ring now v1"><span class="initials">MP</span></span><span class="tn">Metro Produce</span><span class="dots"><i class="n"></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+            <div class="mini"><span class="ring v2"><span class="initials">SR</span></span><span class="tn">Spice Route</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+            <div class="mini"><span class="ring v3"><span class="initials">HD</span></span><span class="tn">Harbor Dairy</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+          </div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-verify"/></svg></span><span class="tn">Check</span><span class="sw">Later</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+
+        <div class="ask"><svg class="ic"><use href="#i-vendors"/></svg> Upload Metro Produce's catalog</div>
+        <div class="whytap"><span class="i">i</span> why this first</div>
+        <div class="drop">
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-camera"/></svg></span>A photo</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
+          </div>
+          <a class="btn full">Read this file</a>
+        </div>
+        <div class="actions"><span class="sp"></span><span class="skipbtn">Skip for now</span></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 2: Metro Produce · Check — the wizard inline, other vendors still reachable ===================== -->
+<div class="col">
+  <h3><b>2 · Check is now</b> Metro Produce · the ⚡ wizard inline; Spice Route and Harbor Dairy one tap away above it</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Check Metro Produce's catalog</a></div>
+      <div class="progress">2 of 10 steps · 24% of your own facts · ~80 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Read Metro Produce's 277 rows · AI filled 241</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors</div>
+          <div class="striprow">
+            <div class="mini sel"><span class="ring now v1"><span class="initials">MP</span></span><span class="tn">Metro Produce</span><span class="dots"><i class="d"></i><i class="n"></i><i></i></span><span class="tv">1 of 3</span></div>
+            <div class="mini"><span class="ring v2"><span class="initials">SR</span></span><span class="tn">Spice Route</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+            <div class="mini"><span class="ring v3"><span class="initials">HD</span></span><span class="tn">Harbor Dairy</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+          </div>
+          <div class="striprow steps">
+            <div class="mini"><span class="ring done"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span><span class="tv">277 rows</span></div>
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-verify"/></svg></span><span class="tn">Check</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+
+        <div class="ask"><svg class="ic"><use href="#i-spark"/></svg> Check Metro Produce's catalog</div>
+        <div class="gold"><span class="star">⭐</span> <b>0 of 277</b> gold<span class="sp"></span><span style="font-size:11px">AI filled <b>241</b> · you check</span></div>
+        <div class="wiz">
+          <div class="ph"><b>Page 1 of 28</b><span class="sp"></span>10 items · published <b>0</b></div>
+          <div class="wrow"><span class="pic">🥬</span><div class="wt"><div class="n">Cilantro, bunch</div><div class="m">Produce · Herbs · <span class="g">1 ea</span> · Cooler</div></div><span class="ok on"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="pic">🧅</span><div class="wt"><div class="n">Red onion</div><div class="m">Produce · Onions · <span class="g">25 lb</span> · Dry</div></div><span class="ok on"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="pic">🌶️</span><div class="wt"><div class="n">Green chilli, Thai</div><div class="m">Produce · Chillies · <span class="g">5 lb</span> · Cooler</div></div><span class="ok"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="pic">🫚</span><div class="wt"><div class="n">Ginger</div><div class="m">Produce · Roots · <span class="g">30 lb</span> · Dry</div></div><span class="ok"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="more">6 more on this page ↓</span></div>
+        </div>
+        <a class="btn full">Accept &amp; continue <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 3: Metro Produce · Invoices — the previous step's output first, then the drop zone ===================== -->
+<div class="col">
+  <h3><b>3 · Invoices is now</b> Metro Produce · last step's output in numbers (law 2), the gold line inside this vendor's own step</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Metro Produce's invoices</a></div>
+      <div class="progress">2 of 10 steps · 31% of your own facts · ~70 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">38 of 404 mapped</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Published Metro Produce's 271 items</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors</div>
+          <div class="striprow">
+            <div class="mini sel"><span class="ring now v1"><span class="initials">MP</span></span><span class="tn">Metro Produce</span><span class="dots"><i class="d"></i><i class="d"></i><i class="n"></i></span><span class="tv">2 of 3</span></div>
+            <div class="mini"><span class="ring v2"><span class="initials">SR</span></span><span class="tn">Spice Route</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+            <div class="mini"><span class="ring v3"><span class="initials">HD</span></span><span class="tn">Harbor Dairy</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+          </div>
+          <div class="striprow steps">
+            <div class="mini"><span class="ring done"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span><span class="tv">277 rows</span></div>
+            <div class="mini"><span class="ring done"><svg class="ic"><use href="#i-verify"/></svg></span><span class="tn">Check</span><span class="tv">271 live</span></div>
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span><span class="sw now">Now</span></div>
+          </div>
+        </div>
+
+        <div class="out"><svg class="ic s"><use href="#i-done"/></svg> Published <b>271 of 277</b> · 6 held</div>
+        <div class="gold"><span class="star">⭐</span> <b>271 of 277</b> gold<span class="sp"></span><a class="btn sm ghost">Make these gold</a></div>
+        <div class="ask"><svg class="ic"><use href="#i-invoices"/></svg> Metro Produce's invoices</div>
+        <div class="line"><b>1</b> invoice loaded · <b>41 of 58</b> lines costable<span class="sp"></span><span class="tap">ⓘ</span></div>
+        <div class="drop">
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-camera"/></svg></span>A photo</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
+          </div>
+          <a class="btn full">Read this invoice</a>
+        </div>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span><a class="btn sm ghost">Done · Spice Route <svg class="ic xs"><use href="#i-next"/></svg></a></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 4: back and forth — Spice Route tapped by hand while Metro's Check is the agent's now ===================== -->
+<div class="col">
+  <h3><b>4 · Back and forth</b> You tapped Spice Route while the agent's pick is still Metro's Check — both visible, Next chip takes you back</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Check Metro Produce's catalog</a></div>
+      <div class="progress">2 of 10 steps · 24% of your own facts · ~80 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Read Metro Produce's 277 rows · AI filled 241</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors</div>
+          <div class="striprow">
+            <div class="mini"><span class="ring now v1"><span class="initials">MP</span></span><span class="tn">Metro Produce</span><span class="dots"><i class="d"></i><i class="n"></i><i></i></span><span class="tv">1 of 3</span></div>
+            <div class="mini sel"><span class="ring v2"><span class="initials">SR</span></span><span class="tn">Spice Route</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+            <div class="mini"><span class="ring v3"><span class="initials">HD</span></span><span class="tn">Harbor Dairy</span><span class="dots"><i></i><i></i><i></i></span><span class="tv">0 of 3</span></div>
+          </div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span><span class="sw">Not yet</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-verify"/></svg></span><span class="tn">Check</span><span class="sw">Later</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+
+        <div class="ask"><svg class="ic"><use href="#i-vendors"/></svg> Upload Spice Route Wholesale's catalog</div>
+        <div class="whytap"><span class="i">i</span> what a catalog gives you</div>
+        <div class="drop">
+          <div class="choices">
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-file"/></svg></span>A file</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-camera"/></svg></span>A photo</div>
+            <div class="choice"><span class="box"><svg class="ic"><use href="#i-paste"/></svg></span>Paste</div>
+          </div>
+          <a class="btn full">Read this file</a>
+        </div>
+        <div class="actions"><span class="skipbtn">Skip for now</span><span class="sp"></span><a class="btn sm ghost"><svg class="ic xs"><use href="#i-back"/></svg> Metro Produce</a></div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 5: a main task with no subtasks — Team — exactly as today, no strip; history shown ===================== -->
+<div class="col">
+  <h3><b>5 · No subtasks (Team)</b> Behaves exactly as today: one ask, no strip; the History list keeps every answered vendor step</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Who works here?</a></div>
+      <div class="progress">7 of 10 steps · 70% of your own facts · ~25 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="tv">2 of 3 vendors</span></div>
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">404 mapped</span></div>
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">48 dishes</span></div>
+        <div class="tile"><span class="ring skip"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="sw">Skipped</span><span class="tv">12 of 61 boxes</span></div>
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">1 register</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="sw now">Now</span><span class="tv">Just you</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Enrolled your register · costed 48 dishes</div>
+
+        <div class="ask"><svg class="ic"><use href="#i-team"/></svg> Who works here?</div>
+        <div class="whytap"><span class="i">i</span> why a team matters</div>
+        <a class="btn full">Invite a teammate</a>
+        <div class="actions"><span class="sp"></span><span class="skipbtn">Skip for now</span></div>
+
+        <div class="hist" style="margin-top:10px">
+          <div class="hh"><span>History</span><span>7 answered · 1 skipped</span></div>
+          <div class="hrow"><svg class="ic s"><use href="#i-done"/></svg><span class="ht">Metro Produce's catalog<span class="ho">Published 271 of 277 · 6 held</span></span><span class="tm">10:12</span></div>
+          <div class="hrow"><svg class="ic s"><use href="#i-done"/></svg><span class="ht">Metro Produce's invoices<span class="ho">2 invoices · 41 of 58 lines costable</span></span><span class="tm">10:31</span></div>
+          <div class="hrow"><svg class="ic s k"><use href="#i-vendors"/></svg><span class="ht" style="color:var(--skip)">Spice Route's catalog<span class="ho">Skipped</span></span><span class="res">Resume</span></div>
+          <div class="hrow"><svg class="ic s"><use href="#i-done"/></svg><span class="ht">Harbor Dairy's catalog<span class="ho">Published 92 of 92</span></span><span class="tm">11:04</span></div>
+          <div class="hrow"><span class="more" style="font-size:10.5px;color:var(--muted);width:100%;text-align:center">3 more ↓</span></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 6: grocery — the POS door: Items then Sales, the chain (read → columns → AI fills → check) inside the Items step ===================== -->
+<div class="col">
+  <h3><b>6 · Grocery · Shelves tapped</b> The POS door's own strip: Items → Sales; the one-flow chain (#901) lives inside Items</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><span class="spin"></span><span style="font-size:11.5px;color:var(--muted)">AI filling details · 120 of 277</span></div>
+      <div class="progress">1 of 10 steps · 10% of your own facts · ~110 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Grocery · Indian</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="tv">0 of 2 vendors</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-shelves"/></svg></span><span class="tn">Shelves</span><span class="sw now">Now</span><span class="tv">0 on shelves</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pricing"/></svg></span><span class="tn">Price tags</span><span class="tv">0 priced</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-count"/></svg></span><span class="tn">Count</span><span class="tv">Not started</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">35 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-online"/></svg></span><span class="tn">Online</span><span class="tv">15 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Set up 404 families · 38 aisles</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-shelves"/></svg> Shelves · from your register</div>
+          <div class="striprow steps">
+            <div class="mini sel"><span class="ring now"><svg class="ic"><use href="#i-products"/></svg></span><span class="tn">Items</span><span class="sw now">Now</span></div>
+            <div class="mini"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Sales</span><span class="sw">Later</span></div>
+          </div>
+        </div>
+
+        <div class="ask"><svg class="ic"><use href="#i-products"/></svg> Your items from the register</div>
+        <div class="out"><svg class="ic s"><use href="#i-done"/></svg> <b>277</b> items read · <b>9</b> columns understood<span class="sp" style="flex:1"></span><span class="tap">Columns</span></div>
+        <div class="prog">
+          <div class="t"><span class="spin" style="width:14px;height:14px;border-radius:50%;border:2px solid var(--rule);border-top-color:var(--green);display:inline-block"></span> AI filling details</div>
+          <div class="bar"><i style="width:43%"></i></div>
+          <div class="nums"><span><b>120</b> of 277</span><span><b>157</b> to go</span><span>about <b>4 min</b></span><span><b>$0.31</b></span></div>
+        </div>
+        <div class="line"><b>84</b> known already · <b>36</b> AI filled<span class="sp"></span><span class="tap">ⓘ</span></div>
+        <a class="btn full ghost"><svg class="ic xs"><use href="#i-spark"/></svg> Check opens when it finishes</a>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 7: the alternative shape B — one flat strip with group labels ===================== -->
+<div class="col">
+  <h3><b>Alternative B · one flat strip</b> Vendor name as a group label over its 3 tiles; 9 tiles scroll off the phone — shown so you can compare</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Settings</span><div class="titlewrap"><div class="t1">Getting started</div></div></div>
+    <div class="body-pad">
+      <div class="nextbar"><a class="btn sm">Next: Check Metro Produce's catalog</a></div>
+      <div class="progress">2 of 10 steps · 24% of your own facts · ~80 min left</div>
+      <div class="map">
+        <div class="tile"><span class="ring done"><svg class="ic"><use href="#i-business"/></svg></span><span class="tn">Your business</span><span class="tv">Restaurant · Indian</span></div>
+        <div class="tile sel"><span class="ring now"><svg class="ic"><use href="#i-vendors"/></svg></span><span class="tn">Back door</span><span class="sw now">Now</span><span class="tv">0 of 3 vendors</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-ingredients"/></svg></span><span class="tn">Walk-in</span><span class="tv">0 of 404 mapped</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-prep"/></svg></span><span class="tn">Prep</span><span class="tv">61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-pass"/></svg></span><span class="tn">The pass</span><span class="tv">No menu yet</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-costing"/></svg></span><span class="tn">Costing</span><span class="tv">0 of 61 boxes</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-register"/></svg></span><span class="tn">Till</span><span class="tv">20 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-team"/></svg></span><span class="tn">Team</span><span class="tv">10 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-money"/></svg></span><span class="tn">Money</span><span class="tv">5 min</span></div>
+        <div class="tile"><span class="ring"><svg class="ic"><use href="#i-golive"/></svg></span><span class="tn">OPEN</span><span class="tv">Last</span></div>
+      </div>
+
+      <div class="agentcard">
+        <div class="agenthead"><span class="av">🤖</span><span class="nm">Setup agent</span><span class="pill">on</span><span class="pause">Pause</span></div>
+        <div class="didline"><svg class="ic s"><use href="#i-done"/></svg> Read Metro Produce's 277 rows · AI filled 241</div>
+
+        <div class="strip">
+          <div class="striplabel"><svg class="ic"><use href="#i-vendors"/></svg> Back door · 3 vendors · 9 steps →</div>
+          <div class="flat">
+            <div class="grp"><span class="gl">Metro Produce</span><div class="gr">
+              <div class="mini"><span class="ring done"><svg class="ic s"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span></div>
+              <div class="mini sel"><span class="ring now"><svg class="ic s"><use href="#i-verify"/></svg></span><span class="tn">Check</span></div>
+              <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span></div>
+            </div></div>
+            <div class="grp"><span class="gl">Spice Route Wholesale</span><div class="gr">
+              <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span></div>
+              <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-verify"/></svg></span><span class="tn">Check</span></div>
+              <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-invoices"/></svg></span><span class="tn">Invoices</span></div>
+            </div></div>
+            <div class="grp"><span class="gl">Harbor Dairy Co.</span><div class="gr">
+              <div class="mini"><span class="ring"><svg class="ic s"><use href="#i-vendors"/></svg></span><span class="tn">Catalog</span></div>
+            </div></div>
+          </div>
+        </div>
+
+        <div class="ask"><svg class="ic"><use href="#i-spark"/></svg> Check Metro Produce's catalog</div>
+        <div class="gold"><span class="star">⭐</span> <b>0 of 277</b> gold<span class="sp"></span><span style="font-size:11px">AI filled <b>241</b> · you check</span></div>
+        <div class="wiz">
+          <div class="ph"><b>Page 1 of 28</b><span class="sp"></span>10 items · published <b>0</b></div>
+          <div class="wrow"><span class="pic">🥬</span><div class="wt"><div class="n">Cilantro, bunch</div><div class="m">Produce · Herbs · <span class="g">1 ea</span> · Cooler</div></div><span class="ok on"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="pic">🧅</span><div class="wt"><div class="n">Red onion</div><div class="m">Produce · Onions · <span class="g">25 lb</span> · Dry</div></div><span class="ok on"><svg class="ic xs"><use href="#i-check"/></svg></span></div>
+          <div class="wrow"><span class="more">8 more on this page ↓</span></div>
+        </div>
+        <a class="btn full">Accept &amp; continue <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+</div><!-- /stage -->
+
+<div class="notes">
+  <h2>What this changes (web only — the API already carries every number shown)</h2>
+  <table>
+    <tr><th>Today</th><th>This mockup</th></tr>
+    <tr><td>Tapping the Back door tile expands a vendor board <em>under the map</em> (<code>SetupFloorMap.tsx</code> + <code>VendorBoard.tsx</code>, one card per vendor, one button each).</td><td>Tapping a main tile with subtasks selects it and scrolls to the Setup agent card, whose top gains the <b>subtask strip</b>. No board under the map. <code>VendorBoard.tsx</code> retires; its per-state decision (<code>vendorBoard.ts</code>'s <code>catalogAction</code>/<code>invoiceAction</code>) becomes each step tile's status + work area.</td></tr>
+    <tr><td>A <code>verify</code> ask in the session says "Open in your vendor board" and jumps up to the board (issue #608).</td><td>The ⚡ wizard is hosted inline in the session again (as #594 built it), under the strip — the other vendors stay reachable as tiles above it, which was #608's whole reason. Kiran reverses #608 with today's words.</td></tr>
+    <tr><td>The Next chip for a <code>verify</code> ask carries <code>onClick</code> to open the board.</td><td>The Next chip scrolls to the session and selects the matching vendor + step tile.</td></tr>
+    <tr><td>The gold/AI line ("N of M gold · Make these gold") sits on every vendor card in the list.</td><td>It shows only inside that vendor's own Check step (phones 2–3): the count while checking, the button once published.</td></tr>
+    <tr><td>Main tiles with no subtasks link out, or (Team, Money…) the session shows one ask.</td><td>Unchanged (phone 5). The Walk-in tile's own inline board (<code>IngredientMappingBoard.tsx</code>) is also unchanged by this mockup — moving it onto the same strip is a named follow-up once this shape is confirmed.</td></tr>
+  </table>
+
+  <h2>The one decision for Kiran — the strip's shape</h2>
+  <p><b>A (recommended, phones 1–6): two rows — who, then what.</b> Row 1 is one tile per vendor (its initials, three progress dots, "1 of 3"); row 2 is the selected vendor's three steps (Catalog · Check · Invoices). Why: 3 + 3 tiles fit a phone with the names readable (check 4); any vendor or any step is one tap away in either direction; the agent's "now" and the person's "you're here" can differ without confusion (phone 4). A door with one group (the POS door, phone 6) shows row 2 only.</p>
+  <p><b>B (alternative, last phone): one flat strip,</b> the vendor name as a label over its three tiles. One row of state, but 9 tiles scroll off a phone, labels truncate, and "Harbor Dairy" is out of sight — the same hiding Kiran complained about on #601.</p>
+
+  <h2>The eight checks (screens.md §0)</h2>
+  <table>
+    <tr><th>#</th><th>Check</th><th>Score</th><th>Evidence</th></tr>
+    <tr><td>1</td><td>One job, action visible</td><td class="ok">✓</td><td>One ask under the strip, one primary button (Read this file / Accept &amp; continue / Invite).</td></tr>
+    <tr><td>2</td><td>No paragraphs</td><td class="ok">✓</td><td>Every line ≤ 12 words; "why" behind ⓘ.</td></tr>
+    <tr><td>3</td><td>A picture on every row, the same everywhere</td><td class="tri">△</td><td>Tiles reuse the shipped icon files (business, vendors, invoices, register, products…); a vendor shows its initials (its logo once one is stored). Two new meanings need an icon file before build: <code>verify</code> (the Check step) and <code>spark</code> (the ⚡ wizard, today an emoji); wizard row pictures are emoji stand-ins for the family picture.</td></tr>
+    <tr><td>4</td><td>≤ 7 things on a phone</td><td class="ok">✓</td><td>In the agent card: did line · vendor row · step row · ask · one work block · one button · skip. The main map is the existing 10 tiles (approved in #601).</td></tr>
+    <tr><td>5</td><td>Under 300 ms</td><td class="ok">✓</td><td>No new read; the strip is drawn from the same <code>GET /tenant/onboarding</code> payload the map already loads. The wizard's page load is the existing <code>VerifyWizard</code>.</td></tr>
+    <tr><td>6</td><td>A way back</td><td class="ok">✓</td><td>Settings at the top; every vendor and step tile is a tap back; "← Metro Produce" on a hand-picked vendor; the Next chip always returns to the agent's own pick.</td></tr>
+    <tr><td>7</td><td>One home per function</td><td class="ok">✓</td><td>The vendor board is removed — the agent card is the only place a vendor's setup steps are worked. The wizard has one host here plus the Import review screen's walk-in door (unchanged, as #594 already allowed).</td></tr>
+    <tr><td>8</td><td>As few screens as possible</td><td class="ok">✓</td><td>Zero new screens; one component (the strip) added to an existing card; one component (<code>VendorBoard.tsx</code>) removed.</td></tr>
+    <tr><td>9</td><td>For someone who does not read</td><td class="ok">✓</td><td>Where am I: the caret under the tapped tile. What is happening: the ring (done / now / skipped). What next: the one primary button.</td></tr>
+  </table>
+
+  <h2>Where every number already comes from</h2>
+  <p><code>GET /tenant/onboarding</code>: <code>vendors[]</code> (per named vendor: <code>catalog</code> rows/created/published/working, <code>invoices</code> count/costable, <code>skipped</code>, <code>askIds</code> for Resume — issues #607/#810) draws the vendor row and its three dots; <code>sections[]</code> draws the main tiles; <code>nextAsk</code> (with <code>fix.kind</code> upload / verify / enter-cost and <code>fix.batchId</code>) names the agent's "now" tile and the work block; <code>working</code> drives the spinner chip; <code>askHistory[]</code> (with <code>output</code>, #908) is the History list. The POS door's Items/Sales dots read off the same tiers <code>nextAsk</code> already walks (items done → the sales ask appears). Nothing here needs a migration or a new route.</p>
+  <p style="margin:0;color:var(--muted);font-size:12px">Example data only — invented vendors, no client names or records. — screen-agent (agent run)</p>
+</div>
+</div>
+</body>
+</html>
