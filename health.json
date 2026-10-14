@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-14T17:32:20.639Z",
+  "at": "2026-10-14T18:50:52.498Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 12,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 0
     },
     "core": {
       "runs": 0,
@@ -21,46 +21,34 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 12,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 1025,
-      "branch": "lane/onboarding/1015",
-      "sha": "860719f9bc920898d364f9616e03642b8408d10e"
-    }
-  ],
-  "ciKicked": {
-    "860719f9bc920898d364f9616e03642b8408d10e": "2026-10-14T17:32:09.312Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #1025 (token push left it run-less)"
-    },
-    {
       "level": "warn",
-      "text": "projected development cost $334 exceeds the $250 budget (Railway projected $134.28)"
+      "text": "projected development cost $334 exceeds the $250 budget (Railway projected $134.47)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 95.52,
-    "railwayProjected": 134.28,
+    "railwayMonthToDate": 95.83,
+    "railwayProjected": 134.47,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   }
