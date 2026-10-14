@@ -22,13 +22,13 @@
   .col { width: 320px; }
   .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; text-align: center; font-weight: 600; min-height: 36px; line-height: 1.3; }
   .col h3 b { display: block; color: var(--ink); }
-  .phone { width: 320px; height: 760px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
-  .screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+  .phone { width: 320px; min-height: 760px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { display: flex; flex-direction: column; min-height: 744px; }
   .topbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); }
   .iconbtn { height: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--chip); border: none; border-radius: 8px; font-size: 11.5px; color: var(--ink); flex: none; padding: 0 8px; font-weight: 600; }
   .titlewrap { flex: 1; min-width: 0; }
   .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .body-pad { flex: 1; overflow-y: auto; padding: 0 12px 14px; }
+  .body-pad { flex: 1; padding: 0 12px 14px; }
 
   /* law 1: the sticky Next chip */
   .nextbar { position: sticky; top: 0; z-index: 2; background: var(--paper); padding: 8px 0; border-bottom: 1px solid var(--rule); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
