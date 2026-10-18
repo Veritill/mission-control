@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-18T15:43:20.415Z",
+  "at": "2026-10-18T16:07:07.044Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 39,
-      "waitMin": 0,
-      "busyPct": 32
+      "runs": 7,
+      "busyMin": 76,
+      "waitMin": 5,
+      "busyPct": 63
     },
     "core": {
       "runs": 4,
-      "busyMin": 20,
-      "waitMin": 9,
-      "busyPct": 34
+      "busyMin": 31,
+      "waitMin": 5,
+      "busyPct": 52
     },
     "planner": {
       "runs": 0,
@@ -21,85 +21,58 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 13,
-      "busyMin": 325,
+      "runs": 10,
+      "busyMin": 262,
       "waitMin": 0,
-      "busyPct": 181
+      "busyPct": 145
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 6,
-    "oldestQueuedMin": 44
+    "agentsQueued": 0,
+    "ciQueued": 11,
+    "oldestQueuedMin": 73
   },
   "runners": [],
-  "conflicted": [
-    {
-      "number": 1125,
-      "branch": "core/migration-1064"
-    },
-    {
-      "number": 1123,
-      "branch": "lane/recipes/1075"
-    },
-    {
-      "number": 1120,
-      "branch": "lane/money/1118"
-    }
-  ],
-  "runless": [
-    {
-      "number": 1127,
-      "branch": "core/agents-yml-core-wakes",
-      "sha": "608bf4fa1e5a82a4f3a2bb6bbe72768763679921"
-    },
-    {
-      "number": 1126,
-      "branch": "core/core-build-wakes",
-      "sha": "3d9df583c3ef5bd8782e6466a161df885c0d5765"
-    }
-  ],
-  "ciKicked": {
-    "608bf4fa1e5a82a4f3a2bb6bbe72768763679921": "2026-10-18T15:43:00.470Z",
-    "3d9df583c3ef5bd8782e6466a161df885c0d5765": "2026-10-18T15:43:00.470Z"
-  },
+  "conflicted": [],
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "3 pull request(s) conflicted with main; Core is not idle (no dispatch)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #1127 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #1126 (token push left it run-less)"
+      "text": "run 39141759210 (ci) queued 23 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39139805542 (ci) queued 26 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39140902947 (ci) queued 35 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39138959912 (ci) queued 37 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39139805542 (ci) queued 49 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39138896556 (ci) queued 38 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39139787933 (ci) queued 50 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39138748069 (ci) queued 40 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39138959912 (ci) queued 61 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39138432756 (ci) queued 44 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39138896556 (ci) queued 61 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $336 exceeds the $250 budget (Railway projected $136.15)"
+      "text": "run 39138748069 (ci) queued 63 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 39138017184 (ci) queued 73 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $336 exceeds the $250 budget (Railway projected $136.3)"
     },
     {
       "level": "info",
@@ -110,8 +83,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 110.87,
-    "railwayProjected": 136.15,
+    "railwayMonthToDate": 111.02,
+    "railwayProjected": 136.3,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
