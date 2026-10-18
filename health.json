@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-18T20:49:15.247Z",
+  "at": "2026-10-18T22:07:20.118Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 9,
-      "busyMin": 46,
-      "waitMin": 1,
-      "busyPct": 38
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 0,
+      "busyPct": 1
     },
     "core": {
-      "runs": 4,
-      "busyMin": 31,
-      "waitMin": 30,
-      "busyPct": 51
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 0,
+      "busyPct": 1
     },
     "planner": {
       "runs": 0,
@@ -21,20 +21,25 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 258,
+      "runs": 5,
+      "busyMin": 24,
       "waitMin": 0,
-      "busyPct": 144
+      "busyPct": 13
     }
   },
   "queue": {
-    "agentsQueued": 2,
-    "ciQueued": 17,
-    "oldestQueuedMin": 123
+    "agentsQueued": 19,
+    "ciQueued": 0,
+    "oldestQueuedMin": 57
   },
   "runners": [],
   "conflicted": [],
   "runless": [
+    {
+      "number": 1135,
+      "branch": "lane/money/1131",
+      "sha": "4b7f069f941aab7cfd9624ac540295ad98a5aef0"
+    },
     {
       "number": 1134,
       "branch": "lane/money/1114",
@@ -43,12 +48,7 @@
     {
       "number": 1133,
       "branch": "core/wake-hygiene",
-      "sha": "1851333f2935d30611d201c50a5730b5ebfcc60f"
-    },
-    {
-      "number": 1130,
-      "branch": "core/lane-pick-rules",
-      "sha": "07481ec0517b460b39f0b8e625e5d862f0907c19"
+      "sha": "2eae7fc91a0a5f312eca59f5e033543562f63b30"
     },
     {
       "number": 1123,
@@ -57,13 +57,17 @@
     }
   ],
   "ciKicked": {
-    "327d25d44dd43eeac3a3c297c721d6ba941bf56a": "2026-10-18T20:48:48.168Z",
-    "1851333f2935d30611d201c50a5730b5ebfcc60f": "2026-10-18T20:48:48.168Z",
-    "07481ec0517b460b39f0b8e625e5d862f0907c19": "2026-10-18T20:48:48.168Z",
-    "22c8c69bb5d9dfc1d43f10b91e138ca225d8d099": "2026-10-18T20:48:48.168Z"
+    "327d25d44dd43eeac3a3c297c721d6ba941bf56a": "2026-10-18T22:06:54.055Z",
+    "22c8c69bb5d9dfc1d43f10b91e138ca225d8d099": "2026-10-18T22:06:54.055Z",
+    "4b7f069f941aab7cfd9624ac540295ad98a5aef0": "2026-10-18T22:06:54.055Z",
+    "2eae7fc91a0a5f312eca59f5e033543562f63b30": "2026-10-18T22:06:54.055Z"
   },
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "fixed",
+      "text": "kicked CI on #1135 (token push left it run-less)"
+    },
     {
       "level": "fixed",
       "text": "kicked CI on #1134 (token push left it run-less)"
@@ -74,79 +78,87 @@
     },
     {
       "level": "fixed",
-      "text": "kicked CI on #1130 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
       "text": "kicked CI on #1123 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "run 39163337142 (ci) queued 22 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39169049479 (agents) queued 24 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39163070797 (ci) queued 25 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168688187 (agents) queued 29 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39162693884 (ci) queued 30 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168659331 (agents) queued 29 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39162687932 (ci) queued 31 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168114260 (agents) queued 37 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39162629188 (ci) queued 31 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168076042 (agents) queued 37 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39162612988 (ci) queued 32 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168046490 (agents) queued 38 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39161951807 (ci) queued 40 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39168007718 (agents) queued 38 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39161793828 (ci) queued 42 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167363066 (agents) queued 47 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39160293167 (ci) queued 62 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167328628 (agents) queued 47 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39160291383 (ci) queued 62 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167295804 (agents) queued 48 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39158068715 (ci) queued 92 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167261401 (agents) queued 48 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39157927952 (ci) queued 93 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167228685 (agents) queued 49 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39157567725 (ci) queued 98 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167198148 (agents) queued 49 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39156590260 (ci) queued 111 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167165506 (agents) queued 50 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39156534651 (ci) queued 111 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39167128311 (agents) queued 50 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39155670569 (ci) queued 123 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39166771634 (agents) queued 55 min for label 'router' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $137.74)"
+      "text": "run 39166737928 (agents) queued 55 min for label 'router' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 39166661343 (agents) queued 56 min for label 'router' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 39166605592 (agents) queued 57 min for label 'router' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $137.91)"
     },
     {
       "level": "info",
@@ -157,8 +169,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 112.67,
-    "railwayProjected": 137.74,
+    "railwayMonthToDate": 112.99,
+    "railwayProjected": 137.91,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
