@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-18T22:08:30.272Z",
+  "at": "2026-10-18T23:21:10.229Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 2,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 14
     },
     "core": {
-      "runs": 1,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 3
+      "runs": 4,
+      "busyMin": 12,
+      "waitMin": 4,
+      "busyPct": 20
     },
     "planner": {
       "runs": 0,
@@ -21,124 +21,38 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 6,
+      "runs": 5,
+      "busyMin": 124,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 69
     }
   },
   "queue": {
-    "agentsQueued": 19,
-    "ciQueued": 2,
-    "oldestQueuedMin": 58
+    "agentsQueued": 1,
+    "ciQueued": 3,
+    "oldestQueuedMin": 29
   },
   "runners": [],
   "conflicted": [],
-  "runless": [
-    {
-      "number": 1135,
-      "branch": "lane/money/1131",
-      "sha": "4b7f069f941aab7cfd9624ac540295ad98a5aef0"
-    },
-    {
-      "number": 1134,
-      "branch": "lane/money/1114",
-      "sha": "327d25d44dd43eeac3a3c297c721d6ba941bf56a"
-    },
-    {
-      "number": 1133,
-      "branch": "core/wake-hygiene",
-      "sha": "2eae7fc91a0a5f312eca59f5e033543562f63b30"
-    },
-    {
-      "number": 1123,
-      "branch": "lane/recipes/1075",
-      "sha": "22c8c69bb5d9dfc1d43f10b91e138ca225d8d099"
-    }
-  ],
-  "ciKicked": {
-    "4b7f069f941aab7cfd9624ac540295ad98a5aef0": "2026-10-18T22:06:54.055Z",
-    "327d25d44dd43eeac3a3c297c721d6ba941bf56a": "2026-10-18T22:06:54.055Z",
-    "2eae7fc91a0a5f312eca59f5e033543562f63b30": "2026-10-18T22:06:54.055Z",
-    "22c8c69bb5d9dfc1d43f10b91e138ca225d8d099": "2026-10-18T22:06:54.055Z"
-  },
+  "runless": [],
+  "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "run 39169049479 (agents) queued 25 min for label 'router' and no runner with that label is online — a runner is down"
+      "text": "run 39174376279 (ci) queued 25 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39168688187 (agents) queued 30 min for label 'router' and no runner with that label is online — a runner is down"
+      "text": "run 39174275400 (ci) queued 26 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39168659331 (agents) queued 31 min for label 'router' and no runner with that label is online — a runner is down"
+      "text": "run 39174109799 (ci) queued 29 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39168114260 (agents) queued 38 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39168076042 (agents) queued 38 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39168046490 (agents) queued 39 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39168007718 (agents) queued 39 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167363066 (agents) queued 48 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167328628 (agents) queued 49 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167295804 (agents) queued 49 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167261401 (agents) queued 50 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167228685 (agents) queued 50 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167198148 (agents) queued 50 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167165506 (agents) queued 51 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39167128311 (agents) queued 51 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39166771634 (agents) queued 56 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39166737928 (agents) queued 57 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "run 39166661343 (agents) queued 58 min for label 'router' and no runner with that label is online — a runner is down"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $137.91)"
+      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $138.14)"
     },
     {
       "level": "info",
@@ -149,8 +63,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 112.99,
-    "railwayProjected": 137.91,
+    "railwayMonthToDate": 113.35,
+    "railwayProjected": 138.14,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
