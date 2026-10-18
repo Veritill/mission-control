@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-18T17:54:11.861Z",
+  "at": "2026-10-18T18:46:17.363Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 22,
-      "waitMin": 0,
-      "busyPct": 19
+      "runs": 7,
+      "busyMin": 49,
+      "waitMin": 11,
+      "busyPct": 41
     },
     "core": {
-      "runs": 1,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 1
+      "runs": 9,
+      "busyMin": 88,
+      "waitMin": 2,
+      "busyPct": 146
     },
     "planner": {
       "runs": 0,
@@ -21,130 +21,103 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 281,
+      "runs": 8,
+      "busyMin": 356,
       "waitMin": 0,
-      "busyPct": 156
+      "busyPct": 198
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 2,
     "ciQueued": 11,
-    "oldestQueuedMin": 114
+    "oldestQueuedMin": 132
   },
   "runners": [],
-  "conflicted": [],
-  "runless": [
+  "conflicted": [
     {
       "number": 1133,
-      "branch": "core/wake-hygiene",
-      "sha": "3403a655825666e7d65b81fbf6eebe742c6e6bca"
-    },
-    {
-      "number": 1132,
-      "branch": "lane/money/1122",
-      "sha": "7c75f863841d624d3e101645530b5cdc5f158a43"
+      "branch": "core/wake-hygiene"
     },
     {
       "number": 1130,
-      "branch": "core/lane-pick-rules",
-      "sha": "57268d5141a9bd80b35fa554d379400d08ddefbb"
+      "branch": "core/lane-pick-rules"
     },
     {
       "number": 1129,
-      "branch": "core/docs-log-files",
-      "sha": "cefcb96a171f6689a79423ba692c76b55aee29f0"
-    },
-    {
-      "number": 1128,
-      "branch": "lane/recipes/1066",
-      "sha": "27e75e0facd41479be7c7d28a3939aca2d098c7f"
-    },
-    {
-      "number": 1125,
-      "branch": "core/migration-1064",
-      "sha": "71c9cd1f546b708af68f221dc2487e79e3546bb0"
+      "branch": "core/docs-log-files"
     },
     {
       "number": 1123,
-      "branch": "lane/recipes/1075",
-      "sha": "7e1e0ac6b969f69f02f905949e04fc2983b33da3"
+      "branch": "lane/recipes/1075"
+    }
+  ],
+  "runless": [
+    {
+      "number": 1128,
+      "branch": "lane/recipes/1066",
+      "sha": "c6c22eda82ee1ba4993cf8208ca71b77ecc9f19f"
     }
   ],
   "ciKicked": {
-    "7c75f863841d624d3e101645530b5cdc5f158a43": "2026-10-18T16:58:57.752Z",
-    "27e75e0facd41479be7c7d28a3939aca2d098c7f": "2026-10-18T16:58:57.752Z",
-    "7e1e0ac6b969f69f02f905949e04fc2983b33da3": "2026-10-18T16:58:57.752Z",
-    "3403a655825666e7d65b81fbf6eebe742c6e6bca": "2026-10-18T17:53:45.135Z",
-    "57268d5141a9bd80b35fa554d379400d08ddefbb": "2026-10-18T17:53:45.135Z",
-    "cefcb96a171f6689a79423ba692c76b55aee29f0": "2026-10-18T17:53:45.135Z",
-    "71c9cd1f546b708af68f221dc2487e79e3546bb0": "2026-10-18T17:53:45.135Z"
+    "c6c22eda82ee1ba4993cf8208ca71b77ecc9f19f": "2026-10-18T18:45:54.595Z"
   },
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "kicked CI on #1133 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #1130 (token push left it run-less)"
+      "level": "warn",
+      "text": "4 pull request(s) conflicted with main; Core is not idle (no dispatch)"
     },
     {
       "level": "fixed",
-      "text": "kicked CI on #1129 (token push left it run-less)"
-    },
-    {
-      "level": "fixed",
-      "text": "kicked CI on #1125 (token push left it run-less)"
+      "text": "kicked CI on #1128 (token push left it run-less)"
     },
     {
       "level": "warn",
-      "text": "run 39148668314 (ci) queued 39 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39152017644 (ci) queued 47 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39148663384 (ci) queued 39 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39151773946 (ci) queued 51 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39147477381 (ci) queued 55 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39151682929 (ci) queued 52 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39147475903 (ci) queued 55 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39151680177 (ci) queued 52 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39147474394 (ci) queued 55 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39151678602 (ci) queued 52 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39146191035 (ci) queued 72 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39148932520 (ci) queued 88 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39146166568 (ci) queued 72 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39148663384 (ci) queued 91 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39145731531 (ci) queued 78 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39147475903 (ci) queued 107 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39145548023 (ci) queued 80 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39146191035 (ci) queued 124 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39145395899 (ci) queued 82 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39145731531 (ci) queued 130 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "run 39142984190 (ci) queued 114 min for label 'veritill' and no runner with that label is online — a runner is down"
+      "text": "run 39145548023 (ci) queued 132 min for label 'veritill' and no runner with that label is online — a runner is down"
     },
     {
       "level": "warn",
-      "text": "projected development cost $337 exceeds the $250 budget (Railway projected $136.92)"
+      "text": "projected development cost $337 exceeds the $250 budget (Railway projected $137.15)"
     },
     {
       "level": "info",
@@ -155,8 +128,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 111.68,
-    "railwayProjected": 136.92,
+    "railwayMonthToDate": 111.97,
+    "railwayProjected": 137.15,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
