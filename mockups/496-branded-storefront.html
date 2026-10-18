@@ -126,8 +126,8 @@
 <body>
 <h1 class="page">Mockup #496 — Branded storefront: client logo, colours, name</h1>
 <div class="lede">Phase 1 of the customer app plan (docs/requirements/customer-app.md, issue #321) — the client's own
-  brand applied to the existing <code>/store/[slug]</code> (Shopkiraana, grocery) and <code>/order/[slug]</code>
-  (GIF, restaurant catering) doors, the checkout/confirmation screen, and a receipt email. Both panels below are
+  brand applied to the existing <code>/store/[slug]</code> (Example Grocery, grocery) and <code>/order/[slug]</code>
+  (Example Kitchen, restaurant catering) doors, the checkout/confirmation screen, and a receipt email. Both panels below are
   live demo state — nothing here reads real data, and no code ships from this issue.</div>
 <div class="rule2">Kiran's Rule 2 (2026-09-30): "a client's storefront is that client's world." One client's
   logo/colour/name only, everywhere that client's customer looks — no other business named or visible, no
@@ -146,7 +146,7 @@
       <div class="row">
         <div class="lbl">Display name<span class="s">What customers see, not your legal name</span></div>
       </div>
-      <div class="row" style="border-top:none;padding-top:0;"><input class="textinput" value="Shopkiraana" readonly /></div>
+      <div class="row" style="border-top:none;padding-top:0;"><input class="textinput" value="Example Grocery" readonly /></div>
       <div class="row">
         <div class="lbl">Brand colour<span class="s">Buttons, header, accents</span></div>
       </div>
@@ -164,17 +164,17 @@
         <div class="togglepill on"><div class="knob"></div></div>
       </div>
     </div>
-    <div class="tap-hint">Same three fields for every client — logo, name, one colour. GIF's own row (below) is identical, its own values.</div>
+    <div class="tap-hint">Same three fields for every client — logo, name, one colour. Example Kitchen's own row (below) is identical, its own values.</div>
   </div>
 
   <div class="col">
-    <h2>Storefront — Shopkiraana</h2>
-    <div class="sub">/store/shopkiraana</div>
+    <h2>Storefront — Example Grocery</h2>
+    <div class="sub">/store/example-grocery</div>
     <div class="phone" style="--brand:#a8501e;--brand-soft:#f4e0c8;--brand-ink:#a8501e;--ink-on-brand:#fff;">
       <div class="screen">
         <div class="topbar">
           <div class="logotile">SK</div>
-          <div class="titlewrap"><div class="t1">Shopkiraana</div><div class="t2">Mt. Juliet, TN · Indian grocery</div></div>
+          <div class="titlewrap"><div class="t1">Example Grocery</div><div class="t2">Example City, TN · Indian grocery</div></div>
         </div>
         <div class="searchbar"><input class="input" placeholder="Search rice, dal, spices…" readonly /></div>
         <div class="catrow">
@@ -189,17 +189,17 @@
         <div class="poweredby">Powered by Veritill</div>
       </div>
     </div>
-    <div class="tap-hint">header, category chips, Add buttons all carry Shopkiraana's own colour</div>
+    <div class="tap-hint">header, category chips, Add buttons all carry Example Grocery's own colour</div>
   </div>
 
   <div class="col">
-    <h2>Order — Great Indian Food</h2>
-    <div class="sub">/order/gif</div>
+    <h2>Order — Example Kitchen</h2>
+    <div class="sub">/order/example-kitchen</div>
     <div class="phone" style="--brand:#7d1f2b;--brand-soft:#f2dade;--brand-ink:#7d1f2b;--ink-on-brand:#fff;">
       <div class="screen">
         <div class="topbar">
-          <div class="logotile">GIF</div>
-          <div class="titlewrap"><div class="t1">Great Indian Food</div><div class="t2">Catering · order for pickup</div></div>
+          <div class="logotile">EK</div>
+          <div class="titlewrap"><div class="t1">Example Kitchen</div><div class="t2">Catering · order for pickup</div></div>
         </div>
         <div class="sectitle" style="margin-top:14px;">Trays</div>
         <div class="list" style="padding-top:0;">
@@ -220,11 +220,11 @@
         <div class="poweredby hidden">Powered by Veritill</div>
       </div>
     </div>
-    <div class="tap-hint">GIF turned the footer off (its own Settings toggle) — this is the optional part in practice</div>
+    <div class="tap-hint">Example Kitchen turned the footer off (its own Settings toggle) — this is the optional part in practice</div>
   </div>
 
   <div class="col">
-    <h2>Confirmation — Shopkiraana</h2>
+    <h2>Confirmation — Example Grocery</h2>
     <div class="sub">on-screen, right after Place order</div>
     <div class="phone" style="--brand:#a8501e;--brand-soft:#f4e0c8;--brand-ink:#a8501e;--ink-on-brand:#fff;">
       <div class="screen">
@@ -247,15 +247,15 @@
 
 <div class="stage" style="margin-top:26px;">
   <div class="col" style="width:340px;">
-    <h2>Receipt email — Shopkiraana</h2>
+    <h2>Receipt email — Example Grocery</h2>
     <div class="sub">sent the moment the order is placed</div>
     <div class="emailwin">
-      <div class="emailchrome">From: <b>Shopkiraana &lt;orders@shopkiraana.veritill.app&gt;</b> · To: priya@example.com</div>
+      <div class="emailchrome">From: <b>Example Grocery &lt;orders@example-grocery.veritill.app&gt;</b> · To: priya@example.com</div>
       <div class="emailrule" style="background:#a8501e;"></div>
       <div class="emailbody">
         <div class="emailhead">
           <div class="logotile" style="margin:0 auto 8px;background:#f4e0c8;color:#a8501e;">SK</div>
-          <div class="biz">Shopkiraana</div>
+          <div class="biz">Example Grocery</div>
           <div class="sub">Order SK-10482 · pickup today, 6:00 PM</div>
         </div>
         <div class="emailsection">
@@ -264,22 +264,22 @@
           <div class="emailline"><span>Toor Dal, 4 lb</span><span>$6.49</span></div>
           <div class="emailline total"><span>Total due at pickup</span><span>$21.48</span></div>
         </div>
-        <div class="emailfoot">Questions about this order? Reply to this email or call Shopkiraana directly.<br />Powered by Veritill</div>
+        <div class="emailfoot">Questions about this order? Reply to this email or call Example Grocery directly.<br />Powered by Veritill</div>
       </div>
     </div>
   </div>
 
   <div class="col" style="width:340px;">
-    <h2>Receipt email — Great Indian Food</h2>
-    <div class="sub">same template, GIF's own brand, footer off</div>
+    <h2>Receipt email — Example Kitchen</h2>
+    <div class="sub">same template, Example Kitchen's own brand, footer off</div>
     <div class="emailwin">
-      <div class="emailchrome">From: <b>Great Indian Food &lt;orders@greatindianfood.veritill.app&gt;</b> · To: priya@example.com</div>
+      <div class="emailchrome">From: <b>Example Kitchen &lt;orders@example-kitchen.veritill.app&gt;</b> · To: priya@example.com</div>
       <div class="emailrule" style="background:#7d1f2b;"></div>
       <div class="emailbody">
         <div class="emailhead">
-          <div class="logotile" style="margin:0 auto 8px;background:#f2dade;color:#7d1f2b;">GIF</div>
-          <div class="biz">Great Indian Food</div>
-          <div class="sub">Catering request GIF-2231 · we'll call to confirm</div>
+          <div class="logotile" style="margin:0 auto 8px;background:#f2dade;color:#7d1f2b;">EK</div>
+          <div class="biz">Example Kitchen</div>
+          <div class="sub">Catering request EXK-2231 · we'll call to confirm</div>
         </div>
         <div class="emailsection">
           <div class="h">Your request</div>
@@ -290,7 +290,7 @@
         <div class="emailfoot">We will call to confirm and take the deposit.</div>
       </div>
     </div>
-    <div class="tap-hint">no "Powered by Veritill" line at all — GIF's own toggle is off</div>
+    <div class="tap-hint">no "Powered by Veritill" line at all — Example Kitchen's own toggle is off</div>
   </div>
 </div>
 
@@ -306,12 +306,12 @@
       (currently a hardcoded green in <code>/store/[slug]</code>'s CSS), the confirmation screen's own logo mark,
       and the receipt email's header band and accent rule — six render sites reading one object, not six copies
       of a colour.</td></tr>
-    <tr><td>No cross-tenant leak</td><td>Shopkiraana's panels never mention GIF and GIF's panels never mention
-      Shopkiraana — each tenant's storefront is generated from that tenant's own row only, the same isolation
+    <tr><td>No cross-tenant leak</td><td>Example Grocery's panels never mention Example Kitchen and Example Kitchen's panels never mention
+      Example Grocery — each tenant's storefront is generated from that tenant's own row only, the same isolation
       the public routes already enforce by slug. There is no "browse other Veritill stores" anywhere, matching
       Rule 2 exactly: no "my businesses" list surfaces inside a client's own store.</td></tr>
-    <tr><td>"Powered by Veritill" is real, optional</td><td>Shown above with it ON (Shopkiraana, left phone/email)
-      and OFF (GIF, right phone/email) — the exact same code path, one boolean, not two different footers to
+    <tr><td>"Powered by Veritill" is real, optional</td><td>Shown above with it ON (Example Grocery, left phone/email)
+      and OFF (Example Kitchen, right phone/email) — the exact same code path, one boolean, not two different footers to
       build and keep in sync.</td></tr>
   </table>
 
@@ -328,14 +328,14 @@
       Settings → Business profile area, not a new page) and no new step in either storefront's flow.</td></tr>
   </table>
   <ul class="tradeoffs">
-    <li><b>No real logo asset exists yet</b> for either Shopkiraana or GIF in this codebase — the tiles above are
+    <li><b>No real logo asset exists yet</b> for either Example Grocery or Example Kitchen in this codebase — the tiles above are
       placeholder initials in the brand colour, exactly what the real screen shows before a client uploads one
-      (the same "SK"/"GIF" fallback a person's own initials avatar already uses elsewhere in the product).</li>
+      (the same "EG"/"EK" fallback a person's own initials avatar already uses elsewhere in the product).</li>
     <li><b>One colour, not a full theme.</b> This phase reads one accent colour, not a full light/dark palette —
       matching gap 7's own size (S) in customer-app.md. A client who wants their own font or a second colour is a
       bigger, unscoped ask, named as a later follow-up if Kiran wants it, not guessed here.</li>
     <li><b>The domain (shop.&lt;client-domain&gt;) is issue #498</b>, not this one — the slug in the URL bar
-      (<code>/store/shopkiraana</code>) stays a Veritill-hosted path in this phase; a client's own domain is the
+      (<code>/store/example-grocery</code>) stays a Veritill-hosted path in this phase; a client's own domain is the
       next approved gap.</li>
   </ul>
 </div>

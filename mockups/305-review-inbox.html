@@ -153,13 +153,13 @@ const KIND_META = {
 };
 
 let rows = [
-  { id: 'r1', kind: 'costability', severity: 'bad', title: 'Basmati rice 20lb — ATL RRK', why: 'Line 3 of the ATL RRK invoice: no product is linked to this line yet; a family word is needed before it can be costed.', fix: { label: 'Open the invoice line', kind: 'link', href: '/invoices/8841?line=3' } },
+  { id: 'r1', kind: 'costability', severity: 'bad', title: 'Basmati rice 20lb — Example Market Co', why: 'Line 3 of the Example Market Co invoice: no product is linked to this line yet; a family word is needed before it can be costed.', fix: { label: 'Open the invoice line', kind: 'link', href: '/invoices/8841?line=3' } },
   { id: 'r2', kind: 'cost', severity: 'bad', title: 'Dried red chilli', why: 'No invoice carries Dried red chilli yet — 4 dishes wait on this family.', fix: { label: 'Upload the invoice that has it', kind: 'link', href: '/invoices', also: { label: 'Enter what you pay per pack', kind: 'enter-cost' } } },
   { id: 'r3', kind: 'cost', severity: 'bad', title: 'Paneer', why: 'A product is mapped (Nanak Paneer 2kg) but no invoice has ever priced it.', fix: { label: 'Enter what you last paid', kind: 'enter-cost' } },
   { id: 'r4', kind: 'prepyield', severity: 'warn', title: 'Onion-tomato masala base', why: '3 batches of 6 boxes measured 1.35×; the kitchen’s table says 1.6× — 16% lower.', fix: { label: 'Set onion-tomato masala base to 1.35×', kind: 'confirm' } },
   { id: 'r5', kind: 'yield', severity: 'warn', title: 'Makhani gravy', why: 'This box’s batch looks small for its container — worth a look before the next cook.', fix: { label: 'Look at the box', kind: 'link', href: '/kitchen?box=makhani-gravy' } },
   { id: 'r6', kind: 'recipeconfirm', severity: 'warn', title: 'Chicken 65', why: '3 lines proposed for Wok station — a chef hasn’t confirmed this recipe yet.', fix: { label: 'Open the box', kind: 'link', href: '/kitchen?box=chicken-65' } },
-  { id: 'r7', kind: 'onboarding_ask', severity: 'warn', title: 'Upload HYD Groceries invoices', why: '3 families with no cost wait on this vendor’s paper, unblocking 9 dishes.', fix: { label: 'Load an invoice', kind: 'link', href: '/invoices/load' } },
+  { id: 'r7', kind: 'onboarding_ask', severity: 'warn', title: 'Upload Example Wholesale Foods invoices', why: '3 families with no cost wait on this vendor’s paper, unblocking 9 dishes.', fix: { label: 'Load an invoice', kind: 'link', href: '/invoices/load' } },
   { id: 'r8', kind: 'agent_dead', severity: 'warn', title: 'Agent event failed: cost.drift', why: '5 attempts to handle this cost.drift event all failed: cost agent disabled.', fix: { label: 'Dismiss', kind: 'none' } },
   { id: 'r9', kind: 'cost', severity: 'warn', title: 'Coconut milk', why: 'The last price is from 2026-06-02. Fine to confirm; a newer invoice will refresh it.', fix: { label: 'Confirm', kind: 'confirm' } },
 ];

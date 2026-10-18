@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mockup #239 — Grocery storefront: browse · cart · checkout (Shopkiraana)</title>
+<title>Mockup #239 — Grocery storefront: browse · cart · checkout (Example Grocery)</title>
 <style>
   :root {
     --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
@@ -130,13 +130,13 @@
 </head>
 <body>
 <h1 class="page">Mockup #239 — Grocery storefront: browse · cart · checkout</h1>
-<div class="lede">Shopkiraana's public, no-sign-in customer door (docs/requirements/commerce.md §8) — one screen, three
+<div class="lede">Example Grocery's public, no-sign-in customer door (docs/requirements/commerce.md §8) — one screen, three
   steps: browse adds to a cart drawer, the drawer picks pickup/delivery, checkout confirms and places the order.
   Live demo: tap ✚ Add on a couple of items, tap the black cart strip, choose Delivery and an address, then Checkout.</div>
 
 <div class="stage">
   <div class="col">
-    <h2>Storefront — Shopkiraana</h2>
+    <h2>Storefront — Example Grocery</h2>
     <div class="phone">
       <div class="screen" id="screen"><!-- rendered by script --></div>
     </div>
@@ -232,8 +232,8 @@ const ALL = Object.entries(CATALOG).flatMap(([cat, items]) => items.map((i) => (
 const DELIVERY_TIERS = [ { maxMiles: 3, fee: 2.99 }, { maxMiles: 6, fee: 4.99 }, { maxMiles: 10, fee: 7.99 } ];
 function deliveryFeeFor(miles) { for (const t of DELIVERY_TIERS) if (miles <= t.maxMiles) return t.fee; return null; }
 const ADDRESS_PRESETS = [
-  { label: '212 Belinda Pkwy, Mt Juliet (2.1 mi)', miles: 2.1 },
-  { label: '4400 Lebanon Rd, Mt Juliet (5.4 mi)', miles: 5.4 },
+  { label: '212 Belinda Pkwy, Example City (2.1 mi)', miles: 2.1 },
+  { label: '100 Example Ave, Example City (5.4 mi)', miles: 5.4 },
   { label: 'Downtown Nashville, TN (19 mi)', miles: 19 },
 ];
 
@@ -318,7 +318,7 @@ function browseHtml() {
   return `
     <div class="topbar">
       <div class="storeic">🛒</div>
-      <div class="titlewrap"><div class="t1">Shopkiraana</div><div class="t2">Mt. Juliet, TN · Indian grocery</div></div>
+      <div class="titlewrap"><div class="t1">Example Grocery</div><div class="t2">Example City, TN · Indian grocery</div></div>
     </div>
     <div class="searchbar"><input class="input" placeholder="Search rice, dal, spices…" value="${searchQ.replace(/"/g, '')}" oninput="onSearch(this.value)" /></div>
     <div class="catrow">${['All', ...Object.keys(CATALOG)].map((c) => `<button class="catchip ${c === activeCat ? 'on' : ''}" onclick="setCat('${c}')">${c}</button>`).join('')}</div>

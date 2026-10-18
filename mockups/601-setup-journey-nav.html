@@ -187,7 +187,7 @@
     <h2>The two defects every option must visibly fix <span class="tag">Kiran, production walk 2026-10-03</span></h2>
     <table class="score">
       <tr><th style="width:38%">What happened</th><th>Fix, visible on every option below</th></tr>
-      <tr><td>"I have skipped shopkiraana catalog but history shows a tick for it."</td><td>Skipped has its own picture <span class="st skip sm" style="vertical-align:middle">»</span> and word <span class="word skip">Skipped</span>, never a tick; the row carries <b>Resume</b> right where it is shown (#599's <code>askHistory[].skipped</code> + un-skip).</td></tr>
+      <tr><td>"I have skipped example-grocery catalog but history shows a tick for it."</td><td>Skipped has its own picture <span class="st skip sm" style="vertical-align:middle">»</span> and word <span class="word skip">Skipped</span>, never a tick; the row carries <b>Resume</b> right where it is shown (#599's <code>askHistory[].skipped</code> + un-skip).</td></tr>
       <tr><td>"I have entered three vendors so I can't see next vendors … if I want to come back to first vendor how to come there?"</td><td>All three vendors are always on screen under <b>Your vendors</b>, each with catalog · checked · invoices and its number. Tap any vendor to work on it (the drop zone or the wizard opens inline). The agent's <b>Next</b> chip keeps recommending one thing (law 1); the person is never limited to it.</td></tr>
     </table>
   </section>
@@ -324,7 +324,7 @@
       <tr><td>G4</td><td><code>askHistory[].output</code> — what the answered ask produced, in numbers</td><td>Law 2 on a done rung: "277 rows read · 271 items born", never only the title and a time. S</td></tr>
       <tr><td>G5</td><td><code>familiesMapped {mapped, total}</code> · <code>menu {dishes, source: 'toast' | 'file' | 'lists' | null}</code></td><td>The restaurant's "products are ingredients" and "your menu" rungs; the dish count exists only inside <code>o2.detail</code>'s text today. S</td></tr>
       <tr><td>G6</td><td><code>priced {priced, total}</code> · <code>priceWatch {basket}</code></td><td>The grocery's "products priced" rung; the basket count exists on <code>/price-watch/today</code>, not here. S</td></tr>
-      <tr><td>G7</td><td>working line for an enriching batch</td><td>#593's "Enriching Restaurant Depot's 277 items — 120 of 277, $0.84" from <code>import_batches.counters</code>; the ladder shows it as the <span class="st work sm" style="vertical-align:middle"></span> state on that vendor's dot. Depends on #593</td></tr>
+      <tr><td>G7</td><td>working line for an enriching batch</td><td>#593's "Enriching Example Restaurant Supply's 277 items — 120 of 277, $0.84" from <code>import_batches.counters</code>; the ladder shows it as the <span class="st work sm" style="vertical-align:middle"></span> state on that vendor's dot. Depends on #593</td></tr>
       <tr><td>G8</td><td><code>fix.kind: 'verify'</code> + <code>batchId</code></td><td>The wizard inline (#594). Depends on #594/#595</td></tr>
     </table>
   </section>
@@ -350,7 +350,7 @@
 const P = {
   restaurant: {
     name: 'Saffron Kitchen', kind: 'Indian restaurant', pct: 24, done: 2, total: 10,
-    next: { title: "Check Restaurant Depot's catalog", out: '277 rows read · 271 items waiting for your look' },
+    next: { title: "Check Example Restaurant Supply's catalog", out: '277 rows read · 271 items waiting for your look' },
     vendorsIdx: 1,
     steps: [
       { ic: '🏪', n: 'Your business', s: 'done', v: 'Answered · 3 vendors · Toast', t: '9:12' },
@@ -365,11 +365,11 @@ const P = {
       { ic: '🚀', n: 'Go live', s: 'todo', v: '1 skipped so far' },
     ],
     vendors: [
-      { n: 'Restaurant Depot', dots: [{ l: 'catalog', s: 'done', v: '277 rows' }, { l: 'checked', s: 'now', v: '0 of 271' }, { l: 'invoices', s: 'todo', v: '—' }], out: '277 rows read · 271 items born' },
-      { n: 'Shopkiraana', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
-      { n: 'Sysco', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
+      { n: 'Example Restaurant Supply', dots: [{ l: 'catalog', s: 'done', v: '277 rows' }, { l: 'checked', s: 'now', v: '0 of 271' }, { l: 'invoices', s: 'todo', v: '—' }], out: '277 rows read · 271 items born' },
+      { n: 'Example Grocery', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
+      { n: 'Example Foodservice', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
     ],
-    wizard: { vendor: 'Restaurant Depot', page: 1, pages: 28, items: [
+    wizard: { vendor: 'Example Restaurant Supply', page: 1, pages: 28, items: [
       { pic: '🧈', n: 'Butter, unsalted 36 lb', facts: [['gold', '⭐ gold'], ['src', '🌟 library']], ok: true },
       { pic: '🌶️', n: 'Chilli powder, hot', facts: [['ask', '⚠ which shelf? Spices · Masalas'], ['opt', '2 optional']], ok: false },
       { pic: '🛢️', n: 'Canola oil', facts: [['gold', '⭐ gold'], ['src', '🤖 AI · case 35 lb'], ['opt', '1 optional']], ok: true },
@@ -382,7 +382,7 @@ const P = {
   },
   grocery: {
     name: 'Deshi Bazaar', kind: 'Indian grocery', pct: 31, done: 3, total: 10,
-    next: { title: "Check Aadya's catalog", out: '1,104 rows read · 1,081 items waiting for your look' },
+    next: { title: "Check Example Foods's catalog", out: '1,104 rows read · 1,081 items waiting for your look' },
     vendorsIdx: 2,
     steps: [
       { ic: '🏪', n: 'Your business', s: 'done', v: 'Answered · 3 vendors · Toast Retail', t: '8:40' },
@@ -397,11 +397,11 @@ const P = {
       { ic: '🚀', n: 'Go live', s: 'todo', v: '1 skipped so far' },
     ],
     vendors: [
-      { n: 'Aadya', dots: [{ l: 'catalog', s: 'done', v: '1,104 rows' }, { l: 'checked', s: 'now', v: '0 of 1,081' }, { l: 'invoices', s: 'todo', v: '—' }], out: '1,104 rows read · 1,081 items born' },
-      { n: 'ATL RRK', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
-      { n: 'HYD Foods', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
+      { n: 'Example Foods', dots: [{ l: 'catalog', s: 'done', v: '1,104 rows' }, { l: 'checked', s: 'now', v: '0 of 1,081' }, { l: 'invoices', s: 'todo', v: '—' }], out: '1,104 rows read · 1,081 items born' },
+      { n: 'Example Market Co', dots: [{ l: 'catalog', s: 'skip', v: 'skipped' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }] },
+      { n: 'Example Wholesale Foods', dots: [{ l: 'catalog', s: 'todo', v: 'not yet' }, { l: 'checked', s: 'todo', v: '—' }, { l: 'invoices', s: 'todo', v: '—' }], tapped: true },
     ],
-    wizard: { vendor: 'Aadya', page: 1, pages: 109, items: [
+    wizard: { vendor: 'Example Foods', page: 1, pages: 109, items: [
       { pic: '🌾', n: 'Aashirvaad atta 20 lb', facts: [['gold', '⭐ gold'], ['src', '🌐 web · 20 lb']], ok: true },
       { pic: '🫘', n: 'Toor dal', facts: [['ask', '⚠ net contents? 2 lb · 4 lb'], ['src', '🌟 library · brand']], ok: false },
       { pic: '🧴', n: 'Dabur Amla hair oil', facts: [['gold', '⭐ gold'], ['src', '🤖 AI · 300 ml']], ok: true },

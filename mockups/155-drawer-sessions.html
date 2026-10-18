@@ -105,7 +105,7 @@
 </head>
 <body>
 <h1 class="page">Mockup #155 — POS: cash drawer sessions</h1>
-<div class="lede">Great Indian Food, Register 1 — one sheet opened from Register's header handles open/float,
+<div class="lede">Example Kitchen, Register 1 — one sheet opened from Register's header handles open/float,
   pay-outs, deposits and close/count; over/short is computed, never hidden. Live demo: tap the drawer pill,
   then try Pay-out, Deposit and Close &amp; count.</div>
 
@@ -243,7 +243,7 @@ function render() {
     <div class="topbar">
       <button class="iconbtn" title="Back to Register">←</button>
       <div class="titlewrap">
-        <div class="t1">Register 1 · Great Indian Food</div>
+        <div class="t1">Register 1 · Example Kitchen</div>
         <div class="t2">${drawer ? 'drawer opened ' + drawer.openedAt : 'no drawer session yet'}</div>
       </div>
       <button class="drawerpill ${drawer?'open':'closed'}" onclick="openSheet(${drawer?"'drawer'":"'drawer'"})">
