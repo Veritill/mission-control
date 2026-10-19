@@ -167,7 +167,9 @@ a{color:var(--accent)}
     ]);
     // build attempts: each status:in-progress label; it ends at the next status:ready label (a quit) or at the PR
     const notes = cs.map(parseNote).filter(Boolean);
-    const roleAt = (t) => { const nt = notes.filter((x) => x.at <= t || true); const last = notes.find((x) => /core-agent/.test(x.role)) ? 'Core' : 'lane'; return last; };
+    const noteRole = notes.some((x) => /core-agent/.test(x.role)) ? 'Core' : 'lane';
+    const roleAt = () => noteRole;
+    const noteStart = cs.filter((c) => NOTE_HEAD.test(String(c.body || '').trim())).map((c) => c.created_at).sort()[0] || null;
     const events = tl.filter((e) => e.event === 'labeled' || e.event === 'unlabeled' || e.event === 'closed' || e.event === 'cross-referenced');
     let openAt = null;
     for (const e of events) {
@@ -176,13 +178,17 @@ a{color:var(--accent)}
     }
     // the PR: an open one on this issue, else the one the timeline cross-references
     let pr = prs.find((p) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${n}\\b`, 'i').test(p.body || ''));
-    if (!pr) { const x = events.find((e) => e.event === 'cross-referenced' && e.source && e.source.issue && e.source.issue.pull_request); if (x) pr = await gh('GET', `/repos/${REPO}/pulls/${x.source.issue.number}`).catch(() => null); }
+    if (!pr) { const xs = events.filter((e) => e.event === 'cross-referenced' && e.source && e.source.issue && e.source.issue.pull_request).map((e) => e.source.issue);
+      const x = xs.find((i) => new RegExp(`Closes #${n}\\b`, 'i').test(i.body || '')) || xs[xs.length - 1];
+      if (x) pr = await gh('GET', `/repos/${REPO}/pulls/${x.number}`).catch(() => null); }
     if (!pr) {
       if (openAt) hops.push({ ic: '🔨', t: `${roleAt(openAt)} building for ${dur(mins(openAt))}`, live: true });
       return { hops, loops, pr: null };
     }
-    const buildMin = openAt ? mins(openAt, pr.created_at) : null;
-    hops.push({ ic: '🔨', t: `${roleAt(pr.created_at)} built${buildMin != null ? ' in ' + dur(buildMin) : ''} → PR #${pr.number}`, url: pr.html_url });
+    const builder = /^core\//.test(pr.head.ref) ? 'Core' : 'lane';
+    const startAt = noteStart || openAt;
+    const buildMin = startAt && startAt < pr.created_at ? mins(startAt, pr.created_at) : null;
+    hops.push({ ic: '🔨', t: `${builder} built${buildMin != null ? ' in ' + dur(buildMin) : ''} → PR #${pr.number}`, url: pr.html_url });
     const [runs, reviews, commits] = await Promise.all([
       gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?branch=${encodeURIComponent(pr.head.ref)}&per_page=40`).then((r) => r.workflow_runs || []).catch(() => []),
       gh('GET', `/repos/${REPO}/pulls/${pr.number}/reviews?per_page=50`).catch(() => []),
@@ -202,7 +208,7 @@ a{color:var(--accent)}
     for (const t of timeline) {
       if (t.kind === 'ci') { if (t.cancelled) continue; loops++; lastCi = t; hops.push(t.pending ? { ic: '🧪', t: 'CI running', live: true, url: t.url } : { ic: '🧪', t: `CI ${t.ok ? '✓' : '✗'} ${dur(t.min)}`, bad: !t.ok, url: t.url }); }
       else if (t.kind === 'core') hops.push({ ic: '🧱', t: `Core ${t.ok ? '✓ approved' : '✗ changes'}`, bad: !t.ok, url: t.url });
-      else if (t.kind === 'push') { const after = lastCi && !lastCi.ok ? 'fix' : 'push'; hops.push({ ic: '🔨', t: `lane ${after}: ${t.msg.slice(0, 40)}` }); }
+      else if (t.kind === 'push') { const after = lastCi && !lastCi.ok ? 'fix' : 'push'; hops.push({ ic: '🔨', t: `${builder} ${after}: ${t.msg.slice(0, 40)}` }); }
     }
     if (pr.merged_at) {
       hops.push({ ic: '✅', t: `merged ${ago(pr.merged_at)} ago`, url: pr.html_url });
