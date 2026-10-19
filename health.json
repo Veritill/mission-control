@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-19T00:21:47.802Z",
+  "at": "2026-10-19T00:27:04.340Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 16,
-      "waitMin": 0,
-      "busyPct": 13
+      "busyMin": 11,
+      "waitMin": 8,
+      "busyPct": 9
     },
     "core": {
       "runs": 8,
-      "busyMin": 60,
+      "busyMin": 68,
       "waitMin": 1,
-      "busyPct": 101
+      "busyPct": 113
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 7,
-      "busyMin": 98,
+      "busyMin": 108,
       "waitMin": 0,
-      "busyPct": 55
+      "busyPct": 60
     }
   },
   "queue": {
     "agentsQueued": 0,
-    "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [],
   "conflicted": [],
@@ -44,7 +44,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $138.28)"
+      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $138.29)"
     },
     {
       "level": "info",
@@ -55,8 +55,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 113.61,
-    "railwayProjected": 138.28,
+    "railwayMonthToDate": 113.63,
+    "railwayProjected": 138.29,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
