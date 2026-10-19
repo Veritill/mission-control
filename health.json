@@ -1,36 +1,36 @@
 {
-  "at": "2026-10-19T02:43:00.138Z",
+  "at": "2026-10-19T03:45:21.452Z",
   "windowHours": 1,
   "roles": {
     "lane": {
+      "runs": 2,
+      "busyMin": 12,
+      "waitMin": 0,
+      "busyPct": 10
+    },
+    "core": {
+      "runs": 8,
+      "busyMin": 40,
+      "waitMin": 53,
+      "busyPct": 67
+    },
+    "planner": {
       "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
-    "core": {
-      "runs": 7,
-      "busyMin": 106,
-      "waitMin": 14,
-      "busyPct": 177
-    },
-    "planner": {
-      "runs": 1,
-      "busyMin": 14,
-      "waitMin": 0,
-      "busyPct": 24
-    },
     "ci": {
-      "runs": 4,
-      "busyMin": 53,
+      "runs": 8,
+      "busyMin": 145,
       "waitMin": 0,
-      "busyPct": 45
+      "busyPct": 121
     }
   },
   "queue": {
-    "agentsQueued": 2,
-    "ciQueued": 0,
-    "oldestQueuedMin": 38
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 15
   },
   "runners": [
     {
@@ -41,12 +41,12 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -56,7 +56,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -70,12 +70,12 @@
   "conflictWoken": {},
   "findings": [
     {
-      "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'core' (longest 38 min); every 'core' runner is online and busy — a backlog, not an outage"
+      "level": "fixed",
+      "text": "lane solo had 2 ready task(s) 30+ min old and an idle runner: woke it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $338 exceeds the $250 budget (Railway projected $138.47)"
+      "text": "projected development cost $339 exceeds the $250 budget (Railway projected $138.61)"
     },
     {
       "level": "info",
@@ -86,8 +86,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 114.15,
-    "railwayProjected": 138.47,
+    "railwayMonthToDate": 114.41,
+    "railwayProjected": 138.61,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
