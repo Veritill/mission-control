@@ -179,8 +179,12 @@ a{color:var(--accent)}
     // the PR: an open one on this issue, else the one the timeline cross-references
     let pr = prs.find((p) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${n}\\b`, 'i').test(p.body || ''));
     if (!pr) { const xs = events.filter((e) => e.event === 'cross-referenced' && e.source && e.source.issue && e.source.issue.pull_request).map((e) => e.source.issue);
-      const x = xs.find((i) => new RegExp(`Closes #${n}\\b`, 'i').test(i.body || '')) || xs[xs.length - 1];
-      if (x) pr = await gh('GET', `/repos/${REPO}/pulls/${x.number}`).catch(() => null); }
+      const closedCommit = (events.find((e) => e.event === 'closed' && e.commit_id) || {}).commit_id || null;
+      const cands = []; for (const x of xs.slice(-6).reverse()) { const full = await gh('GET', `/repos/${REPO}/pulls/${x.number}`).catch(() => null); if (full) cands.push(full); }
+      pr = (closedCommit && cands.find((c) => c.merge_commit_sha === closedCommit))
+        || cands.find((c) => new RegExp(`Closes #${n}\\b`, 'i').test(c.body || ''))
+        || cands.find((c) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(c.head.ref))
+        || cands[0] || null; }
     if (!pr) {
       if (openAt) hops.push({ ic: '🔨', t: `${roleAt(openAt)} building for ${dur(mins(openAt))}`, live: true });
       return { hops, loops, pr: null };
