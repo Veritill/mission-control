@@ -67,6 +67,7 @@ a{color:var(--accent)}
     </div>
 
     <div class="card" id="pipeline"></div>
+    <div class="card" id="sequence"></div>
     <div class="card" id="health"></div>
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
@@ -131,6 +132,70 @@ a{color:var(--accent)}
 
   // BUILD HEALTH + COST (Kiran 2026-09-30): health.json is written every hour by Veritill/platform's build-health
   // workflow (scripts/build-health.mjs). Budget: Claude Max $200 flat + $50 for everything else the build runs on.
+  // THE SEQUENCE (Kiran 2026-10-19, "one change is completely tested and merged before the next"): the two pipelines
+  // in Veritill/platform docs/ops/lane-schedule.md, every line with where it stands right now. CHAIN is the dependent
+  // Caching steps in order; SOLO is the independent items. The first unfinished line of each is what its lane is on
+  // (or about to be). Read live from GitHub on every refresh; nothing here is computed by a model.
+  async function loadSequence() {
+    const el = $('sequence'); if (!el) return;
+    try {
+      const file = await gh('GET', '/repos/Veritill/platform/contents/docs/ops/lane-schedule.md?ref=main');
+      const md = decodeURIComponent(escape(atob(String(file.content).replace(/\n/g, ''))));
+      const sections = []; let cur = null;
+      for (const raw of md.split('\n')) {
+        const line = raw.replace(/\r$/, '');
+        const h = /^## (CHAIN|SOLO|CORE SEAT|PARKED)/.exec(line); if (h) { cur = { name: h[1], lines: [] }; sections.push(cur); continue; }
+        if (/^## /.test(line)) { cur = null; continue; }
+        const m = /^(?:\d+\.|-) #(\d+)(?: ([SML]))? (.+)$/.exec(line); if (m && cur) cur.lines.push({ n: +m[1], size: m[2] || '', text: m[3] });
+      }
+      const open = new Map();
+      for (let page = 1; page <= 3; page++) {
+        const list = await gh('GET', `/repos/Veritill/platform/issues?state=open&per_page=100&page=${page}`);
+        for (const i of list) if (!i.pull_request) open.set(i.number, i);
+        if (list.length < 100) break;
+      }
+      const prs = await gh('GET', '/repos/Veritill/platform/pulls?state=open&per_page=50');
+      const prFor = (n) => prs.find((p) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${n}\\b`, 'i').test(p.body || ''));
+      const ci = new Map();
+      for (const p of prs) {
+        try { const cr = await gh('GET', `/repos/Veritill/platform/commits/${p.head.sha}/check-runs?per_page=30`);
+          const runs = (cr.check_runs || []).filter((c) => c.name === 'test' || c.name === 'e2e');
+          const red = runs.some((c) => c.conclusion === 'failure'), green = runs.filter((c) => c.conclusion === 'success').length >= 2;
+          ci.set(p.number, red ? 'red' : green ? 'green' : 'running');
+        } catch { ci.set(p.number, '?'); }
+      }
+      const closed = (n) => !open.has(n);
+      const afterOf = (t) => { const m = /after ((?:#\d+(?: ✓)?(?:, ?)?)+)/.exec(t); return m ? [...m[1].matchAll(/#(\d+)(?: ✓)?/g)].map((x) => +x[1]) : []; };
+      const rows = [];
+      for (const sec of sections) {
+        if (!sec.lines.length) continue;
+        rows.push(`<div class="note" style="padding-bottom:4px"><b>${esc(sec.name)}</b>${sec.name === 'CHAIN' ? ' · the dependent Caching steps, one at a time' : sec.name === 'SOLO' ? ' · independent items, one at a time, beside CHAIN' : sec.name === 'CORE SEAT' ? ' · not an agent build' : ' · needs Kiran'}</div>`);
+        let nowSeen = false;
+        for (const l of sec.lines) {
+          const i = open.get(l.n); const pr = prFor(l.n); const labels = i ? i.labels.map((x) => x.name) : [];
+          const title = l.text.replace(/ — .*$/, '').replace(/^[SML] /, '');
+          let ic = '⚪', state = '', cls = '', isNow = false;
+          if (closed(l.n)) { ic = '✓'; state = 'merged'; cls = 'ok'; }
+          else if (pr) { const c = ci.get(pr.number); ic = c === 'red' ? '🔴' : c === 'green' ? '🟢' : '🟡'; state = `PR <a href="${pr.html_url}" target="_blank" rel="noreferrer">#${pr.number}</a> · CI ${c === 'green' ? 'green, waiting for Core' : c === 'red' ? 'red, the lane fixes it' : 'running'}`; cls = c === 'red' ? 'bad' : c === 'green' ? 'ok' : 'warn'; isNow = !nowSeen; }
+          else if (labels.includes('status:in-progress')) {
+            let note = null; try { const cs = await gh('GET', `/repos/Veritill/platform/issues/${l.n}/comments?per_page=100`); note = cs.map(parseNote).filter(Boolean).pop(); } catch {}
+            const done = note ? note.steps.filter((x) => x.done).length : 0, total = note ? note.steps.length : 0;
+            ic = note && note.state === 'stopped' ? '⏸' : '🔨';
+            state = note ? `${note.state === 'stopped' ? 'stopped' : 'building'} · ${done}/${total} steps · note ${ago(note.updatedAt || note.at)}${note.now ? ' · ' + esc(note.now).slice(0, 110) : ''}` : 'building (no note yet)';
+            cls = note && note.state === 'stopped' ? 'warn' : 'ok'; isNow = !nowSeen;
+          }
+          else if (labels.includes('needs-kiran')) { ic = '🙋'; state = 'needs Kiran'; cls = 'warn'; }
+          else if (labels.includes('status:blocked')) { ic = '⏸'; state = 'parked'; cls = ''; }
+          else { const waits = afterOf(l.text).filter((a) => !closed(a)); if (waits.length) { ic = '⏳'; state = 'waits on ' + waits.map((a) => `#${a}`).join(', '); } else { ic = '▶'; state = nowSeen ? 'ready, in line' : 'next: its lane takes it on the next wake'; isNow = !nowSeen; } }
+          if (isNow) nowSeen = true;
+          rows.push(`<div class="row"${isNow ? ' style="background:var(--ok-soft)"' : ''}><span class="ic">${ic}</span><div class="body"><div class="t"><a href="https://github.com/Veritill/platform/issues/${l.n}" target="_blank" rel="noreferrer">#${l.n}</a> ${l.size ? `<span class="chip">${l.size}</span> ` : ''}${esc(title)}</div><div class="s">${state}</div></div>${isNow ? '<b class="chip ok">now</b>' : ''}</div>`);
+        }
+      }
+      const chain = sections.find((x) => x.name === 'CHAIN'), solo = sections.find((x) => x.name === 'SOLO');
+      const prog = (sec) => sec ? `${sec.lines.filter((l) => closed(l.n)).length} of ${sec.lines.length} merged` : '';
+      el.innerHTML = `<div class="head">The sequence · CHAIN ${prog(chain)} · SOLO ${prog(solo)}</div>` + rows.join('');
+    } catch (e) { el.innerHTML = `<div class="head">The sequence</div><div class="note">could not read docs/ops/lane-schedule.md: ${esc(e && e.message || e)}</div>`; }
+  }
   async function loadHealth() {
     const el = $('health'); if (!el) return;
     let h = null; try { const r = await fetch('health.json?t=' + Date.now(), { cache:'no-store' }); if (r.ok) h = await r.json(); } catch {}
@@ -169,7 +234,7 @@ a{color:var(--accent)}
   }
 
   async function load() {
-    loadSpend(); loadHealth();
+    loadSpend(); loadHealth(); loadSequence();
     // issue #728: health.json already names which open PRs are conflicted with main vs. just missing a CI run
     // (build-health.mjs, issue #719) — read the same file here so the pipeline table can tell the two apart
     // instead of folding both into "tests queued".
