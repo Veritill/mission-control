@@ -66,8 +66,8 @@ a{color:var(--accent)}
       <div style="padding:0 14px 14px"><textarea id="fb" placeholder="What did you see, where, and what did you expect?"></textarea><div class="btns"><button class="pri" id="send">Send</button><span class="muted" id="fbnote"></span></div></div>
     </div>
 
-    <div class="card" id="pipeline"></div>
     <div class="card" id="sequence"></div>
+    <div class="card" id="pipeline"></div>
     <div class="card" id="health"></div>
     <div class="card" id="needs"></div>
     <div class="card" id="plan"></div>
@@ -132,73 +132,125 @@ a{color:var(--accent)}
 
   // BUILD HEALTH + COST (Kiran 2026-09-30): health.json is written every hour by Veritill/platform's build-health
   // workflow (scripts/build-health.mjs). Budget: Claude Max $200 flat + $50 for everything else the build runs on.
-  // THE SEQUENCE (Kiran 2026-10-19, "one change is completely tested and merged before the next"): the two pipelines
-  // in Veritill/platform docs/ops/lane-schedule.md, every line with where it stands right now. CHAIN is the dependent
-  // Caching steps in order; SOLO is the independent items. The first unfinished line of each is what its lane is on
-  // (or about to be). Read live from GitHub on every refresh; nothing here is computed by a model.
-  async function loadSequence() {
+  // PIPELINES (Kiran 2026-10-19: "for each subtask in the pipeline I need to know the flow it followed till now like
+  // lane → CI → Core → lane → CI → Core, that way I will know how many iterations each task went through").
+  // The two pipelines come from Veritill/platform docs/ops/lane-schedule.md (main; the switch branch until it merges).
+  // Every line shows where it is, and every line that has been worked shows its FLOW: each build attempt (who, how
+  // long, pushed or quit), each CI verdict, each Core verdict, the merge, and whether main re-tested or skipped.
+  // All of it is read from GitHub (issue timeline, notes, the PR, its reviews, its CI runs); no model, nothing guessed.
+  const SEQ_RE = /^(?:\d+\.|-) #(\d+)(?: ([SML]))? (.+)$/;
+  async function readSchedule() {
+    for (const ref of ['main', 'core/single-pipeline']) {
+      try {
+        const file = await gh('GET', `/repos/${REPO}/contents/docs/ops/lane-schedule.md?ref=${encodeURIComponent(ref)}`);
+        const md = decodeURIComponent(escape(atob(String(file.content).replace(/\n/g, ''))));
+        const sections = []; let cur = null;
+        for (const raw of md.split('\n')) {
+          const line = raw.replace(/\r$/, '');
+          const h = /^## (CHAIN|SOLO|CORE SEAT|PARKED)/.exec(line); if (h) { cur = { name: h[1], lines: [] }; sections.push(cur); continue; }
+          if (/^## /.test(line)) { cur = null; continue; }
+          const m = SEQ_RE.exec(line); if (m && cur) cur.lines.push({ n: +m[1], size: m[2] || '', text: m[3] });
+        }
+        if (sections.some((x) => x.name === 'CHAIN')) return { sections, ref };
+      } catch {}
+    }
+    return { sections: [], ref: null };
+  }
+  const mins = (a, b) => Math.max(0, Math.round((new Date(b || Date.now()).getTime() - new Date(a).getTime()) / 60000));
+  const dur = (m) => m < 1 ? '<1 min' : m < 60 ? m + ' min' : (Math.round(m / 6) / 10) + ' h';
+  // the flow of one task, in time order
+  async function flowOf(n, issue, prs) {
+    const hops = []; let loops = 0;
+    const [tl, cs] = await Promise.all([
+      gh('GET', `/repos/${REPO}/issues/${n}/timeline?per_page=100`).catch(() => []),
+      gh('GET', `/repos/${REPO}/issues/${n}/comments?per_page=100`).catch(() => []),
+    ]);
+    // build attempts: each status:in-progress label; it ends at the next status:ready label (a quit) or at the PR
+    const notes = cs.map(parseNote).filter(Boolean);
+    const roleAt = (t) => { const nt = notes.filter((x) => x.at <= t || true); const last = notes.find((x) => /core-agent/.test(x.role)) ? 'Core' : 'lane'; return last; };
+    const events = tl.filter((e) => e.event === 'labeled' || e.event === 'unlabeled' || e.event === 'closed' || e.event === 'cross-referenced');
+    let openAt = null;
+    for (const e of events) {
+      if (e.event === 'labeled' && e.label && e.label.name === 'status:in-progress') { if (!openAt) openAt = e.created_at; }
+      if (e.event === 'labeled' && e.label && e.label.name === 'status:ready' && openAt) { hops.push({ ic: '⏸', t: `${roleAt(e.created_at)} quit after ${dur(mins(openAt, e.created_at))}`, bad: true }); openAt = null; }
+    }
+    // the PR: an open one on this issue, else the one the timeline cross-references
+    let pr = prs.find((p) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${n}\\b`, 'i').test(p.body || ''));
+    if (!pr) { const x = events.find((e) => e.event === 'cross-referenced' && e.source && e.source.issue && e.source.issue.pull_request); if (x) pr = await gh('GET', `/repos/${REPO}/pulls/${x.source.issue.number}`).catch(() => null); }
+    if (!pr) {
+      if (openAt) hops.push({ ic: '🔨', t: `${roleAt(openAt)} building for ${dur(mins(openAt))}`, live: true });
+      return { hops, loops, pr: null };
+    }
+    const buildMin = openAt ? mins(openAt, pr.created_at) : null;
+    hops.push({ ic: '🔨', t: `${roleAt(pr.created_at)} built${buildMin != null ? ' in ' + dur(buildMin) : ''} → PR #${pr.number}`, url: pr.html_url });
+    const [runs, reviews, commits] = await Promise.all([
+      gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?branch=${encodeURIComponent(pr.head.ref)}&per_page=40`).then((r) => r.workflow_runs || []).catch(() => []),
+      gh('GET', `/repos/${REPO}/pulls/${pr.number}/reviews?per_page=50`).catch(() => []),
+      gh('GET', `/repos/${REPO}/pulls/${pr.number}/commits?per_page=100`).catch(() => []),
+    ]);
+    const shas = new Set(commits.map((c) => c.sha));
+    const seen = new Set(); const timeline = [];
+    for (const r of runs.filter((r) => r.event !== 'push' && shas.has(r.head_sha)).sort((a, b) => a.created_at < b.created_at ? -1 : 1)) {
+      if (seen.has(r.head_sha) && r.conclusion !== 'failure' && r.conclusion !== 'success') continue; // a duplicate kick
+      timeline.push({ at: r.created_at, kind: 'ci', ok: r.conclusion === 'success', pending: !r.conclusion, cancelled: r.conclusion === 'cancelled', min: mins(r.run_started_at || r.created_at, r.updated_at), url: r.html_url });
+      seen.add(r.head_sha);
+    }
+    for (const rv of reviews.filter((r) => r.state === 'APPROVED' || r.state === 'CHANGES_REQUESTED')) timeline.push({ at: rv.submitted_at, kind: 'core', ok: rv.state === 'APPROVED', url: rv.html_url });
+    for (const c of commits.slice(1)) { const at = c.commit && c.commit.committer && c.commit.committer.date; if (at && at > pr.created_at) timeline.push({ at, kind: 'push', msg: (c.commit.message || '').split('\n')[0] }); }
+    timeline.sort((a, b) => a.at < b.at ? -1 : 1);
+    let lastCi = null;
+    for (const t of timeline) {
+      if (t.kind === 'ci') { if (t.cancelled) continue; loops++; lastCi = t; hops.push(t.pending ? { ic: '🧪', t: 'CI running', live: true, url: t.url } : { ic: '🧪', t: `CI ${t.ok ? '✓' : '✗'} ${dur(t.min)}`, bad: !t.ok, url: t.url }); }
+      else if (t.kind === 'core') hops.push({ ic: '🧱', t: `Core ${t.ok ? '✓ approved' : '✗ changes'}`, bad: !t.ok, url: t.url });
+      else if (t.kind === 'push') { const after = lastCi && !lastCi.ok ? 'fix' : 'push'; hops.push({ ic: '🔨', t: `lane ${after}: ${t.msg.slice(0, 40)}` }); }
+    }
+    if (pr.merged_at) {
+      hops.push({ ic: '✅', t: `merged ${ago(pr.merged_at)} ago`, url: pr.html_url });
+      const mainRun = runs.find((r) => r.event === 'push' && r.head_branch === 'main' && r.head_sha === pr.merge_commit_sha) || (await gh('GET', `/repos/${REPO}/actions/workflows/ci.yml/runs?branch=main&head_sha=${pr.merge_commit_sha}&per_page=3`).then((r) => (r.workflow_runs || [])[0]).catch(() => null));
+      if (mainRun) { const jobs = await gh('GET', `/repos/${REPO}/actions/runs/${mainRun.id}/jobs`).then((j) => j.jobs || []).catch(() => []); const test = jobs.find((j) => j.name === 'test'); const skipped = test && test.conclusion === 'skipped'; hops.push(mainRun.conclusion ? { ic: '🚀', t: skipped ? 'main skipped re-test → staging' : `main re-tested ${mainRun.conclusion === 'success' ? '✓' : '✗'} → staging`, bad: mainRun.conclusion !== 'success', url: mainRun.html_url } : { ic: '🚀', t: 'main run in progress', live: true, url: mainRun.html_url }); }
+    } else if (lastCi && lastCi.ok && !timeline.some((t) => t.kind === 'core' && t.at > lastCi.at)) hops.push({ ic: '🧱', t: 'waiting for Core', live: true });
+    return { hops, loops, pr };
+  }
+  async function loadPipelines() {
     const el = $('sequence'); if (!el) return;
     try {
-      const file = await gh('GET', '/repos/Veritill/platform/contents/docs/ops/lane-schedule.md?ref=main');
-      const md = decodeURIComponent(escape(atob(String(file.content).replace(/\n/g, ''))));
-      const sections = []; let cur = null;
-      for (const raw of md.split('\n')) {
-        const line = raw.replace(/\r$/, '');
-        const h = /^## (CHAIN|SOLO|CORE SEAT|PARKED)/.exec(line); if (h) { cur = { name: h[1], lines: [] }; sections.push(cur); continue; }
-        if (/^## /.test(line)) { cur = null; continue; }
-        const m = /^(?:\d+\.|-) #(\d+)(?: ([SML]))? (.+)$/.exec(line); if (m && cur) cur.lines.push({ n: +m[1], size: m[2] || '', text: m[3] });
-      }
+      const { sections, ref } = await readSchedule();
+      if (!sections.length) { el.innerHTML = `<div class="head">Pipelines</div><div class="note">no CHAIN/SOLO schedule found yet (docs/ops/lane-schedule.md)</div>`; return; }
       const open = new Map();
-      for (let page = 1; page <= 3; page++) {
-        const list = await gh('GET', `/repos/Veritill/platform/issues?state=open&per_page=100&page=${page}`);
-        for (const i of list) if (!i.pull_request) open.set(i.number, i);
-        if (list.length < 100) break;
-      }
-      const prs = await gh('GET', '/repos/Veritill/platform/pulls?state=open&per_page=50');
-      const prFor = (n) => prs.find((p) => new RegExp(`(^|/)(?:migration-)?${n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${n}\\b`, 'i').test(p.body || ''));
-      const ci = new Map();
-      for (const p of prs) {
-        try { const cr = await gh('GET', `/repos/Veritill/platform/commits/${p.head.sha}/check-runs?per_page=30`);
-          const runs = (cr.check_runs || []).filter((c) => c.name === 'test' || c.name === 'e2e');
-          const red = runs.some((c) => c.conclusion === 'failure'), green = runs.filter((c) => c.conclusion === 'success').length >= 2;
-          ci.set(p.number, red ? 'red' : green ? 'green' : 'running');
-        } catch { ci.set(p.number, '?'); }
-      }
+      for (let page = 1; page <= 3; page++) { const list = await gh('GET', `/repos/${REPO}/issues?state=open&per_page=100&page=${page}`); for (const i of list) if (!i.pull_request) open.set(i.number, i); if (list.length < 100) break; }
+      const prs = await gh('GET', `/repos/${REPO}/pulls?state=open&per_page=50`);
       const closed = (n) => !open.has(n);
       const afterOf = (t) => { const m = /after ((?:#\d+(?: ✓)?(?:, ?)?)+)/.exec(t); return m ? [...m[1].matchAll(/#(\d+)(?: ✓)?/g)].map((x) => +x[1]) : []; };
-      const rows = []; const pipes = [];
+      const blocks = []; const pipes = [];
       for (const sec of sections) {
         if (!sec.lines.length) continue;
-        const pipe = (sec.name === 'CHAIN' || sec.name === 'SOLO') ? { name: sec.name, status: 'idle', text: 'nothing left' } : null; if (pipe) pipes.push(pipe);
-        rows.push(`<div class="note" style="padding-bottom:4px"><b>${esc(sec.name)}</b>${sec.name === 'CHAIN' ? ' · the dependent Caching steps, one at a time' : sec.name === 'SOLO' ? ' · independent items, one at a time, beside CHAIN' : sec.name === 'CORE SEAT' ? ' · not an agent build' : ' · needs Kiran'}</div>`);
-        let nowSeen = false;
+        const isPipe = sec.name === 'CHAIN' || sec.name === 'SOLO';
+        const pipe = isPipe ? { name: sec.name, status: 'idle', text: 'nothing left', merged: 0, total: sec.lines.length } : null; if (pipe) pipes.push(pipe);
+        const rows = []; let nowSeen = false;
         for (const l of sec.lines) {
-          const i = open.get(l.n); const pr = prFor(l.n); const labels = i ? i.labels.map((x) => x.name) : [];
+          const i = open.get(l.n); const labels = i ? i.labels.map((x) => x.name) : [];
           const title = l.text.replace(/ — .*$/, '').replace(/^[SML] /, '');
-          let ic = '⚪', state = '', cls = '', isNow = false;
-          if (closed(l.n)) { ic = '✓'; state = 'merged'; cls = 'ok'; }
-          else if (pr) { const c = ci.get(pr.number); ic = c === 'red' ? '🔴' : c === 'green' ? '🟢' : '🟡'; state = `PR <a href="${pr.html_url}" target="_blank" rel="noreferrer">#${pr.number}</a> · CI ${c === 'green' ? 'green, waiting for Core' : c === 'red' ? 'red, the lane fixes it' : 'running'}`; cls = c === 'red' ? 'bad' : c === 'green' ? 'ok' : 'warn'; isNow = !nowSeen; }
-          else if (labels.includes('status:in-progress')) {
-            let note = null; try { const cs = await gh('GET', `/repos/Veritill/platform/issues/${l.n}/comments?per_page=100`); note = cs.map(parseNote).filter(Boolean).pop(); } catch {}
-            const done = note ? note.steps.filter((x) => x.done).length : 0, total = note ? note.steps.length : 0;
-            ic = note && note.state === 'stopped' ? '⏸' : '🔨';
-            state = note ? `${note.state === 'stopped' ? 'stopped' : 'building'} · ${done}/${total} steps · note ${ago(note.updatedAt || note.at)}${note.now ? ' · ' + esc(note.now).slice(0, 110) : ''}` : 'building (no note yet)';
-            cls = note && note.state === 'stopped' ? 'warn' : 'ok'; isNow = !nowSeen;
-          }
-          else if (labels.includes('needs-kiran')) { ic = '🙋'; state = 'needs Kiran'; cls = 'warn'; }
-          else if (labels.includes('status:blocked')) { ic = '⏸'; state = 'parked'; cls = ''; }
-          else { const waits = afterOf(l.text).filter((a) => !closed(a)); if (waits.length) { ic = '⏳'; state = 'waits on ' + waits.map((a) => `#${a}`).join(', '); } else { ic = '▶'; state = nowSeen ? 'ready, in line' : 'next: its lane takes it on the next wake'; isNow = !nowSeen; } }
-          if (isNow) { nowSeen = true; if (pipe) { pipe.status = (pr || labels.includes('status:in-progress')) ? 'running' : 'idle'; pipe.text = `#${l.n} ${pr ? `PR #${pr.number}, CI ${ci.get(pr.number) || '?'}` : labels.includes('status:in-progress') ? 'building' : 'next, waiting for its wake'}`; } }
-          else if (pipe && pipe.status === 'idle' && pipe.text === 'nothing left' && !closed(l.n) && /^waits on/.test(state)) { pipe.text = `#${l.n} ${state}`; }
-          rows.push(`<div class="row"${isNow ? ' style="background:var(--ok-soft)"' : ''}><span class="ic">${ic}</span><div class="body"><div class="t"><a href="https://github.com/Veritill/platform/issues/${l.n}" target="_blank" rel="noreferrer">#${l.n}</a> ${l.size ? `<span class="chip">${l.size}</span> ` : ''}${esc(title)}</div><div class="s">${state}</div></div>${isNow ? '<b class="chip ok">now</b>' : ''}</div>`);
+          const worked = closed(l.n) || labels.includes('status:in-progress') || prs.some((p) => new RegExp(`(^|/)(?:migration-)?${l.n}([^0-9]|$)`).test(p.head.ref) || new RegExp(`(Closes|Refs) #${l.n}\\b`, 'i').test(p.body || ''));
+          const flow = (isPipe && worked) ? await flowOf(l.n, i, prs) : { hops: [], loops: 0, pr: null };
+          let ic = '○', state = '', isNow = false;
+          if (closed(l.n)) { ic = '✓'; state = `merged · ${flow.loops} CI loop${flow.loops === 1 ? '' : 's'}`; if (pipe) pipe.merged++; }
+          else if (flow.pr) { const last = flow.hops[flow.hops.length - 1]; ic = last && last.bad ? '🔴' : '🟡'; state = `PR #${flow.pr.number} · ${last ? last.t : ''} · ${flow.loops} CI loop${flow.loops === 1 ? '' : 's'} so far`; isNow = !nowSeen; }
+          else if (labels.includes('status:in-progress')) { const last = flow.hops[flow.hops.length - 1]; ic = last && last.bad ? '⏸' : '🔨'; state = last ? last.t : 'claimed'; isNow = !nowSeen; }
+          else if (labels.includes('needs-kiran')) { ic = '🙋'; state = 'needs Kiran'; }
+          else if (labels.includes('status:blocked')) { ic = '⏸'; state = 'parked'; }
+          else { const waits = afterOf(l.text).filter((a) => !closed(a)); if (waits.length) { ic = '⏳'; state = 'waits on ' + waits.map((a) => `#${a}`).join(', '); } else { ic = '▶'; state = nowSeen ? 'ready, in line' : 'next: the lane takes it on its wake'; isNow = !nowSeen; } }
+          if (isNow) { nowSeen = true; if (pipe) { pipe.status = (flow.pr || labels.includes('status:in-progress')) ? 'running' : 'idle'; pipe.text = `#${l.n} · ${state}`; } }
+          else if (pipe && pipe.text === 'nothing left' && !closed(l.n) && /^waits on/.test(state)) pipe.text = `#${l.n} ${state}`;
+          const flowLine = flow.hops.length ? `<div class="s" style="margin-top:4px">${flow.hops.map((h) => `<span class="chip ${h.bad ? 'bad' : h.live ? 'warn' : ''}">${h.ic} ${h.url ? `<a href="${h.url}" target="_blank" rel="noreferrer">${esc(h.t)}</a>` : esc(h.t)}</span>`).join(' → ')}</div>` : '';
+          rows.push(`<div class="row"${isNow ? ' style="background:var(--ok-soft)"' : ''}><span class="ic">${ic}</span><div class="body"><div class="t"><a href="https://github.com/${REPO}/issues/${l.n}" target="_blank" rel="noreferrer">#${l.n}</a> ${l.size ? `<span class="chip">${l.size}</span> ` : ''}${esc(title)}</div><div class="s">${state}</div>${flowLine}</div>${isNow ? '<b class="chip ok">now</b>' : ''}</div>`);
         }
+        const sub = sec.name === 'CHAIN' ? 'the dependent Caching steps, strictly one at a time' : sec.name === 'SOLO' ? 'independent items, one at a time, beside CHAIN' : sec.name === 'CORE SEAT' ? 'not an agent build' : 'needs Kiran';
+        blocks.push(`<details ${isPipe ? 'open' : ''}><summary class="note" style="cursor:pointer"><b>${esc(sec.name)}</b> · ${sub}${pipe ? ` · ${pipe.merged} of ${pipe.total} merged` : ''}</summary>${rows.join('')}</details>`);
       }
-      const chain = sections.find((x) => x.name === 'CHAIN'), solo = sections.find((x) => x.name === 'SOLO');
-      const prog = (sec) => sec ? `${sec.lines.filter((l) => closed(l.n)).length} of ${sec.lines.length} merged` : '';
       const running = pipes.filter((p) => p.status === 'running').length;
       const pipeLine = pipes.map((p) => `<span class="chip ${p.status === 'running' ? 'ok' : ''}">${p.name}</span> ${p.status === 'running' ? 'running' : 'idle'} · ${esc(p.text)}`).join(' &nbsp;·&nbsp; ');
-      el.innerHTML = `<div class="head">The sequence · ${running} of ${pipes.length} pipelines running · CHAIN ${prog(chain)} · SOLO ${prog(solo)}</div><div class="note">${pipeLine}</div>` + rows.join('');
-    } catch (e) { el.innerHTML = `<div class="head">The sequence</div><div class="note">could not read docs/ops/lane-schedule.md: ${esc(e && e.message || e)}</div>`; }
+      el.innerHTML = `<div class="head">Pipelines · ${running} of ${pipes.length} running${ref && ref !== 'main' ? ` · schedule read from ${esc(ref)} (not merged yet)` : ''}</div><div class="note">${pipeLine}</div>` + blocks.join('');
+    } catch (e) { el.innerHTML = `<div class="head">Pipelines</div><div class="note">could not build the pipelines view: ${esc(e && e.message || e)}</div>`; }
   }
   async function loadHealth() {
     const el = $('health'); if (!el) return;
@@ -238,7 +290,7 @@ a{color:var(--accent)}
   }
 
   async function load() {
-    loadSpend(); loadHealth(); loadSequence();
+    loadSpend(); loadHealth(); loadPipelines();
     // issue #728: health.json already names which open PRs are conflicted with main vs. just missing a CI run
     // (build-health.mjs, issue #719) — read the same file here so the pipeline table can tell the two apart
     // instead of folding both into "tests queued".
@@ -384,9 +436,9 @@ a{color:var(--accent)}
       const renderParties = () => `<div class="parties">${parties.map((x) => `<div class="party"><div class="t">${x.ic} ${esc(x.t)}</div><div class="s">${esc(x.s)}</div>${partyLine2[x.k] ? `<div class="s">${esc(partyLine2[x.k])}</div>` : ''}</div>`).join('')}</div>`;
       $('pipeline').innerHTML = `<div class="head">The pipeline · ${rows.length} in flight · ${workers} worker${workers===1?'':'s'} building · ${agQueued.length + ciQueued.length} runs queued · median open-to-merge ${eta(mergeMedMin)}</div>` +
         renderParties() +
-        (rows.length ? `<div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
+        (rows.length ? `<details><summary class="note" style="cursor:pointer">Every item in flight, the old flat view (${rows.length})</summary><div class="tbl"><table><thead><tr><th></th><th>Item</th><th>Lane</th><th>Where it is</th><th>Who has it</th><th>Waiting for</th><th>Next</th><th>Rough time</th></tr></thead><tbody>` +
           rows.map((r) => `<tr><td class="ic2">${r.ic}</td><td><a href="${r.url}" target="_blank" rel="noreferrer">${esc(r.item.slice(0,70))}</a>${r.detail ? `<div class="s">${esc(String(r.detail).slice(0,140))}</div>` : ''}${r.steps ? stepBar(r.steps) : ''}${r.log && r.log.length ? `<details><summary class="muted" style="cursor:pointer;font-size:12px">loop log · ${r.log.length} events</summary><div class="q" style="max-height:260px">${r.log.map((e) => `${hhmm(e.at)} ${e.ic} ${e.url ? `<a href="${e.url}" target="_blank" rel="noreferrer">${esc(e.text)}</a>` : esc(e.text)}`).join('\n')}</div></details>` : ''}</td><td>${LANE_ICON[r.lane]||''} ${esc(r.lane)}</td><td>${esc(r.where)}</td><td>${esc(r.who)}</td><td>${esc(r.waits)}</td><td>${esc(r.next)}</td><td>${esc(r.eta)}</td></tr>`).join('') +
-          `</tbody></table></div>` : `<div class="note">Nothing in flight.</div>`);
+          `</tbody></table></div></details>` : `<div class="note">Nothing in flight.</div>`);
 
       // WORKING vs WAITING, last 24 h (Kiran 2026-09-27: "how much is the actual working time and waiting or idle time").
       // Working = a role's job was running; waiting = the job sat queued for a runner. Read from GitHub's own timestamps:
