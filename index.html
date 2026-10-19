@@ -166,9 +166,10 @@ a{color:var(--accent)}
       }
       const closed = (n) => !open.has(n);
       const afterOf = (t) => { const m = /after ((?:#\d+(?: ✓)?(?:, ?)?)+)/.exec(t); return m ? [...m[1].matchAll(/#(\d+)(?: ✓)?/g)].map((x) => +x[1]) : []; };
-      const rows = [];
+      const rows = []; const pipes = [];
       for (const sec of sections) {
         if (!sec.lines.length) continue;
+        const pipe = (sec.name === 'CHAIN' || sec.name === 'SOLO') ? { name: sec.name, status: 'idle', text: 'nothing left' } : null; if (pipe) pipes.push(pipe);
         rows.push(`<div class="note" style="padding-bottom:4px"><b>${esc(sec.name)}</b>${sec.name === 'CHAIN' ? ' · the dependent Caching steps, one at a time' : sec.name === 'SOLO' ? ' · independent items, one at a time, beside CHAIN' : sec.name === 'CORE SEAT' ? ' · not an agent build' : ' · needs Kiran'}</div>`);
         let nowSeen = false;
         for (const l of sec.lines) {
@@ -187,13 +188,16 @@ a{color:var(--accent)}
           else if (labels.includes('needs-kiran')) { ic = '🙋'; state = 'needs Kiran'; cls = 'warn'; }
           else if (labels.includes('status:blocked')) { ic = '⏸'; state = 'parked'; cls = ''; }
           else { const waits = afterOf(l.text).filter((a) => !closed(a)); if (waits.length) { ic = '⏳'; state = 'waits on ' + waits.map((a) => `#${a}`).join(', '); } else { ic = '▶'; state = nowSeen ? 'ready, in line' : 'next: its lane takes it on the next wake'; isNow = !nowSeen; } }
-          if (isNow) nowSeen = true;
+          if (isNow) { nowSeen = true; if (pipe) { pipe.status = (pr || labels.includes('status:in-progress')) ? 'running' : 'idle'; pipe.text = `#${l.n} ${pr ? `PR #${pr.number}, CI ${ci.get(pr.number) || '?'}` : labels.includes('status:in-progress') ? 'building' : 'next, waiting for its wake'}`; } }
+          else if (pipe && pipe.status === 'idle' && pipe.text === 'nothing left' && !closed(l.n) && /^waits on/.test(state)) { pipe.text = `#${l.n} ${state}`; }
           rows.push(`<div class="row"${isNow ? ' style="background:var(--ok-soft)"' : ''}><span class="ic">${ic}</span><div class="body"><div class="t"><a href="https://github.com/Veritill/platform/issues/${l.n}" target="_blank" rel="noreferrer">#${l.n}</a> ${l.size ? `<span class="chip">${l.size}</span> ` : ''}${esc(title)}</div><div class="s">${state}</div></div>${isNow ? '<b class="chip ok">now</b>' : ''}</div>`);
         }
       }
       const chain = sections.find((x) => x.name === 'CHAIN'), solo = sections.find((x) => x.name === 'SOLO');
       const prog = (sec) => sec ? `${sec.lines.filter((l) => closed(l.n)).length} of ${sec.lines.length} merged` : '';
-      el.innerHTML = `<div class="head">The sequence · CHAIN ${prog(chain)} · SOLO ${prog(solo)}</div>` + rows.join('');
+      const running = pipes.filter((p) => p.status === 'running').length;
+      const pipeLine = pipes.map((p) => `<span class="chip ${p.status === 'running' ? 'ok' : ''}">${p.name}</span> ${p.status === 'running' ? 'running' : 'idle'} · ${esc(p.text)}`).join(' &nbsp;·&nbsp; ');
+      el.innerHTML = `<div class="head">The sequence · ${running} of ${pipes.length} pipelines running · CHAIN ${prog(chain)} · SOLO ${prog(solo)}</div><div class="note">${pipeLine}</div>` + rows.join('');
     } catch (e) { el.innerHTML = `<div class="head">The sequence</div><div class="note">could not read docs/ops/lane-schedule.md: ${esc(e && e.message || e)}</div>`; }
   }
   async function loadHealth() {
