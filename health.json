@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-19T03:45:21.452Z",
+  "at": "2026-10-19T04:37:54.528Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 12,
-      "waitMin": 0,
-      "busyPct": 10
+      "runs": 6,
+      "busyMin": 31,
+      "waitMin": 3,
+      "busyPct": 26
     },
     "core": {
-      "runs": 8,
-      "busyMin": 40,
-      "waitMin": 53,
-      "busyPct": 67
+      "runs": 9,
+      "busyMin": 23,
+      "waitMin": 1,
+      "busyPct": 38
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 145,
-      "waitMin": 0,
-      "busyPct": 121
+      "runs": 9,
+      "busyMin": 146,
+      "waitMin": 33,
+      "busyPct": 122
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 15
+    "ciQueued": 3,
+    "oldestQueuedMin": 28
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "core-runner",
@@ -71,11 +71,23 @@
   "findings": [
     {
       "level": "fixed",
-      "text": "lane solo had 2 ready task(s) 30+ min old and an idle runner: woke it"
+      "text": "lane solo had 1 ready task(s) 30+ min old and an idle runner: woke it"
+    },
+    {
+      "level": "fixed",
+      "text": "lane chain had 12 ready task(s) 30+ min old and an idle runner: woke it"
+    },
+    {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 39197697096): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $339 exceeds the $250 budget (Railway projected $138.61)"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 28 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $339 exceeds the $250 budget (Railway projected $138.76)"
     },
     {
       "level": "info",
@@ -86,8 +98,8 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 114.41,
-    "railwayProjected": 138.61,
+    "railwayMonthToDate": 114.66,
+    "railwayProjected": 138.76,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
