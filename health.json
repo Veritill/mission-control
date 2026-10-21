@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-21T01:57:24.602Z",
+  "at": "2026-10-21T01:58:36.339Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 3,
-      "busyMin": 45,
+      "busyMin": 46,
       "waitMin": 24,
-      "busyPct": 37
+      "busyPct": 38
     },
     "core": {
       "runs": 4,
@@ -28,9 +28,9 @@
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 5,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
