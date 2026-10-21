@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-21T22:41:36.326Z",
+  "at": "2026-10-21T23:48:32.970Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 32,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 26
     },
     "core": {
-      "runs": 1,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 3
+      "runs": 5,
+      "busyMin": 13,
+      "waitMin": 6,
+      "busyPct": 22
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 14,
+      "runs": 6,
+      "busyMin": 184,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 153
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 1,
+    "ciQueued": 3,
+    "oldestQueuedMin": 35
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
@@ -51,12 +51,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -69,6 +69,10 @@
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "warn",
+      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 35 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
     {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
