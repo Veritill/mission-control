@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-21T07:58:14.473Z",
+  "at": "2026-10-21T14:05:23.719Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -70,10 +70,6 @@
   "conflictWoken": {},
   "findings": [
     {
-      "level": "warn",
-      "text": "projected development cost $334 exceeds the $250 budget (Railway projected $134.01)"
-    },
-    {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
     },
@@ -86,10 +82,10 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 122.1,
-    "railwayProjected": 134.01,
-    "source": "railway-api",
-    "note": "usage × Railway's published rates; the plan base fee is not included"
+    "railwayMonthToDate": null,
+    "railwayProjected": null,
+    "source": "unknown",
+    "note": "Railway API read failed: Not Authorized"
   },
   "cache": null,
   "securityPulse": null
