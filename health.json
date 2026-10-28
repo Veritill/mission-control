@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-24T01:03:42.375Z",
+  "at": "2026-10-28T03:06:39.220Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -44,11 +44,6 @@
       "busy": false
     },
     {
-      "name": "core-runner",
-      "online": true,
-      "busy": false
-    },
-    {
       "name": "railway-noble",
       "online": true,
       "busy": false
@@ -62,6 +57,11 @@
       "name": "router-runner",
       "online": true,
       "busy": true
+    },
+    {
+      "name": "core-runner",
+      "online": true,
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -69,6 +69,14 @@
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "fixed",
+      "text": "lane solo had 1 ready task(s) 30+ min old and an idle runner: woke it"
+    },
+    {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 40281569849): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+    },
     {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
