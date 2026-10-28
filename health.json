@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-28T08:57:33.551Z",
+  "at": "2026-10-28T09:48:53.843Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 4,
+      "busyMin": 7,
+      "waitMin": 2,
+      "busyPct": 6
     },
     "core": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 17,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 14
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
