@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-28T10:41:29.335Z",
+  "at": "2026-10-28T11:43:17.074Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 7,
+      "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 4
     },
     "core": {
-      "runs": 7,
-      "busyMin": 21,
+      "runs": 9,
+      "busyMin": 19,
       "waitMin": 5,
-      "busyPct": 36
+      "busyPct": 31
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 7,
-      "busyMin": 115,
+      "busyMin": 84,
       "waitMin": 0,
-      "busyPct": 96
+      "busyPct": 70
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
