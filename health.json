@@ -1,18 +1,18 @@
 {
-  "at": "2026-10-28T03:09:30.238Z",
+  "at": "2026-10-28T04:27:57.131Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 2
+      "runs": 6,
+      "busyMin": 12,
+      "waitMin": 1,
+      "busyPct": 10
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 11,
+      "busyMin": 33,
+      "waitMin": 5,
+      "busyPct": 55
     },
     "planner": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 8,
+      "busyMin": 151,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 126
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 2,
     "ciQueued": 0,
     "oldestQueuedMin": 1
   },
@@ -36,7 +36,7 @@
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -69,10 +69,6 @@
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
-    {
-      "level": "fixed",
-      "text": "main is red on e2e only (run 40279524435): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
-    },
     {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
