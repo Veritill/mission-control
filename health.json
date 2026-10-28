@@ -1,12 +1,12 @@
 {
-  "at": "2026-10-28T03:06:39.220Z",
+  "at": "2026-10-28T03:09:30.238Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 2
     },
     "core": {
       "runs": 0,
@@ -28,15 +28,15 @@
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,11 +71,7 @@
   "findings": [
     {
       "level": "fixed",
-      "text": "lane solo had 1 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
-      "level": "fixed",
-      "text": "main is red on e2e only (run 40281569849): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+      "text": "main is red on e2e only (run 40279524435): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "info",
