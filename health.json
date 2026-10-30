@@ -1,36 +1,36 @@
 {
-  "at": "2026-10-30T15:58:38.916Z",
+  "at": "2026-10-30T16:56:28.878Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 5,
+      "busyMin": 24,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 20
     },
     "core": {
-      "runs": 1,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 1
+      "runs": 10,
+      "busyMin": 23,
+      "waitMin": 10,
+      "busyPct": 39
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 7,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 11
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 19,
+      "runs": 8,
+      "busyMin": 155,
       "waitMin": 0,
-      "busyPct": 16
+      "busyPct": 129
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "ciQueued": 2,
+    "oldestQueuedMin": 31
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -69,6 +69,10 @@
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "warn",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 31 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
     {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
