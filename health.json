@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-04T16:16:18.757Z",
+  "at": "2026-11-04T16:37:41.837Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 14,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 1
     },
     "core": {
-      "runs": 8,
-      "busyMin": 88,
-      "waitMin": 10,
-      "busyPct": 146
+      "runs": 9,
+      "busyMin": 28,
+      "waitMin": 7,
+      "busyPct": 46
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 10,
-      "busyMin": 284,
+      "busyMin": 154,
       "waitMin": 0,
-      "busyPct": 237
+      "busyPct": 128
     }
   },
   "queue": {
-    "agentsQueued": 8,
-    "ciQueued": 6,
-    "oldestQueuedMin": 44
+    "agentsQueued": 11,
+    "ciQueued": 2,
+    "oldestQueuedMin": 12
   },
   "runners": [
     {
@@ -41,12 +41,12 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -70,16 +70,16 @@
   "conflictWoken": {},
   "findings": [
     {
-      "level": "warn",
-      "text": "CI queue: 7 run(s) waiting 20+ min for label 'router' (longest 44 min); every 'router' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 4 run(s) waiting 20+ min for label 'veritill' (longest 42 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "warn",
+      "text": "staging api deploy read failed: graphql"
+    },
+    {
+      "level": "warn",
+      "text": "staging web deploy read failed: graphql"
     }
   ],
   "cost": {
@@ -92,20 +92,20 @@
     "note": "Railway API read failed: graphql"
   },
   "cache": {
-    "at": "2026-11-04T16:16:18.756Z",
+    "at": "2026-11-04T16:37:39.470Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 97,
+      "hits": 99,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 48,
+      "hits": 49,
       "misses": 1
     },
     "derived": {
-      "hits": 202,
+      "hits": 206,
       "misses": 11,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -113,11 +113,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 49
+      "onceHits": 50
     }
   },
   "securityPulse": {
-    "at": "2026-11-04T16:16:18.549Z",
+    "at": "2026-11-04T16:37:38.208Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -129,5 +129,13 @@
       "auth.pin_failed": null
     },
     "ocrRefused": null
+  },
+  "staging": {
+    "api": {
+      "status": "unknown"
+    },
+    "web": {
+      "status": "unknown"
+    }
   }
 }
