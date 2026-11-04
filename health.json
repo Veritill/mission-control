@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-04T13:19:13.599Z",
+  "at": "2026-11-04T14:22:52.481Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 19,
-      "waitMin": 6,
-      "busyPct": 16
+      "runs": 5,
+      "busyMin": 24,
+      "waitMin": 0,
+      "busyPct": 20
     },
     "core": {
-      "runs": 12,
-      "busyMin": 28,
-      "waitMin": 5,
-      "busyPct": 47
+      "runs": 7,
+      "busyMin": 27,
+      "waitMin": 8,
+      "busyPct": 46
     },
     "planner": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 104,
+      "runs": 14,
+      "busyMin": 189,
       "waitMin": 0,
-      "busyPct": 87
+      "busyPct": 158
     }
   },
   "queue": {
-    "agentsQueued": 10,
-    "ciQueued": 1,
-    "oldestQueuedMin": 14
+    "agentsQueued": 13,
+    "ciQueued": 4,
+    "oldestQueuedMin": 38
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -70,6 +70,14 @@
   "conflictWoken": {},
   "findings": [
     {
+      "level": "warn",
+      "text": "CI queue: 7 run(s) waiting 20+ min for label 'router' (longest 38 min); every 'router' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 35 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
     }
@@ -84,20 +92,20 @@
     "note": "Railway API read failed: graphql"
   },
   "cache": {
-    "at": "2026-11-04T13:19:13.599Z",
+    "at": "2026-11-04T14:22:52.481Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 73,
+      "hits": 81,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 36,
+      "hits": 40,
       "misses": 1
     },
     "derived": {
-      "hits": 148,
+      "hits": 164,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -105,11 +113,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 37
+      "onceHits": 41
     }
   },
   "securityPulse": {
-    "at": "2026-11-04T13:19:13.322Z",
+    "at": "2026-11-04T14:22:52.229Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
