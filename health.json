@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-04T00:52:02.008Z",
+  "at": "2026-11-04T01:43:42.606Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 30,
+      "runs": 4,
+      "busyMin": 49,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 41
     },
     "core": {
-      "runs": 6,
-      "busyMin": 12,
-      "waitMin": 3,
-      "busyPct": 19
+      "runs": 10,
+      "busyMin": 24,
+      "waitMin": 4,
+      "busyPct": 40
     },
     "planner": {
       "runs": 0,
@@ -21,27 +21,27 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 55,
+      "runs": 8,
+      "busyMin": 118,
       "waitMin": 0,
-      "busyPct": 45
+      "busyPct": 98
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -64,11 +64,24 @@
       "busy": true
     }
   ],
-  "conflicted": [],
+  "conflicted": [
+    {
+      "number": 1263,
+      "branch": "lane/chain/1045"
+    }
+  ],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "warn",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
+    {
+      "level": "warn",
+      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
+    },
     {
       "level": "info",
       "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
