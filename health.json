@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-04T05:44:26.328Z",
+  "at": "2026-11-04T06:35:40.299Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 17,
+      "runs": 47,
+      "busyMin": 5,
       "waitMin": 0,
-      "busyPct": 14
+      "busyPct": 4
     },
     "core": {
-      "runs": 8,
-      "busyMin": 35,
-      "waitMin": 8,
-      "busyPct": 58
+      "runs": 47,
+      "busyMin": 1,
+      "waitMin": 1,
+      "busyPct": 2
     },
     "planner": {
-      "runs": 0,
+      "runs": 46,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
     "ci": {
       "runs": 8,
-      "busyMin": 259,
+      "busyMin": 96,
       "waitMin": 0,
-      "busyPct": 216
+      "busyPct": 80
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 12,
-    "oldestQueuedMin": 111
+    "agentsQueued": 8,
+    "ciQueued": 14,
+    "oldestQueuedMin": 163
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 12 run(s) waiting 20+ min for label 'veritill' (longest 111 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 8 run(s) waiting 20+ min for label 'veritill' (longest 163 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
