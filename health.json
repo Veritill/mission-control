@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-04T06:35:40.299Z",
+  "at": "2026-11-04T07:32:04.197Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 47,
-      "busyMin": 5,
+      "runs": 1,
+      "busyMin": 14,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 12
     },
     "core": {
-      "runs": 47,
-      "busyMin": 1,
-      "waitMin": 1,
-      "busyPct": 2
+      "runs": 10,
+      "busyMin": 49,
+      "waitMin": 4,
+      "busyPct": 82
     },
     "planner": {
-      "runs": 46,
+      "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 96,
+      "runs": 20,
+      "busyMin": 476,
       "waitMin": 0,
-      "busyPct": 80
+      "busyPct": 397
     }
   },
   "queue": {
-    "agentsQueued": 8,
-    "ciQueued": 14,
-    "oldestQueuedMin": 163
+    "agentsQueued": 14,
+    "ciQueued": 24,
+    "oldestQueuedMin": 219
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,15 +71,11 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 8 run(s) waiting 20+ min for label 'veritill' (longest 163 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 11 run(s) waiting 20+ min for label 'veritill' (longest 219 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
-      "text": "security: VERITILL_API_URL/VERITILL_CRON_SECRET not set — pulse not read this tick"
-    },
-    {
-      "level": "info",
-      "text": "cache: VERITILL_API_URL not set — /health counters not read this tick"
+      "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
     }
   ],
   "cost": {
@@ -91,6 +87,43 @@
     "source": "unknown",
     "note": "Railway API read failed: graphql"
   },
-  "cache": null,
-  "securityPulse": null
+  "cache": {
+    "at": "2026-11-04T07:32:04.196Z",
+    "tenantContext": {
+      "entries": 1,
+      "hits": 27,
+      "misses": 1,
+      "hydrations": 1
+    },
+    "platformContent": {
+      "entries": 1,
+      "hits": 13,
+      "misses": 1
+    },
+    "derived": {
+      "hits": 56,
+      "misses": 2,
+      "refreshes": 0,
+      "refreshFailures": 0,
+      "oldestQueuedAgeSec": null,
+      "deadRows": 0
+    },
+    "requestContext": {
+      "onceHits": 14
+    }
+  },
+  "securityPulse": {
+    "at": "2026-11-04T07:32:03.948Z",
+    "windowMinutes": 60,
+    "counts": {
+      "passkey.add_owner": 0
+    },
+    "tenantIds": {},
+    "maxFailedSigninsPerEmail": {
+      "auth.code_failed": null,
+      "auth.password_failed": null,
+      "auth.pin_failed": null
+    },
+    "ocrRefused": null
+  }
 }
