@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-04T07:32:04.197Z",
+  "at": "2026-11-04T07:59:54.676Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 14,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 0
     },
     "core": {
-      "runs": 10,
-      "busyMin": 49,
+      "runs": 11,
+      "busyMin": 47,
       "waitMin": 4,
-      "busyPct": 82
+      "busyPct": 79
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 20,
-      "busyMin": 476,
+      "runs": 17,
+      "busyMin": 514,
       "waitMin": 0,
-      "busyPct": 397
+      "busyPct": 428
     }
   },
   "queue": {
-    "agentsQueued": 14,
-    "ciQueued": 24,
-    "oldestQueuedMin": 219
+    "agentsQueued": 12,
+    "ciQueued": 16,
+    "oldestQueuedMin": 174
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,11 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 11 run(s) waiting 20+ min for label 'veritill' (longest 219 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 3 run(s) waiting 20+ min for label 'router' (longest 24 min); every 'router' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 15 run(s) waiting 20+ min for label 'veritill' (longest 174 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -88,20 +92,20 @@
     "note": "Railway API read failed: graphql"
   },
   "cache": {
-    "at": "2026-11-04T07:32:04.196Z",
+    "at": "2026-11-04T07:59:54.675Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 27,
+      "hits": 31,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 13,
+      "hits": 15,
       "misses": 1
     },
     "derived": {
-      "hits": 56,
+      "hits": 64,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -109,11 +113,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 14
+      "onceHits": 16
     }
   },
   "securityPulse": {
-    "at": "2026-11-04T07:32:03.948Z",
+    "at": "2026-11-04T07:59:54.466Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
