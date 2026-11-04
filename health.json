@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-04T03:56:45.908Z",
+  "at": "2026-11-04T04:48:30.546Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 4,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 14
     },
     "core": {
-      "runs": 15,
-      "busyMin": 47,
-      "waitMin": 3,
-      "busyPct": 78
+      "runs": 9,
+      "busyMin": 30,
+      "waitMin": 8,
+      "busyPct": 50
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 3,
+      "busyPct": 1
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 281,
-      "waitMin": 0,
-      "busyPct": 234
+      "runs": 13,
+      "busyMin": 402,
+      "waitMin": 56,
+      "busyPct": 335
     }
   },
   "queue": {
-    "agentsQueued": 5,
-    "ciQueued": 3,
-    "oldestQueuedMin": 37
+    "agentsQueued": 1,
+    "ciQueued": 9,
+    "oldestQueuedMin": 50
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -70,8 +70,12 @@
   "conflictWoken": {},
   "findings": [
     {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 41769778908): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
+    },
+    {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 37 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 7 run(s) waiting 20+ min for label 'veritill' (longest 50 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
