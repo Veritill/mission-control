@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-04T04:48:30.546Z",
+  "at": "2026-11-04T05:44:26.328Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 16,
+      "runs": 2,
+      "busyMin": 17,
       "waitMin": 0,
       "busyPct": 14
     },
     "core": {
-      "runs": 9,
-      "busyMin": 30,
+      "runs": 8,
+      "busyMin": 35,
       "waitMin": 8,
-      "busyPct": 50
+      "busyPct": 58
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 1,
-      "waitMin": 3,
-      "busyPct": 1
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 13,
-      "busyMin": 402,
-      "waitMin": 56,
-      "busyPct": 335
+      "runs": 8,
+      "busyMin": 259,
+      "waitMin": 0,
+      "busyPct": 216
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 9,
-    "oldestQueuedMin": 50
+    "ciQueued": 12,
+    "oldestQueuedMin": 111
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -70,12 +70,8 @@
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "main is red on e2e only (run 41769778908): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
-    },
-    {
       "level": "warn",
-      "text": "CI queue: 7 run(s) waiting 20+ min for label 'veritill' (longest 50 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 12 run(s) waiting 20+ min for label 'veritill' (longest 111 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
