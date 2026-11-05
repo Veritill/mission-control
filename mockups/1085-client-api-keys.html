@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup #1085 — Admin › Clients › client › API: one key per integration, what it may read, shown once, revoke behind "Confirm it's you"</title>
+<style>
+  :root {
+    --paper: #fbfaf7; --card: #ffffff; --ink: #1e2a24; --muted: #5f6b63; --rule: #e4e1d6;
+    --green: #2f7d4f; --green-soft: #eaf3ec; --chip: #f1efe8; --chip-ink: #4a564f;
+    --saffron: #b5651d; --saffron-soft: #f7ecdd; --danger: #b3392c; --danger-soft: #f6e6e2; --skip: #8a8f88;
+    --warn-soft: #f7efd8; --warn: #8a6a1f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #eeece4; color: var(--ink); font: 15px/1.5 "Source Sans 3", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; padding: 24px 14px 60px; }
+  h1.page { font-size: 19px; margin: 0 0 4px; text-align: center; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 900px; margin: 0 auto 10px; text-align: center; }
+  .legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 0 auto 22px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .wrap { max-width: 1480px; margin: 0 auto; }
+  .stage { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+  .col { width: 320px; }
+  .col.wide { width: 900px; max-width: 100%; }
+  .col h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; text-align: center; font-weight: 600; min-height: 36px; line-height: 1.3; }
+  .col h3 b { display: block; color: var(--ink); }
+  .phone { width: 320px; min-height: 700px; background: var(--paper); border-radius: 26px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .laptop { width: 100%; background: var(--paper); border-radius: 14px; border: 8px solid #23261f; overflow: hidden; position: relative; box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+  .screen { display: flex; flex-direction: column; min-height: 684px; }
+  .laptop .screen { min-height: 0; }
+  .topbar { display: flex; align-items: center; gap: 8px; padding: 10px 12px 8px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .iconbtn { height: 24px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; background: var(--chip); border: none; border-radius: 8px; font-size: 11.5px; color: var(--ink); flex: none; padding: 0 8px; font-weight: 600; }
+  .titlewrap { flex: 1; min-width: 0; }
+  .titlewrap .t1 { font-weight: 700; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .titlewrap .t2 { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .body-pad { flex: 1; padding: 10px 12px 14px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 7px 12px; font-size: 12.5px; font-weight: 700; border: 1px solid var(--green); background: var(--green); color: #fff; text-decoration: none; white-space: nowrap; }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--rule); font-weight: 600; }
+  .btn.danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+  .btn.sm { padding: 5px 10px; font-size: 12px; }
+  .btn.full { width: 100%; }
+  .btn.dis { opacity: .45; }
+
+  .ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .ic.s { width: 15px; height: 15px; }
+  .ic.xs { width: 12px; height: 12px; }
+
+  /* the client row, as /admin draws it today */
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 12px; margin-bottom: 10px; }
+  .crow { display: flex; gap: 8px; align-items: flex-start; }
+  .crow .av { width: 34px; height: 34px; border-radius: 9px; background: var(--green-soft); color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; flex: none; }
+  .crow .nm { font-weight: 700; font-size: 13.5px; }
+  .crow .sub { font-size: 11px; color: var(--muted); line-height: 1.3; }
+  .chipline { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
+  .chip { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-ink); display: inline-flex; align-items: center; gap: 4px; }
+  .chip.ok { background: var(--green-soft); color: var(--green); }
+  .chip.bad { background: var(--danger-soft); color: var(--danger); }
+  .chip.warn { background: var(--warn-soft); color: var(--warn); }
+  .chip.tap { border: 1px solid var(--rule); background: var(--card); }
+  .status { font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: var(--green-soft); color: var(--green); flex: none; }
+
+  /* THE PANEL — expands under the client row */
+  .panel { border-top: 1px dashed var(--rule); margin-top: 10px; padding-top: 10px; }
+  .pname { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700; margin-bottom: 8px; }
+  .pname .ic { color: var(--green); }
+  .pname .sp { flex: 1; }
+  .switchrow { display: flex; align-items: center; gap: 8px; background: var(--chip); border-radius: 10px; padding: 7px 9px; margin-bottom: 8px; font-size: 12px; }
+  .switchrow .ic { color: var(--green); }
+  .switchrow .sp { flex: 1; min-width: 0; }
+  .switchrow .l2 { font-size: 10.5px; color: var(--muted); }
+  .toggle { width: 34px; height: 20px; border-radius: 999px; background: var(--green); position: relative; flex: none; }
+  .toggle::after { content: ""; position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; }
+  .toggle.off { background: #c9c6ba; }
+  .toggle.off::after { right: auto; left: 2px; }
+
+  .krow { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .krow:last-of-type { border-bottom: none; }
+  .krow .pic { width: 34px; height: 34px; border-radius: 9px; background: var(--green-soft); color: var(--green); display: flex; align-items: center; justify-content: center; flex: none; }
+  .krow.off .pic { background: var(--chip); color: var(--skip); }
+  .krow .kt { flex: 1; min-width: 0; }
+  .krow .n { font-weight: 700; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .krow.off .n { color: var(--skip); text-decoration: line-through; }
+  .krow .m { font-size: 10.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .krow .num { text-align: right; flex: none; font-variant-numeric: tabular-nums; }
+  .krow .num b { display: block; font-size: 12.5px; }
+  .krow .num span { font-size: 9.5px; color: var(--muted); }
+  .krow .act { flex: none; }
+  .auditline { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--muted); margin-top: 8px; }
+  .auditline .ic { color: var(--muted); }
+  .auditline .sp { flex: 1; }
+  .tap { font-size: 11px; color: var(--green); font-weight: 700; }
+  .ilit { width: 14px; height: 14px; border-radius: 50%; border: 1.4px solid var(--muted); display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex: none; color: var(--muted); }
+
+  /* the new-key flow */
+  .field { margin-bottom: 10px; }
+  .field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+  .input { width: 100%; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 9px; background: var(--card); font-size: 13px; font-family: inherit; color: var(--ink); }
+  .grow { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+  .grow .pic { width: 30px; height: 30px; border-radius: 8px; background: var(--chip); color: var(--chip-ink); display: flex; align-items: center; justify-content: center; flex: none; }
+  .grow.on .pic { background: var(--green-soft); color: var(--green); }
+  .grow .gt { flex: 1; min-width: 0; }
+  .grow .n { font-weight: 700; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .grow .w { font-size: 10px; color: var(--warn); display: flex; align-items: center; gap: 3px; }
+  .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; flex: none; }
+  .seg span { font-size: 10.5px; font-weight: 700; padding: 4px 7px; color: var(--muted); background: var(--card); }
+  .seg span.on { background: var(--green); color: #fff; }
+  .seg span.na { color: #c9c6ba; }
+  .never { display: flex; align-items: center; gap: 8px; padding: 8px 9px; background: var(--chip); border-radius: 10px; margin: 8px 0; font-size: 11.5px; color: var(--muted); }
+  .never .ic { color: var(--skip); }
+  .never .sp { flex: 1; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pick { font-size: 11.5px; font-weight: 700; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); }
+  .pick.on { background: var(--green); border-color: var(--green); color: #fff; }
+  .sticky { position: sticky; bottom: 0; background: var(--paper); padding-top: 8px; margin-top: auto; }
+  .steps { display: flex; gap: 4px; align-items: center; font-size: 10.5px; color: var(--muted); margin-bottom: 8px; }
+  .steps i { width: 7px; height: 7px; border-radius: 50%; background: var(--rule); display: block; }
+  .steps i.on { background: var(--green); }
+
+  /* the key, shown once */
+  .keybox { border: 1.5px solid var(--green); border-radius: 12px; padding: 10px; background: var(--green-soft); margin-bottom: 8px; }
+  .keybox .kv { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; word-break: break-all; background: var(--card); border-radius: 8px; padding: 8px; margin-bottom: 8px; color: var(--ink); }
+  .once { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--danger); margin-bottom: 8px; }
+  .okbig { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 0 6px; text-align: center; }
+  .okbig .ring { width: 54px; height: 54px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; }
+  .okbig .ring .ic { width: 28px; height: 28px; stroke-width: 2.2; }
+  .okbig .t { font-weight: 700; font-size: 14px; }
+  .okbig .s { font-size: 11.5px; color: var(--muted); }
+
+  /* overlays: the shipped dialog and step-up sheet */
+  .overlay { position: absolute; inset: 0; background: rgba(30,42,36,.45); display: flex; align-items: flex-end; padding: 10px; }
+  .dlg { width: 100%; background: var(--card); border-radius: 16px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  .dlg h2 { font-size: 15px; margin: 0 0 6px; display: flex; align-items: center; gap: 7px; }
+  .dlg .msg { font-size: 12.5px; color: var(--muted); margin: 0 0 12px; }
+  .dlg .actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .pk { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; margin-bottom: 8px; }
+
+  /* laptop grid */
+  table.grid { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.grid th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--rule); font-weight: 700; white-space: nowrap; }
+  table.grid td { padding: 8px; border-bottom: 1px solid var(--rule); vertical-align: middle; white-space: nowrap; }
+  table.grid td.name { font-weight: 700; display: flex; align-items: center; gap: 7px; }
+  table.grid tr.off td { color: var(--skip); }
+  table.grid tr.off td.name { text-decoration: line-through; }
+  table.grid td .chip { margin-right: 3px; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .notes { max-width: 1100px; margin: 34px auto 0; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 16px 20px; }
+  .notes h2 { font-size: 15px; margin: 16px 0 8px; }
+  .notes h2:first-child { margin-top: 0; }
+  .notes table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .notes th, .notes td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .notes th { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .notes td.ok { color: var(--green); font-weight: 800; }
+  .notes td.tri { color: var(--saffron); font-weight: 800; }
+  .notes code { background: var(--chip); padding: 1px 5px; border-radius: 5px; font-size: 12px; }
+  .notes p { margin: 6px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <!-- shipped icon files, inlined as symbols (apps/web/public/icons), recoloured by currentColor as Icon.tsx does -->
+  <symbol id="i-business" viewBox="0 0 24 24"><path d="M4 9.5 5 4.5h14l1 5"/><path d="M4 9.5c0 1.2 1 2 2 2s2-.8 2-2 1-2 2-2 2 .8 2 2 1 2 2 2 2-.8 2-2 1-2 2-2 2 .8 2 2"/><path d="M5 11.3V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7.7"/><path d="M9.5 20v-5h5v5"/></symbol>
+  <symbol id="i-vendors" viewBox="0 0 24 24"><path d="M4 9 12 5l8 4-8 4-8-4Z"/><path d="M4 9v7l8 4 8-4V9"/><path d="M12 13v7"/></symbol>
+  <symbol id="i-products" viewBox="0 0 24 24"><path d="M6 8h12l-1 12.5a1 1 0 0 1-1 .9H8a1 1 0 0 1-1-.9L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-invoices" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 15.5h6M9 8.5h2"/></symbol>
+  <symbol id="i-count" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><path d="M3.5 10h17M3.5 15h17"/><circle cx="8" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="8" cy="12.5" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12.5" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-purchasing" viewBox="0 0 24 24"><path d="M3.5 5h2.5l2 11h10l2-7H7"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="16.5" cy="19.5" r="1.3"/></symbol>
+  <symbol id="i-pricing" viewBox="0 0 24 24"><path d="M12.5 3.5h5a1 1 0 0 1 1 1v5a1 1 0 0 1-.3.7l-8.8 8.8a1 1 0 0 1-1.4 0l-5.2-5.2a1 1 0 0 1 0-1.4l8.8-8.8a1 1 0 0 1 .7-.3Z"/><circle cx="15.5" cy="7.5" r="1.3"/></symbol>
+  <symbol id="i-catering" viewBox="0 0 24 24"><path d="M4 16h16"/><path d="M5 16a7 7 0 0 1 14 0"/><path d="M12 7V5"/><path d="M3 19h18"/></symbol>
+  <symbol id="i-dayclose" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 10h16M8 3v4M16 3v4"/><path d="M8.5 15.5l2.3 2.2 4.7-4.7"/></symbol>
+  <symbol id="i-money" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10"/><path d="M14.5 9.3c-.4-.9-1.4-1.3-2.5-1.3-1.5 0-2.7.8-2.7 2s1.1 1.7 2.7 2c1.6.3 2.7.9 2.7 2.1s-1.2 2-2.7 2c-1.2 0-2.2-.5-2.6-1.4"/></symbol>
+  <symbol id="i-register" viewBox="0 0 24 24"><path d="M5.5 10 7 4.5h10l1.5 5.5"/><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M4 14.5h16"/><path d="M12 10v4.5"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.3"/><path d="M15.3 13a4.6 4.6 0 0 1 5.2 4.3"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+  <symbol id="i-done" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M7.8 12.3 10.5 15 16.3 8.8"/></symbol>
+  <symbol id="i-cancel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4.5"/><circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-online" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.5 2.3 4 5.3 4 8.5s-1.5 6.2-4 8.5c-2.5-2.3-4-5.3-4-8.5s1.5-6.2 4-8.5Z"/></symbol>
+  <!-- NEW meanings this screen needs as files before build (check 3): key, copy, lock, log -->
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h8.5"/><path d="M17.5 12v3M20.5 12v2.3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M6 15H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v1"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-log" viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+</svg>
+
+<div class="wrap">
+<h1 class="page">Mockup #1085 — Admin › Clients › client › API</h1>
+<p class="lede">One panel under the client's row on the existing Admin › Clients list (no new route). The access switch, one key per integration with what it may read in plain words, a "New key" flow where the key is shown exactly once, Revoke behind the shipped "Confirm it's you" sheet, and one line saying every reveal is recorded.</p>
+<div class="legend">
+  <span><svg class="ic s" style="color:var(--green)"><use href="#i-key"/></svg> a key (one per integration)</span>
+  <span><span class="toggle" style="transform:scale(.7)"></span> the access switch (off for every client until Veritill turns it on)</span>
+  <span><svg class="ic s" style="color:var(--skip)"><use href="#i-lock"/></svg> never allowed</span>
+  <span>Example data only — invented client, invented keys</span>
+</div>
+
+<div class="stage">
+
+<!-- ===================== PHONE 1: the Clients list, the API line on a client row ===================== -->
+<div class="col">
+  <h3><b>1 · Clients (today's list)</b> the row's API line becomes one tap: on/off and how many keys</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> App</span><div class="titlewrap"><div class="t1">Clients</div><div class="t2">3 businesses · platform plane</div></div></div>
+    <div class="body-pad">
+      <div class="card">
+        <div class="crow"><span class="av">MS</span><div style="flex:1;min-width:0"><div class="nm">Maple Street Grocery</div><div class="sub">grocery · US · owner Priya S. · since 2026-06-02</div><div class="sub">1,284 items · 96 invoices · 4 people · 2 agents on</div></div><span class="status">active</span></div>
+        <div class="chipline">
+          <span class="chip ok tap"><svg class="ic xs"><use href="#i-key"/></svg> API on · 2 keys <svg class="ic xs"><use href="#i-next"/></svg></span>
+          <span class="chip">Pro plan</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="crow"><span class="av" style="background:var(--saffron-soft);color:var(--saffron)">RT</span><div style="flex:1;min-width:0"><div class="nm">Riverside Tandoor</div><div class="sub">restaurant · US · owner Daniel O. · since 2026-08-19</div><div class="sub">412 items · 31 invoices · 6 people · 1 agent on</div></div><span class="status">active</span></div>
+        <div class="chipline">
+          <span class="chip tap"><svg class="ic xs"><use href="#i-key"/></svg> API off <svg class="ic xs"><use href="#i-next"/></svg></span>
+          <span class="chip">Starter plan</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="crow"><span class="av" style="background:#e4ecf5;color:#35557a">HP</span><div style="flex:1;min-width:0"><div class="nm">Hilltop Pantry</div><div class="sub">supermarket · US · owner Mei L. · since 2026-10-01</div><div class="sub">2,970 items · 8 invoices · 2 people · 2 agents on</div></div><span class="status" style="background:var(--warn-soft);color:var(--warn)">trial</span></div>
+        <div class="chipline">
+          <span class="chip tap"><svg class="ic xs"><use href="#i-key"/></svg> API off <svg class="ic xs"><use href="#i-next"/></svg></span>
+          <span class="chip warn">12 trial days left</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 2: the panel, expanded under the row ===================== -->
+<div class="col">
+  <h3><b>2 · The API panel</b> opens under the client's own row; the switch, the keys, the audit line, one button</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Clients</span><div class="titlewrap"><div class="t1">Maple Street Grocery</div><div class="t2">API</div></div></div>
+    <div class="body-pad">
+      <div class="card">
+        <div class="crow"><span class="av">MS</span><div style="flex:1;min-width:0"><div class="nm">Maple Street Grocery</div><div class="sub">grocery · Pro plan · owner Priya S.</div></div><span class="status">active</span></div>
+        <div class="panel">
+          <div class="switchrow"><svg class="ic"><use href="#i-key"/></svg><div class="sp"><div><b>API access</b></div><div class="l2">Metered calls go on the Pro plan bill</div></div><span class="toggle"></span></div>
+
+          <div class="krow">
+            <span class="pic"><svg class="ic"><use href="#i-register"/></svg></span>
+            <div class="kt"><div class="n">Toast sync</div><div class="m">May read Products · Sales</div><div class="m">60 a minute · 200 rows a page · used today</div></div>
+            <div class="num"><b>12,480</b><span>calls this month</span></div>
+            <a class="btn sm danger">Revoke</a>
+          </div>
+          <div class="krow">
+            <span class="pic"><svg class="ic"><use href="#i-pricing"/></svg></span>
+            <div class="kt"><div class="n">Shelf-tag printer</div><div class="m">May read Products · Pricing</div><div class="m">30 a minute · 50 rows a page · used 3 days ago</div></div>
+            <div class="num"><b>902</b><span>calls this month</span></div>
+            <a class="btn sm danger">Revoke</a>
+          </div>
+          <div class="krow off">
+            <span class="pic"><svg class="ic"><use href="#i-invoices"/></svg></span>
+            <div class="kt"><div class="n">Accountant export</div><div class="m">Stopped 2026-10-20 by Kiran</div></div>
+            <div class="num"><b>0</b><span>calls this month</span></div>
+          </div>
+
+          <div class="auditline"><svg class="ic s"><use href="#i-log"/></svg> Every key shown or stopped is recorded<span class="sp"></span><span class="tap">3 this month ▸</span></div>
+          <a class="btn full" style="margin-top:10px"><svg class="ic xs" style="stroke:#fff"><use href="#i-key"/></svg> New key</a>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 3: New key · step 1 ===================== -->
+<div class="col">
+  <h3><b>3 · New key · 1 of 2</b> a name, then what it may read — the 8 groups that can be granted; the 4 that never can, folded</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> API</span><div class="titlewrap"><div class="t1">New key · Maple Street Grocery</div><div class="t2">1 of 2 · what it may read</div></div></div>
+    <div class="body-pad" style="display:flex;flex-direction:column">
+      <div class="steps"><i class="on"></i><i></i> name and what it may read</div>
+      <div class="field"><label>Name (the integration)</label><input class="input" value="Shelf-tag printer" /></div>
+
+      <div class="grow on"><span class="pic"><svg class="ic s"><use href="#i-products"/></svg></span><div class="gt"><div class="n">Products and catalog</div><div class="w"><svg class="ic xs"><use href="#i-warning"/></svg> includes recipes</div></div><span class="seg"><span>Off</span><span class="on">Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-vendors"/></svg></span><div class="gt"><div class="n">Vendors and price lists</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-invoices"/></svg></span><div class="gt"><div class="n">Invoices and receiving</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-count"/></svg></span><div class="gt"><div class="n">Stock and counts</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-purchasing"/></svg></span><div class="gt"><div class="n">Purchasing</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span>Write</span></span></div>
+      <div class="grow on"><span class="pic"><svg class="ic s"><use href="#i-pricing"/></svg></span><div class="gt"><div class="n">Pricing</div></div><span class="seg"><span>Off</span><span class="on">Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-catering"/></svg></span><div class="gt"><div class="n">Orders and catering</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span>Write</span></span></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-dayclose"/></svg></span><div class="gt"><div class="n">Sales and reports</div><div class="w"><svg class="ic xs"><use href="#i-warning"/></svg> includes costs</div></div><span class="seg"><span class="on">Off</span><span>Read</span><span class="na">Write</span></span></div>
+
+      <div class="never"><svg class="ic s"><use href="#i-lock"/></svg><span class="sp">Money · Register · Integrations · Settings and team</span><span class="ilit">i</span></div>
+
+      <div class="sticky"><a class="btn full">Next: limits <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 4: New key · step 2 ===================== -->
+<div class="col">
+  <h3><b>4 · New key · 2 of 2</b> three limits as chips; "Create key" opens the shipped "Confirm it's you" sheet</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> 1 of 2</span><div class="titlewrap"><div class="t1">New key · Shelf-tag printer</div><div class="t2">2 of 2 · limits</div></div></div>
+    <div class="body-pad" style="display:flex;flex-direction:column">
+      <div class="steps"><i class="on"></i><i class="on"></i> limits</div>
+      <div class="field"><label>Calls a minute</label><div class="chips"><span class="pick on">30</span><span class="pick">60</span><span class="pick">300</span><span class="pick">1,000</span></div></div>
+      <div class="field"><label>Rows a page</label><div class="chips"><span class="pick on">50</span><span class="pick">200</span><span class="pick">500</span></div></div>
+      <div class="field"><label>Stops working on</label><div class="chips"><span class="pick">in 30 days</span><span class="pick on">in 90 days</span><span class="pick">in 1 year</span><span class="pick">a date…</span></div></div>
+      <div class="switchrow" style="margin-top:4px"><svg class="ic"><use href="#i-pricing"/></svg><div class="sp"><div><b>Shelf-tag printer</b></div><div class="l2">Reads Products · Pricing · 30 a minute · 50 rows · stops 2027-02-01</div></div></div>
+      <div class="sticky"><a class="btn full"><svg class="ic xs" style="stroke:#fff"><use href="#i-key"/></svg> Create key</a></div>
+    </div>
+
+    <!-- the shipped step-up sheet (StepUpSheet.tsx, issue #1114/#1244), unchanged -->
+    <div class="overlay"><div class="dlg">
+      <h2><svg class="ic s" style="color:var(--green)"><use href="#i-lock"/></svg> Confirm it's you</h2>
+      <p class="msg">This protects something that matters — a fresh check is needed before it goes through.</p>
+      <a class="btn pk"><svg class="ic s" style="stroke:#fff"><use href="#i-check"/></svg> Use Windows Hello</a>
+      <a class="btn ghost pk">Email me a code instead</a>
+      <div class="actions"><a class="btn ghost sm">Cancel</a></div>
+    </div></div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 5: the key, shown once ===================== -->
+<div class="col">
+  <h3><b>5 · The key, shown once</b> a copy button, the one sentence that it is never shown again, Done returns to the panel</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-lock"/></svg></span><div class="titlewrap"><div class="t1">Shelf-tag printer</div><div class="t2">Maple Street Grocery · new key</div></div></div>
+    <div class="body-pad" style="display:flex;flex-direction:column">
+      <div class="okbig"><span class="ring"><svg class="ic"><use href="#i-check"/></svg></span><div class="t">Key made</div><div class="s">Reads Products · Pricing · 30 a minute · 50 rows · stops 2027-02-01</div></div>
+      <div class="keybox">
+        <div class="kv">vtk_live_EXAMPLE_0000_0000_0000_0000_0000_0000</div>
+        <a class="btn full"><svg class="ic xs" style="stroke:#fff"><use href="#i-copy"/></svg> Copy the key</a>
+      </div>
+      <div class="once"><svg class="ic s"><use href="#i-warning"/></svg> Shown once. It is never shown again.</div>
+      <div class="auditline"><svg class="ic s"><use href="#i-log"/></svg> This reveal is recorded · Kiran · just now</div>
+      <div class="sticky"><a class="btn full ghost dis">Done — copy it first</a></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 6: back on the panel, Revoke behind confirm + step-up ===================== -->
+<div class="col">
+  <h3><b>6 · Back on the panel · Revoke</b> the new key is a row; Revoke asks once in plain words, then the same "Confirm it's you" sheet</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Clients</span><div class="titlewrap"><div class="t1">Maple Street Grocery</div><div class="t2">API</div></div></div>
+    <div class="body-pad">
+      <div class="card">
+        <div class="crow"><span class="av">MS</span><div style="flex:1;min-width:0"><div class="nm">Maple Street Grocery</div><div class="sub">grocery · Pro plan · owner Priya S.</div></div><span class="status">active</span></div>
+        <div class="panel">
+          <div class="switchrow"><svg class="ic"><use href="#i-key"/></svg><div class="sp"><div><b>API access</b></div><div class="l2">Metered calls go on the Pro plan bill</div></div><span class="toggle"></span></div>
+          <div class="krow" style="background:var(--green-soft);border-radius:10px;padding:8px 6px">
+            <span class="pic"><svg class="ic"><use href="#i-pricing"/></svg></span>
+            <div class="kt"><div class="n">Shelf-tag printer</div><div class="m">May read Products · Pricing</div><div class="m">30 a minute · 50 rows a page · made just now</div></div>
+            <div class="num"><b>0</b><span>calls this month</span></div>
+            <a class="btn sm danger">Revoke</a>
+          </div>
+          <div class="krow">
+            <span class="pic"><svg class="ic"><use href="#i-register"/></svg></span>
+            <div class="kt"><div class="n">Toast sync</div><div class="m">May read Products · Sales</div><div class="m">60 a minute · 200 rows a page · used today</div></div>
+            <div class="num"><b>12,480</b><span>calls this month</span></div>
+            <a class="btn sm danger">Revoke</a>
+          </div>
+          <div class="krow off">
+            <span class="pic"><svg class="ic"><use href="#i-invoices"/></svg></span>
+            <div class="kt"><div class="n">Accountant export</div><div class="m">Stopped 2026-10-20 by Kiran</div></div>
+            <div class="num"><b>0</b><span>calls this month</span></div>
+          </div>
+          <div class="auditline"><svg class="ic s"><use href="#i-log"/></svg> Every key shown or stopped is recorded<span class="sp"></span><span class="tap">4 this month ▸</span></div>
+          <a class="btn full" style="margin-top:10px"><svg class="ic xs" style="stroke:#fff"><use href="#i-key"/></svg> New key</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- the shipped confirm dialog (dialogs.tsx), danger tone; "Yes, stop it" then the step-up sheet of phone 4 -->
+    <div class="overlay"><div class="dlg">
+      <h2><svg class="ic s" style="color:var(--danger)"><use href="#i-cancel"/></svg> Stop "Toast sync"?</h2>
+      <p class="msg">Anything using it fails at once. There is no undo — make a new key instead.</p>
+      <div class="actions"><a class="btn ghost sm">Cancel</a><a class="btn sm" style="background:var(--danger);border-color:var(--danger)">Yes, stop it</a></div>
+    </div></div>
+  </div></div>
+</div>
+
+<!-- ===================== PHONE 7: the audit line opened ===================== -->
+<div class="col">
+  <h3><b>7 · "N this month ▸"</b> the audit line opens inline: who, what, when — the rows the audit table already holds</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Clients</span><div class="titlewrap"><div class="t1">Maple Street Grocery</div><div class="t2">API</div></div></div>
+    <div class="body-pad">
+      <div class="card">
+        <div class="panel" style="border-top:none;margin-top:0;padding-top:0">
+          <div class="switchrow"><svg class="ic"><use href="#i-key"/></svg><div class="sp"><div><b>API access</b></div><div class="l2">Metered calls go on the Pro plan bill</div></div><span class="toggle"></span></div>
+          <div class="krow"><span class="pic"><svg class="ic"><use href="#i-pricing"/></svg></span><div class="kt"><div class="n">Shelf-tag printer</div><div class="m">May read Products · Pricing</div></div><div class="num"><b>0</b><span>calls this month</span></div><a class="btn sm danger">Revoke</a></div>
+          <div class="krow"><span class="pic"><svg class="ic"><use href="#i-register"/></svg></span><div class="kt"><div class="n">Toast sync</div><div class="m">May read Products · Sales</div></div><div class="num"><b>12,480</b><span>calls this month</span></div><a class="btn sm danger">Revoke</a></div>
+          <div class="auditline"><svg class="ic s"><use href="#i-log"/></svg> Every key shown or stopped is recorded<span class="sp"></span><span class="tap">4 this month ▾</span></div>
+          <div class="krow" style="padding:6px 0"><span class="pic" style="width:26px;height:26px"><svg class="ic s"><use href="#i-key"/></svg></span><div class="kt"><div class="n" style="font-size:12px">Shelf-tag printer · shown</div><div class="m">Kiran · today 10:14</div></div></div>
+          <div class="krow" style="padding:6px 0"><span class="pic" style="width:26px;height:26px;background:var(--danger-soft);color:var(--danger)"><svg class="ic s"><use href="#i-cancel"/></svg></span><div class="kt"><div class="n" style="font-size:12px">Accountant export · stopped</div><div class="m">Kiran · 2026-10-20 16:02</div></div></div>
+          <div class="krow" style="padding:6px 0"><span class="pic" style="width:26px;height:26px"><svg class="ic s"><use href="#i-key"/></svg></span><div class="kt"><div class="n" style="font-size:12px">Toast sync · shown</div><div class="m">Kiran · 2026-10-18 09:40</div></div></div>
+          <div class="krow" style="padding:6px 0"><span class="pic" style="width:26px;height:26px"><svg class="ic s"><use href="#i-key"/></svg></span><div class="kt"><div class="n" style="font-size:12px">API access · turned on</div><div class="m">Kiran · 2026-10-18 09:38</div></div></div>
+          <a class="btn full" style="margin-top:10px"><svg class="ic xs" style="stroke:#fff"><use href="#i-key"/></svg> New key</a>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ===================== OPTION B for the picker: presets first ===================== -->
+<div class="col">
+  <h3><b>Option B · step 1 as presets</b> three ready-made grants, "Custom" opens the 8-row list of phone 3 — shown so you can compare</h3>
+  <div class="phone"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> API</span><div class="titlewrap"><div class="t1">New key · Maple Street Grocery</div><div class="t2">1 of 2 · what it may read</div></div></div>
+    <div class="body-pad" style="display:flex;flex-direction:column">
+      <div class="steps"><i class="on"></i><i></i> name and what it may read</div>
+      <div class="field"><label>Name (the integration)</label><input class="input" value="Shelf-tag printer" /></div>
+      <div class="grow on"><span class="pic"><svg class="ic s"><use href="#i-products"/></svg></span><div class="gt"><div class="n">Catalog only</div><div class="m" style="font-size:10.5px;color:var(--muted)">Reads Products and catalog</div></div><svg class="ic s" style="color:var(--green)"><use href="#i-done"/></svg></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-register"/></svg></span><div class="gt"><div class="n">A POS or printer</div><div class="m" style="font-size:10.5px;color:var(--muted)">Reads Products · Pricing · Sales</div></div></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-vendors"/></svg></span><div class="gt"><div class="n">A vendor portal</div><div class="m" style="font-size:10.5px;color:var(--muted)">Reads Vendors · Purchasing · Invoices</div></div></div>
+      <div class="grow"><span class="pic"><svg class="ic s"><use href="#i-settings"/></svg></span><div class="gt"><div class="n">Custom…</div><div class="m" style="font-size:10.5px;color:var(--muted)">Pick from the 8 groups, Read or Write</div></div><svg class="ic s" style="color:var(--muted)"><use href="#i-next"/></svg></div>
+      <div class="never"><svg class="ic s"><use href="#i-lock"/></svg><span class="sp">Money · Register · Integrations · Settings and team</span><span class="ilit">i</span></div>
+      <div class="sticky"><a class="btn full">Next: limits <svg class="ic xs" style="stroke:#fff"><use href="#i-next"/></svg></a></div>
+    </div>
+  </div></div>
+</div>
+
+</div><!-- /stage -->
+
+<!-- ===================== LAPTOP: the same panel at admin density ===================== -->
+<div class="stage" style="margin-top:26px">
+<div class="col wide">
+  <h3><b>The same panel on a laptop (check 4's admin density)</b> every fact of a key in one row, nothing behind a tap</h3>
+  <div class="laptop"><div class="screen">
+    <div class="topbar"><span class="iconbtn"><svg class="ic xs"><use href="#i-back"/></svg> Clients</span><div class="titlewrap"><div class="t1">Maple Street Grocery · API</div><div class="t2">grocery · Pro plan · owner Priya S. · active</div></div><span class="toggle"></span><span style="font-size:12px;font-weight:700">API access on</span><span class="chip">Metered calls on the Pro plan bill</span><a class="btn sm"><svg class="ic xs" style="stroke:#fff"><use href="#i-key"/></svg> New key</a></div>
+    <div style="padding:8px 12px 12px;overflow-x:auto">
+      <table class="grid">
+        <tr><th></th><th>Key</th><th>May read</th><th>May write</th><th>Calls a minute</th><th>Rows a page</th><th>Stops working on</th><th>Used</th><th>Calls this month</th><th>Made by</th><th></th></tr>
+        <tr><td><svg class="ic s" style="color:var(--green)"><use href="#i-pricing"/></svg></td><td class="name">Shelf-tag printer</td><td><span class="chip">Products</span><span class="chip">Pricing</span></td><td>—</td><td class="num">30</td><td class="num">50</td><td>2027-02-01</td><td>never yet</td><td class="num">0</td><td>Kiran · today</td><td><a class="btn sm danger">Revoke</a></td></tr>
+        <tr><td><svg class="ic s" style="color:var(--green)"><use href="#i-register"/></svg></td><td class="name">Toast sync</td><td><span class="chip">Products</span><span class="chip">Sales</span></td><td>—</td><td class="num">60</td><td class="num">200</td><td>2027-01-15</td><td>today 09:12</td><td class="num">12,480</td><td>Kiran · 2026-10-18</td><td><a class="btn sm danger">Revoke</a></td></tr>
+        <tr><td><svg class="ic s" style="color:var(--green)"><use href="#i-vendors"/></svg></td><td class="name">Vendor portal test</td><td><span class="chip">Vendors</span><span class="chip">Purchasing</span></td><td><span class="chip">Purchasing</span></td><td class="num">60</td><td class="num">200</td><td><span class="chip warn">in 6 days</span></td><td>2026-10-29</td><td class="num">214</td><td>Kiran · 2026-10-02</td><td><a class="btn sm danger">Revoke</a></td></tr>
+        <tr class="off"><td><svg class="ic s" style="color:var(--skip)"><use href="#i-invoices"/></svg></td><td class="name">Accountant export</td><td><span class="chip">Invoices</span><span class="chip">Sales</span></td><td>—</td><td class="num">60</td><td class="num">200</td><td>stopped 2026-10-20</td><td>2026-10-19</td><td class="num">0</td><td>Kiran · 2026-09-14</td><td></td></tr>
+      </table>
+      <div class="auditline" style="margin-top:10px"><svg class="ic s"><use href="#i-log"/></svg> Every key shown or stopped is recorded<span class="sp"></span><span class="tap">4 this month ▸</span></div>
+    </div>
+  </div></div>
+</div>
+</div>
+
+<div class="notes">
+  <h2>What this changes (one panel on the existing Admin › Clients list — no new route)</h2>
+  <table>
+    <tr><th>Today</th><th>This mockup</th></tr>
+    <tr><td>A client row carries a chip "API access: on/off" and an Enable / Turn off button (issue #1046, <code>apps/web/src/app/admin/page.tsx</code>).</td><td>The chip becomes one tap — "API on · 2 keys ▸" / "API off ▸" — that expands the panel <em>under that client's own row</em> (phone 2); the switch moves into the panel's first line with the plan it bills against (caching §4.11). Same route, same list.</td></tr>
+    <tr><td><code>tenants.api_key</code>: one unscoped key for the whole business, read and rotated by the client's owner on Settings → Business (<code>ApiKeyCard.tsx</code>).</td><td>Keys are rows of the panel, one per integration: a picture for the integration, the name, what it may read in plain words, the three limits, when it was last used, calls this month, Revoke. Nothing here is on the client's side — the owner's card stays behind the entitlement until the later self-service view is deliberately opened (security.md §4).</td></tr>
+    <tr><td>No way to grant less than everything.</td><td>"New key" is two short screens: name + what it may read (the 8 grantable groups, Off / Read / Write each; the 4 never-grantable ones folded into one locked line, ⓘ says why), then three limits as chips. "Create key" goes through the shipped "Confirm it's you" sheet (S1: an API key is an Approve-class action) and the key is shown exactly once with a copy button; Done is disabled until it is copied.</td></tr>
+    <tr><td>Reveals audited as <code>tenant.api_key_read</code>.</td><td>One line on the panel says so — "Every key shown or stopped is recorded · N this month ▸" — and opens the rows inline (phone 7): who, which key, what, when. Revoke is the same confirm dialog the list already uses for Suspend/Cancel, then the step-up sheet.</td></tr>
+  </table>
+
+  <h2>Customer words, never machine words</h2>
+  <p>"What it may read / may write" (not scopes), "calls a minute" (not rate limit), "rows a page" (not page cap), "stops working on" (not expiry), "used" (not last_used_at), "made by" (not created_by), "stopped" (not revoked_at), "shown" (not api_key_read). The 12 group names are caching §4.11's own customer words, verbatim. The two ⚠ notes on the picker ("includes recipes", "includes costs") are §4.11's own two warnings — the gold and the money.</p>
+
+  <h2>The one real choice for Kiran — the picker's shape (step 1 of New key)</h2>
+  <p><b>A (phone 3, recommended): the 8 grantable groups as rows, Off / Read / Write each.</b> Why: it is the product's own list, every grant is explicit, and a key never reads more than what was ticked. Cost: 8 rows + the locked line is over check 4's seven on a phone — it scrolls once, with the Next button sticky; on the laptop (where this screen is actually used) all 8 fit.</p>
+  <p><b>B (last phone): three presets first</b> (Catalog only · A POS or printer · A vendor portal), "Custom…" opening the 8-row list. Fits seven; but a preset's own contents are a sentence to read, the names are Veritill's guess at integrations it has not met yet, and a preset that silently includes Sales (costs) is the kind of over-grant §4.11 warns against.</p>
+
+  <h2>The eight checks (screens.md §0, plus 9 and 10)</h2>
+  <table>
+    <tr><th>#</th><th>Check</th><th>Score</th><th>Evidence</th></tr>
+    <tr><td>1</td><td>One job, action visible</td><td class="ok">✓</td><td>Panel: one primary button, New key, under the rows (visible without scrolling at 2–3 keys; it rides at the foot of the panel, not the page). Each New-key screen: one sticky Next / Create. Shown-once: Copy is the one action; Done waits for it.</td></tr>
+    <tr><td>2</td><td>No paragraphs</td><td class="ok">✓</td><td>Longest line on any screen is the switch's own "Metered calls go on the Pro plan bill" (8 words) and the revoke dialog's two sentences (13 words), the same length the list's existing Suspend / Cancel dialogs already use. Why the four groups are locked is behind ⓘ.</td></tr>
+    <tr><td>3</td><td>A picture on every row, the same everywhere</td><td class="tri">△</td><td>Group rows and key rows reuse the shipped icon files (products, vendors, invoices, count, purchasing, pricing, catering, dayclose, register, money, team, settings, warning, cancel, done). A key's own picture is its integration's group icon (the printer key wears Pricing, the Toast key wears Register) — a stored logo per integration would be better and is named, not drawn. Four NEW meanings need a file before build: <code>key</code>, <code>copy</code>, <code>lock</code>, <code>log</code> (drawn inline here in the same line style).</td></tr>
+    <tr><td>4</td><td>≤ 7 things on a phone</td><td class="tri">△</td><td>Panel (phone 2): switch · 3 key rows · audit line · New key = 6 ✓. Step 2 and shown-once: ≤ 5 ✓. Step 1 (Option A): name + 8 group rows + the locked line = 10 — over, by the product's own group count; scrolls once with Next sticky. Option B fits 7 at the cost named above. On a laptop every key fact is in one grid row with nothing behind a tap (check 4's own admin rule).</td></tr>
+    <tr><td>5</td><td>Under 300 ms</td><td class="ok">✓</td><td>One read per panel open: the client's <code>api_keys</code> rows (name, scopes, limits, expires_at, last_used_at, created_by, revoked_at) plus one count per key for "calls this month" — a metered counter the auth hook already has to keep (usage metered), never computed on open. The audit rows load only when "N this month ▸" is tapped. The list itself stays as it is today.</td></tr>
+    <tr><td>6</td><td>A way back</td><td class="ok">✓</td><td>"‹ Clients" on the panel; "‹ API" on step 1; "‹ 1 of 2" on step 2; Done on the shown-once screen lands back on the panel with the new row highlighted (phone 6). Admin › Clients is itself one tap from the app's gear.</td></tr>
+    <tr><td>7</td><td>One home per function</td><td class="ok">✓</td><td>The entitlement switch moves INTO the panel (the row's Enable / Turn off button goes) — one place for the switch, the keys and the audit line. The client's own <code>ApiKeyCard</code> keeps showing the one transition key until <code>api_keys</code> replaces it (build item 2); once scoped keys exist it reads only, never a second place to make one.</td></tr>
+    <tr><td>8</td><td>As few screens as possible</td><td class="ok">✓</td><td>No new route: a panel under the existing row, two short New-key screens that are a drawer flow over the same page, the shipped step-up sheet and confirm dialog reused as they are. Alternatives considered: a <code>/admin/clients/[id]</code> page — rejected, nothing else about a client needs one yet.</td></tr>
+    <tr><td>9</td><td>For someone who does not read</td><td class="ok">✓</td><td>Where am I: the client's initials and name at the top of every screen in the flow. What is happening: the switch's colour, a stopped key struck through and grey, the green "Key made" ring. What next: exactly one primary button per screen. The key value is an obvious example string, never a real one.</td></tr>
+    <tr><td>10</td><td>Walked, not reasoned</td><td class="tri">△</td><td>Platform plane only — not on the first-five-minutes path, so the fresh-persona walk does not reach it. The build's own e2e (issue acceptance: "the admin view e2e on the fixture") should walk the exact sequence of phones 2 → 3 → 4 → 5 → 6: a key made with Products · Read, shown once, copied, then revoked, the audit line counting both.</td></tr>
+  </table>
+
+  <h2>Where every number comes from (build items 2–3 of #1085, once this is approved)</h2>
+  <p><code>api_keys</code> (Core migration, columns as the issue names them) draws the rows; <code>scopes jsonb {fn: 'View'|'Edit'}</code> renders as the group words through §4.11's own table (Items + Item Model read → "Products and catalog", Reports → "Sales and reports", …); <code>rate_per_min</code> / <code>page_cap</code> / <code>expires_at</code> / <code>last_used_at</code> / <code>created_by</code> / <code>revoked_at</code> are the row's other columns verbatim. "Calls this month" needs a per-key metered counter the issue's own "usage metered" line already asks for — named for Core as part of the migration comment, not guessed here (a count column advanced with the 5-minute <code>last_used_at</code> throttle, or a monthly row — Core's call). The audit line reads the existing <code>audit</code> rows for the key's name (the issue's own "audit rows carry the key's name"). The switch is <code>settings.api.enabled</code> (#1046, shipped). The step-up sheet and the confirm dialog are shipped components, unchanged.</p>
+  <p style="margin:0;color:var(--muted);font-size:12px">Example data only — an invented client, invented integrations, no real key. — screen-agent (agent run)</p>
+</div>
+</div>
+</body>
+</html>
