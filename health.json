@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T19:46:10.990Z",
+  "at": "2026-11-05T19:56:55.832Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 5,
-      "waitMin": 1,
-      "busyPct": 4
+      "runs": 1,
+      "busyMin": 4,
+      "waitMin": 0,
+      "busyPct": 3
     },
     "core": {
-      "runs": 6,
-      "busyMin": 22,
+      "runs": 5,
+      "busyMin": 19,
       "waitMin": 21,
-      "busyPct": 36
+      "busyPct": 32
     },
     "planner": {
       "runs": 1,
@@ -21,16 +21,16 @@
       "busyPct": 12
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 225,
+      "runs": 9,
+      "busyMin": 148,
       "waitMin": 0,
-      "busyPct": 188
+      "busyPct": 123
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 4,
-    "oldestQueuedMin": 14
+    "oldestQueuedMin": 40
   },
   "runners": [
     {
@@ -56,7 +56,7 @@
     {
       "name": "router-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "core-runner",
@@ -76,40 +76,32 @@
     },
     {
       "level": "warn",
-      "text": "806 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "813 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "cost unknown this tick: the Railway read failed (Railway: add the RAILWAY_TOKEN secret (Account → Tokens) on Veritill/platform so); the $250 budget is not being tracked"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 40 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "info",
-      "text": "staging deploys: RAILWAY_TOKEN not set — not read this tick"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": null,
-    "railwayProjected": null,
-    "source": "unknown",
-    "note": "Railway: add the RAILWAY_TOKEN secret (Account → Tokens) on Veritill/platform so this reads the real month-to-date usage"
+    "railwayMonthToDate": 17.53,
+    "railwayProjected": 33.31,
+    "source": "railway-api",
+    "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-05T19:45:55.487Z",
+    "at": "2026-11-05T19:56:43.181Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 70,
+      "hits": 71,
       "misses": 1,
       "hydrations": 1
     },
@@ -131,7 +123,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T19:45:55.232Z",
+    "at": "2026-11-05T19:56:42.933Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -144,7 +136,22 @@
     },
     "ocrRefused": null
   },
-  "staging": {},
+  "staging": {
+    "api": {
+      "status": "SUCCESS",
+      "sha": "a8751cb",
+      "ageMin": 11,
+      "lastGoodSha": "a8751cb",
+      "lastGoodAgeMin": 11
+    },
+    "web": {
+      "status": "SUCCESS",
+      "sha": "a8751cb",
+      "ageMin": 11,
+      "lastGoodSha": "a8751cb",
+      "lastGoodAgeMin": 11
+    }
+  },
   "prRerun": {},
   "warnSince": {
     "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
@@ -155,8 +162,8 @@
       "since": "2026-11-05T18:30:21.853Z",
       "escalated": false
     },
-    "cost unknown this tick: the Railway read failed (Railway: add the RAILWAY_TOKEN ": {
-      "since": "2026-11-05T19:45:34.181Z",
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-05T19:56:19.009Z",
       "escalated": false
     }
   },
