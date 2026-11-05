@@ -49,6 +49,20 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .ask .s{font-size:13px;color:var(--mute)}
 .ask .btn.pri{font-size:15px;padding:10px 18px;white-space:nowrap}
 .ask .skip{font-size:13px;color:var(--mute);background:none;border:none;cursor:pointer;text-decoration:underline}
+.agent-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.agent-head .ring{width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
+.agent-head .ring svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.agent-head .t{font-weight:700}
+.agent-head .s{font-size:13px;color:var(--mute)}
+.did{font-size:14px;color:var(--mute);padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.did .tick{color:var(--green);font-weight:700;margin-right:4px}
+.strip{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.strip .step{font-size:13px;padding:5px 10px;border-radius:99px;background:var(--chip);color:var(--mute);display:inline-flex;gap:6px;align-items:center}
+.strip .step i{font-style:normal;font-variant-numeric:tabular-nums;font-weight:600}
+.strip .step.done{background:var(--green-soft);color:var(--green)}
+.strip .step.now{background:var(--green);color:#fff;box-shadow:0 0 0 3px var(--green-soft)}
+.answered{margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
+.answered .row .ic{color:var(--green);font-weight:700;font-size:13px}
 .golive{display:flex;align-items:center;gap:14px}
 .golive .t{font-weight:700}
 .golive .s{font-size:13px;color:var(--mute)}
@@ -114,8 +128,22 @@ h1,h2,h3{margin:0;text-wrap:balance}
     </div>
   </div>
 
-  <!-- 2. THE ONE ASK: the agent's current question, one primary button. The chip at the top is gone; this IS the next step. -->
+  <!-- 2. THE SETUP AGENT'S SESSION: the whole onboarding happens here, one question at a time.
+       Four lines inside one card: who (the agent), what it just did, the sub-steps of the current station,
+       and the one ask with one button. Answered asks fold under "3 answered". -->
   <div class="card">
+    <div class="agent-head">
+      <div class="ring"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4M9 18v2M15 18v2"/></svg></div>
+      <div style="flex:1;min-width:0"><div class="t">Setup agent</div><div class="s">working on <b>Price tags</b></div></div>
+      <span class="pill on">on</span>
+    </div>
+    <div class="did"><span class="tick">✓</span> Read 271 items from your Toast export and put them on 12 shelves</div>
+    <div class="strip">
+      <span class="step done">Items <i>271</i></span>
+      <span class="step done">Sales <i>30 days</i></span>
+      <span class="step now">Prices <i>0 of 271</i></span>
+      <span class="step">Tags <i>print</i></span>
+    </div>
     <div class="ask">
       <div class="ring"><svg viewBox="0 0 24 24" style="width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8"><path d="M4 6h10l6 6-6 6H4zM8 12h.01"/></svg></div>
       <div style="flex:1;min-width:0">
@@ -125,7 +153,14 @@ h1,h2,h3{margin:0;text-wrap:balance}
       <button class="btn pri">Set prices</button>
       <button class="skip">Skip for now</button>
     </div>
-    <div class="demo" style="margin-top:10px">The agent's own note ("Building your catalog from your invoices…") and the vendor strip stay inside this card when they apply, under the ask, never above it. Pause lives behind the ⓘ on the OPEN tile.</div>
+    <div class="answered"><button class="skip" id="histBtn">3 answered</button>
+      <div class="rows hidden" id="hist">
+        <div class="row"><span class="ic">✓</span><span class="l">Which POS do you use? · <b>Toast</b></span><span class="pill">today 9:02</span></div>
+        <div class="row"><span class="ic">✓</span><span class="l">Upload your items export · <b>271 items read</b></span><span class="pill">today 9:05</span></div>
+        <div class="row"><span class="ic">✓</span><span class="l">Upload your sales export · <b>30 days read</b></span><span class="pill">today 9:11</span></div>
+      </div>
+    </div>
+    <div class="demo" style="margin-top:10px">This is today's SetupAgentSession, kept whole: did-line, sub-steps (the subtask strip, #992), the ask, the answered list. What leaves it: the long route sentence and the duplicate "Next:" chip above the map. Pause lives behind the OPEN tile's ⓘ. When a vendor station is current, the strip shows the vendors and their Catalog → Check → Invoices steps exactly as it does now.</div>
   </div>
 
   <!-- 3. GO LIVE: one line, one button. -->
@@ -137,7 +172,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
   <div class="rules">
     <h2>What changed against today's screen</h2>
     <ol>
-      <li>One next step. The "Next:" chip, the automations board's four buttons and the agent's own ask were three wordings of the same thing; now the ask card is the only button until Go live.</li>
+      <li>One next step, inside the agent. The "Next:" chip, the automations board's four buttons and the agent's own ask were three wordings of the same thing; now the agent's session card is the only place with a button until Go live, and the whole onboarding is done there, one question at a time. The map above it is progress only: tiles navigate nowhere, their ⓘ explains.</li>
       <li>The automations board and the seven outcome rows move behind OPEN's ⓘ, show only rows that apply to this business type, and read "needs X / after X" instead of dashes and machine phrases.</li>
       <li>Tiles show a tick, a number or nothing. The "done means" sentence and the time estimate live behind each tile's ⓘ.</li>
       <li>One progress line, one count: "3 of 9 done", matching the nine tiles; the 56% and "4 steps left" duplicates go.</li>
@@ -150,5 +185,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
   (function(){
     var b=document.getElementById('openInfo'), p=document.getElementById('openPane');
     if(b&&p){ b.addEventListener('click',function(){ p.classList.toggle('hidden'); }); }
+    var hb=document.getElementById('histBtn'), h=document.getElementById('hist');
+    if(hb&&h){ hb.addEventListener('click',function(){ h.classList.toggle('hidden'); }); }
   })();
 </script>
