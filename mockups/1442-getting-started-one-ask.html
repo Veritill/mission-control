@@ -78,6 +78,10 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
 .chip{font:600 14px var(--font);padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
 .chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.guide{list-style:none;margin:4px 0 10px;padding:0;display:grid;gap:6px}
+.guide li{display:flex;align-items:center;gap:10px;font-size:14px}
+.guide .ic{width:30px;height:30px;border-radius:8px;background:var(--chip);display:grid;place-items:center;flex:none;font-size:15px}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--mute);font-size:14px;margin:4px 0 6px;background:var(--bg)}
 .rules{font-size:13px;color:var(--mute);margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
 .rules h2{font-size:14px;color:var(--fg);margin-bottom:6px}
 .rules ol{margin:0;padding-left:18px}
@@ -87,7 +91,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
 <div class="wrap">
   <div class="banner"><b>Mockup v4</b> · the same screen for a grocery and for a restaurant, at each of the four steps. Fictional businesses. Nothing here is real data.</div>
   <div class="sel"><span class="lab">Business</span><button class="tab on" data-biz="grocery">Deshi Bazaar · grocery</button><button class="tab" data-biz="kitchen">Saffron Kitchen · restaurant</button></div>
-  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give">1 Give</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
+  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give0">1 Give · where</button><button class="tab" data-step="give1">1 Give · which POS</button><button class="tab" data-step="give2">1 Give · API key?</button><button class="tab" data-step="give3">1 Give · export or key</button><button class="tab" data-step="give">1 Give · right?</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
 
   <div class="screen" id="screen"></div>
 
@@ -125,8 +129,34 @@ h1,h2,h3{margin:0;text-wrap:balance}
         chips:[['No, shelves only',true],['Yes, we make food here',false]],
         actions:[['pri','Continue']],
         next:'<b>Then Getting started opens: "Where are your items today?"</b>' },
-      give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
-        done:[['Where are your items today? · <b>In my POS (Toast)</b>','271 items']],
+      give0: { bar:[['now','1','Give','0 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        did:'Your shelves are set up. Now your items.',
+        say:'Where are your items today?', sub:'Pick one. I read it, then show you what I found.',
+        tiles:[['🏪','In my POS','Toast, Square, Clover, Lightspeed, Shopify, another'],['📄','On paper','vendor price lists or invoices'],['📊','In a spreadsheet','any columns, I work them out'],['⏳','Nowhere yet','I\'m just starting']],
+        next:'<b>If it is a POS, I ask which one and whether you have API access.</b>' },
+      give1: { bar:[['now','1','Give','1 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS</b>','']],
+        did:'Each POS has its own way out. I know them.',
+        say:'Which POS do you use?', sub:'Pick one. "Another" works too: you export a file, I read the columns.',
+        chips:[['Toast',true],['Square',false],['Clover',false],['Lightspeed Retail',false],['Lightspeed X-Series',false],['Shopify',false],['Another POS',false]],
+        actions:[['pri','Continue']],
+        next:'<b>Then one question: do you have API access for Toast?</b>' },
+      give2: { bar:[['now','1','Give','2 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>','']],
+        did:'With API access I pull your items and sales every night by myself. Without it, you export a file once; that works just as well to start.',
+        say:'Do you have API access for Toast?', sub:'It is a key Toast gives on request. Most stores do not have it, and that is fine.',
+        tiles:[['🔑','Yes, I have the key','I paste it once'],['📥','No, I\'ll export a file','you show me how'],['🤔','Not sure','two things to check']],
+        next:'<b>Yes: paste the key. No: I show you the exact clicks in Toast to export your items.</b>' },
+      give3: { bar:[['now','1','Give','3 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>No, I\'ll export a file</b>','']],
+        did:'Four clicks in Toast, then drop the file here. I remember the columns, so the next export reads with no questions.',
+        say:'Export your items from Toast', sub:'Toast Web, on a computer:',
+        guide:[['🖥','Open Toast Web and sign in as the owner'],['📋','Menus → Item library (Retail) → Export'],['⬇️','Pick CSV and download it'],['📂','Drop that file below']],
+        drop:'Drop the Toast export here, or tap to choose it',
+        actions:[['skip','I have the key after all']],
+        next:'<b>I read the file, then show you what I found: "Right?"</b>' },
+      give: { bar:[['now','1','Give','4 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>No, I\'ll export a file</b>',''],['Your Toast export · <b>271 items read, 14 columns understood</b>','271']],
         did:'I read your Toast export: 271 items on 12 shelves, 3 vendors named, open 7 days.',
         say:'Is this right?', sub:'Indian grocery · 3 vendors: Sunrise Produce, Metro Cash & Carry, Deshi Imports · open every day',
         tiles:null, rows:null, actions:[['pri','Right'],['btn','Change']],
@@ -172,8 +202,33 @@ h1,h2,h3{margin:0;text-wrap:balance}
         chips:[['Indian',true],['Indo-Chinese',true],['Mexican',false],['Italian',false],['Thai',false],['American',false],['Mediterranean',false],['More…',false]],
         actions:[['pri','Continue'],['skip','Read it from my menu instead']],
         next:'<b>Then Getting started opens: "Where are your items today?"</b>' },
-      give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
-        done:[['Where are your items today? · <b>My POS has my menu, not items (Toast)</b>','64 dishes']],
+      give0: { bar:[['now','1','Give','0 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        did:'Your kitchen words are set up. Now your menu.',
+        say:'Where is your menu today?', sub:'Pick one. I read it, then show you what I found.',
+        tiles:[['🏪','In my POS','Toast, Square, Clover, another: dishes, no stock'],['📄','On paper or PDF','a printed menu, a photo, a file'],['📊','In a spreadsheet','any columns, I work them out'],['⏳','Nowhere yet','I\'m just starting']],
+        next:'<b>If it is a POS, I ask which one and whether you have API access.</b>' },
+      give1: { bar:[['now','1','Give','1 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>In my POS</b>','']],
+        did:'Each POS has its own way out. I know them.',
+        say:'Which POS do you use?', sub:'Pick one. "Another" works too: a printed menu or a PDF is enough.',
+        chips:[['Toast',true],['Square',false],['Clover',false],['Lightspeed Restaurant',false],['Another POS',false]],
+        actions:[['pri','Continue']],
+        next:'<b>Then one question: do you have API access for Toast?</b>' },
+      give2: { bar:[['now','1','Give','2 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>','']],
+        did:'With API access I pull your menu and sales every night by myself. Without it, a PDF or a photo of your menu works just as well to start.',
+        say:'Do you have API access for Toast?', sub:'Toast calls it a Standard API client; the owner asks Toast for it. Most restaurants do not have it yet, and that is fine.',
+        tiles:[['🔑','Yes, I have the key','I paste it once'],['📄','No, I\'ll use my menu','a PDF or a photo'],['🤔','Not sure','two things to check']],
+        next:'<b>Yes: paste the client id and secret. No: drop your menu as a PDF or photos.</b>' },
+      give3: { bar:[['now','1','Give','3 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>Yes, I have the key</b>','']],
+        did:'Paste the two values Toast gave you. I keep them hidden and test them right away.',
+        say:'Connect Toast', sub:'From Toast: Integrations → Toast API access → your Standard API client.',
+        fields:[['Client id','xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'],['Client secret','••••••••••••••••••••'],['Restaurant GUID','xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx']],
+        actions:[['pri','Connect and pull my menu'],['skip','Use a PDF of my menu instead']],
+        next:'<b>I pull the menu, then show you what I found: "Right?"</b>' },
+      give: { bar:[['now','1','Give','4 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>Yes</b> · connected, menu and sales pull nightly',''],['Your Toast menu · <b>64 dishes on 2 books, 9 sections</b>','64']],
         did:'I pulled your Toast menu: 64 dishes on 2 books, 9 sections, 4 vendors named on your invoices, open 6 days.',
         say:'Is this right?', sub:'Indian restaurant with Indo-Chinese dishes · 4 vendors: Sysco, Restaurant Depot, Sunrise Produce, Deshi Imports · closed Mondays',
         actions:[['pri','Right'],['btn','Change']],
@@ -217,6 +272,10 @@ h1,h2,h3{margin:0;text-wrap:balance}
     h += '<div class="card current"><div class="agent"><div class="face">'+FACE+'</div><div><div class="name">Veritill</div><div class="did">'+d.did+'</div></div></div>';
     h += '<div class="say">'+d.say+'</div><div class="sub">'+d.sub+'</div>';
     if (d.field) h += '<label class="field"><span>'+d.field[0]+'</span><input value="'+d.field[1]+'"></label>';
+    if (d.fields) h += d.fields.map(function(f){ return '<label class="field"><span>'+f[0]+'</span><input value="'+f[1]+'"></label>'; }).join('');
+    if (d.tiles) h += '<div class="tiles">'+d.tiles.map(function(t){ return '<div class="tile"><span class="ic">'+t[0]+'</span><div><div class="t">'+t[1]+'</div><div class="s">'+t[2]+'</div></div></div>'; }).join('')+'</div>';
+    if (d.guide) h += '<ol class="guide">'+d.guide.map(function(g){ return '<li><span class="ic">'+g[0]+'</span><span>'+g[1]+'</span></li>'; }).join('')+'</ol>';
+    if (d.drop) h += '<div class="drop">'+d.drop+'</div>';
     if (d.chips) h += '<div class="chips">'+d.chips.map(function(c){ return '<span class="chip'+(c[1]?' on':'')+'">'+c[0]+'</span>'; }).join('')+'</div>';
     if (d.rows) {
       h += '<div class="rows">'+d.rows.map(function(r){
