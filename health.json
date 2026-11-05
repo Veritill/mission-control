@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T18:30:53.623Z",
+  "at": "2026-11-05T18:56:44.851Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 21,
-      "waitMin": 1,
-      "busyPct": 18
+      "runs": 5,
+      "busyMin": 36,
+      "waitMin": 2,
+      "busyPct": 30
     },
     "core": {
-      "runs": 14,
-      "busyMin": 48,
-      "waitMin": 5,
-      "busyPct": 80
+      "runs": 9,
+      "busyMin": 29,
+      "waitMin": 6,
+      "busyPct": 49
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 116,
+      "runs": 11,
+      "busyMin": 128,
       "waitMin": 0,
-      "busyPct": 97
+      "busyPct": 106
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 0,
+    "ciQueued": 3,
+    "oldestQueuedMin": 19
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,16 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
-    },
-    {
-      "level": "warn",
-      "text": "86 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "85 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "753 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "777 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
@@ -123,7 +119,7 @@
     },
     {
       "level": "warn",
-      "text": "the Build supervisor was woken 104 min ago and has not reported on the Build health log: its run died or could not write (read the newest agents run with a supervisor job)"
+      "text": "the Build supervisor was woken 129 min ago and has not reported on the Build health log: its run died or could not write (read the newest agents run with a supervisor job)"
     }
   ],
   "cost": {
@@ -136,10 +132,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T18:30:41.046Z",
+    "at": "2026-11-05T18:56:31.747Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 65,
+      "hits": 67,
       "misses": 1,
       "hydrations": 1
     },
@@ -161,7 +157,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T18:30:40.778Z",
+    "at": "2026-11-05T18:56:31.520Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -184,10 +180,6 @@
   },
   "prRerun": {},
   "warnSince": {
-    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
-      "since": "2026-11-05T18:30:21.853Z",
-      "escalated": false
-    },
     "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
       "since": "2026-11-05T16:46:50.997Z",
       "escalated": false
