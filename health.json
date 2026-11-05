@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-05T19:56:55.832Z",
+  "at": "2026-11-05T20:56:44.971Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 4,
+      "busyMin": 7,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 6
     },
     "core": {
-      "runs": 5,
-      "busyMin": 19,
-      "waitMin": 21,
-      "busyPct": 32
+      "runs": 9,
+      "busyMin": 22,
+      "waitMin": 4,
+      "busyPct": 37
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 7,
-      "waitMin": 8,
-      "busyPct": 12
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 148,
+      "runs": 6,
+      "busyMin": 73,
       "waitMin": 0,
-      "busyPct": 123
+      "busyPct": 61
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 4,
-    "oldestQueuedMin": 40
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -56,7 +56,7 @@
     {
       "name": "router-runner",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
@@ -71,17 +71,13 @@
   "findings": [
     {
       "level": "warn",
-      "text": "82 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "80 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "813 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "837 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 40 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -92,16 +88,16 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 17.53,
-    "railwayProjected": 33.31,
+    "railwayMonthToDate": 17.76,
+    "railwayProjected": 33.77,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-05T19:56:43.181Z",
+    "at": "2026-11-05T20:56:29.986Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 71,
+      "hits": 75,
       "misses": 1,
       "hydrations": 1
     },
@@ -123,7 +119,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T19:56:42.933Z",
+    "at": "2026-11-05T20:56:29.759Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -138,18 +134,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "a8751cb",
-      "ageMin": 11,
-      "lastGoodSha": "a8751cb",
-      "lastGoodAgeMin": 11
+      "status": "BUILDING",
+      "sha": "a8729f0",
+      "ageMin": 0,
+      "lastGoodSha": "640bcb7",
+      "lastGoodAgeMin": 25
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "a8751cb",
-      "ageMin": 11,
-      "lastGoodSha": "a8751cb",
-      "lastGoodAgeMin": 11
+      "status": "BUILDING",
+      "sha": "a8729f0",
+      "ageMin": 0,
+      "lastGoodSha": "640bcb7",
+      "lastGoodAgeMin": 25
     }
   },
   "prRerun": {},
@@ -160,10 +156,6 @@
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-05T18:30:21.853Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-05T19:56:19.009Z",
       "escalated": false
     }
   },
