@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T14:07:31.439Z",
+  "at": "2026-11-05T15:00:14.869Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 1,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 1
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 25,
+      "busyMin": 59,
+      "waitMin": 13,
+      "busyPct": 98
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 22,
-      "busyMin": 64,
-      "waitMin": 0,
-      "busyPct": 54
+      "runs": 31,
+      "busyMin": 346,
+      "waitMin": 18,
+      "busyPct": 288
     }
   },
   "queue": {
-    "agentsQueued": 49,
-    "ciQueued": 1,
-    "oldestQueuedMin": 81
+    "agentsQueued": 1,
+    "ciQueued": 6,
+    "oldestQueuedMin": 35
   },
   "runners": [
     {
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 25 run(s) waiting 20+ min for label 'router' (longest 81 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 35 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,10 +96,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T14:07:31.073Z",
+    "at": "2026-11-05T15:00:14.478Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 48,
+      "hits": 51,
       "misses": 1,
       "hydrations": 1
     },
@@ -109,8 +109,8 @@
       "misses": 0
     },
     "derived": {
-      "hits": 0,
-      "misses": 0,
+      "hits": 6,
+      "misses": 7,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
@@ -121,7 +121,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T14:07:30.839Z",
+    "at": "2026-11-05T15:00:14.232Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
