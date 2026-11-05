@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T00:01:16.745Z",
+  "at": "2026-11-05T00:52:53.004Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 10,
+      "busyMin": 17,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 14
     },
     "core": {
-      "runs": 8,
-      "busyMin": 21,
-      "waitMin": 10,
-      "busyPct": 35
+      "runs": 6,
+      "busyMin": 20,
+      "waitMin": 1,
+      "busyPct": 33
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 14,
-      "busyMin": 91,
+      "busyMin": 80,
       "waitMin": 0,
-      "busyPct": 75
+      "busyPct": 67
     }
   },
   "queue": {
-    "agentsQueued": 22,
-    "ciQueued": 1,
-    "oldestQueuedMin": 45
+    "agentsQueued": 24,
+    "ciQueued": 3,
+    "oldestQueuedMin": 55
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 10 run(s) waiting 20+ min for label 'router' (longest 45 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 12 run(s) waiting 20+ min for label 'router' (longest 55 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,20 +96,20 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T00:01:16.393Z",
+    "at": "2026-11-05T00:52:52.663Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 159,
+      "hits": 165,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 79,
+      "hits": 82,
       "misses": 1
     },
     "derived": {
-      "hits": 326,
+      "hits": 338,
       "misses": 11,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -117,11 +117,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 80
+      "onceHits": 83
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T00:01:16.176Z",
+    "at": "2026-11-05T00:52:52.414Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
