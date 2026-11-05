@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-05T02:42:37.147Z",
+  "at": "2026-11-05T02:46:55.032Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,10 +9,10 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 8,
-      "busyMin": 27,
+      "runs": 9,
+      "busyMin": 29,
       "waitMin": 1,
-      "busyPct": 45
+      "busyPct": 48
     },
     "planner": {
       "runs": 0,
@@ -21,15 +21,15 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 14,
-      "busyMin": 55,
+      "runs": 12,
+      "busyMin": 57,
       "waitMin": 0,
-      "busyPct": 46
+      "busyPct": 47
     }
   },
   "queue": {
     "agentsQueued": 9,
-    "ciQueued": 2,
+    "ciQueued": 1,
     "oldestQueuedMin": 21
   },
   "runners": [
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'router' (longest 21 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'router' (longest 21 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,20 +96,20 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T02:42:36.778Z",
+    "at": "2026-11-05T02:46:54.674Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 179,
+      "hits": 181,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 89,
+      "hits": 90,
       "misses": 1
     },
     "derived": {
-      "hits": 366,
+      "hits": 370,
       "misses": 11,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -117,11 +117,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 90
+      "onceHits": 91
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T02:42:36.556Z",
+    "at": "2026-11-05T02:46:54.285Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
