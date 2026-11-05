@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T15:00:14.869Z",
+  "at": "2026-11-05T15:56:18.259Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 1,
+      "runs": 2,
+      "busyMin": 3,
       "waitMin": 0,
-      "busyPct": 1
+      "busyPct": 2
     },
     "core": {
-      "runs": 25,
-      "busyMin": 59,
-      "waitMin": 13,
-      "busyPct": 98
+      "runs": 15,
+      "busyMin": 51,
+      "waitMin": 7,
+      "busyPct": 85
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 31,
-      "busyMin": 346,
-      "waitMin": 18,
-      "busyPct": 288
+      "runs": 16,
+      "busyMin": 469,
+      "waitMin": 0,
+      "busyPct": 391
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 3,
     "ciQueued": 6,
-    "oldestQueuedMin": 35
+    "oldestQueuedMin": 54
   },
   "runners": [
     {
@@ -71,7 +71,11 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 35 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 5 run(s) waiting 20+ min for label 'veritill' (longest 54 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,10 +100,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T15:00:14.478Z",
+    "at": "2026-11-05T15:56:17.891Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 51,
+      "hits": 55,
       "misses": 1,
       "hydrations": 1
     },
@@ -121,7 +125,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T15:00:14.232Z",
+    "at": "2026-11-05T15:56:17.652Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
