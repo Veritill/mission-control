@@ -1,10 +1,10 @@
 <title>Getting started, one ask</title>
-<meta name="description" content="Mockup v3: Getting started as four steps and one card, in the agent's voice">
+<meta name="description" content="Mockup v4: Getting started as four steps and one card, for a grocery and for a restaurant, at every step">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-/* Layout: one column, 640px wide, inside the app's content area. Four-step bar on top, one conversation column
-   under it: folded done cards (one line + a number), the current card (one sentence, one button), one "next" line.
-   Nothing else. The station map, the automations board and the outcome rows are gone from setup. */
+/* Layout: one column, 640px, the app's content area. A four-step bar, then one conversation column: folded done
+   rows (one line + a number), the current card (one sentence, one button or answer tiles), one "After this" line.
+   Two selectors above drive eight screens from one data object: the business, and the step. */
 :root{
   --bg:#f8f7f3; --card:#ffffff; --fg:#1d241e; --mute:#6b736c; --line:#e3e5df;
   --green:#2f6b3f; --green-soft:#e6f0e8; --amber:#b7791f; --amber-soft:#fbf1dc; --chip:#eef0ea;
@@ -15,17 +15,19 @@
 body{background:var(--bg);color:var(--fg);font:15px/1.4 var(--font);margin:0}
 .wrap{max-width:640px;margin:0 auto;padding-block:16px;padding-inline:16px}
 h1,h2,h3{margin:0;text-wrap:balance}
-.banner{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:16px}
+.banner{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:12px}
 .banner b{color:var(--amber)}
+.sel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.sel .lab{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em;width:70px}
+.tab{font:600 13px var(--font);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--mute)}
+.tab.on{background:var(--green);border-color:var(--green);color:#fff}
+.screen{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg)}
 .who{font-size:13px;color:var(--mute);margin-bottom:6px}
 .topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .topbar h1{font-size:24px;font-weight:700}
-.spacer{flex:1}
 .btn{font:600 14px var(--font);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;padding:8px 14px;cursor:pointer}
 .btn.pri{background:var(--green);border-color:var(--green);color:#fff;font-size:15px;padding:10px 18px}
 .btn.sm{padding:5px 10px;font-size:13px}
-.btn.ghost{background:transparent}
-/* the four-step bar */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:18px}
 .step{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:10px;position:relative}
 .step .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:14px}
@@ -33,14 +35,12 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .step.now .dot{border-color:var(--green);color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
 .step .name{font-size:14px;font-weight:600}
 .step.now .name{color:var(--green)}
-.step .n{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.step .n{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;min-height:15px;text-align:center}
 .step.done .n{color:var(--green)}
-.step::after{content:"";position:absolute;top:24px;right:-6px;width:6px;height:2px;background:var(--line)}
-.step:last-child::after{display:none}
-/* the column */
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-.done-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:transparent;font-size:14px;color:var(--mute)}
+.done-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;font-size:14px;color:var(--mute)}
 .done-row .tick{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.done-row.skipped .tick{background:var(--card);border:1px dashed var(--mute);color:var(--mute)}
 .done-row .l{flex:1;min-width:0}
 .done-row .l b{color:var(--fg);font-weight:600}
 .done-row .num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--fg);white-space:nowrap}
@@ -52,137 +52,144 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .agent .did{font-size:13px;color:var(--mute)}
 .say{font-size:18px;font-weight:700;margin:4px 0 4px}
 .sub{font-size:14px;color:var(--mute);margin-bottom:12px}
-.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px}
 .skip{font-size:13px;color:var(--mute);background:none;border:none;cursor:pointer;text-decoration:underline}
-.why{font-size:13px;color:var(--mute);margin-top:10px}
 .next{font-size:13px;color:var(--mute);padding:8px 12px;margin-top:4px}
 .next b{color:var(--fg);font-weight:600}
-.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:4px 0 12px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:4px 0 4px}
 .tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:var(--card)}
-.tile .ic{width:30px;height:30px;border-radius:8px;background:var(--chip);display:grid;place-items:center;flex:none}
-.tile .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tile .ic{width:30px;height:30px;border-radius:8px;background:var(--chip);display:grid;place-items:center;flex:none;font-size:15px}
 .tile .t{font-weight:600;font-size:14px}
 .tile .s{font-size:12px;color:var(--mute)}
-.tabs{display:flex;gap:8px;margin:16px 0 10px}
-.tab{font:600 13px var(--font);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--mute)}
-.tab.on{background:var(--green);border-color:var(--green);color:#fff}
-.hidden{display:none}
+.rows{border-top:1px solid var(--line);margin-top:6px}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row .l{flex:1;min-width:0}
+.row .l small{display:block;color:var(--mute);font-size:12px}
+.row input{font:14px var(--font);width:84px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);text-align:right}
+.row .pick{font:13px var(--font);padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--fg)}
+.pill{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mute);white-space:nowrap}
+.pill.on{background:var(--green-soft);color:var(--green)}
+.pill.need{background:var(--amber-soft);color:var(--amber)}
+.foot{font-size:12px;color:var(--mute);margin-top:8px}
 .rules{font-size:13px;color:var(--mute);margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
 .rules h2{font-size:14px;color:var(--fg);margin-bottom:6px}
 .rules ol{margin:0;padding-left:18px}
 .rules li{margin:3px 0}
-.open-list .row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
-.open-list .row:last-child{border-bottom:none}
-.open-list .l{flex:1;min-width:0}
-.pill{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mute);white-space:nowrap}
-.pill.on{background:var(--green-soft);color:var(--green)}
-.pill.need{background:var(--amber-soft);color:var(--amber)}
 </style>
 
 <div class="wrap">
-  <div class="banner"><b>Mockup v3</b> · Getting started as four steps and one card. Fictional business "Deshi Bazaar". Use the tabs to see the same screen at three moments. Nothing here is real data.</div>
+  <div class="banner"><b>Mockup v4</b> · the same screen for a grocery and for a restaurant, at each of the four steps. Fictional businesses. Nothing here is real data.</div>
+  <div class="sel"><span class="lab">Business</span><button class="tab on" data-biz="grocery">Deshi Bazaar · grocery</button><button class="tab" data-biz="kitchen">Saffron Kitchen · restaurant</button></div>
+  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="give">1 Give</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
 
-  <div class="tabs">
-    <button class="tab on" data-view="v1">First minute</button>
-    <button class="tab" data-view="v2">Mid-way (Costs)</button>
-    <button class="tab" data-view="v3">After go live</button>
-  </div>
-
-  <!-- ───────── VIEW 1: the first minute ───────── -->
-  <div id="v1">
-    <div class="who">Deshi Bazaar · Owner</div>
-    <div class="topbar"><h1>Getting started</h1><span class="spacer"></span></div>
-    <div class="steps">
-      <div class="step now"><div class="dot">1</div><div class="name">Give</div><div class="n">0 of 2</div></div>
-      <div class="step"><div class="dot">2</div><div class="name">Check</div><div class="n"></div></div>
-      <div class="step"><div class="dot">3</div><div class="name">Costs</div><div class="n"></div></div>
-      <div class="step"><div class="dot">4</div><div class="name">Open</div><div class="n"></div></div>
-    </div>
-    <div class="card current">
-      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">I set up your store from what you already have.</div></div></div>
-      <div class="say">Where are your items today?</div>
-      <div class="sub">Pick one. I read it, then show you what I found.</div>
-      <div class="tiles">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9h18v10H3zM3 9l2-5h14l2 5"/></svg></span><div><div class="t">In my POS</div><div class="s">Toast, Square, Clover, Lightspeed, Shopify</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 11h16M9 5v14"/></svg></span><div><div class="t">My POS has my menu, not items</div><div class="s">dishes only, nothing counted</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 12h6M9 16h6"/></svg></span><div><div class="t">On paper</div><div class="s">vendor price lists or invoices</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></span><div><div class="t">Nowhere yet</div><div class="s">I'm just starting</div></div></div>
-      </div>
-      <div class="why">Have both items and a menu in your POS? Pick "In my POS"; I find the dishes by myself.</div>
-    </div>
-    <div class="next">After this: <b>I show you what I read and you say "right" or "change".</b></div>
-  </div>
-
-  <!-- ───────── VIEW 2: mid-way, the Costs step ───────── -->
-  <div id="v2" class="hidden">
-    <div class="who">Deshi Bazaar · Owner</div>
-    <div class="topbar"><h1>Getting started</h1><span class="spacer"></span></div>
-    <div class="steps">
-      <div class="step done"><div class="dot">✓</div><div class="name">Give</div><div class="n">271 items</div></div>
-      <div class="step done"><div class="dot">✓</div><div class="name">Check</div><div class="n">4 of 4</div></div>
-      <div class="step now"><div class="dot">3</div><div class="name">Costs</div><div class="n">2 of 4</div></div>
-      <div class="step"><div class="dot">4</div><div class="name">Open</div><div class="n"></div></div>
-    </div>
-    <div class="done-row"><span class="tick">✓</span><span class="l">Use your Toast costs for now? · <b>Yes, until the first invoice</b></span><span class="num">214</span></div>
-    <div class="done-row"><span class="tick">✓</span><span class="l">How many months of invoices? · <b>3 months</b></span><span class="num"></span></div>
-    <div class="card current">
-      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">Your invoices name 3 vendors: Sunrise Produce, Metro Cash &amp; Carry, Deshi Imports.</div></div></div>
-      <div class="say">How do Sunrise Produce's invoices reach you?</div>
-      <div class="sub">Pick one. The other two vendors come next.</div>
-      <div class="tiles">
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 6l9 7 9-7"/></svg></span><div><div class="t">By email</div><div class="s">I give you an address to paste at the vendor</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></span><div><div class="t">From their website</div><div class="s">you download, I read the folder</div></div></div>
-        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v12H4zM12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></span><div><div class="t">On paper</div><div class="s">snap it, forget it</div></div></div>
-      </div>
-      <div class="actions"><button class="skip">Skip this vendor for now</button></div>
-    </div>
-    <div class="next">After this: <b>I cost your 271 items from the invoices; you confirm only what I could not match.</b></div>
-  </div>
-
-  <!-- ───────── VIEW 3: after go live ───────── -->
-  <div id="v3" class="hidden">
-    <div class="who">Deshi Bazaar · Owner</div>
-    <div class="topbar"><h1>What runs by itself</h1><span class="spacer"></span></div>
-    <div class="steps">
-      <div class="step done"><div class="dot">✓</div><div class="name">Give</div><div class="n">271 items</div></div>
-      <div class="step done"><div class="dot">✓</div><div class="name">Check</div><div class="n">4 of 4</div></div>
-      <div class="step done"><div class="dot">✓</div><div class="name">Costs</div><div class="n">258 of 271</div></div>
-      <div class="step done"><div class="dot">✓</div><div class="name">Open</div><div class="n">Nov 5</div></div>
-    </div>
-    <div class="card open-list">
-      <div class="row"><span class="l">Invoices read by themselves</span><span class="pill on">3 vendors · on</span></div>
-      <div class="row"><span class="l">Items and sales in sync with Toast</span><span class="pill on">on</span></div>
-      <div class="row"><span class="l">The daily money line</span><span class="pill on">on</span></div>
-      <div class="row"><span class="l">Stock counts and reorder drafts</span><span class="pill need">needs a first count</span><button class="btn sm">Count</button></div>
-      <div class="row"><span class="l">The online store</span><span class="pill">off</span><button class="btn sm ghost">Open it</button></div>
-    </div>
-    <div class="card current">
-      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">13 items still have no cost on any invoice.</div></div></div>
-      <div class="say">What do you pay for Deshi Imports' Basmati 20 lb?</div>
-      <div class="sub">Or forward their invoice; I'll read it.</div>
-      <div class="actions"><button class="btn pri">Enter what I pay</button><button class="skip">Skip for now</button></div>
-    </div>
-    <div class="next">Open <b>Invoices → Load</b> for any invoice, <b>Vendors</b> for price lists. Everything else runs by itself.</div>
-  </div>
+  <div class="screen" id="screen"></div>
 
   <div class="rules">
-    <h2>The flow, in one breath</h2>
+    <h2>What each step is</h2>
     <ol>
-      <li>Four steps, the same for every business: Give · Check · Costs · Open. The bar is the whole progress story; no percentages, no minutes, no station map.</li>
-      <li>One card at a time, in the agent's voice: one sentence, one button (or tiles as answers), Skip in grey. A done card folds to one line with its number.</li>
-      <li>The route is invisible. "Where are your items?" decides it; a grocery gets price tags inside Check, a kitchen gets recipes and the chef's pass inside Check. The customer only sees more cards in that step.</li>
-      <li>Nothing that is not a question is on the setup page. "What runs by itself" and the numbers appear after Go live, where they are the whole page.</li>
-      <li>One "After this:" line is always under the current card, so the customer knows why he is being asked.</li>
-      <li>Never asked: business type, cuisine, vendors, hours. They show as "I read it as X · change" lines after the first drop.</li>
+      <li><b>Give</b>: one key or one drop, then "Right?" on what was read. Business type, cuisine or store kind, vendors and hours are never asked.</li>
+      <li><b>Check</b>: the judgement taps, ten at a time, inside the card. A grocery: items, SNAP flags, shelf prices. A restaurant: dishes, the prep list, recipes, the chef's pass. A grocery never sees a dish; a restaurant never sees a price tag.</li>
+      <li><b>Costs</b>: use the POS costs? how many months? how do each vendor's invoices arrive? then the sitting (item-led for a store, dish-led for a kitchen), then the cost-gap loop.</li>
+      <li><b>Open</b>: the team, the till (a restaurant on Toast keeps Toast as its till), the online store if wanted, Go live.</li>
+      <li><b>After go live</b>: the page becomes "What runs by itself" plus the agent's card for the few asks that outlive setup. A store's first count lives here, never as a gate to opening.</li>
     </ol>
   </div>
 </div>
+
 <script>
-  (function(){
-    var tabs = document.querySelectorAll('.tab');
-    tabs.forEach(function(t){ t.addEventListener('click', function(){
-      tabs.forEach(function(x){ x.classList.remove('on'); }); t.classList.add('on');
-      ['v1','v2','v3'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.classList.toggle('hidden', id!==t.getAttribute('data-view')); } });
-    }); });
-  })();
+(function(){
+  var FACE = '<svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg>';
+  var V = {
+    grocery: {
+      who: 'Deshi Bazaar · Owner',
+      give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS (Toast)</b>','271 items']],
+        did:'I read your Toast export: 271 items on 12 shelves, 3 vendors named, open 7 days.',
+        say:'Is this right?', sub:'Indian grocery · 3 vendors: Sunrise Produce, Metro Cash & Carry, Deshi Imports · open every day',
+        tiles:null, rows:null, actions:[['pri','Right'],['btn','Change']],
+        next:'<b>I show you the items ten at a time; you fix only what I got wrong.</b>' },
+      check: { bar:[['done','✓','Give','271 items'],['now','2','Check','2 of 3'],['','3','Costs',''],['','4','Open','']],
+        done:[['Check your items · <b>271 accepted, 6 held</b> (4 twins, 2 with no barcode)','271'],['SNAP-eligible? · <b>212 yes</b>, 59 no','212']],
+        did:'271 items have a cost from Toast, 0 have a shelf price yet.',
+        say:'Put prices on your shelves', sub:'Ten at a time. I suggest from your Toast price; change any, then Next.',
+        rows:[['Basmati rice 20 lb','Rice · cost $18.40','$24.99'],['Toor dal 4 lb','Dals · cost $6.10','$8.99'],['Ghee 32 oz','Dairy · cost $9.80','$13.49']],
+        rowKind:'price', actions:[['pri','Next ten'],['skip','Skip prices for now']],
+        foot:'1 to 10 of 271', next:'<b>Then your costs: which vendor sends what, and the 3 months of invoices.</b>' },
+      costs: { bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['now','3','Costs','3 of 4'],['','4','Open','']],
+        done:[['Use your Toast costs for now? · <b>Yes, until the first invoice</b>','214'],['How many months of invoices? · <b>3</b>',''],['Sunrise Produce · <b>by email</b> · Metro Cash & Carry · <b>on paper</b> · Deshi Imports · <b>by email</b>','3 vendors']],
+        did:'I read 41 invoices from 3 vendors. 258 of 271 items are costed; 10 I could not match by myself.',
+        say:'Match these 10 items', sub:'I pre-filled my best match. Confirm the page, or fix one.',
+        rows:[['Basmati rice 20 lb','Deshi Imports invoice 4471 · "BASMATI PREM 20LB"','Rice, basmati'],['Toor dal 4 lb','Deshi Imports invoice 4471 · "TUR DAL 4LB"','Dal, toor'],['Cilantro bunch','Sunrise Produce 11-02 · "CORIANDER 60CT"','Cilantro']],
+        rowKind:'match', actions:[['pri','Confirm page'],['skip','Stop here, the rest can wait']],
+        foot:'1 to 10 of 10 · every cost shows its receipt on tap', next:'<b>Then the doors: your team, your till and scale, and the open sign.</b>' },
+      open: { bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['done','✓','Costs','258 of 271'],['now','4','Open','3 of 4']],
+        done:[['Invite your team · <b>2 invited</b>','2'],['Set up your till and scale · <b>1 register, scale connected</b>','1'],['Open your store online? · <b>Skipped for now</b>','', 'skipped']],
+        did:'258 of 271 items costed, 271 priced, 1 register ready. 13 items wait for a cost in your invoices.',
+        say:'Ready to open?', sub:'After this the page becomes "What runs by itself". Counting your stock comes when you have a quiet hour, not before opening.',
+        actions:[['pri','We\'re open']], next:'<b>Nothing else. Invoices → Load for any invoice, Vendors for price lists.</b>' },
+      live: { title:'What runs by itself', bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['done','✓','Costs','258 of 271'],['done','✓','Open','Nov 5']],
+        list:[['Invoices read by themselves','on','3 vendors · on'],['Items and sales in sync with Toast','on','on'],['The daily money line','on','on'],['Stock counts and reorder drafts','need','needs a first count','Count'],['The online store','','off','Open it']],
+        did:'13 items still have no cost on any invoice.', say:'What do you pay for Deshi Imports\' Chana dal 4 lb?', sub:'Or forward their next invoice; I\'ll read it.',
+        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' }
+    },
+    kitchen: {
+      who: 'Saffron Kitchen · Owner',
+      give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>My POS has my menu, not items (Toast)</b>','64 dishes']],
+        did:'I pulled your Toast menu: 64 dishes on 2 books, 9 sections, 4 vendors named on your invoices, open 6 days.',
+        say:'Is this right?', sub:'Indian restaurant with Indo-Chinese dishes · 4 vendors: Sysco, Restaurant Depot, Sunrise Produce, Deshi Imports · closed Mondays',
+        actions:[['pri','Right'],['btn','Change']],
+        next:'<b>I show you the dishes, then ask for your prep list and write the recipes.</b>' },
+      check: { bar:[['done','✓','Give','64 dishes'],['now','2','Check','3 of 4'],['','3','Costs',''],['','4','Open','']],
+        done:[['Check your dishes · <b>64 on 2 books</b>','64'],['Your prep list · <b>57 boxes read from your photo</b>','57'],['Write the recipes · <b>64 dishes, 57 boxes proposed</b>','121']],
+        did:'Recipes are written in your own families and boxes. A chef confirms each one once.',
+        say:'Confirm this box: Makhani gravy', sub:'Batch of 12 qt · makes about 11 qt after cooking',
+        rows:[['Tomato, crushed','3 kg · stated on your list',''],['Butter','800 g · stated',''],['Cashew paste','400 g · your own box',''],['Cream','1.2 L · proposed, check it','']],
+        rowKind:'line', actions:[['pri','Confirm'],['btn','Fix a line'],['skip','Next box']],
+        foot:'3 of 57 boxes confirmed · 0 of 64 dishes', next:'<b>Then your costs: how each vendor\'s invoices arrive, and 3 months of them.</b>' },
+      costs: { bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['now','3','Costs','3 of 3'],['','4','Open','']],
+        done:[['How many months of invoices? · <b>3</b>',''],['Sysco · <b>by email</b> · Restaurant Depot · <b>on paper</b> · Sunrise Produce · <b>by email</b> · Deshi Imports · <b>by email</b>','4 vendors'],['Use xtraCHEF? · <b>No</b>','']],
+        did:'I read 118 invoices from 4 vendors. 58 of 64 dishes are fully costed; 6 wait on 9 matches.',
+        say:'Butter Chicken needs 4 things. I found 3.', sub:'Confirm my matches; pick the one I missed.',
+        rows:[['Chicken thigh','Sysco invoice 20812 · "CHKN THIGH BNLS 40LB" · $1.45/lb','Chicken thigh'],['Cream','Sysco invoice 20812 · "CREAM HVY 36% 4/1GAL"','Cream, heavy'],['Butter','Restaurant Depot 11-01 · "BUTTER UNSLT 36/1LB"','Butter'],['Tomato, crushed','not on any invoice yet','pick']],
+        rowKind:'match', actions:[['pri','Confirm page'],['skip','Stop here, the rest can wait']],
+        foot:'dish 1 of 6 · every cost shows its receipt on tap', next:'<b>Then the doors: your team, the till, and the open sign.</b>' },
+      open: { bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['done','✓','Costs','58 of 64'],['now','4','Open','2 of 2']],
+        done:[['Invite your team · <b>3 invited, 1 chef</b>','3'],['Your till · <b>Toast stays your register; sales pull nightly</b>','']],
+        did:'58 of 64 dishes costed, 57 of 57 boxes confirmed, the kitchen screen is on.',
+        say:'Ready to open?', sub:'After this the page becomes "What runs by itself". The 6 dishes still uncosted stay on my list.',
+        actions:[['pri','We\'re open']], next:'<b>Nothing else. Invoices → Load for any invoice, Vendors for price lists.</b>' },
+      live: { title:'What runs by itself', bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['done','✓','Costs','58 of 64'],['done','✓','Open','Nov 5']],
+        list:[['Invoices read by themselves','on','4 vendors · on'],['Menu and sales in sync with Toast','on','on'],['Every dish costed','need','6 to go','Show me'],['Tonight\'s prep plan','on','on'],['The daily money line','on','on']],
+        did:'6 dishes still have a line with no cost.', say:'What do you pay for crushed tomato, 6/#10 case?', sub:'Or forward the invoice that has it; I\'ll read it.',
+        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' }
+    }
+  };
+  var ICONS = {give:'🏪'};
+  function esc(s){ return String(s); }
+  function render(biz, step){
+    var d = V[biz][step], who = V[biz].who, h = '';
+    h += '<div class="who">'+who+'</div><div class="topbar"><h1>'+(d.title||'Getting started')+'</h1></div>';
+    h += '<div class="steps">'+d.bar.map(function(s){ return '<div class="step '+s[0]+'"><div class="dot">'+s[1]+'</div><div class="name">'+s[2]+'</div><div class="n">'+s[3]+'</div></div>'; }).join('')+'</div>';
+    if (d.list) {
+      h += '<div class="card">'+d.list.map(function(r){ return '<div class="row"><span class="l">'+r[0]+'</span><span class="pill '+r[1]+'">'+r[2]+'</span>'+(r[3]?'<button class="btn sm">'+r[3]+'</button>':'')+'</div>'; }).join('')+'</div>';
+    }
+    (d.done||[]).forEach(function(r){ h += '<div class="done-row'+(r[2]==='skipped'?' skipped':'')+'"><span class="tick">'+(r[2]==='skipped'?'–':'✓')+'</span><span class="l">'+r[0]+'</span><span class="num">'+(r[1]||'')+'</span></div>'; });
+    h += '<div class="card current"><div class="agent"><div class="face">'+FACE+'</div><div><div class="name">Veritill</div><div class="did">'+d.did+'</div></div></div>';
+    h += '<div class="say">'+d.say+'</div><div class="sub">'+d.sub+'</div>';
+    if (d.rows) {
+      h += '<div class="rows">'+d.rows.map(function(r){
+        var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : '';
+        return '<div class="row"><span class="l">'+r[0]+'<small>'+r[1]+'</small></span>'+right+'</div>'; }).join('')+'</div>';
+      if (d.foot) h += '<div class="foot">'+d.foot+'</div>';
+    }
+    h += '<div class="actions">'+(d.actions||[]).map(function(a){ return a[0]==='skip' ? '<button class="skip">'+a[1]+'</button>' : '<button class="btn'+(a[0]==='pri'?' pri':'')+'">'+a[1]+'</button>'; }).join('')+'</div></div>';
+    if (d.next) h += '<div class="next">'+(step==='live'?'':'After this: ')+d.next+'</div>';
+    document.getElementById('screen').innerHTML = h;
+  }
+  var biz = 'grocery', step = 'give';
+  document.querySelectorAll('[data-biz]').forEach(function(b){ b.addEventListener('click', function(){ biz = b.getAttribute('data-biz'); document.querySelectorAll('[data-biz]').forEach(function(x){ x.classList.toggle('on', x===b); }); render(biz, step); }); });
+  document.querySelectorAll('[data-step]').forEach(function(b){ b.addEventListener('click', function(){ step = b.getAttribute('data-step'); document.querySelectorAll('[data-step]').forEach(function(x){ x.classList.toggle('on', x===b); }); render(biz, step); }); });
+  render(biz, step);
+})();
 </script>
