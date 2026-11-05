@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-05T01:51:48.711Z",
+  "at": "2026-11-05T02:42:37.147Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -10,9 +10,9 @@
     },
     "core": {
       "runs": 8,
-      "busyMin": 18,
-      "waitMin": 4,
-      "busyPct": 31
+      "busyMin": 27,
+      "waitMin": 1,
+      "busyPct": 45
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 53,
+      "runs": 14,
+      "busyMin": 55,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 46
     }
   },
   "queue": {
-    "agentsQueued": 20,
-    "ciQueued": 0,
-    "oldestQueuedMin": 43
+    "agentsQueued": 9,
+    "ciQueued": 2,
+    "oldestQueuedMin": 21
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 10 run(s) waiting 20+ min for label 'router' (longest 43 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'router' (longest 21 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,20 +96,20 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T01:51:48.340Z",
+    "at": "2026-11-05T02:42:36.778Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 173,
+      "hits": 179,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 86,
+      "hits": 89,
       "misses": 1
     },
     "derived": {
-      "hits": 354,
+      "hits": 366,
       "misses": 11,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -117,11 +117,11 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 87
+      "onceHits": 90
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T01:51:48.117Z",
+    "at": "2026-11-05T02:42:36.556Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
