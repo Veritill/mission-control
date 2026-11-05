@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-05T16:47:15.786Z",
+  "at": "2026-11-05T17:38:31.111Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 28,
-      "waitMin": 14,
-      "busyPct": 24
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "core": {
-      "runs": 27,
-      "busyMin": 64,
-      "waitMin": 14,
-      "busyPct": 107
+      "runs": 14,
+      "busyMin": 33,
+      "waitMin": 6,
+      "busyPct": 55
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 19,
-      "busyMin": 68,
+      "runs": 16,
+      "busyMin": 201,
       "waitMin": 0,
-      "busyPct": 57
+      "busyPct": 168
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 33
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,23 +71,27 @@
   "findings": [
     {
       "level": "warn",
-      "text": "needs you: gate-held PR(s) green and waiting on an \"Approved\" comment: #1509 (1 h), #1507 (2 h)"
+      "text": "needs you: gate-held PR(s) green and waiting on an \"Approved\" comment: #1507 (3 h)"
     },
     {
       "level": "warn",
-      "text": "88 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+      "text": "89 of today's 100 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
     },
     {
       "level": "warn",
-      "text": "682 agents runs today (over 60): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "711 agents runs today (over 60): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "tenant-backup.yml last ran 5 h ago (over 3 h): GitHub dropped its cron, run it by hand"
+      "text": "tenant-backup.yml last ran 6 h ago (over 3 h): GitHub dropped its cron, run it by hand"
     },
     {
       "level": "warn",
-      "text": "7 lane/core run(s) in the last hour ended green within 3 minutes: a role is quitting on arrival (token expired, rate-limited, or a rule it trips at once) — read one transcript"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 33 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "4 lane/core run(s) in the last hour ended green within 3 minutes: a role is quitting on arrival (token expired, rate-limited, or a rule it trips at once) — read one transcript"
     },
     {
       "level": "warn",
@@ -104,10 +108,6 @@
     {
       "level": "warn",
       "text": "staging web deploy read failed: graphql: Not Authorized"
-    },
-    {
-      "level": "fixed",
-      "text": "8 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
@@ -120,10 +120,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T16:47:15.432Z",
+    "at": "2026-11-05T17:38:30.740Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 58,
+      "hits": 62,
       "misses": 1,
       "hydrations": 1
     },
@@ -145,7 +145,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T16:47:15.178Z",
+    "at": "2026-11-05T17:38:30.508Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -168,8 +168,8 @@
   },
   "prRerun": {},
   "warnSince": {
-    "needs you: gate-held PR(s) green and waiting on an \"Approved\" comment: ## (# h),": {
-      "since": "2026-11-05T16:46:50.997Z",
+    "needs you: gate-held PR(s) green and waiting on an \"Approved\" comment: ## (# h)": {
+      "since": "2026-11-05T17:38:09.679Z",
       "escalated": false
     },
     "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
@@ -182,6 +182,10 @@
     },
     "tenant-backup.yml last ran # h ago (over # h): GitHub dropped its cron, run it b": {
       "since": "2026-11-05T16:46:50.997Z",
+      "escalated": false
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-05T17:38:09.679Z",
       "escalated": false
     },
     "# lane/core run(s) in the last hour ended green within # minutes: a role is quit": {
