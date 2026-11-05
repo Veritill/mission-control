@@ -71,6 +71,13 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .pill.on{background:var(--green-soft);color:var(--green)}
 .pill.need{background:var(--amber-soft);color:var(--amber)}
 .foot{font-size:12px;color:var(--mute);margin-top:8px}
+.pre{font-size:13px;color:var(--mute);margin-bottom:14px}
+.field{display:block;margin:4px 0 12px}
+.field span{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+.field input{font:15px var(--font);width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
+.chip{font:600 14px var(--font);padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.chip.on{background:var(--green);border-color:var(--green);color:#fff}
 .rules{font-size:13px;color:var(--mute);margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
 .rules h2{font-size:14px;color:var(--fg);margin-bottom:6px}
 .rules ol{margin:0;padding-left:18px}
@@ -80,13 +87,14 @@ h1,h2,h3{margin:0;text-wrap:balance}
 <div class="wrap">
   <div class="banner"><b>Mockup v4</b> · the same screen for a grocery and for a restaurant, at each of the four steps. Fictional businesses. Nothing here is real data.</div>
   <div class="sel"><span class="lab">Business</span><button class="tab on" data-biz="grocery">Deshi Bazaar · grocery</button><button class="tab" data-biz="kitchen">Saffron Kitchen · restaurant</button></div>
-  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="give">1 Give</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
+  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give">1 Give</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
 
   <div class="screen" id="screen"></div>
 
   <div class="rules">
     <h2>What each step is</h2>
     <ol>
+      <li><b>Sign-up</b>: two questions before Getting started opens. The kind of business (one chip) adopts that kind's departments, shelves and product families at once; then food made here: a store is asked "do you also make and sell food here, hot or cold?", a restaurant is asked the cuisine (or lets the menu read answer it). A restaurant without a cuisine still gets the restaurant base; the cuisine adds to it later.</li>
       <li><b>Give</b>: one key or one drop, then "Right?" on what was read. Business type, cuisine or store kind, vendors and hours are never asked.</li>
       <li><b>Check</b>: the judgement taps, ten at a time, inside the card. A grocery: items, SNAP flags, shelf prices. A restaurant: dishes, the prep list, recipes, the chef's pass. A grocery never sees a dish; a restaurant never sees a price tag.</li>
       <li><b>Costs</b>: use the POS costs? how many months? how do each vendor's invoices arrive? then the sitting (item-led for a store, dish-led for a kitchen), then the cost-gap loop.</li>
@@ -102,6 +110,21 @@ h1,h2,h3{margin:0;text-wrap:balance}
   var V = {
     grocery: {
       who: 'Deshi Bazaar · Owner',
+      start1: { title:'Your business', pre:'Account created · now your business, two questions',
+        done:[['Your account · <b>priya@deshibazaar.example</b>','']],
+        did:'Two questions, then I set up the shelves and the words for your kind of business.',
+        say:'What kind of business is this?', sub:'Name it, pick one kind. I adopt the departments, shelves and product families for it.',
+        field:['Business name','Deshi Bazaar'],
+        chips:[['Grocery',true],['Supermarket',false],['Convenience store',false],['Liquor & wine',false],['Hardware',false],['Restaurant',false],['Something else',false]],
+        actions:[['pri','Create Deshi Bazaar']],
+        next:'<b>I set up an Indian grocery\'s shelves, then ask one more thing: food made here.</b>' },
+      start2: { title:'Your business', pre:'One more question',
+        done:[['Your account · <b>priya@deshibazaar.example</b>',''],['Deshi Bazaar · <b>Grocery</b> · 48 shelves, 405 product families set up','405']],
+        did:'Your shelves are ready. Some stores also make food.',
+        say:'Do you also make and sell food here, hot or cold?', sub:'Meals, snacks, sweets, salads, a deli counter: anything made in the store. A yes adds a kitchen: dishes, prep, recipes and their costs.',
+        chips:[['No, shelves only',true],['Yes, we make food here',false]],
+        actions:[['pri','Continue']],
+        next:'<b>Then Getting started opens: "Where are your items today?"</b>' },
       give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
         done:[['Where are your items today? · <b>In my POS (Toast)</b>','271 items']],
         did:'I read your Toast export: 271 items on 12 shelves, 3 vendors named, open 7 days.',
@@ -134,6 +157,21 @@ h1,h2,h3{margin:0;text-wrap:balance}
     },
     kitchen: {
       who: 'Saffron Kitchen · Owner',
+      start1: { title:'Your business', pre:'Account created · now your business, two questions',
+        done:[['Your account · <b>arjun@saffronkitchen.example</b>','']],
+        did:'Two questions, then I set up the words for your kind of business.',
+        say:'What kind of business is this?', sub:'Name it, pick one kind. A restaurant gets the kitchen departments and the base families every kitchen buys; the cuisine comes next.',
+        field:['Business name','Saffron Kitchen'],
+        chips:[['Grocery',false],['Supermarket',false],['Convenience store',false],['Liquor & wine',false],['Hardware',false],['Restaurant',true],['Something else',false]],
+        actions:[['pri','Create Saffron Kitchen']],
+        next:'<b>I set up the restaurant base, then ask which cuisine you cook.</b>' },
+      start2: { title:'Your business', pre:'One more question',
+        done:[['Your account · <b>arjun@saffronkitchen.example</b>',''],['Saffron Kitchen · <b>Restaurant</b> · 5 departments, 118 base families set up','118']],
+        did:'A restaurant cooks, so I only need the cuisine. Pick it, or let me read it from your menu.',
+        say:'Which cuisine do you cook?', sub:'Pick more than one if you do. Each adds its families, prep boxes and a starting dish list.',
+        chips:[['Indian',true],['Indo-Chinese',true],['Mexican',false],['Italian',false],['Thai',false],['American',false],['Mediterranean',false],['More…',false]],
+        actions:[['pri','Continue'],['skip','Read it from my menu instead']],
+        next:'<b>Then Getting started opens: "Where are your items today?"</b>' },
       give: { bar:[['now','1','Give','1 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
         done:[['Where are your items today? · <b>My POS has my menu, not items (Toast)</b>','64 dishes']],
         did:'I pulled your Toast menu: 64 dishes on 2 books, 9 sections, 4 vendors named on your invoices, open 6 days.',
@@ -170,13 +208,16 @@ h1,h2,h3{margin:0;text-wrap:balance}
   function render(biz, step){
     var d = V[biz][step], who = V[biz].who, h = '';
     h += '<div class="who">'+who+'</div><div class="topbar"><h1>'+(d.title||'Getting started')+'</h1></div>';
-    h += '<div class="steps">'+d.bar.map(function(s){ return '<div class="step '+s[0]+'"><div class="dot">'+s[1]+'</div><div class="name">'+s[2]+'</div><div class="n">'+s[3]+'</div></div>'; }).join('')+'</div>';
+    if (d.bar) h += '<div class="steps">'+d.bar.map(function(s){ return '<div class="step '+s[0]+'"><div class="dot">'+s[1]+'</div><div class="name">'+s[2]+'</div><div class="n">'+s[3]+'</div></div>'; }).join('')+'</div>';
+    else if (d.pre) h += '<div class="pre">'+d.pre+'</div>';
     if (d.list) {
       h += '<div class="card">'+d.list.map(function(r){ return '<div class="row"><span class="l">'+r[0]+'</span><span class="pill '+r[1]+'">'+r[2]+'</span>'+(r[3]?'<button class="btn sm">'+r[3]+'</button>':'')+'</div>'; }).join('')+'</div>';
     }
     (d.done||[]).forEach(function(r){ h += '<div class="done-row'+(r[2]==='skipped'?' skipped':'')+'"><span class="tick">'+(r[2]==='skipped'?'–':'✓')+'</span><span class="l">'+r[0]+'</span><span class="num">'+(r[1]||'')+'</span></div>'; });
     h += '<div class="card current"><div class="agent"><div class="face">'+FACE+'</div><div><div class="name">Veritill</div><div class="did">'+d.did+'</div></div></div>';
     h += '<div class="say">'+d.say+'</div><div class="sub">'+d.sub+'</div>';
+    if (d.field) h += '<label class="field"><span>'+d.field[0]+'</span><input value="'+d.field[1]+'"></label>';
+    if (d.chips) h += '<div class="chips">'+d.chips.map(function(c){ return '<span class="chip'+(c[1]?' on':'')+'">'+c[0]+'</span>'; }).join('')+'</div>';
     if (d.rows) {
       h += '<div class="rows">'+d.rows.map(function(r){
         var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : '';
@@ -187,7 +228,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
     if (d.next) h += '<div class="next">'+(step==='live'?'':'After this: ')+d.next+'</div>';
     document.getElementById('screen').innerHTML = h;
   }
-  var biz = 'grocery', step = 'give';
+  var biz = 'grocery', step = 'start1';
   document.querySelectorAll('[data-biz]').forEach(function(b){ b.addEventListener('click', function(){ biz = b.getAttribute('data-biz'); document.querySelectorAll('[data-biz]').forEach(function(x){ x.classList.toggle('on', x===b); }); render(biz, step); }); });
   document.querySelectorAll('[data-step]').forEach(function(b){ b.addEventListener('click', function(){ step = b.getAttribute('data-step'); document.querySelectorAll('[data-step]').forEach(function(x){ x.classList.toggle('on', x===b); }); render(biz, step); }); });
   render(biz, step);
