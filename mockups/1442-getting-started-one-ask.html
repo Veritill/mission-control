@@ -1,9 +1,10 @@
 <title>Getting started, one ask</title>
-<meta name="description" content="Mockup: the Getting-started screen reduced to one journey picture and one ask">
+<meta name="description" content="Mockup v3: Getting started as four steps and one card, in the agent's voice">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-/* Layout: one column, the app's own shell (left nav + content), content never wider than 980px.
-   Three stacked pieces only: the map, the one ask, go live. Everything else sits behind the OPEN tile's ⓘ. */
+/* Layout: one column, 640px wide, inside the app's content area. Four-step bar on top, one conversation column
+   under it: folded done cards (one line + a number), the current card (one sentence, one button), one "next" line.
+   Nothing else. The station map, the automations board and the outcome rows are gone from setup. */
 :root{
   --bg:#f8f7f3; --card:#ffffff; --fg:#1d241e; --mute:#6b736c; --line:#e3e5df;
   --green:#2f6b3f; --green-soft:#e6f0e8; --amber:#b7791f; --amber-soft:#fbf1dc; --chip:#eef0ea;
@@ -12,180 +13,176 @@
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#15191a; --card:#1e2426; --fg:#eef0ea; --mute:#9aa39c; --line:#2d3538; --green:#6fbf86; --green-soft:#24362a; --amber:#e0a84a; --amber-soft:#3b2f16; --chip:#283033; color-scheme:dark } }
 :root[data-theme="dark"]{ --bg:#15191a; --card:#1e2426; --fg:#eef0ea; --mute:#9aa39c; --line:#2d3538; --green:#6fbf86; --green-soft:#24362a; --amber:#e0a84a; --amber-soft:#3b2f16; --chip:#283033; color-scheme:dark }
 body{background:var(--bg);color:var(--fg);font:15px/1.4 var(--font);margin:0}
-.wrap{max-width:980px;margin:0 auto;padding-block:16px;padding-inline:16px}
+.wrap{max-width:640px;margin:0 auto;padding-block:16px;padding-inline:16px}
 h1,h2,h3{margin:0;text-wrap:balance}
-.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600}
-.banner{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--fg);margin-bottom:16px}
+.banner{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;margin-bottom:16px}
 .banner b{color:var(--amber)}
-.topbar{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.who{font-size:13px;color:var(--mute);margin-bottom:6px}
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .topbar h1{font-size:24px;font-weight:700}
 .spacer{flex:1}
 .btn{font:600 14px var(--font);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:8px;padding:8px 14px;cursor:pointer}
-.btn.pri{background:var(--green);border-color:var(--green);color:#fff}
+.btn.pri{background:var(--green);border-color:var(--green);color:#fff;font-size:15px;padding:10px 18px}
 .btn.sm{padding:5px 10px;font-size:13px}
 .btn.ghost{background:transparent}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:12px}
-.who{font-size:13px;color:var(--mute);margin-bottom:6px}
-.progress{display:flex;align-items:center;gap:12px;margin:0 0 12px}
-.progress .bar{flex:1;height:8px;background:var(--chip);border-radius:99px;overflow:hidden;min-width:0}
-.progress .bar i{display:block;height:100%;width:33%;background:var(--green)}
-.progress .n{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
-.tiles{display:grid;grid-template-columns:repeat(9,1fr);gap:8px}
-@media (max-width:720px){.tiles{grid-template-columns:repeat(3,1fr)}}
-.tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px 8px;border-radius:12px;position:relative;text-align:center;min-width:0}
-.tile .ring{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--card)}
-.tile.done .ring{background:var(--green);border-color:var(--green);color:#fff}
-.tile.now .ring{border-color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
-.tile.skip .ring{border-style:dashed}
-.tile .name{font-size:13px;font-weight:600;line-height:1.15}
-.tile .fact{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;min-height:15px}
-.tile.done .fact{color:var(--green);font-weight:600}
-.tile .info{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:11px;color:var(--mute);display:grid;place-items:center;cursor:pointer}
-.tile.now .name{color:var(--green)}
-.ring svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.ask{display:flex;align-items:center;gap:14px}
-.ask .ring{width:48px;height:48px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
-.ask .t{font-size:17px;font-weight:700}
-.ask .s{font-size:13px;color:var(--mute)}
-.ask .btn.pri{font-size:15px;padding:10px 18px;white-space:nowrap}
-.ask .skip{font-size:13px;color:var(--mute);background:none;border:none;cursor:pointer;text-decoration:underline}
-.agent-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.agent-head .ring{width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
-.agent-head .ring svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
-.agent-head .t{font-weight:700}
-.agent-head .s{font-size:13px;color:var(--mute)}
-.did{font-size:14px;color:var(--mute);padding:6px 0 8px;border-bottom:1px solid var(--line);margin-bottom:10px}
-.did .tick{color:var(--green);font-weight:700;margin-right:4px}
-.strip{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.strip .step{font-size:13px;padding:5px 10px;border-radius:99px;background:var(--chip);color:var(--mute);display:inline-flex;gap:6px;align-items:center}
-.strip .step i{font-style:normal;font-variant-numeric:tabular-nums;font-weight:600}
-.strip .step.done{background:var(--green-soft);color:var(--green)}
-.strip .step.now{background:var(--green);color:#fff;box-shadow:0 0 0 3px var(--green-soft)}
-.answered{margin-top:10px;padding-top:8px;border-top:1px solid var(--line)}
-.answered .row .ic{color:var(--green);font-weight:700;font-size:13px}
-.golive{display:flex;align-items:center;gap:14px}
-.golive .t{font-weight:700}
-.golive .s{font-size:13px;color:var(--mute)}
-.pane{border-top:1px dashed var(--line);margin-top:12px;padding-top:12px}
-.pane h3{font-size:14px;margin-bottom:8px}
-.rows{display:grid;gap:6px}
-.row{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
-.row:last-child{border-bottom:none}
-.row .ic{width:28px;height:28px;border-radius:50%;background:var(--chip);display:grid;place-items:center;flex:none}
-.row .ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
-.row .l{flex:1;min-width:0}
-.pill{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mute);white-space:nowrap}
-.pill.on{background:var(--green-soft);color:var(--green)}
-.pill.need{background:var(--amber-soft);color:var(--amber)}
+/* the four-step bar */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:18px}
+.step{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:10px;position:relative}
+.step .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:14px}
+.step.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.step.now .dot{border-color:var(--green);color:var(--green);box-shadow:0 0 0 4px var(--green-soft)}
+.step .name{font-size:14px;font-weight:600}
+.step.now .name{color:var(--green)}
+.step .n{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.step.done .n{color:var(--green)}
+.step::after{content:"";position:absolute;top:24px;right:-6px;width:6px;height:2px;background:var(--line)}
+.step:last-child::after{display:none}
+/* the column */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.done-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:transparent;font-size:14px;color:var(--mute)}
+.done-row .tick{width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.done-row .l{flex:1;min-width:0}
+.done-row .l b{color:var(--fg);font-weight:600}
+.done-row .num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--fg);white-space:nowrap}
+.current{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft);margin-top:10px}
+.agent{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.agent .face{width:34px;height:34px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none}
+.agent .face svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.agent .name{font-weight:700}
+.agent .did{font-size:13px;color:var(--mute)}
+.say{font-size:18px;font-weight:700;margin:4px 0 4px}
+.sub{font-size:14px;color:var(--mute);margin-bottom:12px}
+.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.skip{font-size:13px;color:var(--mute);background:none;border:none;cursor:pointer;text-decoration:underline}
+.why{font-size:13px;color:var(--mute);margin-top:10px}
+.next{font-size:13px;color:var(--mute);padding:8px 12px;margin-top:4px}
+.next b{color:var(--fg);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:4px 0 12px}
+.tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;background:var(--card)}
+.tile .ic{width:30px;height:30px;border-radius:8px;background:var(--chip);display:grid;place-items:center;flex:none}
+.tile .ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tile .t{font-weight:600;font-size:14px}
+.tile .s{font-size:12px;color:var(--mute)}
+.tabs{display:flex;gap:8px;margin:16px 0 10px}
+.tab{font:600 13px var(--font);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--mute)}
+.tab.on{background:var(--green);border-color:var(--green);color:#fff}
+.hidden{display:none}
 .rules{font-size:13px;color:var(--mute);margin-top:20px;padding-top:12px;border-top:1px solid var(--line)}
 .rules h2{font-size:14px;color:var(--fg);margin-bottom:6px}
 .rules ol{margin:0;padding-left:18px}
 .rules li{margin:3px 0}
-.hidden{display:none}
-.demo{font-size:12px;color:var(--mute);margin-top:4px}
+.open-list .row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.open-list .row:last-child{border-bottom:none}
+.open-list .l{flex:1;min-width:0}
+.pill{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mute);white-space:nowrap}
+.pill.on{background:var(--green-soft);color:var(--green)}
+.pill.need{background:var(--amber-soft);color:var(--amber)}
 </style>
 
 <div class="wrap">
-  <div class="banner"><b>Mockup</b> · Getting started with ONE picture of the journey and ONE ask. Fictional business "Deshi Bazaar". The ⓘ on the OPEN tile opens the two lists that today sit on the page itself. Nothing below this line is real data.</div>
+  <div class="banner"><b>Mockup v3</b> · Getting started as four steps and one card. Fictional business "Deshi Bazaar". Use the tabs to see the same screen at three moments. Nothing here is real data.</div>
 
-  <div class="who">Deshi Bazaar · Owner</div>
-  <div class="topbar"><h1>Getting started</h1><span class="spacer"></span><button class="btn sm ghost">Back</button></div>
-
-  <!-- 1. THE MAP: one progress line, nine tiles, tick / number / nothing. Sentences live behind ⓘ. -->
-  <div class="card">
-    <div class="progress"><div class="bar"><i></i></div><div class="n">3 of 9 done · ~45 min left</div></div>
-    <div class="tiles">
-      <div class="tile done"><span class="info" title="What this step needs, how long, what done means">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M4 10h16M5 10v9h14v-9M3 10l2-5h14l2 5"/></svg></div><div class="name">Business</div><div class="fact">✓</div></div>
-      <div class="tile done"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 11h16M9 5v14"/></svg></div><div class="name">Shelves</div><div class="fact">271 items</div></div>
-      <div class="tile now"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M4 6h10l6 6-6 6H4zM8 12h.01"/></svg></div><div class="name">Price tags</div><div class="fact">now</div></div>
-      <div class="tile done"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg></div><div class="name">Count</div><div class="fact">271 counted</div></div>
-      <div class="tile"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M3 9h18v10H3zM3 9l2-5h14l2 5M8 14h8"/></svg></div><div class="name">Till &amp; scale</div><div class="fact"></div></div>
-      <div class="tile"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><div class="name">Online</div><div class="fact"></div></div>
-      <div class="tile done"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M14 18c0-2 2-3.5 4-3.5s3.5 1.5 3.5 3.5"/></svg></div><div class="name">Team</div><div class="fact">2 people</div></div>
-      <div class="tile"><span class="info">i</span><div class="ring"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg></div><div class="name">Money</div><div class="fact"></div></div>
-      <div class="tile"><span class="info" id="openInfo" title="Open: what runs by itself and the numbers">i</span><div class="ring"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM14 12h.01"/></svg></div><div class="name">OPEN</div><div class="fact">4 left</div></div>
-    </div>
-
-    <!-- The two lists that today sit on the page as separate cards. Here: behind OPEN's ⓘ, only rows that apply to a grocery. -->
-    <div class="pane hidden" id="openPane">
-      <h3>What runs by itself</h3>
-      <div class="rows">
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 12h6M9 16h6"/></svg></span><span class="l">Invoices read by themselves</span><span class="pill need">needs a vendor</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 11h16"/></svg></span><span class="l">Items and sales in sync with the till</span><span class="pill need">needs your POS</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/></svg></span><span class="l">The daily money line</span><span class="pill need">needs sales</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 9h8"/></svg></span><span class="l">Stock counts and reorder drafts</span><span class="pill on">on</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg></span><span class="l">The online store</span><span class="pill">off</span></div>
-      </div>
-      <h3 style="margin-top:14px">The numbers, once you are open</h3>
-      <div class="rows">
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7l8-4 8 4v10l-8 4-8-4z"/></svg></span><span class="l">Inventory picture true</span><span class="pill">after the count</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/></svg></span><span class="l">Every invoice line costable</span><span class="pill">after the first invoice</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9h18v10H3z"/></svg></span><span class="l">Orders on the vendor day</span><span class="pill">after a vendor</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/></svg></span><span class="l">Money, daily</span><span class="pill">after sales</span></div>
-        <div class="row"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9h18v10H3z"/></svg></span><span class="l">Register works offline</span><span class="pill">after the till</span></div>
-      </div>
-      <div class="demo">A grocery never sees "Dishes costed" or "Prep on time" here; a kitchen never sees "Price tags".</div>
-    </div>
+  <div class="tabs">
+    <button class="tab on" data-view="v1">First minute</button>
+    <button class="tab" data-view="v2">Mid-way (Costs)</button>
+    <button class="tab" data-view="v3">After go live</button>
   </div>
 
-  <!-- 2. THE SETUP AGENT'S SESSION: the whole onboarding happens here, one question at a time.
-       Four lines inside one card: who (the agent), what it just did, the sub-steps of the current station,
-       and the one ask with one button. Answered asks fold under "3 answered". -->
-  <div class="card">
-    <div class="agent-head">
-      <div class="ring"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4M9 18v2M15 18v2"/></svg></div>
-      <div style="flex:1;min-width:0"><div class="t">Setup agent</div><div class="s">working on <b>Price tags</b></div></div>
-      <span class="pill on">on</span>
+  <!-- ───────── VIEW 1: the first minute ───────── -->
+  <div id="v1">
+    <div class="who">Deshi Bazaar · Owner</div>
+    <div class="topbar"><h1>Getting started</h1><span class="spacer"></span></div>
+    <div class="steps">
+      <div class="step now"><div class="dot">1</div><div class="name">Give</div><div class="n">0 of 2</div></div>
+      <div class="step"><div class="dot">2</div><div class="name">Check</div><div class="n"></div></div>
+      <div class="step"><div class="dot">3</div><div class="name">Costs</div><div class="n"></div></div>
+      <div class="step"><div class="dot">4</div><div class="name">Open</div><div class="n"></div></div>
     </div>
-    <div class="did"><span class="tick">✓</span> Read 271 items from your Toast export and put them on 12 shelves</div>
-    <div class="strip">
-      <span class="step done">Items <i>271</i></span>
-      <span class="step done">Sales <i>30 days</i></span>
-      <span class="step now">Prices <i>0 of 271</i></span>
-      <span class="step">Tags <i>print</i></span>
-    </div>
-    <div class="ask">
-      <div class="ring"><svg viewBox="0 0 24 24" style="width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8"><path d="M4 6h10l6 6-6 6H4zM8 12h.01"/></svg></div>
-      <div style="flex:1;min-width:0">
-        <div class="t">Put prices on your shelves</div>
-        <div class="s">271 items have a cost, 0 have a shelf price yet · ~20 min</div>
+    <div class="card current">
+      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">I set up your store from what you already have.</div></div></div>
+      <div class="say">Where are your items today?</div>
+      <div class="sub">Pick one. I read it, then show you what I found.</div>
+      <div class="tiles">
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9h18v10H3zM3 9l2-5h14l2 5"/></svg></span><div><div class="t">In my POS</div><div class="s">Toast, Square, Clover, Lightspeed, Shopify</div></div></div>
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 11h16M9 5v14"/></svg></span><div><div class="t">My POS has my menu, not items</div><div class="s">dishes only, nothing counted</div></div></div>
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 12h6M9 16h6"/></svg></span><div><div class="t">On paper</div><div class="s">vendor price lists or invoices</div></div></div>
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg></span><div><div class="t">Nowhere yet</div><div class="s">I'm just starting</div></div></div>
       </div>
-      <button class="btn pri">Set prices</button>
-      <button class="skip">Skip for now</button>
+      <div class="why">Have both items and a menu in your POS? Pick "In my POS"; I find the dishes by myself.</div>
     </div>
-    <div class="answered"><button class="skip" id="histBtn">3 answered</button>
-      <div class="rows hidden" id="hist">
-        <div class="row"><span class="ic">✓</span><span class="l">Which POS do you use? · <b>Toast</b></span><span class="pill">today 9:02</span></div>
-        <div class="row"><span class="ic">✓</span><span class="l">Upload your items export · <b>271 items read</b></span><span class="pill">today 9:05</span></div>
-        <div class="row"><span class="ic">✓</span><span class="l">Upload your sales export · <b>30 days read</b></span><span class="pill">today 9:11</span></div>
-      </div>
-    </div>
-    <div class="demo" style="margin-top:10px">This is today's SetupAgentSession, kept whole: did-line, sub-steps (the subtask strip, #992), the ask, the answered list. What leaves it: the long route sentence and the duplicate "Next:" chip above the map. Pause lives behind the OPEN tile's ⓘ. When a vendor station is current, the strip shows the vendors and their Catalog → Check → Invoices steps exactly as it does now.</div>
+    <div class="next">After this: <b>I show you what I read and you say "right" or "change".</b></div>
   </div>
 
-  <!-- 3. GO LIVE: one line, one button. -->
-  <div class="card golive">
-    <div style="flex:1;min-width:0"><div class="t">We're open</div><div class="s">4 steps left · 1 skipped</div></div>
-    <button class="btn">Go live</button>
+  <!-- ───────── VIEW 2: mid-way, the Costs step ───────── -->
+  <div id="v2" class="hidden">
+    <div class="who">Deshi Bazaar · Owner</div>
+    <div class="topbar"><h1>Getting started</h1><span class="spacer"></span></div>
+    <div class="steps">
+      <div class="step done"><div class="dot">✓</div><div class="name">Give</div><div class="n">271 items</div></div>
+      <div class="step done"><div class="dot">✓</div><div class="name">Check</div><div class="n">4 of 4</div></div>
+      <div class="step now"><div class="dot">3</div><div class="name">Costs</div><div class="n">2 of 4</div></div>
+      <div class="step"><div class="dot">4</div><div class="name">Open</div><div class="n"></div></div>
+    </div>
+    <div class="done-row"><span class="tick">✓</span><span class="l">Use your Toast costs for now? · <b>Yes, until the first invoice</b></span><span class="num">214</span></div>
+    <div class="done-row"><span class="tick">✓</span><span class="l">How many months of invoices? · <b>3 months</b></span><span class="num"></span></div>
+    <div class="card current">
+      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">Your invoices name 3 vendors: Sunrise Produce, Metro Cash &amp; Carry, Deshi Imports.</div></div></div>
+      <div class="say">How do Sunrise Produce's invoices reach you?</div>
+      <div class="sub">Pick one. The other two vendors come next.</div>
+      <div class="tiles">
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 6l9 7 9-7"/></svg></span><div><div class="t">By email</div><div class="s">I give you an address to paste at the vendor</div></div></div>
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18"/></svg></span><div><div class="t">From their website</div><div class="s">you download, I read the folder</div></div></div>
+        <div class="tile"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v12H4zM12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></span><div><div class="t">On paper</div><div class="s">snap it, forget it</div></div></div>
+      </div>
+      <div class="actions"><button class="skip">Skip this vendor for now</button></div>
+    </div>
+    <div class="next">After this: <b>I cost your 271 items from the invoices; you confirm only what I could not match.</b></div>
+  </div>
+
+  <!-- ───────── VIEW 3: after go live ───────── -->
+  <div id="v3" class="hidden">
+    <div class="who">Deshi Bazaar · Owner</div>
+    <div class="topbar"><h1>What runs by itself</h1><span class="spacer"></span></div>
+    <div class="steps">
+      <div class="step done"><div class="dot">✓</div><div class="name">Give</div><div class="n">271 items</div></div>
+      <div class="step done"><div class="dot">✓</div><div class="name">Check</div><div class="n">4 of 4</div></div>
+      <div class="step done"><div class="dot">✓</div><div class="name">Costs</div><div class="n">258 of 271</div></div>
+      <div class="step done"><div class="dot">✓</div><div class="name">Open</div><div class="n">Nov 5</div></div>
+    </div>
+    <div class="card open-list">
+      <div class="row"><span class="l">Invoices read by themselves</span><span class="pill on">3 vendors · on</span></div>
+      <div class="row"><span class="l">Items and sales in sync with Toast</span><span class="pill on">on</span></div>
+      <div class="row"><span class="l">The daily money line</span><span class="pill on">on</span></div>
+      <div class="row"><span class="l">Stock counts and reorder drafts</span><span class="pill need">needs a first count</span><button class="btn sm">Count</button></div>
+      <div class="row"><span class="l">The online store</span><span class="pill">off</span><button class="btn sm ghost">Open it</button></div>
+    </div>
+    <div class="card current">
+      <div class="agent"><div class="face"><svg viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="10" cy="12.5" r="1.2"/><circle cx="14" cy="12.5" r="1.2"/><path d="M12 7V4"/></svg></div><div><div class="name">Veritill</div><div class="did">13 items still have no cost on any invoice.</div></div></div>
+      <div class="say">What do you pay for Deshi Imports' Basmati 20 lb?</div>
+      <div class="sub">Or forward their invoice; I'll read it.</div>
+      <div class="actions"><button class="btn pri">Enter what I pay</button><button class="skip">Skip for now</button></div>
+    </div>
+    <div class="next">Open <b>Invoices → Load</b> for any invoice, <b>Vendors</b> for price lists. Everything else runs by itself.</div>
   </div>
 
   <div class="rules">
-    <h2>What changed against today's screen</h2>
+    <h2>The flow, in one breath</h2>
     <ol>
-      <li>One next step, inside the agent. The "Next:" chip, the automations board's four buttons and the agent's own ask were three wordings of the same thing; now the agent's session card is the only place with a button until Go live, and the whole onboarding is done there, one question at a time. The map above it is progress only: tiles navigate nowhere, their ⓘ explains.</li>
-      <li>The automations board and the seven outcome rows move behind OPEN's ⓘ, show only rows that apply to this business type, and read "needs X / after X" instead of dashes and machine phrases.</li>
-      <li>Tiles show a tick, a number or nothing. The "done means" sentence and the time estimate live behind each tile's ⓘ.</li>
-      <li>One progress line, one count: "3 of 9 done", matching the nine tiles; the 56% and "4 steps left" duplicates go.</li>
-      <li>Tracking is stated once, on the Count tile's ⓘ; the agent note no longer contradicts the automations row.</li>
-      <li>Screen checks: 1 (one job), 2 (no paragraphs), 4 (three cards above the fold), 7 (one home for the ask), 9 (picture · number · button per row).</li>
+      <li>Four steps, the same for every business: Give · Check · Costs · Open. The bar is the whole progress story; no percentages, no minutes, no station map.</li>
+      <li>One card at a time, in the agent's voice: one sentence, one button (or tiles as answers), Skip in grey. A done card folds to one line with its number.</li>
+      <li>The route is invisible. "Where are your items?" decides it; a grocery gets price tags inside Check, a kitchen gets recipes and the chef's pass inside Check. The customer only sees more cards in that step.</li>
+      <li>Nothing that is not a question is on the setup page. "What runs by itself" and the numbers appear after Go live, where they are the whole page.</li>
+      <li>One "After this:" line is always under the current card, so the customer knows why he is being asked.</li>
+      <li>Never asked: business type, cuisine, vendors, hours. They show as "I read it as X · change" lines after the first drop.</li>
     </ol>
   </div>
 </div>
 <script>
   (function(){
-    var b=document.getElementById('openInfo'), p=document.getElementById('openPane');
-    if(b&&p){ b.addEventListener('click',function(){ p.classList.toggle('hidden'); }); }
-    var hb=document.getElementById('histBtn'), h=document.getElementById('hist');
-    if(hb&&h){ hb.addEventListener('click',function(){ h.classList.toggle('hidden'); }); }
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(t){ t.addEventListener('click', function(){
+      tabs.forEach(function(x){ x.classList.remove('on'); }); t.classList.add('on');
+      ['v1','v2','v3'].forEach(function(id){ var el=document.getElementById(id); if(el){ el.classList.toggle('hidden', id!==t.getAttribute('data-view')); } });
+    }); });
   })();
 </script>
