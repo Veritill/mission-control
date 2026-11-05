@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-05T10:37:03.782Z",
+  "at": "2026-11-05T11:29:04.579Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 15,
-      "busyMin": 69,
+      "runs": 10,
+      "busyMin": 66,
       "waitMin": 0,
-      "busyPct": 57
+      "busyPct": 55
     }
   },
   "queue": {
-    "agentsQueued": 47,
-    "ciQueued": 3,
-    "oldestQueuedMin": 86
+    "agentsQueued": 50,
+    "ciQueued": 0,
+    "oldestQueuedMin": 129
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,11 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 39 run(s) waiting 20+ min for label 'router' (longest 86 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 44 run(s) waiting 20+ min for label 'router' (longest 129 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,10 +100,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T10:37:03.402Z",
+    "at": "2026-11-05T11:29:04.210Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 34,
+      "hits": 37,
       "misses": 1,
       "hydrations": 1
     },
@@ -121,7 +125,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T10:37:03.169Z",
+    "at": "2026-11-05T11:29:03.969Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
