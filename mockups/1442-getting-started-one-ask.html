@@ -78,6 +78,9 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
 .chip{font:600 14px var(--font);padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
 .chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.chip.sm{font-size:12px;padding:3px 9px}
+.levels{display:inline-flex;gap:4px}
+.field textarea{font:15px var(--font);width:100%;box-sizing:border-box;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);resize:vertical}
 .guide{list-style:none;margin:4px 0 10px;padding:0;display:grid;gap:6px}
 .guide li{display:flex;align-items:center;gap:10px;font-size:14px}
 .guide .ic{width:30px;height:30px;border-radius:8px;background:var(--chip);display:grid;place-items:center;flex:none;font-size:15px}
@@ -92,6 +95,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
   <div class="banner"><b>Mockup v4</b> · the same screen for a grocery and for a restaurant, at each of the four steps. Fictional businesses. Nothing here is real data.</div>
   <div class="sel"><span class="lab">Business</span><button class="tab on" data-biz="grocery">Deshi Bazaar · grocery</button><button class="tab" data-biz="kitchen">Saffron Kitchen · restaurant</button></div>
   <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give0">1 Give · where</button><button class="tab" data-step="give1">1 Give · which POS</button><button class="tab" data-step="give2">1 Give · API key?</button><button class="tab" data-step="give3">1 Give · export or key</button><button class="tab" data-step="give">1 Give · right?</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
+  <div class="sel"><span class="lab">Branches</span><button class="tab" data-step="other">Sign-up · something else</button><button class="tab" data-step="notsure">Give · not sure about API</button><button class="tab" data-step="paper">Give · on paper</button><button class="tab" data-step="nowhere">Give · nowhere yet</button><button class="tab" data-step="count">After go live · first count</button></div>
 
   <div class="screen" id="screen"></div>
 
@@ -184,7 +188,42 @@ h1,h2,h3{margin:0;text-wrap:balance}
       live: { title:'What runs by itself', bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['done','✓','Costs','258 of 271'],['done','✓','Open','Nov 5']],
         list:[['Invoices read by themselves','on','3 vendors · on'],['Items and sales in sync with Toast','on','on'],['The daily money line','on','on'],['Stock counts and reorder drafts','need','needs a first count','Count'],['The online store','','off','Open it']],
         did:'13 items still have no cost on any invoice.', say:'What do you pay for Deshi Imports\' Chana dal 4 lb?', sub:'Or forward their next invoice; I\'ll read it.',
-        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' }
+        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' },
+      other: { title:'Your business', pre:'Account created · your business, in your words',
+        done:[['Your account · <b>priya@deshibazaar.example</b>',''],['What kind of business? · <b>Something else</b>','']],
+        did:'No list fits exactly, so I build one from what you tell me. About three minutes.',
+        say:'Describe your business in a few words', sub:'What you sell, who buys it, whether anything is weighed or made in the store.',
+        area:'Halal meat market with a small deli counter; we sell fresh goat, lamb and chicken by the pound, a few groceries, and hot samosas at lunch.',
+        actions:[['pri','Build my store\'s knowledge']],
+        next:'<b>I read it as: meat market with a deli · weighed meat · hot food made here. Right?</b>' },
+      notsure: { bar:[['now','1','Give','2 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>Not sure</b>','']],
+        did:'Two things to look at in Toast. Either answer is fine.',
+        say:'Check if you have Toast API access', sub:'Toast Web, on a computer:',
+        guide:[['🖥','Integrations → Toast API access'],['🔑','A client id listed there? Then you have it: tap "I have it"'],['📨','Nothing listed? Ask Toast support for a Standard API client (read-only, no charge), or export a file today']],
+        actions:[['pri','I have it'],['btn','No, I\'ll export a file'],['skip','I\'ll ask Toast and come back']],
+        next:'<b>Either way you are not stuck: the export reads just as well to start.</b>' },
+      paper: { bar:[['now','1','Give','2 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>On paper</b>',''],['Your files · <b>2 price lists, 14 invoices, 3 vendors named from the paper</b>','1,240 lines'],['Is this right? · <b>Indian grocery · Sunrise Produce, Metro Cash & Carry, Deshi Imports</b>','']],
+        did:'1,240 items born from the paper, 1,180 costed from the printed price, 60 sizes filled from what I know. No web lookups.',
+        say:'Review by shelf: 44 items need a look', sub:'Shelves with the most gaps first. The other 1,196 are done.',
+        rows:[['Rice & grains','6 items with no size on the paper','6'],['Spices','4 items I could not place in a family','4'],['Frozen','3 items with no barcode (held from the shelf until you add one)','3']],
+        rowKind:'pill', actions:[['pri','Start with Rice & grains'],['skip','Later']],
+        foot:'44 to look at · 1,196 done', next:'<b>Then Check: SNAP flags and shelf prices, like any store.</b>' },
+      nowhere: { bar:[['now','1','Give','1 of 1'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where are your items today? · <b>Nowhere yet</b>','']],
+        did:'Your Indian grocery already has 48 shelves and 405 product families. Items come with your first price list or invoice.',
+        say:'How do you want to start?', sub:'Either way, the shelves are ready and costs arrive with the first paper.',
+        tiles:[['📄','I\'ll get a price list from a vendor','drop it when it comes; I load and cost it'],['✍️','Type my first items','name, size, barcode, a few at a time']],
+        actions:[['skip','Skip for now, I\'ll come back']],
+        next:'<b>Costs never get guessed: a blank stays blank until paper or a typed price arrives.</b>' },
+      count: { title:'What runs by itself', bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['done','✓','Costs','258 of 271'],['done','✓','Open','Nov 5']],
+        done:[['Stock counts and reorder drafts · <b>needs a first count</b>','']],
+        did:'271 products on 12 shelves. About 2 hours at an ordinary pace, in as many sittings as you like.',
+        say:'Count your shelves, one aisle at a time', sub:'Tap an aisle, count what is there, I remember where you stopped. Tracking turns on when the last aisle is done.',
+        rows:[['Aisle 1 · Rice & grains','24 items','24'],['Aisle 2 · Dals & pulses','31 items','31'],['Aisle 3 · Spices','52 items','52']],
+        rowKind:'pill', actions:[['pri','Start with Aisle 1'],['skip','Not today']],
+        foot:'0 of 12 aisles counted', next:'<b>After the last aisle: reorder drafts on each vendor\'s order day, by themselves.</b>' }
     },
     kitchen: {
       who: 'Saffron Kitchen · Owner',
@@ -256,7 +295,42 @@ h1,h2,h3{margin:0;text-wrap:balance}
       live: { title:'What runs by itself', bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['done','✓','Costs','58 of 64'],['done','✓','Open','Nov 5']],
         list:[['Invoices read by themselves','on','4 vendors · on'],['Menu and sales in sync with Toast','on','on'],['Every dish costed','need','6 to go','Show me'],['Tonight\'s prep plan','on','on'],['The daily money line','on','on']],
         did:'6 dishes still have a line with no cost.', say:'What do you pay for crushed tomato, 6/#10 case?', sub:'Or forward the invoice that has it; I\'ll read it.',
-        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' }
+        actions:[['pri','Enter what I pay'],['skip','Skip for now']], next:'' },
+      other: { title:'Your business', pre:'Account created · your business, in your words',
+        done:[['Your account · <b>arjun@saffronkitchen.example</b>',''],['What kind of business? · <b>Something else</b>','']],
+        did:'No list fits exactly, so I build one from what you tell me. About three minutes.',
+        say:'Describe your business in a few words', sub:'What you cook, who eats it, how you sell it.',
+        area:'Food truck doing Indo-Mexican fusion: tacos, bowls and chai; two trucks, lunch and dinner, catering on weekends.',
+        actions:[['pri','Build my kitchen\'s knowledge']],
+        next:'<b>I read it as: food truck · Indian and Mexican · catering. Right?</b>' },
+      notsure: { bar:[['now','1','Give','2 of 4'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>In my POS</b>',''],['Which POS? · <b>Toast</b>',''],['API access? · <b>Not sure</b>','']],
+        did:'Two things to look at in Toast. Either answer is fine.',
+        say:'Check if you have Toast API access', sub:'Toast Web, on a computer:',
+        guide:[['🖥','Integrations → Toast API access'],['🔑','A client id listed there? Then you have it: tap "I have it"'],['📨','Nothing listed? Ask Toast support for a Standard API client (read-only, no charge), or use a PDF of your menu today']],
+        actions:[['pri','I have it'],['btn','No, I\'ll use my menu PDF'],['skip','I\'ll ask Toast and come back']],
+        next:'<b>Either way you are not stuck: a PDF or photo of the menu reads just as well to start.</b>' },
+      paper: { bar:[['now','1','Give','2 of 2'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>On paper or PDF</b>',''],['Your files · <b>the menu PDF, 2 price lists, 23 invoices, 4 vendors named from the paper</b>','64 dishes · 820 lines'],['Is this right? · <b>Indian restaurant with Indo-Chinese dishes · Sysco, Restaurant Depot, Sunrise Produce, Deshi Imports</b>','']],
+        did:'820 items born from the paper and costed from the printed prices; 64 dishes read from the menu. No web lookups.',
+        say:'Review by dish: 9 items need a look', sub:'The dishes they unblock first. The other 811 are done.',
+        rows:[['Butter Chicken, Chicken Tikka Masala','2 items I could not place in a family (unblocks 2 dishes)','2'],['Dal Makhani','1 item with no size on the paper','1'],['Gobi Manchurian','a box I could not match to the Indo-Chinese list','1']],
+        rowKind:'pill', actions:[['pri','Start with Butter Chicken'],['skip','Later']],
+        foot:'9 to look at · 811 done', next:'<b>Then Check: your prep list, the recipes, the chef\'s pass.</b>' },
+      nowhere: { bar:[['now','1','Give','1 of 1'],['','2','Check',''],['','3','Costs',''],['','4','Open','']],
+        done:[['Where is your menu today? · <b>Nowhere yet</b>','']],
+        did:'Your Indian kitchen already has 405 families, 61 prep boxes and a 48-dish starting list.',
+        say:'How do you want to start your menu?', sub:'Either way I write the recipes next; costs arrive with your first invoices.',
+        tiles:[['📚','Start from the Indian dish list','48 dishes, keep what you cook, drop the rest'],['✍️','Type my menu','dish names and prices, a few at a time']],
+        actions:[['skip','Skip for now, I\'ll come back']],
+        next:'<b>Costs never get guessed: a blank stays blank until an invoice or a typed price arrives.</b>' },
+      count: { title:'What runs by itself', bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['done','✓','Costs','58 of 64'],['done','✓','Open','Nov 5']],
+        done:[['Tonight\'s prep plan · <b>needs today\'s box levels</b>','']],
+        did:'57 boxes on 3 stations. Four taps per box, about 10 minutes at the end of service.',
+        say:'How full is each box right now?', sub:'Tap a level. I plan tonight\'s prep from it; a kitchen never counts a catalog.',
+        rows:[['Makhani gravy · 12 qt','Sauce station','half'],['Ginger garlic paste · 4 qt','Prep station','low'],['Cashew paste · 2 qt','Prep station','full']],
+        rowKind:'level', actions:[['pri','Next station'],['skip','Not tonight']],
+        foot:'3 of 57 boxes levelled', next:'<b>After the last box: the prep list for tomorrow prints itself.</b>' }
     }
   };
   var ICONS = {give:'🏪'};
@@ -273,6 +347,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
     h += '<div class="card current"><div class="agent"><div class="face">'+FACE+'</div><div><div class="name">Veritill</div><div class="did">'+d.did+'</div></div></div>';
     h += '<div class="say">'+d.say+'</div><div class="sub">'+d.sub+'</div>';
     if (d.field) h += '<label class="field"><span>'+d.field[0]+'</span><input value="'+d.field[1]+'"></label>';
+    if (d.area) h += '<label class="field"><span>In your words</span><textarea rows="3">'+d.area+'</textarea></label>';
     if (d.fields) h += d.fields.map(function(f){ return '<label class="field"><span>'+f[0]+'</span><input value="'+f[1]+'"></label>'; }).join('');
     if (d.tiles) h += '<div class="tiles">'+d.tiles.map(function(t){ return '<div class="tile"><span class="ic">'+t[0]+'</span><div><div class="t">'+t[1]+'</div><div class="s">'+t[2]+'</div></div></div>'; }).join('')+'</div>';
     if (d.guide) h += '<ol class="guide">'+d.guide.map(function(g){ return '<li><span class="ic">'+g[0]+'</span><span>'+g[1]+'</span></li>'; }).join('')+'</ol>';
@@ -280,7 +355,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
     if (d.chips) h += '<div class="chips">'+d.chips.map(function(c){ return '<span class="chip'+(c[1]?' on':'')+'">'+c[0]+'</span>'; }).join('')+'</div>';
     if (d.rows) {
       h += '<div class="rows">'+d.rows.map(function(r){
-        var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : '';
+        var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : d.rowKind==='pill' ? '<span class="pill need">'+r[2]+'</span>' : d.rowKind==='level' ? '<span class="levels">'+['empty','low','half','full'].map(function(l){ return '<span class="chip sm'+(l===r[2]?' on':'')+'">'+l+'</span>'; }).join('')+'</span>' : '';
         return '<div class="row"><span class="l">'+r[0]+'<small>'+r[1]+'</small></span>'+right+'</div>'; }).join('')+'</div>';
       if (d.foot) h += '<div class="foot">'+d.foot+'</div>';
     }
