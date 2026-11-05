@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-05T13:15:24.550Z",
+  "at": "2026-11-05T14:07:31.439Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 52,
+      "runs": 22,
+      "busyMin": 64,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 54
     }
   },
   "queue": {
-    "agentsQueued": 50,
-    "ciQueued": 0,
-    "oldestQueuedMin": 133
+    "agentsQueued": 49,
+    "ciQueued": 1,
+    "oldestQueuedMin": 81
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "CI queue: 41 run(s) waiting 20+ min for label 'router' (longest 133 min); every 'router' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 25 run(s) waiting 20+ min for label 'router' (longest 81 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,10 +96,10 @@
     "note": "Railway API read failed: graphql: Not Authorized"
   },
   "cache": {
-    "at": "2026-11-05T13:15:24.165Z",
+    "at": "2026-11-05T14:07:31.073Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 44,
+      "hits": 48,
       "misses": 1,
       "hydrations": 1
     },
@@ -121,7 +121,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-05T13:15:23.944Z",
+    "at": "2026-11-05T14:07:30.839Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
