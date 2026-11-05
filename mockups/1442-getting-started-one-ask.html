@@ -94,7 +94,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
 <div class="wrap">
   <div class="banner"><b>Mockup v4</b> · the same screen for a grocery and for a restaurant, at each of the four steps. Fictional businesses. Nothing here is real data.</div>
   <div class="sel"><span class="lab">Business</span><button class="tab on" data-biz="grocery">Deshi Bazaar · grocery</button><button class="tab" data-biz="kitchen">Saffron Kitchen · restaurant</button></div>
-  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give0">1 Give · where</button><button class="tab" data-step="give1">1 Give · which POS</button><button class="tab" data-step="give2">1 Give · API key?</button><button class="tab" data-step="give3">1 Give · export or key</button><button class="tab" data-step="give">1 Give · right?</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
+  <div class="sel"><span class="lab">Step</span><button class="tab on" data-step="start1">Sign-up · your business</button><button class="tab" data-step="start2">Sign-up · food made here</button><button class="tab" data-step="give0">1 Give · where</button><button class="tab" data-step="give1">1 Give · which POS</button><button class="tab" data-step="give2">1 Give · API key?</button><button class="tab" data-step="give3">1 Give · export or key</button><button class="tab" data-step="give">1 Give · right?</button><button class="tab" data-step="check">2 Check</button><button class="tab" data-step="costs">3 Costs</button><button class="tab" data-step="costs2">3 Costs · the result</button><button class="tab" data-step="open">4 Open</button><button class="tab" data-step="live">After go live</button></div>
   <div class="sel"><span class="lab">Branches</span><button class="tab" data-step="other">Sign-up · something else</button><button class="tab" data-step="notsure">Give · not sure about API</button><button class="tab" data-step="paper">Give · on paper</button><button class="tab" data-step="nowhere">Give · nowhere yet</button><button class="tab" data-step="count">After go live · first count</button></div>
 
   <div class="screen" id="screen"></div>
@@ -105,7 +105,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
       <li><b>Sign-up</b>: two questions before Getting started opens. The kind of business (one chip) adopts that kind's departments, shelves and product families at once; then food made here: a store is asked "do you also make and sell food here, hot or cold?", a restaurant is asked the cuisine (or lets the menu read answer it). A restaurant without a cuisine still gets the restaurant base; the cuisine adds to it later.</li>
       <li><b>Give</b>: one key or one drop, then "Right?" on what was read. Business type, cuisine or store kind, vendors and hours are never asked.</li>
       <li><b>Check</b>: the judgement taps, ten at a time, inside the card. A grocery: items, SNAP flags, shelf prices. A restaurant: dishes, the prep list, recipes, the chef's pass. A grocery never sees a dish; a restaurant never sees a price tag.</li>
-      <li><b>Costs</b>: use the POS costs? how many months? how do each vendor's invoices arrive? then the sitting (item-led for a store, dish-led for a kitchen), then the cost-gap loop.</li>
+      <li><b>Costs</b>: use the POS costs? how many months? how do each vendor's invoices arrive? then the sitting (item-led for a store, dish-led for a kitchen), then the result: the menu costed dish by dish for a kitchen (cost per serving, price, margin, red rows first), the shelves costed for a store. Costing is finished inside onboarding, never left for later; the cost-gap loop only chases the few red rows.</li>
       <li><b>Open</b>: the team, the till (a restaurant on Toast keeps Toast as its till), the online store if wanted, Go live.</li>
       <li><b>Back and forth</b>: a folded done row reopens on tap, with its answer editable; the current card stays below it. Nothing is ever lost by going back.</li>
       <li><b>After go live</b>: the page becomes "What runs by itself" plus the agent's card for the few asks that outlive setup. A store's first count lives here, never as a gate to opening.</li>
@@ -179,7 +179,14 @@ h1,h2,h3{margin:0;text-wrap:balance}
         say:'Match these 10 items', sub:'I pre-filled my best match. Confirm the page, or fix one.',
         rows:[['Basmati rice 20 lb','Deshi Imports invoice 4471 · "BASMATI PREM 20LB"','Rice, basmati'],['Toor dal 4 lb','Deshi Imports invoice 4471 · "TUR DAL 4LB"','Dal, toor'],['Cilantro bunch','Sunrise Produce 11-02 · "CORIANDER 60CT"','Cilantro']],
         rowKind:'match', actions:[['pri','Confirm page'],['skip','Stop here, the rest can wait']],
-        foot:'1 to 10 of 10 · every cost shows its receipt on tap', next:'<b>Then the doors: your team, your till and scale, and the open sign.</b>' },
+        foot:'1 to 10 of 10 · every cost shows its receipt on tap', next:'<b>Then I show you your shelves, costed: what each item costs you and what it sells for.</b>' },
+      costs2: { bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['now','3','Costs','4 of 4'],['','4','Open','']],
+        done:[['Use your Toast costs for now? · <b>Yes</b>','214'],['How many months? · <b>3</b>',''],['3 vendor doors · <b>41 invoices read as history, stock untouched</b>','41'],['Match these 10 items · <b>10 confirmed</b>','10']],
+        did:'258 of 271 items have a cost from an invoice; 13 still wait. Here is what your shelves earn.',
+        say:'Your shelves, costed', sub:'Cost from your invoices, price from your tags. Red rows first.',
+        rows:[['Ghee 32 oz','cost $9.80 · price $13.49','27%'],['Basmati rice 20 lb','cost $18.40 · price $24.99','26%'],['Chana dal 4 lb','no cost on any invoice yet · price $7.49','—'],['Toor dal 4 lb','cost $6.10 · price $8.99','32%']],
+        rowKind:'margin', actions:[['pri','Looks right, continue'],['btn','Fix the 13 without a cost']],
+        foot:'271 items · 258 costed · 12 priced below your floor', next:'<b>Then the doors: your team, your till and scale, and the open sign.</b>' },
       open: { bar:[['done','✓','Give','271 items'],['done','✓','Check','3 of 3'],['done','✓','Costs','258 of 271'],['now','4','Open','3 of 4']],
         done:[['Invite your team · <b>2 invited</b>','2'],['Set up your till and scale · <b>1 register, scale connected</b>','1'],['Open your store online? · <b>Skipped for now</b>','', 'skipped']],
         did:'258 of 271 items costed, 271 priced, 1 register ready. 13 items wait for a cost in your invoices.',
@@ -286,7 +293,14 @@ h1,h2,h3{margin:0;text-wrap:balance}
         say:'Butter Chicken needs 4 things. I found 3.', sub:'Confirm my matches; pick the one I missed.',
         rows:[['Chicken thigh','Sysco invoice 20812 · "CHKN THIGH BNLS 40LB" · $1.45/lb','Chicken thigh'],['Cream','Sysco invoice 20812 · "CREAM HVY 36% 4/1GAL"','Cream, heavy'],['Butter','Restaurant Depot 11-01 · "BUTTER UNSLT 36/1LB"','Butter'],['Tomato, crushed','not on any invoice yet','pick']],
         rowKind:'match', actions:[['pri','Confirm page'],['skip','Stop here, the rest can wait']],
-        foot:'dish 1 of 6 · every cost shows its receipt on tap', next:'<b>Then the doors: your team, the till, and the open sign.</b>' },
+        foot:'dish 1 of 6 · every cost shows its receipt on tap', next:'<b>Then I show you your menu, costed: what each dish costs you and what it earns.</b>' },
+      costs2: { bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['now','3','Costs','4 of 4'],['','4','Open','']],
+        done:[['How many months? · <b>3</b>',''],['4 vendor doors · <b>118 invoices read as history, stock untouched</b>','118'],['Use xtraCHEF? · <b>No</b>',''],['Match these 9 items · <b>9 confirmed</b>','9']],
+        did:'58 of 64 dishes are costed to the gram from your invoices and your confirmed recipes. Here is your menu.',
+        say:'Your menu, costed', sub:'Cost per serving from your recipes and invoices, price from your menu. Red rows first.',
+        rows:[['Gobi Manchurian','1 line has no cost yet (crushed tomato) · price $11.99','—'],['Butter Chicken','cost $4.10 · price $16.99','76%'],['Dal Makhani','cost $1.85 · price $12.99','86%'],['Chicken Biryani','cost $5.60 · price $15.99','65%']],
+        rowKind:'margin', actions:[['pri','Looks right, continue'],['btn','Fix the 6 red dishes']],
+        foot:'64 dishes · 58 costed · 2 below your 65% target', next:'<b>Then the doors: your team, the till, and the open sign.</b>' },
       open: { bar:[['done','✓','Give','64 dishes'],['done','✓','Check','4 of 4'],['done','✓','Costs','58 of 64'],['now','4','Open','2 of 2']],
         done:[['Invite your team · <b>3 invited, 1 chef</b>','3'],['Your till · <b>Toast stays your register; sales pull nightly</b>','']],
         did:'58 of 64 dishes costed, 57 of 57 boxes confirmed, the kitchen screen is on.',
@@ -355,7 +369,7 @@ h1,h2,h3{margin:0;text-wrap:balance}
     if (d.chips) h += '<div class="chips">'+d.chips.map(function(c){ return '<span class="chip'+(c[1]?' on':'')+'">'+c[0]+'</span>'; }).join('')+'</div>';
     if (d.rows) {
       h += '<div class="rows">'+d.rows.map(function(r){
-        var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : d.rowKind==='pill' ? '<span class="pill need">'+r[2]+'</span>' : d.rowKind==='level' ? '<span class="levels">'+['empty','low','half','full'].map(function(l){ return '<span class="chip sm'+(l===r[2]?' on':'')+'">'+l+'</span>'; }).join('')+'</span>' : '';
+        var right = d.rowKind==='price' ? '<input value="'+r[2]+'" aria-label="shelf price">' : d.rowKind==='match' ? (r[2]==='pick' ? '<button class="pick">Pick…</button>' : '<span class="pill on">'+r[2]+'</span>') : d.rowKind==='pill' ? '<span class="pill need">'+r[2]+'</span>' : d.rowKind==='margin' ? (r[2]==='—' ? '<span class="pill need">no cost</span>' : '<span class="pill on">'+r[2]+' margin</span>') : d.rowKind==='level' ? '<span class="levels">'+['empty','low','half','full'].map(function(l){ return '<span class="chip sm'+(l===r[2]?' on':'')+'">'+l+'</span>'; }).join('')+'</span>' : '';
         return '<div class="row"><span class="l">'+r[0]+'<small>'+r[1]+'</small></span>'+right+'</div>'; }).join('')+'</div>';
       if (d.foot) h += '<div class="foot">'+d.foot+'</div>';
     }
