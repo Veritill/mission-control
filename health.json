@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-06T08:31:43.939Z",
+  "at": "2026-11-06T09:01:05.736Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 10,
+      "runs": 3,
+      "busyMin": 20,
       "waitMin": 0,
-      "busyPct": 8
+      "busyPct": 17
     },
     "core": {
       "runs": 7,
-      "busyMin": 21,
-      "waitMin": 22,
-      "busyPct": 35
+      "busyMin": 14,
+      "waitMin": 16,
+      "busyPct": 24
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 199,
+      "runs": 8,
+      "busyMin": 136,
       "waitMin": 0,
-      "busyPct": 166
+      "busyPct": 114
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 3,
-    "oldestQueuedMin": 39
+    "ciQueued": 1,
+    "oldestQueuedMin": 13
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -76,17 +76,13 @@
     },
     {
       "level": "warn",
-      "text": "291 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "310 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
       "text": "PR #1581 has 5 changes-requested rounds: stuck between Core and its lane, needs a person's call on the rule it keeps tripping",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 39 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -96,26 +92,22 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 20.05,
-    "railwayProjected": 38.18,
+    "railwayMonthToDate": 20.17,
+    "railwayProjected": 38.42,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-06T08:31:35.699Z",
+    "at": "2026-11-06T09:00:57.791Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 8,
+      "hits": 10,
       "misses": 1,
       "hydrations": 1
     },
@@ -146,7 +138,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-06T08:31:35.451Z",
+    "at": "2026-11-06T09:00:57.538Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -161,18 +153,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "38826f8",
-      "ageMin": 1,
+      "status": "BUILDING",
+      "sha": "9e12007",
+      "ageMin": 0,
       "lastGoodSha": "38826f8",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 31
     },
     "web": {
       "status": "BUILDING",
-      "sha": "38826f8",
-      "ageMin": 1,
-      "lastGoodSha": "33b5694",
-      "lastGoodAgeMin": 40
+      "sha": "9e12007",
+      "ageMin": 0,
+      "lastGoodSha": "38826f8",
+      "lastGoodAgeMin": 31
     }
   },
   "prRerun": {},
@@ -187,10 +179,6 @@
     },
     "PR ## has # changes-requested rounds: stuck between Core and its lane, needs a p": {
       "since": "2026-11-06T07:20:16.558Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-06T08:31:11.206Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
