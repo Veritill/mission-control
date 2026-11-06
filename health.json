@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-06T17:41:05.573Z",
+  "at": "2026-11-06T20:08:44.683Z",
   "windowHours": 1,
   "roles": {
     "lane": {
+      "runs": 1,
+      "busyMin": 15,
+      "waitMin": 0,
+      "busyPct": 13
+    },
+    "core": {
       "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
-    },
-    "core": {
-      "runs": 9,
-      "busyMin": 35,
-      "waitMin": 3,
-      "busyPct": 58
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 62,
+      "runs": 3,
+      "busyMin": 77,
       "waitMin": 0,
-      "busyPct": 51
+      "busyPct": 64
     }
   },
   "queue": {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -76,7 +76,7 @@
     },
     {
       "level": "warn",
-      "text": "561 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "663 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
@@ -87,22 +87,30 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "staging api is NOT MOVING: the newest deploy (b6cc06e, 145 min ago) FAILED; staging still serves e1bd5fd from 173 min ago — main green changes nothing until this is fixed (Railway → platform → staging → api → the deploy log; runbook §12, 2026-11-04)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 21.78,
-    "railwayProjected": 41.25,
+    "railwayMonthToDate": 22.04,
+    "railwayProjected": 41.61,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-06T17:41:00.297Z",
+    "at": "2026-11-06T20:08:39.722Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 44,
+      "hits": 54,
       "misses": 1,
       "hydrations": 1
     },
@@ -133,7 +141,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-06T17:41:00.034Z",
+    "at": "2026-11-06T20:08:39.480Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -148,18 +156,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "e1bd5fd",
-      "ageMin": 26,
+      "status": "FAILED",
+      "sha": "b6cc06e",
+      "ageMin": 145,
       "lastGoodSha": "e1bd5fd",
-      "lastGoodAgeMin": 26
+      "lastGoodAgeMin": 173
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "e1bd5fd",
-      "ageMin": 26,
-      "lastGoodSha": "e1bd5fd",
-      "lastGoodAgeMin": 26
+      "sha": "b6cc06e",
+      "ageMin": 145,
+      "lastGoodSha": "b6cc06e",
+      "lastGoodAgeMin": 145
     }
   },
   "prRerun": {},
@@ -175,7 +183,11 @@
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
       "escalated": false
+    },
+    "staging api is NOT MOVING: the newest deploy (b#cc#e, # min ago) FAILED; staging": {
+      "since": "2026-11-06T20:08:13.492Z",
+      "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-06T16:34:23.256Z"
+  "supervisorWokeAt": "2026-11-06T20:08:13.492Z"
 }
