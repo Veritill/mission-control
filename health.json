@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-06T08:00:22.684Z",
+  "at": "2026-11-06T08:31:43.939Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 38,
+      "runs": 2,
+      "busyMin": 10,
       "waitMin": 0,
-      "busyPct": 31
+      "busyPct": 8
     },
     "core": {
-      "runs": 5,
-      "busyMin": 10,
-      "waitMin": 1,
-      "busyPct": 17
+      "runs": 7,
+      "busyMin": 21,
+      "waitMin": 22,
+      "busyPct": 35
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 9,
-      "busyMin": 192,
+      "busyMin": 199,
       "waitMin": 0,
-      "busyPct": 160
+      "busyPct": 166
     }
   },
   "queue": {
-    "agentsQueued": 5,
-    "ciQueued": 1,
-    "oldestQueuedMin": 8
+    "agentsQueued": 1,
+    "ciQueued": 3,
+    "oldestQueuedMin": 39
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,16 +76,17 @@
     },
     {
       "level": "warn",
-      "text": "SOLO is empty while line \"47. #1590 M Retire the Import items page: only the dedicated...\" is eligible (#1590: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "276 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "291 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1581 has 4 changes-requested rounds: stuck between Core and its lane, needs a person's call on the rule it keeps tripping"
+      "text": "PR #1581 has 5 changes-requested rounds: stuck between Core and its lane, needs a person's call on the rule it keeps tripping",
+      "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 39 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "info",
@@ -105,16 +106,16 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 19.93,
-    "railwayProjected": 37.93,
+    "railwayMonthToDate": 20.05,
+    "railwayProjected": 38.18,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-06T08:00:11.530Z",
+    "at": "2026-11-06T08:31:35.699Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 6,
+      "hits": 8,
       "misses": 1,
       "hydrations": 1
     },
@@ -140,12 +141,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-06T07:52:59.223Z",
+      "checkedAt": "2026-11-06T08:31:16.750Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-06T08:00:11.278Z",
+    "at": "2026-11-06T08:31:35.451Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -161,27 +162,23 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "33b5694",
-      "ageMin": 8,
-      "lastGoodSha": "33b5694",
-      "lastGoodAgeMin": 8
+      "sha": "38826f8",
+      "ageMin": 1,
+      "lastGoodSha": "38826f8",
+      "lastGoodAgeMin": 1
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "33b5694",
-      "ageMin": 8,
+      "status": "BUILDING",
+      "sha": "38826f8",
+      "ageMin": 1,
       "lastGoodSha": "33b5694",
-      "lastGoodAgeMin": 8
+      "lastGoodAgeMin": 40
     }
   },
   "prRerun": {},
   "warnSince": {
     "needs you: ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-05T22:49:34.175Z",
-      "escalated": false
-    },
-    "SOLO is empty while line \"#. ## M Retire the Import items page: only the dedicat": {
-      "since": "2026-11-06T07:59:42.024Z",
       "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
@@ -192,10 +189,14 @@
       "since": "2026-11-06T07:20:16.558Z",
       "escalated": false
     },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-06T08:31:11.206Z",
+      "escalated": false
+    },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-06T07:59:42.024Z"
+  "supervisorWokeAt": "2026-11-06T08:31:11.206Z"
 }
