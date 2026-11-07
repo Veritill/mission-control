@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T04:40:15.982Z",
+  "at": "2026-11-07T05:11:33.476Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 8,
-      "busyMin": 39,
-      "waitMin": 1,
-      "busyPct": 32
+      "runs": 6,
+      "busyMin": 13,
+      "waitMin": 0,
+      "busyPct": 11
     },
     "core": {
-      "runs": 5,
-      "busyMin": 12,
+      "runs": 6,
+      "busyMin": 16,
       "waitMin": 10,
-      "busyPct": 21
+      "busyPct": 27
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 138,
+      "runs": 8,
+      "busyMin": 86,
       "waitMin": 0,
-      "busyPct": 115
+      "busyPct": 71
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -56,7 +56,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "10 of today's 15 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+      "text": "11 of today's 17 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
     },
     {
       "level": "warn",
@@ -80,12 +80,20 @@
     },
     {
       "level": "warn",
-      "text": "211 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "229 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
+      "text": "main is RED (run 42339611308, failed: test) for 18 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
       "text": "3 lane run(s) in the last hour ended green within 3 minutes: the lane is quitting on arrival (token expired, rate-limited, or a rule it trips at once) — read one transcript"
+    },
+    {
+      "level": "warn",
+      "text": "2 agents run(s) failed in the last hour (42340384216, 42340167421): the build's own workflow is erroring, not a lane's tests"
     },
     {
       "level": "info",
@@ -95,32 +103,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 23.56,
-    "railwayProjected": 44.47,
+    "railwayMonthToDate": 23.68,
+    "railwayProjected": 44.7,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T04:40:09.079Z",
+    "at": "2026-11-07T05:11:27.166Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 10,
+      "hits": 18,
       "misses": 2,
       "hydrations": 2
     },
     "platformContent": {
       "entries": 1,
-      "hits": 2,
+      "hits": 4,
       "misses": 1
     },
     "derived": {
-      "hits": 12,
+      "hits": 20,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -128,7 +140,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 3
+      "onceHits": 5
     },
     "edgePurge": {
       "purges": 0,
@@ -147,12 +159,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T04:30:18.063Z",
+      "checkedAt": "2026-11-07T04:51:59.071Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T04:40:08.647Z",
+    "at": "2026-11-07T05:11:26.913Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -168,17 +180,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "f46d648",
-      "ageMin": 11,
-      "lastGoodSha": "f46d648",
-      "lastGoodAgeMin": 11
+      "sha": "c0ab3b1",
+      "ageMin": 21,
+      "lastGoodSha": "c0ab3b1",
+      "lastGoodAgeMin": 21
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "f46d648",
-      "ageMin": 11,
-      "lastGoodSha": "f46d648",
-      "lastGoodAgeMin": 11
+      "sha": "c0ab3b1",
+      "ageMin": 21,
+      "lastGoodSha": "c0ab3b1",
+      "lastGoodAgeMin": 21
     }
   },
   "prRerun": {},
@@ -195,8 +207,16 @@
       "since": "2026-11-07T03:14:04.319Z",
       "escalated": false
     },
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-07T05:11:09.833Z",
+      "escalated": false
+    },
     "# lane run(s) in the last hour ended green within # minutes: the lane is quittin": {
       "since": "2026-11-07T04:39:48.613Z",
+      "escalated": false
+    },
+    "# agents run(s) failed in the last hour (#, #): the build's own workflow is erro": {
+      "since": "2026-11-07T05:11:09.833Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
@@ -204,5 +224,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-07T04:11:25.601Z"
+  "supervisorWokeAt": "2026-11-07T05:11:09.833Z"
 }
