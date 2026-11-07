@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T02:46:11.156Z",
+  "at": "2026-11-07T03:14:39.126Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 7,
-      "busyMin": 44,
-      "waitMin": 20,
-      "busyPct": 37
+      "runs": 5,
+      "busyMin": 19,
+      "waitMin": 3,
+      "busyPct": 15
     },
     "core": {
-      "runs": 4,
-      "busyMin": 17,
-      "waitMin": 10,
-      "busyPct": 28
+      "runs": 6,
+      "busyMin": 10,
+      "waitMin": 5,
+      "busyPct": 17
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 16,
-      "busyMin": 78,
+      "runs": 15,
+      "busyMin": 109,
       "waitMin": 0,
-      "busyPct": 65
+      "busyPct": 91
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 15
+    "agentsQueued": 24,
+    "ciQueued": 2,
+    "oldestQueuedMin": 14
   },
   "runners": [
     {
@@ -41,12 +41,12 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -76,51 +76,59 @@
     },
     {
       "level": "warn",
-      "text": "security: 4 tenant purge(s) in the last hour"
+      "text": "150 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+    },
+    {
+      "level": "warn",
+      "text": "security: 5 tenant purge(s) in the last hour"
     },
     {
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 23.05,
-    "railwayProjected": 43.48,
+    "railwayMonthToDate": 23.17,
+    "railwayProjected": 43.73,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T02:46:07.793Z",
+    "at": "2026-11-07T03:14:33.617Z",
     "tenantContext": {
-      "entries": 6,
-      "hits": 591,
-      "misses": 43,
-      "hydrations": 32
+      "entries": 7,
+      "hits": 672,
+      "misses": 55,
+      "hydrations": 37
     },
     "platformContent": {
       "entries": 1,
-      "hits": 254,
-      "misses": 24
+      "hits": 267,
+      "misses": 32
     },
     "derived": {
-      "hits": 240,
-      "misses": 297,
+      "hits": 270,
+      "misses": 330,
       "refreshes": 90,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 78
+      "onceHits": 89
     },
     "edgePurge": {
-      "purges": 167,
-      "calls": 167,
-      "urls": 334,
+      "purges": 172,
+      "calls": 172,
+      "urls": 344,
       "failed": 0
     }
   },
@@ -134,17 +142,16 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T02:18:20.906Z",
+      "checkedAt": "2026-11-07T02:47:45.474Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T02:46:07.598Z",
+    "at": "2026-11-07T03:14:33.407Z",
     "windowMinutes": 60,
     "counts": {
-      "passkey.add": 1,
-      "tenant.purge": 4,
-      "passkey.add_owner": 1
+      "tenant.purge": 5,
+      "passkey.add_owner": 0
     },
     "tenantIds": {},
     "maxFailedSigninsPerEmail": {
@@ -156,18 +163,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "6032ec1",
-      "ageMin": 0,
-      "lastGoodSha": "819f5c8",
-      "lastGoodAgeMin": 30
+      "ageMin": 29,
+      "lastGoodSha": "6032ec1",
+      "lastGoodAgeMin": 29
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "6032ec1",
-      "ageMin": 0,
-      "lastGoodSha": "819f5c8",
-      "lastGoodAgeMin": 30
+      "ageMin": 29,
+      "lastGoodSha": "6032ec1",
+      "lastGoodAgeMin": 29
     }
   },
   "prRerun": {},
@@ -175,6 +182,10 @@
     "needs you: ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-05T22:49:34.175Z",
       "escalated": true
+    },
+    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
+      "since": "2026-11-07T03:14:04.319Z",
+      "escalated": false
     },
     "security: # tenant purge(s) in the last hour": {
       "since": "2026-11-07T02:19:02.810Z",
@@ -185,5 +196,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-07T02:19:02.810Z"
+  "supervisorWokeAt": "2026-11-07T03:14:04.319Z"
 }
