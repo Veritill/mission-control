@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T01:45:37.800Z",
+  "at": "2026-11-07T02:19:32.075Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 6,
+      "busyMin": 46,
+      "waitMin": 4,
+      "busyPct": 38
     },
     "core": {
-      "runs": 3,
-      "busyMin": 13,
-      "waitMin": 5,
-      "busyPct": 21
+      "runs": 7,
+      "busyMin": 17,
+      "waitMin": 11,
+      "busyPct": 29
     },
     "planner": {
       "runs": 0,
@@ -21,27 +21,32 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 18,
+      "runs": 12,
+      "busyMin": 47,
       "waitMin": 0,
-      "busyPct": 15
+      "busyPct": 39
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 16,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 12
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
+    },
+    {
+      "name": "core-runner",
+      "online": true,
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -55,11 +60,6 @@
     },
     {
       "name": "router-runner",
-      "online": true,
-      "busy": true
-    },
-    {
-      "name": "core-runner",
       "online": true,
       "busy": true
     }
@@ -76,55 +76,55 @@
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"40. #1637 M Payments 4: the ledger (pullLedger, the nightly ...\" is eligible (#1637: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "info",
-      "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+      "text": "security: 1 tenant purge(s) in the last hour"
     },
     {
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 22.83,
-    "railwayProjected": 43.05,
+    "railwayMonthToDate": 22.95,
+    "railwayProjected": 43.29,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T01:45:34.938Z",
+    "at": "2026-11-07T02:19:27.459Z",
     "tenantContext": {
-      "entries": 1,
-      "hits": 80,
-      "misses": 7,
-      "hydrations": 5
+      "entries": 3,
+      "hits": 166,
+      "misses": 19,
+      "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 180,
-      "misses": 3
+      "hits": 197,
+      "misses": 13
     },
     "derived": {
-      "hits": 45,
-      "misses": 137,
+      "hits": 78,
+      "misses": 183,
       "refreshes": 90,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 10
+      "onceHits": 24
     },
     "edgePurge": {
-      "purges": 149,
-      "calls": 149,
-      "urls": 298,
+      "purges": 155,
+      "calls": 155,
+      "urls": 310,
       "failed": 0
     }
   },
@@ -138,15 +138,17 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-06T22:48:52.584Z",
+      "checkedAt": "2026-11-07T02:18:20.906Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T01:45:34.736Z",
+    "at": "2026-11-07T02:19:27.264Z",
     "windowMinutes": 60,
     "counts": {
-      "passkey.add_owner": 0
+      "passkey.add": 1,
+      "tenant.purge": 1,
+      "passkey.add_owner": 1
     },
     "tenantIds": {},
     "maxFailedSigninsPerEmail": {
@@ -159,17 +161,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "c64f7cf",
-      "ageMin": 178,
-      "lastGoodSha": "c64f7cf",
-      "lastGoodAgeMin": 178
+      "sha": "819f5c8",
+      "ageMin": 3,
+      "lastGoodSha": "819f5c8",
+      "lastGoodAgeMin": 3
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "c64f7cf",
-      "ageMin": 178,
-      "lastGoodSha": "c64f7cf",
-      "lastGoodAgeMin": 178
+      "sha": "819f5c8",
+      "ageMin": 3,
+      "lastGoodSha": "819f5c8",
+      "lastGoodAgeMin": 3
     }
   },
   "prRerun": {},
@@ -178,8 +180,8 @@
       "since": "2026-11-05T22:49:34.175Z",
       "escalated": true
     },
-    "CHAIN is empty while line \"#. ## M Payments #: the ledger (pullLedger, the night": {
-      "since": "2026-11-07T01:08:38.056Z",
+    "security: # tenant purge(s) in the last hour": {
+      "since": "2026-11-07T02:19:02.810Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
@@ -187,5 +189,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-07T01:08:38.056Z"
+  "supervisorWokeAt": "2026-11-07T02:19:02.810Z"
 }
