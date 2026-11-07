@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-07T01:09:06.159Z",
+  "at": "2026-11-07T01:45:37.800Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,10 +9,10 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 1,
-      "busyMin": 1,
-      "waitMin": 2,
-      "busyPct": 2
+      "runs": 3,
+      "busyMin": 13,
+      "waitMin": 5,
+      "busyPct": 21
     },
     "planner": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 18,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 15
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -86,49 +86,45 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 22.74,
-    "railwayProjected": 42.9,
+    "railwayMonthToDate": 22.83,
+    "railwayProjected": 43.05,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T01:09:00.407Z",
+    "at": "2026-11-07T01:45:34.938Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 16,
-      "misses": 1,
-      "hydrations": 1
+      "hits": 80,
+      "misses": 7,
+      "hydrations": 5
     },
     "platformContent": {
-      "entries": 0,
-      "hits": 0,
-      "misses": 0
+      "entries": 1,
+      "hits": 180,
+      "misses": 3
     },
     "derived": {
-      "hits": 0,
-      "misses": 0,
-      "refreshes": 0,
+      "hits": 45,
+      "misses": 137,
+      "refreshes": 90,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 0
+      "onceHits": 10
     },
     "edgePurge": {
-      "purges": 0,
-      "calls": 0,
-      "urls": 0,
+      "purges": 149,
+      "calls": 149,
+      "urls": 298,
       "failed": 0
     }
   },
@@ -147,7 +143,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T01:09:00.166Z",
+    "at": "2026-11-07T01:45:34.736Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -164,16 +160,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "c64f7cf",
-      "ageMin": 141,
+      "ageMin": 178,
       "lastGoodSha": "c64f7cf",
-      "lastGoodAgeMin": 141
+      "lastGoodAgeMin": 178
     },
     "web": {
       "status": "SUCCESS",
       "sha": "c64f7cf",
-      "ageMin": 141,
+      "ageMin": 178,
       "lastGoodSha": "c64f7cf",
-      "lastGoodAgeMin": 141
+      "lastGoodAgeMin": 178
     }
   },
   "prRerun": {},
