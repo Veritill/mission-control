@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T06:37:19.615Z",
+  "at": "2026-11-07T07:06:41.690Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 10,
+      "runs": 3,
+      "busyMin": 44,
       "waitMin": 0,
-      "busyPct": 8
+      "busyPct": 37
     },
     "core": {
-      "runs": 6,
-      "busyMin": 18,
-      "waitMin": 13,
-      "busyPct": 31
+      "runs": 5,
+      "busyMin": 16,
+      "waitMin": 16,
+      "busyPct": 26
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 8,
-      "busyMin": 108,
+      "busyMin": 148,
       "waitMin": 0,
-      "busyPct": 90
+      "busyPct": 124
     }
   },
   "queue": {
-    "agentsQueued": 4,
+    "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 3
+    "oldestQueuedMin": 31
   },
   "runners": [
     {
@@ -41,22 +41,22 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,11 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
-    },
-    {
-      "level": "warn",
-      "text": "13 of today's 23 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "14 of today's 24 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -85,42 +81,35 @@
     },
     {
       "level": "warn",
-      "text": "312 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "332 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "1 agents run(s) failed in the last hour (42344832674): the build's own workflow is erroring, not a lane's tests"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 31 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "security: 2 tenant purge(s) in the last hour"
+      "text": "security: 1 tenant purge(s) in the last hour",
+      "repeated": true
     },
     {
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "canary: PR #1690 (gated files) merged 69 min ago and 1 build run(s) failed since (agents.yml run 42344832674): revert it unless the failure is unrelated"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 24.05,
-    "railwayProjected": 45.07,
+    "railwayMonthToDate": 24.19,
+    "railwayProjected": 45.21,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T06:37:11.141Z",
+    "at": "2026-11-07T07:06:35.479Z",
     "tenantContext": {
       "entries": 4,
       "hits": 209,
@@ -160,15 +149,15 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T06:29:59.701Z",
+      "checkedAt": "2026-11-07T06:52:53.454Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T06:37:10.941Z",
+    "at": "2026-11-07T07:06:35.250Z",
     "windowMinutes": 60,
     "counts": {
-      "tenant.purge": 2,
+      "tenant.purge": 1,
       "passkey.add_owner": 0
     },
     "tenantIds": {},
@@ -182,25 +171,21 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "30e49b7",
-      "ageMin": 10,
-      "lastGoodSha": "30e49b7",
-      "lastGoodAgeMin": 10
+      "sha": "e5faa8c",
+      "ageMin": 15,
+      "lastGoodSha": "e5faa8c",
+      "lastGoodAgeMin": 15
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "30e49b7",
-      "ageMin": 10,
-      "lastGoodSha": "30e49b7",
-      "lastGoodAgeMin": 10
+      "sha": "e5faa8c",
+      "ageMin": 15,
+      "lastGoodSha": "e5faa8c",
+      "lastGoodAgeMin": 15
     }
   },
   "prRerun": {},
   "warnSince": {
-    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
-      "since": "2026-11-07T06:36:53.367Z",
-      "escalated": false
-    },
     "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
       "since": "2026-11-07T04:39:48.613Z",
       "escalated": false
@@ -213,8 +198,8 @@
       "since": "2026-11-07T03:14:04.319Z",
       "escalated": false
     },
-    "# agents run(s) failed in the last hour (#): the build's own workflow is errorin": {
-      "since": "2026-11-07T06:36:53.367Z",
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-07T07:06:15.753Z",
       "escalated": false
     },
     "security: # tenant purge(s) in the last hour": {
@@ -224,10 +209,6 @@
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
       "escalated": true
-    },
-    "canary: PR ## (gated files) merged # min ago and # build run(s) failed since (ag": {
-      "since": "2026-11-07T06:03:53.862Z",
-      "escalated": false
     }
   },
   "supervisorWokeAt": "2026-11-07T06:36:53.367Z"
