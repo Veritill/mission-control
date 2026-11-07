@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T02:19:32.075Z",
+  "at": "2026-11-07T02:46:11.156Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 6,
-      "busyMin": 46,
-      "waitMin": 4,
-      "busyPct": 38
+      "runs": 7,
+      "busyMin": 44,
+      "waitMin": 20,
+      "busyPct": 37
     },
     "core": {
-      "runs": 7,
+      "runs": 4,
       "busyMin": 17,
-      "waitMin": 11,
-      "busyPct": 29
+      "waitMin": 10,
+      "busyPct": 28
     },
     "planner": {
       "runs": 0,
@@ -21,42 +21,42 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 47,
+      "runs": 16,
+      "busyMin": 78,
       "waitMin": 0,
-      "busyPct": 39
+      "busyPct": 65
     }
   },
   "queue": {
-    "agentsQueued": 16,
-    "ciQueued": 0,
-    "oldestQueuedMin": 12
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 15
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -76,55 +76,51 @@
     },
     {
       "level": "warn",
-      "text": "security: 1 tenant purge(s) in the last hour"
+      "text": "security: 4 tenant purge(s) in the last hour"
     },
     {
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 22.95,
-    "railwayProjected": 43.29,
+    "railwayMonthToDate": 23.05,
+    "railwayProjected": 43.48,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T02:19:27.459Z",
+    "at": "2026-11-07T02:46:07.793Z",
     "tenantContext": {
-      "entries": 3,
-      "hits": 166,
-      "misses": 19,
-      "hydrations": 14
+      "entries": 6,
+      "hits": 591,
+      "misses": 43,
+      "hydrations": 32
     },
     "platformContent": {
       "entries": 1,
-      "hits": 197,
-      "misses": 13
+      "hits": 254,
+      "misses": 24
     },
     "derived": {
-      "hits": 78,
-      "misses": 183,
+      "hits": 240,
+      "misses": 297,
       "refreshes": 90,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 24
+      "onceHits": 78
     },
     "edgePurge": {
-      "purges": 155,
-      "calls": 155,
-      "urls": 310,
+      "purges": 167,
+      "calls": 167,
+      "urls": 334,
       "failed": 0
     }
   },
@@ -143,11 +139,11 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T02:19:27.264Z",
+    "at": "2026-11-07T02:46:07.598Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add": 1,
-      "tenant.purge": 1,
+      "tenant.purge": 4,
       "passkey.add_owner": 1
     },
     "tenantIds": {},
@@ -160,18 +156,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "819f5c8",
-      "ageMin": 3,
+      "status": "BUILDING",
+      "sha": "6032ec1",
+      "ageMin": 0,
       "lastGoodSha": "819f5c8",
-      "lastGoodAgeMin": 3
+      "lastGoodAgeMin": 30
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "819f5c8",
-      "ageMin": 3,
+      "status": "BUILDING",
+      "sha": "6032ec1",
+      "ageMin": 0,
       "lastGoodSha": "819f5c8",
-      "lastGoodAgeMin": 3
+      "lastGoodAgeMin": 30
     }
   },
   "prRerun": {},
