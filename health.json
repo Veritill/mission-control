@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-07T19:35:30.329Z",
+  "at": "2026-11-07T22:59:38.659Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -89,7 +89,8 @@
     },
     {
       "level": "warn",
-      "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it"
+      "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -103,7 +104,7 @@
     },
     {
       "level": "warn",
-      "text": "560 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "567 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
@@ -114,36 +115,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26,
-    "railwayProjected": 48,
+    "railwayMonthToDate": 26.13,
+    "railwayProjected": 48.45,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T19:35:27.063Z",
+    "at": "2026-11-07T22:59:36.763Z",
     "tenantContext": {
       "entries": 4,
-      "hits": 170,
+      "hits": 223,
       "misses": 14,
       "hydrations": 7
     },
     "platformContent": {
       "entries": 1,
-      "hits": 27,
+      "hits": 40,
       "misses": 12
     },
     "derived": {
-      "hits": 58,
+      "hits": 110,
       "misses": 31,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -151,7 +148,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 18
+      "onceHits": 31
     },
     "edgePurge": {
       "purges": 7,
@@ -170,12 +167,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T12:24:37.142Z",
+      "checkedAt": "2026-11-07T19:35:27.210Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T19:35:26.852Z",
+    "at": "2026-11-07T22:59:36.501Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -192,16 +189,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 432,
+      "ageMin": 636,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 432
+      "lastGoodAgeMin": 636
     },
     "web": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 432,
+      "ageMin": 636,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 432
+      "lastGoodAgeMin": 636
     }
   },
   "prRerun": {},
