@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-07T12:11:33.538Z",
+  "at": "2026-11-07T15:05:38.580Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 30,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 0
     },
     "core": {
-      "runs": 12,
-      "busyMin": 28,
-      "waitMin": 3,
-      "busyPct": 46
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 13,
-      "busyMin": 151,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 126
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 8,
-    "ciQueued": 2,
-    "oldestQueuedMin": 6
+    "agentsQueued": 0,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,11 +71,15 @@
   "findings": [
     {
       "level": "fixed",
-      "text": "lane solo had 1 ready task(s) 30+ min old and an idle runner: woke it"
+      "text": "lane solo had 2 ready task(s) 30+ min old and an idle runner: woke it"
+    },
+    {
+      "level": "fixed",
+      "text": "lane chain had 1 ready task(s) 30+ min old and an idle runner: woke it"
     },
     {
       "level": "warn",
-      "text": "25 of today's 48 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "26 of today's 49 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -90,16 +94,20 @@
     },
     {
       "level": "warn",
-      "text": "SOLO is empty while line \"55. #1642 S Payments 7: the monthly statement — after #1639...\" is eligible (#1642: open, after items closed, no PR): Core's hand-out skipped it"
+      "text": "CHAIN is empty while line \"49. #1645 M Payments 10: the provider pack door — after #163...\" is eligible (#1645: open, after items closed, no PR): Core's hand-out skipped it"
     },
     {
       "level": "warn",
-      "text": "537 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "SOLO is empty while line \"55. #1642 S Payments 7: the monthly statement — after #1639 ...\" is eligible (#1642: open, after items closed, no PR): Core's hand-out skipped it"
+    },
+    {
+      "level": "warn",
+      "text": "553 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
-      "level": "info",
-      "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+      "level": "warn",
+      "text": "security: 1 tenant purge(s) in the last hour"
     },
     {
       "level": "warn",
@@ -108,46 +116,46 @@
     },
     {
       "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "3 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 25.45,
-    "railwayProjected": 46.79,
+    "railwayMonthToDate": 25.75,
+    "railwayProjected": 47.35,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T12:11:25.009Z",
+    "at": "2026-11-07T15:05:34.340Z",
     "tenantContext": {
-      "entries": 4,
-      "hits": 209,
-      "misses": 11,
-      "hydrations": 11
+      "entries": 2,
+      "hits": 0,
+      "misses": 2,
+      "hydrations": 2
     },
     "platformContent": {
-      "entries": 1,
-      "hits": 23,
-      "misses": 19
+      "entries": 0,
+      "hits": 0,
+      "misses": 0
     },
     "derived": {
-      "hits": 61,
-      "misses": 51,
+      "hits": 0,
+      "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 21
+      "onceHits": 0
     },
     "edgePurge": {
-      "purges": 8,
-      "calls": 8,
-      "urls": 16,
+      "purges": 2,
+      "calls": 2,
+      "urls": 4,
       "failed": 0
     }
   },
@@ -155,25 +163,30 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-07T06:00:47.486Z",
+      "checkedAt": "2026-11-07T14:51:11.657Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T12:08:01.626Z",
+      "checkedAt": "2026-11-07T12:24:37.142Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T12:11:24.743Z",
+    "at": "2026-11-07T15:05:34.144Z",
     "windowMinutes": 60,
     "counts": {
+      "tenant.purge": 1,
+      "auth.code_failed": 1,
       "passkey.add_owner": 0
     },
     "tenantIds": {},
     "maxFailedSigninsPerEmail": {
-      "auth.code_failed": null,
+      "auth.code_failed": {
+        "email": "sha256:c62ac9196668",
+        "count": 1
+      },
       "auth.password_failed": null,
       "auth.pin_failed": null
     },
@@ -182,17 +195,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "c497d25",
-      "ageMin": 5,
-      "lastGoodSha": "c497d25",
-      "lastGoodAgeMin": 5
+      "sha": "95a0fde",
+      "ageMin": 162,
+      "lastGoodSha": "95a0fde",
+      "lastGoodAgeMin": 162
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "c497d25",
-      "ageMin": 5,
-      "lastGoodSha": "c497d25",
-      "lastGoodAgeMin": 5
+      "sha": "95a0fde",
+      "ageMin": 162,
+      "lastGoodSha": "95a0fde",
+      "lastGoodAgeMin": 162
     }
   },
   "prRerun": {},
@@ -209,12 +222,20 @@
       "since": "2026-11-05T22:49:34.175Z",
       "escalated": true
     },
-    "SOLO is empty while line \"#. ## S Payments #: the monthly statement — after ##..": {
-      "since": "2026-11-07T12:11:03.697Z",
+    "CHAIN is empty while line \"#. ## M Payments #: the provider pack door — after ##": {
+      "since": "2026-11-07T15:05:11.519Z",
+      "escalated": false
+    },
+    "SOLO is empty while line \"#. ## S Payments #: the monthly statement — after ## .": {
+      "since": "2026-11-07T15:05:11.519Z",
       "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-07T03:14:04.319Z",
+      "escalated": false
+    },
+    "security: # tenant purge(s) in the last hour": {
+      "since": "2026-11-07T15:05:11.519Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
@@ -222,5 +243,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-07T12:11:03.697Z"
+  "supervisorWokeAt": "2026-11-07T15:05:11.519Z"
 }
