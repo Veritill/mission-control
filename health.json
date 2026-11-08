@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-07T22:59:38.659Z",
+  "at": "2026-11-08T02:40:29.615Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -79,11 +79,6 @@
     },
     {
       "level": "warn",
-      "text": "26 of today's 49 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
-      "repeated": true
-    },
-    {
-      "level": "warn",
       "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #1714 — nothing builds them until a line names them",
       "repeated": true
     },
@@ -103,11 +98,6 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "567 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
-      "repeated": true
-    },
-    {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
     },
@@ -121,39 +111,39 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26.13,
-    "railwayProjected": 48.45,
+    "railwayMonthToDate": 26.23,
+    "railwayProjected": 48.91,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-07T22:59:36.763Z",
+    "at": "2026-11-08T02:40:27.809Z",
     "tenantContext": {
-      "entries": 4,
-      "hits": 223,
-      "misses": 14,
-      "hydrations": 7
+      "entries": 2,
+      "hits": 191,
+      "misses": 20,
+      "hydrations": 11
     },
     "platformContent": {
       "entries": 1,
-      "hits": 40,
-      "misses": 12
+      "hits": 20,
+      "misses": 6
     },
     "derived": {
-      "hits": 110,
-      "misses": 31,
+      "hits": 57,
+      "misses": 46,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 31
+      "onceHits": 20
     },
     "edgePurge": {
-      "purges": 7,
-      "calls": 7,
-      "urls": 14,
+      "purges": 1,
+      "calls": 1,
+      "urls": 2,
       "failed": 0
     }
   },
@@ -161,7 +151,7 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-07T14:51:11.657Z",
+      "checkedAt": "2026-11-08T00:12:50.795Z",
       "error": null
     },
     "staging": {
@@ -172,7 +162,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-07T22:59:36.501Z",
+    "at": "2026-11-08T02:40:27.486Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -189,24 +179,20 @@
     "api": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 636,
+      "ageMin": 857,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 636
+      "lastGoodAgeMin": 857
     },
     "web": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 636,
+      "ageMin": 857,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 636
+      "lastGoodAgeMin": 857
     }
   },
   "prRerun": {},
   "warnSince": {
-    "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
-      "since": "2026-11-07T04:39:48.613Z",
-      "escalated": false
-    },
     "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
       "since": "2026-11-07T10:41:59.525Z",
       "escalated": false
@@ -221,10 +207,6 @@
     },
     "SOLO is empty while line \"#. ## S Payments #: the monthly statement — after ## .": {
       "since": "2026-11-07T15:05:11.519Z",
-      "escalated": false
-    },
-    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
-      "since": "2026-11-07T03:14:04.319Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
