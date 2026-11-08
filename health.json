@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-08T02:40:29.615Z",
+  "at": "2026-11-08T10:43:45.186Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -111,39 +111,39 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26.23,
-    "railwayProjected": 48.91,
+    "railwayMonthToDate": 26.42,
+    "railwayProjected": 49.28,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T02:40:27.809Z",
+    "at": "2026-11-08T10:43:42.032Z",
     "tenantContext": {
-      "entries": 2,
-      "hits": 191,
-      "misses": 20,
-      "hydrations": 11
+      "entries": 3,
+      "hits": 359,
+      "misses": 23,
+      "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 20,
-      "misses": 6
+      "hits": 40,
+      "misses": 8
     },
     "derived": {
-      "hits": 57,
-      "misses": 46,
+      "hits": 103,
+      "misses": 88,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 20
+      "onceHits": 35
     },
     "edgePurge": {
-      "purges": 1,
-      "calls": 1,
-      "urls": 2,
+      "purges": 5,
+      "calls": 5,
+      "urls": 10,
       "failed": 0
     }
   },
@@ -157,12 +157,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-07T19:35:27.210Z",
+      "checkedAt": "2026-11-08T02:40:28.009Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T02:40:27.486Z",
+    "at": "2026-11-08T10:43:41.749Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,23 +179,23 @@
     "api": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 857,
+      "ageMin": 1340,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 857
+      "lastGoodAgeMin": 1340
     },
     "web": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 857,
+      "ageMin": 1340,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 857
+      "lastGoodAgeMin": 1340
     }
   },
   "prRerun": {},
   "warnSince": {
     "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
       "since": "2026-11-07T10:41:59.525Z",
-      "escalated": false
+      "escalated": true
     },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
