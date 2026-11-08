@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-08T15:09:28.841Z",
+  "at": "2026-11-08T15:59:51.800Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 23,
-      "waitMin": 7,
-      "busyPct": 19
+      "runs": 1,
+      "busyMin": 12,
+      "waitMin": 0,
+      "busyPct": 10
     },
     "core": {
-      "runs": 9,
-      "busyMin": 19,
-      "waitMin": 19,
-      "busyPct": 32
+      "runs": 4,
+      "busyMin": 18,
+      "waitMin": 10,
+      "busyPct": 30
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 105,
+      "runs": 6,
+      "busyMin": 126,
       "waitMin": 0,
-      "busyPct": 87
+      "busyPct": 105
     }
   },
   "queue": {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -80,6 +80,14 @@
       "repeated": true
     },
     {
+      "level": "warn",
+      "text": "main is RED (run 42493931525, failed: test) for 28 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $250 exceeds the $250 budget (Railway projected $50.16)"
+    },
+    {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
     },
@@ -87,32 +95,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26.88,
-    "railwayProjected": 49.87,
+    "railwayMonthToDate": 27.07,
+    "railwayProjected": 50.16,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T15:09:25.685Z",
+    "at": "2026-11-08T15:59:46.243Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 387,
+      "hits": 403,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 47,
+      "hits": 51,
       "misses": 8
     },
     "derived": {
-      "hits": 138,
+      "hits": 154,
       "misses": 103,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -120,7 +132,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 42
+      "onceHits": 46
     },
     "edgePurge": {
       "purges": 5,
@@ -139,12 +151,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-08T15:04:46.417Z",
+      "checkedAt": "2026-11-08T15:34:38.879Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T15:09:25.439Z",
+    "at": "2026-11-08T15:59:46.026Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -160,17 +172,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "54af810",
-      "ageMin": 6,
-      "lastGoodSha": "54af810",
-      "lastGoodAgeMin": 6
+      "sha": "ae36b1b",
+      "ageMin": 27,
+      "lastGoodSha": "ae36b1b",
+      "lastGoodAgeMin": 27
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "54af810",
-      "ageMin": 6,
-      "lastGoodSha": "69a8092",
-      "lastGoodAgeMin": 31
+      "status": "SUCCESS",
+      "sha": "ae36b1b",
+      "ageMin": 27,
+      "lastGoodSha": "ae36b1b",
+      "lastGoodAgeMin": 27
     }
   },
   "prRerun": {},
@@ -183,10 +195,18 @@
       "since": "2026-11-08T13:38:05.935Z",
       "escalated": false
     },
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-08T15:59:28.381Z",
+      "escalated": false
+    },
+    "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
+      "since": "2026-11-08T15:59:28.381Z",
+      "escalated": false
+    },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-08T14:39:02.335Z"
+  "supervisorWokeAt": "2026-11-08T15:59:28.381Z"
 }
