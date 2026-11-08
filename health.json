@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-08T15:59:51.800Z",
+  "at": "2026-11-08T16:33:47.485Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 12,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 2
     },
     "core": {
-      "runs": 4,
-      "busyMin": 18,
-      "waitMin": 10,
-      "busyPct": 30
+      "runs": 7,
+      "busyMin": 30,
+      "waitMin": 24,
+      "busyPct": 51
     },
     "planner": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 126,
+      "runs": 3,
+      "busyMin": 20,
       "waitMin": 0,
-      "busyPct": 105
+      "busyPct": 16
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -69,6 +69,10 @@
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
+    {
+      "level": "warn",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
     {
       "level": "warn",
       "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it",
@@ -81,11 +85,7 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 42493931525, failed: test) for 28 min — staging is not moving until a fix lands"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $250 exceeds the $250 budget (Railway projected $50.16)"
+      "text": "projected development cost $250 exceeds the $250 budget (Railway projected $50.32)"
     },
     {
       "level": "info",
@@ -98,33 +98,33 @@
     },
     {
       "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.07,
-    "railwayProjected": 50.16,
+    "railwayMonthToDate": 27.18,
+    "railwayProjected": 50.32,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T15:59:46.243Z",
+    "at": "2026-11-08T16:33:41.204Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 403,
+      "hits": 411,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 51,
+      "hits": 53,
       "misses": 8
     },
     "derived": {
-      "hits": 154,
+      "hits": 162,
       "misses": 103,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -132,7 +132,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 46
+      "onceHits": 48
     },
     "edgePurge": {
       "purges": 5,
@@ -156,7 +156,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T15:59:46.026Z",
+    "at": "2026-11-08T16:33:40.963Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -171,32 +171,32 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "ae36b1b",
-      "ageMin": 27,
+      "status": "BUILDING",
+      "sha": "ba978aa",
+      "ageMin": 2,
       "lastGoodSha": "ae36b1b",
-      "lastGoodAgeMin": 27
+      "lastGoodAgeMin": 61
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "ae36b1b",
-      "ageMin": 27,
-      "lastGoodSha": "ae36b1b",
-      "lastGoodAgeMin": 27
+      "sha": "ba978aa",
+      "ageMin": 2,
+      "lastGoodSha": "ba978aa",
+      "lastGoodAgeMin": 2
     }
   },
   "prRerun": {},
   "warnSince": {
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-08T16:33:24.720Z",
+      "escalated": false
+    },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": false
     },
     "nightly.yml's newest run failed (run #)": {
       "since": "2026-11-08T13:38:05.935Z",
-      "escalated": false
-    },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-08T15:59:28.381Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -208,5 +208,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-08T15:59:28.381Z"
+  "supervisorWokeAt": "2026-11-08T16:33:24.720Z"
 }
