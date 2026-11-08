@@ -1,12 +1,12 @@
 {
-  "at": "2026-11-08T10:43:45.186Z",
+  "at": "2026-11-08T13:38:28.304Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 3,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 2
     },
     "core": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 0,
+      "runs": 2,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 3,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -70,32 +70,18 @@
   "conflictWoken": {},
   "findings": [
     {
-      "level": "fixed",
-      "text": "lane solo had 2 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
-      "level": "fixed",
-      "text": "lane chain had 1 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
-      "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #1714 — nothing builds them until a line names them",
-      "repeated": true
-    },
-    {
       "level": "warn",
       "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"49. #1645 M Payments 10: the provider pack door — after #163...\" is eligible (#1645: open, after items closed, no PR): Core's hand-out skipped it",
+      "text": "SOLO is empty while line \"55. #1642 S Payments 7: the monthly statement — after #1639 ...\" is eligible (#1642: open, after items closed, no PR): Core's hand-out skipped it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "SOLO is empty while line \"55. #1642 S Payments 7: the monthly statement — after #1639 ...\" is eligible (#1642: open, after items closed, no PR): Core's hand-out skipped it",
-      "repeated": true
+      "text": "nightly.yml's newest run failed (run 42484679213)"
     },
     {
       "level": "info",
@@ -105,40 +91,44 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26.42,
-    "railwayProjected": 49.28,
+    "railwayMonthToDate": 26.49,
+    "railwayProjected": 49.34,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T10:43:42.032Z",
+    "at": "2026-11-08T13:38:24.771Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 359,
+      "hits": 363,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 40,
+      "hits": 41,
       "misses": 8
     },
     "derived": {
-      "hits": 103,
-      "misses": 88,
+      "hits": 114,
+      "misses": 103,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 35
+      "onceHits": 36
     },
     "edgePurge": {
       "purges": 5,
@@ -151,18 +141,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-08T00:12:50.795Z",
+      "checkedAt": "2026-11-08T10:43:42.257Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-08T02:40:28.009Z",
+      "checkedAt": "2026-11-08T10:43:42.189Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T10:43:41.749Z",
+    "at": "2026-11-08T13:38:24.504Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,34 +169,30 @@
     "api": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 1340,
+      "ageMin": 1515,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 1340
+      "lastGoodAgeMin": 1515
     },
     "web": {
       "status": "SUCCESS",
       "sha": "95a0fde",
-      "ageMin": 1340,
+      "ageMin": 1515,
       "lastGoodSha": "95a0fde",
-      "lastGoodAgeMin": 1340
+      "lastGoodAgeMin": 1515
     }
   },
   "prRerun": {},
   "warnSince": {
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
-      "since": "2026-11-07T10:41:59.525Z",
-      "escalated": true
-    },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": false
     },
-    "CHAIN is empty while line \"#. ## M Payments #: the provider pack door — after ##": {
+    "SOLO is empty while line \"#. ## S Payments #: the monthly statement — after ## .": {
       "since": "2026-11-07T15:05:11.519Z",
       "escalated": false
     },
-    "SOLO is empty while line \"#. ## S Payments #: the monthly statement — after ## .": {
-      "since": "2026-11-07T15:05:11.519Z",
+    "nightly.yml's newest run failed (run #)": {
+      "since": "2026-11-08T13:38:05.935Z",
       "escalated": false
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
@@ -214,5 +200,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-07T19:35:05.130Z"
+  "supervisorWokeAt": "2026-11-08T13:38:05.935Z"
 }
