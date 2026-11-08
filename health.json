@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-08T14:07:46.104Z",
+  "at": "2026-11-08T14:39:24.339Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 3,
-      "busyMin": 8,
-      "waitMin": 0,
-      "busyPct": 7
+      "busyMin": 58,
+      "waitMin": 7,
+      "busyPct": 48
     },
     "core": {
-      "runs": 4,
-      "busyMin": 15,
-      "waitMin": 26,
-      "busyPct": 26
+      "runs": 9,
+      "busyMin": 29,
+      "waitMin": 14,
+      "busyPct": 49
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 43,
+      "runs": 10,
+      "busyMin": 96,
       "waitMin": 0,
-      "busyPct": 36
+      "busyPct": 80
     }
   },
   "queue": {
     "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 5
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -64,14 +64,19 @@
       "busy": true
     }
   ],
-  "conflicted": [],
+  "conflicted": [
+    {
+      "number": 1737,
+      "branch": "docs/admin-knowledge-kickoff"
+    }
+  ],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -80,7 +85,8 @@
     },
     {
       "level": "warn",
-      "text": "nightly.yml's newest run failed (run 42484679213)"
+      "text": "nightly.yml's newest run failed (run 42484679213)",
+      "repeated": true
     },
     {
       "level": "info",
@@ -90,32 +96,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 26.58,
-    "railwayProjected": 49.46,
+    "railwayMonthToDate": 26.76,
+    "railwayProjected": 49.7,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T14:07:44.605Z",
+    "at": "2026-11-08T14:39:20.315Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 371,
+      "hits": 379,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 43,
+      "hits": 45,
       "misses": 8
     },
     "derived": {
-      "hits": 122,
+      "hits": 130,
       "misses": 103,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -123,7 +133,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 38
+      "onceHits": 40
     },
     "edgePurge": {
       "purges": 5,
@@ -142,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-08T14:04:46.552Z",
+      "checkedAt": "2026-11-08T14:18:16.071Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T14:07:44.342Z",
+    "at": "2026-11-08T14:39:20.052Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -162,24 +172,24 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "8037fe6",
-      "ageMin": 5,
-      "lastGoodSha": "8037fe6",
-      "lastGoodAgeMin": 5
+      "status": "BUILDING",
+      "sha": "69a8092",
+      "ageMin": 1,
+      "lastGoodSha": "447b42d",
+      "lastGoodAgeMin": 23
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "8037fe6",
-      "ageMin": 5,
-      "lastGoodSha": "8037fe6",
-      "lastGoodAgeMin": 5
+      "status": "BUILDING",
+      "sha": "69a8092",
+      "ageMin": 1,
+      "lastGoodSha": "447b42d",
+      "lastGoodAgeMin": 23
     }
   },
   "prRerun": {},
   "warnSince": {
-    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
-      "since": "2026-11-08T14:07:21.936Z",
+    "# pull request(s) conflicted with main; Core is busy (no dispatch)": {
+      "since": "2026-11-08T14:39:02.335Z",
       "escalated": false
     },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
@@ -195,5 +205,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-08T13:38:05.935Z"
+  "supervisorWokeAt": "2026-11-08T14:39:02.335Z"
 }
