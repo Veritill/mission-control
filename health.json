@@ -1,17 +1,17 @@
 {
-  "at": "2026-11-08T17:13:30.782Z",
+  "at": "2026-11-08T17:40:14.728Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 11,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 0
     },
     "core": {
-      "runs": 5,
+      "runs": 6,
       "busyMin": 13,
-      "waitMin": 17,
+      "waitMin": 6,
       "busyPct": 22
     },
     "planner": {
@@ -22,13 +22,13 @@
     },
     "ci": {
       "runs": 5,
-      "busyMin": 158,
+      "busyMin": 63,
       "waitMin": 0,
-      "busyPct": 132
+      "busyPct": 52
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -76,7 +76,7 @@
     },
     {
       "level": "warn",
-      "text": "132 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "147 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
@@ -85,7 +85,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.18)",
+      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.4)",
       "repeated": true
     },
     {
@@ -96,36 +96,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "staging api is NOT MOVING: the newest deploy (7133e26, 5 min ago) FAILED; staging still serves ba978aa from 41 min ago — main green changes nothing until this is fixed (Railway → platform → staging → api → the deploy log; runbook §12, 2026-11-04)"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.34,
-    "railwayProjected": 73.18,
+    "railwayMonthToDate": 27.43,
+    "railwayProjected": 73.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-08T17:13:27.140Z",
+    "at": "2026-11-08T17:40:10.581Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 419,
+      "hits": 427,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 55,
+      "hits": 57,
       "misses": 8
     },
     "derived": {
-      "hits": 170,
+      "hits": 178,
       "misses": 103,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -133,7 +129,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 50
+      "onceHits": 52
     },
     "edgePurge": {
       "purges": 5,
@@ -152,12 +148,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-08T16:34:40.609Z",
+      "checkedAt": "2026-11-08T17:24:34.707Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-08T17:13:26.862Z",
+    "at": "2026-11-08T17:40:10.344Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -172,18 +168,18 @@
   },
   "staging": {
     "api": {
-      "status": "FAILED",
-      "sha": "7133e26",
-      "ageMin": 5,
-      "lastGoodSha": "ba978aa",
-      "lastGoodAgeMin": 41
+      "status": "SUCCESS",
+      "sha": "28791fb",
+      "ageMin": 17,
+      "lastGoodSha": "28791fb",
+      "lastGoodAgeMin": 17
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "7133e26",
-      "ageMin": 5,
-      "lastGoodSha": "7133e26",
-      "lastGoodAgeMin": 5
+      "sha": "28791fb",
+      "ageMin": 17,
+      "lastGoodSha": "28791fb",
+      "lastGoodAgeMin": 17
     }
   },
   "prRerun": {},
@@ -207,10 +203,6 @@
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
       "escalated": true
-    },
-    "staging api is NOT MOVING: the newest deploy (#e#, # min ago) FAILED; staging st": {
-      "since": "2026-11-08T17:13:09.919Z",
-      "escalated": false
     }
   },
   "supervisorWokeAt": "2026-11-08T17:07:23.563Z"
