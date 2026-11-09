@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-09T08:06:32.559Z",
+  "at": "2026-11-09T08:35:02.443Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 25,
+      "runs": 3,
+      "busyMin": 45,
       "waitMin": 0,
-      "busyPct": 21
+      "busyPct": 37
     },
     "core": {
-      "runs": 7,
-      "busyMin": 18,
-      "waitMin": 3,
-      "busyPct": 31
+      "runs": 9,
+      "busyMin": 33,
+      "waitMin": 5,
+      "busyPct": 55
     },
     "planner": {
       "runs": 0,
@@ -21,27 +21,27 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 53,
+      "runs": 10,
+      "busyMin": 127,
       "waitMin": 0,
-      "busyPct": 45
+      "busyPct": 106
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "ciQueued": 1,
+    "oldestQueuedMin": 19
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,7 +76,7 @@
     },
     {
       "level": "warn",
-      "text": "180 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "194 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
@@ -86,7 +86,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.92)",
+      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $78.19)",
       "repeated": true
     },
     {
@@ -103,26 +103,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 29.7,
-    "railwayProjected": 77.92,
+    "railwayMonthToDate": 29.83,
+    "railwayProjected": 78.19,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-09T08:06:29.165Z",
+    "at": "2026-11-09T08:34:58.211Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 659,
+      "hits": 667,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 115,
+      "hits": 117,
       "misses": 8
     },
     "derived": {
-      "hits": 410,
+      "hits": 418,
       "misses": 105,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 110
+      "onceHits": 112
     },
     "edgePurge": {
       "purges": 5,
@@ -149,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-09T08:00:45.236Z",
+      "checkedAt": "2026-11-09T08:34:50.529Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-09T08:06:28.910Z",
+    "at": "2026-11-09T08:34:57.959Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "8fe1471",
-      "ageMin": 8,
-      "lastGoodSha": "8fe1471",
-      "lastGoodAgeMin": 8
+      "sha": "4687c7c",
+      "ageMin": 1,
+      "lastGoodSha": "4687c7c",
+      "lastGoodAgeMin": 1
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "8fe1471",
-      "ageMin": 8,
+      "status": "BUILDING",
+      "sha": "4687c7c",
+      "ageMin": 1,
       "lastGoodSha": "8fe1471",
-      "lastGoodAgeMin": 8
+      "lastGoodAgeMin": 37
     }
   },
   "prRerun": {},
