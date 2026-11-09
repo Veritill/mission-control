@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-09T06:06:08.896Z",
+  "at": "2026-11-09T06:41:41.679Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 10,
+      "runs": 5,
+      "busyMin": 79,
       "waitMin": 0,
-      "busyPct": 8
+      "busyPct": 65
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 4
+    "agentsQueued": 9,
+    "ciQueued": 0,
+    "oldestQueuedMin": 17
   },
   "runners": [
     {
@@ -71,8 +71,16 @@
   "findings": [
     {
       "level": "warn",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "128 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
@@ -81,7 +89,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.45)",
+      "text": "projected development cost $277 exceeds the $250 budget (Railway projected $76.8)",
       "repeated": true
     },
     {
@@ -92,40 +100,44 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 29.08,
-    "railwayProjected": 76.45,
+    "railwayMonthToDate": 29.24,
+    "railwayProjected": 76.8,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-09T06:06:06.854Z",
+    "at": "2026-11-09T06:41:38.581Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 627,
+      "hits": 639,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 107,
+      "hits": 110,
       "misses": 8
     },
     "derived": {
-      "hits": 378,
-      "misses": 103,
+      "hits": 390,
+      "misses": 105,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 102
+      "onceHits": 105
     },
     "edgePurge": {
       "purges": 5,
@@ -138,18 +150,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-08T23:28:36.476Z",
+      "checkedAt": "2026-11-09T06:06:07.074Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-08T23:38:20.026Z",
+      "checkedAt": "2026-11-09T06:06:07.015Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-09T06:06:06.579Z",
+    "at": "2026-11-09T06:41:38.354Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -166,23 +178,31 @@
     "api": {
       "status": "SUCCESS",
       "sha": "c2db7fb",
-      "ageMin": 390,
+      "ageMin": 425,
       "lastGoodSha": "c2db7fb",
-      "lastGoodAgeMin": 390
+      "lastGoodAgeMin": 425
     },
     "web": {
       "status": "SUCCESS",
       "sha": "c2db7fb",
-      "ageMin": 390,
+      "ageMin": 425,
       "lastGoodSha": "c2db7fb",
-      "lastGoodAgeMin": 390
+      "lastGoodAgeMin": 425
     }
   },
   "prRerun": {},
   "warnSince": {
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-09T06:41:12.161Z",
+      "escalated": false
+    },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": true
+    },
+    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
+      "since": "2026-11-09T06:41:12.161Z",
+      "escalated": false
     },
     "nightly.yml's newest run failed (run #)": {
       "since": "2026-11-08T13:38:05.935Z",
@@ -197,5 +217,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-08T17:07:23.563Z"
+  "supervisorWokeAt": "2026-11-09T06:41:12.161Z"
 }
