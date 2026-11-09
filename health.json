@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-09T08:35:02.443Z",
+  "at": "2026-11-09T08:37:59.046Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 3,
-      "busyMin": 45,
+      "busyMin": 48,
       "waitMin": 0,
-      "busyPct": 37
+      "busyPct": 40
     },
     "core": {
-      "runs": 9,
-      "busyMin": 33,
-      "waitMin": 5,
-      "busyPct": 55
+      "runs": 7,
+      "busyMin": 27,
+      "waitMin": 2,
+      "busyPct": 46
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 127,
+      "runs": 9,
+      "busyMin": 133,
       "waitMin": 0,
-      "busyPct": 106
+      "busyPct": 111
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 1,
-    "oldestQueuedMin": 19
+    "oldestQueuedMin": 22
   },
   "runners": [
     {
@@ -86,6 +86,10 @@
     },
     {
       "level": "warn",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 22 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
       "text": "projected development cost $278 exceeds the $250 budget (Railway projected $78.19)",
       "repeated": true
     },
@@ -97,6 +101,10 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
@@ -109,20 +117,20 @@
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-09T08:34:58.211Z",
+    "at": "2026-11-09T08:37:53.799Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 667,
+      "hits": 671,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 117,
+      "hits": 118,
       "misses": 8
     },
     "derived": {
-      "hits": 418,
+      "hits": 422,
       "misses": 105,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +138,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 112
+      "onceHits": 113
     },
     "edgePurge": {
       "purges": 5,
@@ -154,7 +162,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-09T08:34:57.959Z",
+    "at": "2026-11-09T08:37:53.603Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -171,16 +179,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "4687c7c",
-      "ageMin": 1,
+      "ageMin": 4,
       "lastGoodSha": "4687c7c",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 4
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "4687c7c",
-      "ageMin": 1,
-      "lastGoodSha": "8fe1471",
-      "lastGoodAgeMin": 37
+      "ageMin": 4,
+      "lastGoodSha": "4687c7c",
+      "lastGoodAgeMin": 4
     }
   },
   "prRerun": {},
@@ -197,6 +205,10 @@
       "since": "2026-11-08T13:38:05.935Z",
       "escalated": false
     },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-09T08:37:33.661Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-08T15:59:28.381Z",
       "escalated": false
@@ -206,5 +218,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-09T07:35:42.871Z"
+  "supervisorWokeAt": "2026-11-09T08:37:33.661Z"
 }
