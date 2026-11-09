@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-09T17:12:55.610Z",
+  "at": "2026-11-09T17:41:16.048Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 39,
-      "waitMin": 25,
-      "busyPct": 32
+      "runs": 3,
+      "busyMin": 14,
+      "waitMin": 0,
+      "busyPct": 12
     },
     "core": {
-      "runs": 7,
-      "busyMin": 21,
-      "waitMin": 7,
-      "busyPct": 35
+      "runs": 5,
+      "busyMin": 9,
+      "waitMin": 0,
+      "busyPct": 15
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 79,
+      "runs": 7,
+      "busyMin": 120,
       "waitMin": 0,
-      "busyPct": 65
+      "busyPct": 100
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 7
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 605 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 634 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 588 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 617 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,12 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "494 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "502 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $82.55)",
+      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $82.77)",
       "repeated": true
     },
     {
@@ -108,26 +108,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 31.91,
-    "railwayProjected": 82.55,
+    "railwayMonthToDate": 32.03,
+    "railwayProjected": 82.77,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-09T17:12:48.148Z",
+    "at": "2026-11-09T17:41:10.208Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 807,
+      "hits": 815,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 152,
+      "hits": 154,
       "misses": 8
     },
     "derived": {
-      "hits": 583,
+      "hits": 591,
       "misses": 118,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -135,7 +135,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 147
+      "onceHits": 149
     },
     "edgePurge": {
       "purges": 5,
@@ -154,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-09T16:42:49.037Z",
+      "checkedAt": "2026-11-09T17:13:39.565Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-09T17:12:47.920Z",
+    "at": "2026-11-09T17:41:09.972Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,18 +174,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "70ac5dc",
-      "ageMin": 0,
-      "lastGoodSha": "c10954e",
-      "lastGoodAgeMin": 32
+      "ageMin": 29,
+      "lastGoodSha": "70ac5dc",
+      "lastGoodAgeMin": 29
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "70ac5dc",
-      "ageMin": 0,
-      "lastGoodSha": "c10954e",
-      "lastGoodAgeMin": 32
+      "ageMin": 29,
+      "lastGoodSha": "70ac5dc",
+      "lastGoodAgeMin": 29
     }
   },
   "prRerun": {},
