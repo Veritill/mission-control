@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-10T19:49:46.486Z",
+  "at": "2026-11-10T19:58:52.443Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -11,7 +11,7 @@
     "core": {
       "runs": 3,
       "busyMin": 9,
-      "waitMin": 1,
+      "waitMin": 9,
       "busyPct": 16
     },
     "planner": {
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 39,
+      "runs": 7,
+      "busyMin": 47,
       "waitMin": 0,
-      "busyPct": 33
+      "busyPct": 40
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,27 +61,18 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
-  "conflicted": [
-    {
-      "number": 1901,
-      "branch": "lane/chain/1852"
-    }
-  ],
+  "conflicted": [],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1763 red for 2185 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 2194 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -90,12 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "480 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "486 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.02)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.04)",
       "repeated": true
     },
     {
@@ -106,36 +97,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 36.65,
-    "railwayProjected": 89.02,
+    "railwayMonthToDate": 36.67,
+    "railwayProjected": 89.04,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-10T19:49:38.638Z",
+    "at": "2026-11-10T19:58:48.683Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 1239,
+      "hits": 1243,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 260,
+      "hits": 261,
       "misses": 8
     },
     "derived": {
-      "hits": 1026,
+      "hits": 1030,
       "misses": 128,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -143,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 255
+      "onceHits": 256
     },
     "edgePurge": {
       "purges": 5,
@@ -162,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-10T19:46:29.418Z",
+      "checkedAt": "2026-11-10T19:52:35.561Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-10T19:49:38.375Z",
+    "at": "2026-11-10T19:58:48.462Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -182,18 +169,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "d2b9031",
-      "ageMin": 1,
-      "lastGoodSha": "d2d35ef",
-      "lastGoodAgeMin": 4
+      "ageMin": 10,
+      "lastGoodSha": "d2b9031",
+      "lastGoodAgeMin": 10
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "d2b9031",
-      "ageMin": 1,
-      "lastGoodSha": "d2d35ef",
-      "lastGoodAgeMin": 4
+      "ageMin": 10,
+      "lastGoodSha": "d2b9031",
+      "lastGoodAgeMin": 10
     }
   },
   "prRerun": {},
@@ -201,10 +188,6 @@
     "PR ## red for # min with no new push (failed: test): its lane is not fixing it": {
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
-    },
-    "# pull request(s) conflicted with main; Core is busy (no dispatch)": {
-      "since": "2026-11-10T19:49:07.672Z",
-      "escalated": false
     },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
