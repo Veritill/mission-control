@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-10T12:09:36.154Z",
+  "at": "2026-11-10T13:17:06.897Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 2,
+      "busyMin": 4,
       "waitMin": 0,
       "busyPct": 3
     },
     "core": {
-      "runs": 5,
-      "busyMin": 5,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 23,
+      "runs": 2,
+      "busyMin": 6,
       "waitMin": 0,
-      "busyPct": 20
+      "busyPct": 5
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 1742 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1810 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 1725 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 1793 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,16 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"69. #1824 M Delivery only inside the client's radius, API ha...\" is eligible (#1824: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "315 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "332 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.94)",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $87.06)",
       "repeated": true
     },
     {
@@ -112,26 +108,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 35.1,
-    "railwayProjected": 86.94,
+    "railwayMonthToDate": 35.27,
+    "railwayProjected": 87.06,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-10T12:09:31.135Z",
+    "at": "2026-11-10T13:17:02.962Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 1114,
+      "hits": 1123,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 229,
+      "hits": 231,
       "misses": 8
     },
     "derived": {
-      "hits": 891,
+      "hits": 899,
       "misses": 120,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -139,7 +135,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 224
+      "onceHits": 226
     },
     "edgePurge": {
       "purges": 5,
@@ -158,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-10T11:19:45.838Z",
+      "checkedAt": "2026-11-10T12:17:25.831Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-10T12:09:30.898Z",
+    "at": "2026-11-10T13:17:02.635Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,17 +175,17 @@
   "staging": {
     "api": {
       "status": "BUILDING",
-      "sha": "78e9523",
-      "ageMin": 0,
-      "lastGoodSha": "ce3ee27",
-      "lastGoodAgeMin": 52
+      "sha": "9e63af9",
+      "ageMin": 1,
+      "lastGoodSha": "801479b",
+      "lastGoodAgeMin": 61
     },
     "web": {
       "status": "BUILDING",
-      "sha": "78e9523",
-      "ageMin": 0,
-      "lastGoodSha": "ce3ee27",
-      "lastGoodAgeMin": 52
+      "sha": "9e63af9",
+      "ageMin": 1,
+      "lastGoodSha": "801479b",
+      "lastGoodAgeMin": 61
     }
   },
   "prRerun": {},
@@ -201,10 +197,6 @@
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": true
-    },
-    "CHAIN is empty while line \"#. ## M Delivery only inside the client's radius, API": {
-      "since": "2026-11-10T12:08:56.526Z",
-      "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-10T06:22:14.357Z",
