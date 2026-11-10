@@ -1,12 +1,12 @@
 {
-  "at": "2026-11-10T11:14:33.732Z",
+  "at": "2026-11-10T11:42:11.031Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 7,
+      "runs": 1,
+      "busyMin": 5,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 4
     },
     "core": {
       "runs": 6,
@@ -22,13 +22,13 @@
     },
     "ci": {
       "runs": 5,
-      "busyMin": 51,
+      "busyMin": 30,
       "waitMin": 0,
-      "busyPct": 43
+      "busyPct": 25
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,13 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 1687 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1714 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 1670 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 1697 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "lane chain had 1 ready task(s) 30+ min old and an idle runner: woke it"
     },
     {
       "level": "warn",
@@ -86,12 +90,16 @@
     },
     {
       "level": "warn",
-      "text": "301 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "CHAIN is empty while line \"68. #1803 S Gap O6: card-fee and settlement-lag reasons are ...\" is eligible (#1803: open, after items closed, no PR): Core's hand-out skipped it"
+    },
+    {
+      "level": "warn",
+      "text": "305 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.84)",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.86)",
       "repeated": true
     },
     {
@@ -102,32 +110,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 34.97,
-    "railwayProjected": 86.84,
+    "railwayMonthToDate": 35.03,
+    "railwayProjected": 86.86,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-10T11:14:27.011Z",
+    "at": "2026-11-10T11:42:03.466Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 1098,
+      "hits": 1106,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 225,
+      "hits": 227,
       "misses": 8
     },
     "derived": {
-      "hits": 875,
+      "hits": 883,
       "misses": 120,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -135,7 +147,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 220
+      "onceHits": 222
     },
     "edgePurge": {
       "purges": 5,
@@ -154,12 +166,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-10T10:52:09.336Z",
+      "checkedAt": "2026-11-10T11:19:45.838Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-10T11:14:26.775Z",
+    "at": "2026-11-10T11:42:03.253Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -175,17 +187,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "79aeeab",
-      "ageMin": 23,
-      "lastGoodSha": "79aeeab",
-      "lastGoodAgeMin": 23
+      "sha": "ce3ee27",
+      "ageMin": 24,
+      "lastGoodSha": "ce3ee27",
+      "lastGoodAgeMin": 24
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "79aeeab",
-      "ageMin": 23,
-      "lastGoodSha": "79aeeab",
-      "lastGoodAgeMin": 23
+      "sha": "ce3ee27",
+      "ageMin": 24,
+      "lastGoodSha": "ce3ee27",
+      "lastGoodAgeMin": 24
     }
   },
   "prRerun": {},
@@ -197,6 +209,10 @@
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": true
+    },
+    "CHAIN is empty while line \"#. ## S Gap O#: card-fee and settlement-lag reasons a": {
+      "since": "2026-11-10T11:41:11.772Z",
+      "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-10T06:22:14.357Z",
@@ -211,5 +227,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-10T08:52:52.187Z"
+  "supervisorWokeAt": "2026-11-10T11:41:11.772Z"
 }
