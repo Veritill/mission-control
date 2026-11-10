@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-10T06:48:18.029Z",
+  "at": "2026-11-10T07:39:10.844Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 17,
+      "busyMin": 5,
       "waitMin": 0,
-      "busyPct": 14
+      "busyPct": 4
     },
     "core": {
-      "runs": 4,
-      "busyMin": 9,
-      "waitMin": 2,
-      "busyPct": 15
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 3,
+      "busyPct": 2
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 28,
+      "runs": 1,
+      "busyMin": 20,
       "waitMin": 0,
-      "busyPct": 23
+      "busyPct": 16
     }
   },
   "queue": {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 1421 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1472 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 1404 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 1455 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,11 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "181 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "196 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $85.38)",
+      "text": "projected development cost $286 exceeds the $250 budget (Railway projected $85.6)",
       "repeated": true
     },
     {
@@ -107,26 +108,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 34.01,
-    "railwayProjected": 85.38,
+    "railwayMonthToDate": 34.17,
+    "railwayProjected": 85.6,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-10T06:48:09.479Z",
+    "at": "2026-11-10T07:39:03.002Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 1023,
+      "hits": 1039,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 206,
+      "hits": 210,
       "misses": 8
     },
     "derived": {
-      "hits": 799,
+      "hits": 815,
       "misses": 120,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -134,7 +135,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 201
+      "onceHits": 205
     },
     "edgePurge": {
       "purges": 5,
@@ -158,7 +159,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-10T06:48:09.225Z",
+    "at": "2026-11-10T07:39:02.787Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -175,16 +176,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "8f67d8d",
-      "ageMin": 11,
+      "ageMin": 62,
       "lastGoodSha": "8f67d8d",
-      "lastGoodAgeMin": 11
+      "lastGoodAgeMin": 62
     },
     "web": {
       "status": "SUCCESS",
       "sha": "8f67d8d",
-      "ageMin": 11,
+      "ageMin": 62,
       "lastGoodSha": "8f67d8d",
-      "lastGoodAgeMin": 11
+      "lastGoodAgeMin": 62
     }
   },
   "prRerun": {},
