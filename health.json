@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-10T03:56:23.655Z",
+  "at": "2026-11-10T04:35:55.738Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 9,
-      "waitMin": 0,
-      "busyPct": 8
+      "runs": 2,
+      "busyMin": 19,
+      "waitMin": 18,
+      "busyPct": 16
     },
     "core": {
-      "runs": 5,
-      "busyMin": 14,
-      "waitMin": 3,
-      "busyPct": 23
+      "runs": 3,
+      "busyMin": 9,
+      "waitMin": 10,
+      "busyPct": 15
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 44,
+      "runs": 4,
+      "busyMin": 23,
       "waitMin": 0,
-      "busyPct": 37
+      "busyPct": 19
     }
   },
   "queue": {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,17 +71,13 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 1249 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1289 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 1232 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 1271 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "lane chain had 2 ready task(s) 30+ min old and an idle runner: woke it"
     },
     {
       "level": "warn",
@@ -90,11 +86,11 @@
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"63. #1786 M GS v9 9: what leaves (the v8 bar, session card, ...\" is eligible (#1786: open, after items closed, no PR): Core's hand-out skipped it"
+      "text": "SOLO is empty while line \"77. #1790 M GS v9 web 9: the whole-journey walk per shape th...\" is eligible (#1790: open, after items closed, no PR): Core's hand-out skipped it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $284 exceeds the $250 budget (Railway projected $84.45)",
+      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $84.7)",
       "repeated": true
     },
     {
@@ -115,26 +111,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 33.42,
-    "railwayProjected": 84.45,
+    "railwayMonthToDate": 33.56,
+    "railwayProjected": 84.7,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-10T03:56:20.337Z",
+    "at": "2026-11-10T04:35:50.874Z",
     "tenantContext": {
       "entries": 3,
-      "hits": 979,
+      "hits": 991,
       "misses": 23,
       "hydrations": 14
     },
     "platformContent": {
       "entries": 1,
-      "hits": 195,
+      "hits": 198,
       "misses": 8
     },
     "derived": {
-      "hits": 755,
+      "hits": 767,
       "misses": 118,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -142,7 +138,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 190
+      "onceHits": 193
     },
     "edgePurge": {
       "purges": 5,
@@ -161,12 +157,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-10T03:30:02.188Z",
+      "checkedAt": "2026-11-10T04:06:05.435Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-10T03:56:20.098Z",
+    "at": "2026-11-10T04:35:50.642Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -182,17 +178,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "9154d60",
-      "ageMin": 28,
-      "lastGoodSha": "9154d60",
-      "lastGoodAgeMin": 28
+      "sha": "bf08ca7",
+      "ageMin": 32,
+      "lastGoodSha": "bf08ca7",
+      "lastGoodAgeMin": 32
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "9154d60",
-      "ageMin": 28,
-      "lastGoodSha": "9154d60",
-      "lastGoodAgeMin": 28
+      "sha": "bf08ca7",
+      "ageMin": 32,
+      "lastGoodSha": "bf08ca7",
+      "lastGoodAgeMin": 32
     }
   },
   "prRerun": {},
@@ -205,8 +201,8 @@
       "since": "2026-11-07T19:35:05.130Z",
       "escalated": true
     },
-    "CHAIN is empty while line \"#. ## M GS v# #: what leaves (the v# bar, session car": {
-      "since": "2026-11-10T03:55:59.111Z",
+    "SOLO is empty while line \"#. ## M GS v# web #: the whole-journey walk per shape ": {
+      "since": "2026-11-10T04:35:29.593Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -218,5 +214,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-10T03:55:59.111Z"
+  "supervisorWokeAt": "2026-11-10T04:35:29.593Z"
 }
