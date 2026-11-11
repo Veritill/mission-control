@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-11T10:51:33.717Z",
+  "at": "2026-11-11T11:18:38.041Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -10,9 +10,9 @@
     },
     "core": {
       "runs": 5,
-      "busyMin": 13,
-      "waitMin": 0,
-      "busyPct": 22
+      "busyMin": 7,
+      "waitMin": 1,
+      "busyPct": 11
     },
     "planner": {
       "runs": 0,
@@ -22,9 +22,9 @@
     },
     "ci": {
       "runs": 4,
-      "busyMin": 65,
+      "busyMin": 68,
       "waitMin": 0,
-      "busyPct": 54
+      "busyPct": 57
     }
   },
   "queue": {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 972 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 999 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 3087 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 3114 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -91,7 +91,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $90.28)",
+      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $90.33)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 39.2,
-    "railwayProjected": 90.28,
+    "railwayMonthToDate": 39.3,
+    "railwayProjected": 90.33,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-11T10:51:31.002Z",
+    "at": "2026-11-11T11:18:34.384Z",
     "tenantContext": {
       "entries": 3,
       "hits": 1388,
@@ -154,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-11T10:24:24.132Z",
+      "checkedAt": "2026-11-11T10:55:09.091Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-11T10:51:30.533Z",
+    "at": "2026-11-11T11:18:34.045Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,18 +174,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "194dc23",
-      "ageMin": 28,
-      "lastGoodSha": "194dc23",
-      "lastGoodAgeMin": 28
+      "status": "BUILDING",
+      "sha": "d897ba5",
+      "ageMin": 1,
+      "lastGoodSha": "e2f9c02",
+      "lastGoodAgeMin": 25
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "194dc23",
-      "ageMin": 28,
-      "lastGoodSha": "194dc23",
-      "lastGoodAgeMin": 28
+      "status": "BUILDING",
+      "sha": "d897ba5",
+      "ageMin": 1,
+      "lastGoodSha": "e2f9c02",
+      "lastGoodAgeMin": 25
     }
   },
   "prRerun": {},
