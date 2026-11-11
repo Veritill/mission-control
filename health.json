@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-11T11:18:38.041Z",
+  "at": "2026-11-11T16:33:35.344Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 11,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 0
     },
     "core": {
-      "runs": 5,
-      "busyMin": 7,
-      "waitMin": 1,
-      "busyPct": 11
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 68,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 57
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -71,18 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 999 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1314 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 3114 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 3429 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "needs you: #1627, #1083 open over a day with a schedule line waiting on it",
-      "repeated": true
+      "text": "needs you: #1897, #1627, #1083 open over a day with a schedule line waiting on it"
     },
     {
       "level": "warn",
@@ -91,7 +90,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $90.33)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $88.69)",
       "repeated": true
     },
     {
@@ -102,19 +101,23 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 39.3,
-    "railwayProjected": 90.33,
+    "railwayMonthToDate": 39.69,
+    "railwayProjected": 88.69,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-11T11:18:34.384Z",
+    "at": "2026-11-11T16:33:31.471Z",
     "tenantContext": {
       "entries": 3,
       "hits": 1388,
@@ -127,8 +130,8 @@
       "misses": 8
     },
     "derived": {
-      "hits": 1162,
-      "misses": 128,
+      "hits": 1173,
+      "misses": 136,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
@@ -154,12 +157,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-11T10:55:09.091Z",
+      "checkedAt": "2026-11-11T11:19:52.360Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-11T11:18:34.045Z",
+    "at": "2026-11-11T16:33:31.218Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,18 +177,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "d897ba5",
-      "ageMin": 1,
-      "lastGoodSha": "e2f9c02",
-      "lastGoodAgeMin": 25
+      "ageMin": 316,
+      "lastGoodSha": "d897ba5",
+      "lastGoodAgeMin": 316
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "d897ba5",
-      "ageMin": 1,
-      "lastGoodSha": "e2f9c02",
-      "lastGoodAgeMin": 25
+      "ageMin": 316,
+      "lastGoodSha": "d897ba5",
+      "lastGoodAgeMin": 316
     }
   },
   "prRerun": {},
@@ -194,9 +197,9 @@
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
     },
-    "needs you: ##, ## open over a day with a schedule line waiting on it": {
-      "since": "2026-11-07T19:35:05.130Z",
-      "escalated": true
+    "needs you: ##, ##, ## open over a day with a schedule line waiting on it": {
+      "since": "2026-11-11T16:33:06.332Z",
+      "escalated": false
     },
     "CHAIN is empty while line \"#. ## L The router, stages #–#, API half: plans per w": {
       "since": "2026-11-11T00:37:57.270Z",
@@ -211,5 +214,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-11T00:37:57.270Z"
+  "supervisorWokeAt": "2026-11-11T16:33:06.332Z"
 }
