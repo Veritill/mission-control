@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-12T01:33:23.276Z",
+  "at": "2026-11-12T02:05:55.777Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 3,
+      "runs": 2,
+      "busyMin": 7,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 6
     },
     "core": {
-      "runs": 5,
-      "busyMin": 10,
-      "waitMin": 11,
-      "busyPct": 16
+      "runs": 9,
+      "busyMin": 21,
+      "waitMin": 3,
+      "busyPct": 35
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 32,
+      "runs": 7,
+      "busyMin": 60,
       "waitMin": 0,
-      "busyPct": 26
+      "busyPct": 50
     }
   },
   "queue": {
-    "agentsQueued": 3,
-    "ciQueued": 1,
-    "oldestQueuedMin": 2
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -71,13 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 1854 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 1886 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 3969 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 4001 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #1938, #1937 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -85,7 +89,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $85.46)",
+      "text": "projected development cost $286 exceeds the $250 budget (Railway projected $85.55)",
       "repeated": true
     },
     {
@@ -96,19 +100,23 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 40.18,
-    "railwayProjected": 85.46,
+    "railwayMonthToDate": 40.31,
+    "railwayProjected": 85.55,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-12T01:33:21.270Z",
+    "at": "2026-11-12T02:05:51.963Z",
     "tenantContext": {
       "entries": 3,
       "hits": 1388,
@@ -148,12 +156,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-12T01:31:37.404Z",
+      "checkedAt": "2026-11-12T01:45:22.491Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-12T01:33:20.993Z",
+    "at": "2026-11-12T02:05:51.722Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -169,17 +177,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "d664fdc",
-      "ageMin": 3,
-      "lastGoodSha": "d664fdc",
-      "lastGoodAgeMin": 3
+      "sha": "d580701",
+      "ageMin": 22,
+      "lastGoodSha": "d580701",
+      "lastGoodAgeMin": 22
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "d664fdc",
-      "ageMin": 3,
-      "lastGoodSha": "d664fdc",
-      "lastGoodAgeMin": 3
+      "sha": "d580701",
+      "ageMin": 22,
+      "lastGoodSha": "d580701",
+      "lastGoodAgeMin": 22
     }
   },
   "prRerun": {},
@@ -187,6 +195,10 @@
     "PR ## red for # min with no new push (failed: test): its lane is not fixing it": {
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
+    },
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
+      "since": "2026-11-12T02:05:28.552Z",
+      "escalated": false
     },
     "needs you: ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-12T01:06:31.220Z",
@@ -201,5 +213,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-12T01:06:31.220Z"
+  "supervisorWokeAt": "2026-11-12T02:05:28.552Z"
 }
