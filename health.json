@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-12T21:01:15.038Z",
+  "at": "2026-11-12T21:03:53.282Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -10,9 +10,9 @@
     },
     "core": {
       "runs": 4,
-      "busyMin": 10,
+      "busyMin": 11,
       "waitMin": 3,
-      "busyPct": 16
+      "busyPct": 19
     },
     "planner": {
       "runs": 1,
@@ -21,16 +21,16 @@
       "busyPct": 10
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 39,
+      "runs": 6,
+      "busyMin": 42,
       "waitMin": 0,
-      "busyPct": 32
+      "busyPct": 35
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 3,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 3
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 3021 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 3024 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 5137 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 5139 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,7 +86,7 @@
     },
     {
       "level": "warn",
-      "text": "422 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "426 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
@@ -114,7 +114,7 @@
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-12T21:01:11.356Z",
+    "at": "2026-11-12T21:03:50.568Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -159,7 +159,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-12T21:01:11.107Z",
+    "at": "2026-11-12T21:03:50.396Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,18 +174,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "0035cca",
-      "ageMin": 42,
+      "status": "BUILDING",
+      "sha": "7ddb61a",
+      "ageMin": 0,
       "lastGoodSha": "0035cca",
-      "lastGoodAgeMin": 42
+      "lastGoodAgeMin": 45
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "0035cca",
-      "ageMin": 42,
+      "status": "BUILDING",
+      "sha": "7ddb61a",
+      "ageMin": 0,
       "lastGoodSha": "0035cca",
-      "lastGoodAgeMin": 42
+      "lastGoodAgeMin": 45
     }
   },
   "prRerun": {},
