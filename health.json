@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-12T12:24:11.601Z",
+  "at": "2026-11-12T12:57:55.441Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 20,
+      "runs": 1,
+      "busyMin": 14,
       "waitMin": 0,
-      "busyPct": 17
+      "busyPct": 11
     },
     "core": {
-      "runs": 6,
-      "busyMin": 12,
-      "waitMin": 5,
-      "busyPct": 20
+      "runs": 9,
+      "busyMin": 30,
+      "waitMin": 4,
+      "busyPct": 50
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 7,
-      "waitMin": 1,
-      "busyPct": 12
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 76,
+      "runs": 9,
+      "busyMin": 122,
       "waitMin": 0,
-      "busyPct": 63
+      "busyPct": 101
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 19
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 2504 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 2538 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 4619 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 4653 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,12 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "354 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "370 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.52)",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.63)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 42.49,
-    "railwayProjected": 86.52,
+    "railwayMonthToDate": 42.63,
+    "railwayProjected": 86.63,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-12T12:24:06.744Z",
+    "at": "2026-11-12T12:57:49.859Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -154,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-12T11:45:18.967Z",
+      "checkedAt": "2026-11-12T12:32:00.865Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-12T12:24:06.475Z",
+    "at": "2026-11-12T12:57:49.580Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -175,17 +175,17 @@
   "staging": {
     "api": {
       "status": "BUILDING",
-      "sha": "3012279",
-      "ageMin": 1,
-      "lastGoodSha": "8fed8df",
-      "lastGoodAgeMin": 40
+      "sha": "7146288",
+      "ageMin": 0,
+      "lastGoodSha": "6bdb9b3",
+      "lastGoodAgeMin": 27
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "3012279",
-      "ageMin": 1,
-      "lastGoodSha": "3012279",
-      "lastGoodAgeMin": 1
+      "status": "BUILDING",
+      "sha": "7146288",
+      "ageMin": 0,
+      "lastGoodSha": "6bdb9b3",
+      "lastGoodAgeMin": 27
     }
   },
   "prRerun": {},
