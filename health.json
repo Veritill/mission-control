@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-12T13:41:42.411Z",
+  "at": "2026-11-12T14:18:13.154Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 19,
+      "busyMin": 1,
       "waitMin": 0,
-      "busyPct": 16
+      "busyPct": 1
     },
     "core": {
-      "runs": 9,
-      "busyMin": 23,
+      "runs": 5,
+      "busyMin": 12,
       "waitMin": 6,
-      "busyPct": 38
+      "busyPct": 20
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 74,
+      "runs": 3,
+      "busyMin": 53,
       "waitMin": 0,
-      "busyPct": 61
+      "busyPct": 44
     }
   },
   "queue": {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 2582 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 2618 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 4697 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 4734 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,12 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "389 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "395 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.84)",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.85)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 42.83,
-    "railwayProjected": 86.84,
+    "railwayMonthToDate": 42.94,
+    "railwayProjected": 86.85,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-12T13:41:35.102Z",
+    "at": "2026-11-12T14:18:05.386Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -159,7 +159,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-12T13:41:34.843Z",
+    "at": "2026-11-12T14:18:05.107Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -176,16 +176,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "cccbee8",
-      "ageMin": 10,
+      "ageMin": 46,
       "lastGoodSha": "cccbee8",
-      "lastGoodAgeMin": 10
+      "lastGoodAgeMin": 46
     },
     "web": {
       "status": "SUCCESS",
       "sha": "cccbee8",
-      "ageMin": 10,
+      "ageMin": 46,
       "lastGoodSha": "cccbee8",
-      "lastGoodAgeMin": 10
+      "lastGoodAgeMin": 46
     }
   },
   "prRerun": {},
