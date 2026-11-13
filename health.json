@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-13T02:03:52.014Z",
+  "at": "2026-11-13T02:07:03.442Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -16,9 +16,9 @@
     },
     "planner": {
       "runs": 1,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 3
+      "busyMin": 3,
+      "waitMin": 2,
+      "busyPct": 5
     },
     "ci": {
       "runs": 0,
@@ -30,7 +30,7 @@
   "queue": {
     "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 3
   },
   "runners": [
     {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 3324 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 3327 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 5439 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 5443 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -96,10 +96,6 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
@@ -112,7 +108,7 @@
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-13T02:03:48.815Z",
+    "at": "2026-11-13T02:07:02.113Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -157,7 +153,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-13T02:03:48.581Z",
+    "at": "2026-11-13T02:07:01.927Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,16 +170,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "33aaa5e",
-      "ageMin": 296,
+      "ageMin": 299,
       "lastGoodSha": "33aaa5e",
-      "lastGoodAgeMin": 296
+      "lastGoodAgeMin": 299
     },
     "web": {
       "status": "SUCCESS",
       "sha": "33aaa5e",
-      "ageMin": 296,
+      "ageMin": 299,
       "lastGoodSha": "33aaa5e",
-      "lastGoodAgeMin": 296
+      "lastGoodAgeMin": 299
     }
   },
   "prRerun": {},
