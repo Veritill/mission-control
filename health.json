@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-14T14:27:10.471Z",
+  "at": "2026-11-14T19:26:53.848Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -71,17 +71,18 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 5507 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 5807 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 7623 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 7922 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -90,12 +91,12 @@
     },
     {
       "level": "warn",
-      "text": "201 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "206 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $277 exceeds the $250 budget (Railway projected $76.78)",
+      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.3)",
       "repeated": true
     },
     {
@@ -106,23 +107,19 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 46.65,
-    "railwayProjected": 76.78,
+    "railwayMonthToDate": 47.03,
+    "railwayProjected": 76.3,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-14T14:27:06.200Z",
+    "at": "2026-11-14T19:26:51.910Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -156,7 +153,7 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-14T06:40:25.523Z",
+      "checkedAt": "2026-11-14T14:27:06.537Z",
       "error": null
     },
     "staging": {
@@ -167,7 +164,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-14T14:27:05.958Z",
+    "at": "2026-11-14T19:26:51.668Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -184,16 +181,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "fc82332",
-      "ageMin": 231,
+      "ageMin": 531,
       "lastGoodSha": "fc82332",
-      "lastGoodAgeMin": 231
+      "lastGoodAgeMin": 531
     },
     "web": {
       "status": "SUCCESS",
       "sha": "fc82332",
-      "ageMin": 231,
+      "ageMin": 531,
       "lastGoodSha": "fc82332",
-      "lastGoodAgeMin": 231
+      "lastGoodAgeMin": 531
     }
   },
   "prRerun": {},
