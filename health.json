@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-14T19:26:53.848Z",
+  "at": "2026-11-14T23:20:01.325Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 5807 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 6040 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 7922 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 8156 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -91,12 +91,12 @@
     },
     {
       "level": "warn",
-      "text": "206 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "208 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.3)",
+      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $75.8)",
       "repeated": true
     },
     {
@@ -113,13 +113,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 47.03,
-    "railwayProjected": 76.3,
+    "railwayMonthToDate": 47.27,
+    "railwayProjected": 75.8,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-14T19:26:51.910Z",
+    "at": "2026-11-14T23:19:59.186Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -159,12 +159,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-14T10:37:05.104Z",
+      "checkedAt": "2026-11-14T19:26:52.056Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-14T19:26:51.668Z",
+    "at": "2026-11-14T23:19:58.960Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,16 +181,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "fc82332",
-      "ageMin": 531,
+      "ageMin": 764,
       "lastGoodSha": "fc82332",
-      "lastGoodAgeMin": 531
+      "lastGoodAgeMin": 764
     },
     "web": {
       "status": "SUCCESS",
       "sha": "fc82332",
-      "ageMin": 531,
+      "ageMin": 764,
       "lastGoodSha": "fc82332",
-      "lastGoodAgeMin": 531
+      "lastGoodAgeMin": 764
     }
   },
   "prRerun": {},
