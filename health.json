@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-14T03:10:41.472Z",
+  "at": "2026-11-14T05:22:49.775Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 8,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 0
     },
     "core": {
-      "runs": 6,
-      "busyMin": 11,
-      "waitMin": 7,
-      "busyPct": 18
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 11,
+      "runs": 1,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 9
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 18,
     "ciQueued": 0,
-    "oldestQueuedMin": 3
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 4831 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 4963 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 6946 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 7078 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,7 +86,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $75.51)",
+      "text": "projected development cost $275 exceeds the $250 budget (Railway projected $75.08)",
       "repeated": true
     },
     {
@@ -103,13 +103,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 44.72,
-    "railwayProjected": 75.51,
+    "railwayMonthToDate": 44.88,
+    "railwayProjected": 75.08,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-14T03:10:39.587Z",
+    "at": "2026-11-14T05:22:46.991Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -149,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-14T02:56:12.394Z",
+      "checkedAt": "2026-11-14T03:22:41.607Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-14T03:10:39.346Z",
+    "at": "2026-11-14T05:22:46.740Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "ce28864",
-      "ageMin": 16,
-      "lastGoodSha": "ce28864",
-      "lastGoodAgeMin": 16
+      "sha": "2f46ac5",
+      "ageMin": 121,
+      "lastGoodSha": "2f46ac5",
+      "lastGoodAgeMin": 121
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "ce28864",
-      "ageMin": 16,
-      "lastGoodSha": "ce28864",
-      "lastGoodAgeMin": 16
+      "sha": "2f46ac5",
+      "ageMin": 121,
+      "lastGoodSha": "2f46ac5",
+      "lastGoodAgeMin": 121
     }
   },
   "prRerun": {},
