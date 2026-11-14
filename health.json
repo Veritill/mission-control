@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-14T07:43:46.276Z",
+  "at": "2026-11-14T08:13:24.164Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 28,
+      "busyMin": 9,
       "waitMin": 0,
-      "busyPct": 23
+      "busyPct": 7
     },
     "core": {
-      "runs": 6,
+      "runs": 4,
       "busyMin": 10,
-      "waitMin": 9,
-      "busyPct": 17
+      "waitMin": 5,
+      "busyPct": 16
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
-      "waitMin": 1,
-      "busyPct": 10
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
       "runs": 4,
-      "busyMin": 27,
+      "busyMin": 47,
       "waitMin": 0,
-      "busyPct": 22
+      "busyPct": 39
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 5104 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 5134 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 7219 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 7249 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,11 +86,11 @@
     },
     {
       "level": "warn",
-      "text": "121 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "133 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $75.5)",
+      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $75.61)",
       "repeated": true
     },
     {
@@ -101,23 +101,19 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 45.33,
-    "railwayProjected": 75.5,
+    "railwayMonthToDate": 45.43,
+    "railwayProjected": 75.61,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-14T07:43:40.042Z",
+    "at": "2026-11-14T08:13:19.038Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -157,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-14T07:05:35.974Z",
+      "checkedAt": "2026-11-14T07:54:32.227Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-14T07:43:39.773Z",
+    "at": "2026-11-14T08:13:18.790Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "2cc324f",
-      "ageMin": 39,
-      "lastGoodSha": "2cc324f",
-      "lastGoodAgeMin": 39
+      "sha": "884212a",
+      "ageMin": 21,
+      "lastGoodSha": "884212a",
+      "lastGoodAgeMin": 21
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "2cc324f",
-      "ageMin": 39,
-      "lastGoodSha": "2cc324f",
-      "lastGoodAgeMin": 39
+      "sha": "884212a",
+      "ageMin": 21,
+      "lastGoodSha": "884212a",
+      "lastGoodAgeMin": 21
     }
   },
   "prRerun": {},
