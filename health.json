@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-14T06:40:28.829Z",
+  "at": "2026-11-14T07:01:12.384Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 2,
+      "busyMin": 10,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 8
     },
     "core": {
-      "runs": 7,
-      "busyMin": 13,
-      "waitMin": 4,
-      "busyPct": 21
+      "runs": 9,
+      "busyMin": 18,
+      "waitMin": 27,
+      "busyPct": 29
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 1,
+      "busyMin": 6,
+      "waitMin": 1,
+      "busyPct": 10
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 59,
+      "runs": 8,
+      "busyMin": 67,
       "waitMin": 0,
-      "busyPct": 50
+      "busyPct": 56
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 10,
+    "ciQueued": 1,
+    "oldestQueuedMin": 7
   },
   "runners": [
     {
@@ -41,12 +41,12 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 5041 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 5061 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 7156 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 7177 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,11 +86,7 @@
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"80. #1997 L Business research framework 1d: duties reach eve...\" is eligible (#1997: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $275 exceeds the $250 budget (Railway projected $75.24)",
+      "text": "projected development cost $275 exceeds the $250 budget (Railway projected $75.33)",
       "repeated": true
     },
     {
@@ -101,23 +97,19 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 45.1,
-    "railwayProjected": 75.24,
+    "railwayMonthToDate": 45.18,
+    "railwayProjected": 75.33,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-14T06:40:25.181Z",
+    "at": "2026-11-14T07:01:07.615Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -151,18 +143,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-14T00:25:51.723Z",
+      "checkedAt": "2026-11-14T06:40:25.523Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-14T06:25:47.484Z",
+      "checkedAt": "2026-11-14T06:49:00.416Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-14T06:40:24.882Z",
+    "at": "2026-11-14T07:01:07.396Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "cafa7f1",
-      "ageMin": 16,
-      "lastGoodSha": "cafa7f1",
-      "lastGoodAgeMin": 16
+      "sha": "3dc629f",
+      "ageMin": 13,
+      "lastGoodSha": "3dc629f",
+      "lastGoodAgeMin": 13
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "cafa7f1",
-      "ageMin": 16,
-      "lastGoodSha": "cafa7f1",
-      "lastGoodAgeMin": 16
+      "sha": "3dc629f",
+      "ageMin": 13,
+      "lastGoodSha": "3dc629f",
+      "lastGoodAgeMin": 13
     }
   },
   "prRerun": {},
@@ -200,10 +192,6 @@
     "needs you: ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-13T02:03:25.733Z",
       "escalated": true
-    },
-    "CHAIN is empty while line \"#. ## L Business research framework #d: duties reach ": {
-      "since": "2026-11-14T06:39:55.051Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-08T15:59:28.381Z",
