@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-15T11:26:39.092Z",
+  "at": "2026-11-15T17:57:34.003Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 6767 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 7158 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 8882 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 9273 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -91,7 +91,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $274 exceeds the $250 budget (Railway projected $74.36)",
+      "text": "projected development cost $274 exceeds the $250 budget (Railway projected $73.52)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 48.08,
-    "railwayProjected": 74.36,
+    "railwayMonthToDate": 48.48,
+    "railwayProjected": 73.52,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-15T11:26:36.450Z",
+    "at": "2026-11-15T17:57:31.794Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -127,8 +127,8 @@
       "misses": 0
     },
     "derived": {
-      "hits": 11,
-      "misses": 8,
+      "hits": 22,
+      "misses": 16,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
@@ -159,7 +159,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-15T11:26:36.238Z",
+    "at": "2026-11-15T17:57:31.544Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -176,16 +176,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "3c78dfe",
-      "ageMin": 316,
+      "ageMin": 707,
       "lastGoodSha": "3c78dfe",
-      "lastGoodAgeMin": 316
+      "lastGoodAgeMin": 707
     },
     "web": {
       "status": "SUCCESS",
       "sha": "3c78dfe",
-      "ageMin": 316,
+      "ageMin": 707,
       "lastGoodSha": "3c78dfe",
-      "lastGoodAgeMin": 316
+      "lastGoodAgeMin": 707
     }
   },
   "prRerun": {},
