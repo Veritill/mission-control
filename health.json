@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-15T17:57:34.003Z",
+  "at": "2026-11-15T23:07:28.172Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 7158 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 7468 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 9273 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 9583 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -91,7 +91,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $274 exceeds the $250 budget (Railway projected $73.52)",
+      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $72.68)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 48.48,
-    "railwayProjected": 73.52,
+    "railwayMonthToDate": 48.7,
+    "railwayProjected": 72.68,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-15T17:57:31.794Z",
+    "at": "2026-11-15T23:07:26.365Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -148,18 +148,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-15T05:58:56.166Z",
+      "checkedAt": "2026-11-15T17:57:32.184Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-15T06:12:10.701Z",
+      "checkedAt": "2026-11-15T17:57:32.147Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-15T17:57:31.544Z",
+    "at": "2026-11-15T23:07:26.109Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -176,16 +176,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "3c78dfe",
-      "ageMin": 707,
+      "ageMin": 1016,
       "lastGoodSha": "3c78dfe",
-      "lastGoodAgeMin": 707
+      "lastGoodAgeMin": 1016
     },
     "web": {
       "status": "SUCCESS",
       "sha": "3c78dfe",
-      "ageMin": 707,
+      "ageMin": 1016,
       "lastGoodSha": "3c78dfe",
-      "lastGoodAgeMin": 707
+      "lastGoodAgeMin": 1016
     }
   },
   "prRerun": {},
