@@ -1,41 +1,41 @@
 {
-  "at": "2026-11-16T03:51:41.430Z",
+  "at": "2026-11-16T04:30:00.125Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 23,
-      "waitMin": 7,
-      "busyPct": 39
+      "runs": 2,
+      "busyMin": 2,
+      "waitMin": 0,
+      "busyPct": 1
     },
     "core": {
-      "runs": 6,
-      "busyMin": 19,
-      "waitMin": 15,
-      "busyPct": 32
+      "runs": 7,
+      "busyMin": 15,
+      "waitMin": 16,
+      "busyPct": 24
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 22,
-      "waitMin": 14,
-      "busyPct": 36
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 44,
+      "runs": 4,
+      "busyMin": 55,
       "waitMin": 10,
-      "busyPct": 37
+      "busyPct": 46
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 8
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
-      "online": false,
+      "online": true,
       "busy": false
     },
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,13 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #1765 red for 7752 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 7790 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1763 red for 9867 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1763 red for 9905 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -86,20 +90,16 @@
     },
     {
       "level": "warn",
-      "text": "202 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "211 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "runner(s) offline: agent-runner-1"
+      "text": "2 agents run(s) failed in the last hour (43799487588, 43798510192): the build's own workflow is erroring, not a lane's tests"
     },
     {
       "level": "warn",
-      "text": "5 agents run(s) failed in the last hour (43799487588, 43798510192, 43798192042): the build's own workflow is erroring, not a lane's tests"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.19)",
+      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.35)",
       "repeated": true
     },
     {
@@ -120,13 +120,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 49.5,
-    "railwayProjected": 73.19,
+    "railwayMonthToDate": 49.64,
+    "railwayProjected": 73.35,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-16T03:51:34.961Z",
+    "at": "2026-11-16T04:29:55.000Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1,
@@ -166,12 +166,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-16T03:48:05.225Z",
+      "checkedAt": "2026-11-16T04:16:44.170Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-16T03:51:34.698Z",
+    "at": "2026-11-16T04:29:54.752Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -187,17 +187,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "2b2e181",
-      "ageMin": 5,
-      "lastGoodSha": "2b2e181",
-      "lastGoodAgeMin": 5
+      "sha": "ba56582",
+      "ageMin": 17,
+      "lastGoodSha": "ba56582",
+      "lastGoodAgeMin": 17
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "2b2e181",
-      "ageMin": 5,
-      "lastGoodSha": "2b2e181",
-      "lastGoodAgeMin": 5
+      "sha": "ba56582",
+      "ageMin": 17,
+      "lastGoodSha": "ba56582",
+      "lastGoodAgeMin": 17
     }
   },
   "prRerun": {},
@@ -205,6 +205,10 @@
     "PR ## red for # min with no new push (failed: test): its lane is not fixing it": {
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
+    },
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-16T04:29:31.055Z",
+      "escalated": false
     },
     "needs you: ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-13T02:03:25.733Z",
@@ -214,12 +218,8 @@
       "since": "2026-11-16T02:05:04.148Z",
       "escalated": false
     },
-    "runner(s) offline: agent-runner-#": {
-      "since": "2026-11-16T03:51:13.831Z",
-      "escalated": false
-    },
-    "# agents run(s) failed in the last hour (#, #, #): the build's own workflow is e": {
-      "since": "2026-11-16T03:51:13.831Z",
+    "# agents run(s) failed in the last hour (#, #): the build's own workflow is erro": {
+      "since": "2026-11-16T04:29:31.055Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -231,5 +231,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-16T03:51:13.831Z"
+  "supervisorWokeAt": "2026-11-16T04:29:31.055Z"
 }
