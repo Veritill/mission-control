@@ -1,57 +1,57 @@
 {
-  "at": "2026-11-17T06:16:40.824Z",
+  "at": "2026-11-17T06:43:16.779Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 4,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 0
     },
     "core": {
-      "runs": 7,
-      "busyMin": 16,
-      "waitMin": 23,
-      "busyPct": 27
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
-      "runs": 7,
-      "busyMin": 19,
-      "waitMin": 12,
-      "busyPct": 32
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 56,
+      "runs": 14,
+      "busyMin": 179,
       "waitMin": 0,
-      "busyPct": 47
+      "busyPct": 150
     }
   },
   "queue": {
-    "agentsQueued": 13,
-    "ciQueued": 0,
-    "oldestQueuedMin": 10
+    "agentsQueued": 99,
+    "ciQueued": 1,
+    "oldestQueuedMin": 23
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
-      "online": false,
+      "online": true,
       "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 1448 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 1474 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 9337 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 9363 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,19 +86,19 @@
     },
     {
       "level": "warn",
-      "text": "150 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "418 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "runner(s) offline: agent-runner-2"
+      "text": "CI queue: 86 run(s) waiting 20+ min for label 'router' (longest 23 min); every 'router' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "5 lane run(s) in the last hour ended green within 3 minutes: the lane is quitting on arrival (token expired, rate-limited, or a rule it trips at once) — read one transcript"
+      "text": "router not keeping up: 86 agents run(s) waiting 20+ min for a 5-second route job — the router runner is down or restarting per job (runbook 2026-11-05: its start command must run ./run.sh without --once)"
     },
     {
       "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.02)",
+      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.14)",
       "repeated": true
     },
     {
@@ -109,26 +109,22 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "3 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 55.07,
-    "railwayProjected": 76.02,
+    "railwayMonthToDate": 55.2,
+    "railwayProjected": 76.14,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-17T06:16:36.722Z",
+    "at": "2026-11-17T06:43:13.722Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 258,
+      "hits": 260,
       "misses": 20,
       "hydrations": 14
     },
@@ -165,12 +161,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-17T06:07:50.568Z",
+      "checkedAt": "2026-11-17T06:32:36.701Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-17T06:16:36.511Z",
+    "at": "2026-11-17T06:43:13.296Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -186,17 +182,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "ae78ac2",
-      "ageMin": 10,
-      "lastGoodSha": "ae78ac2",
-      "lastGoodAgeMin": 10
+      "sha": "877f857",
+      "ageMin": 11,
+      "lastGoodSha": "877f857",
+      "lastGoodAgeMin": 11
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "ae78ac2",
-      "ageMin": 10,
-      "lastGoodSha": "ae78ac2",
-      "lastGoodAgeMin": 10
+      "sha": "877f857",
+      "ageMin": 11,
+      "lastGoodSha": "877f857",
+      "lastGoodAgeMin": 11
     }
   },
   "prRerun": {},
@@ -213,12 +209,12 @@
       "since": "2026-11-17T06:16:04.631Z",
       "escalated": false
     },
-    "runner(s) offline: agent-runner-#": {
-      "since": "2026-11-17T06:16:04.631Z",
+    "CI queue: # run(s) waiting #+ min for label 'router' (longest # min); every 'rou": {
+      "since": "2026-11-17T06:42:09.985Z",
       "escalated": false
     },
-    "# lane run(s) in the last hour ended green within # minutes: the lane is quittin": {
-      "since": "2026-11-17T06:16:04.631Z",
+    "router not keeping up: # agents run(s) waiting #+ min for a #-second route job —": {
+      "since": "2026-11-17T06:42:09.985Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
