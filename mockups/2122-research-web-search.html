@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup #2122 · Research: own knowledge or web search, per step</title>
+<style>
+:root{--paper:#fbfaf7;--card:#fff;--ink:#1e2a24;--muted:#5f6b63;--rule:#e4e1d6;--green:#2f7d4f;--green-soft:#eaf3ec;--chip:#f1efe8;--sunk:#f5f3ed;--chip-ink:#4a564f;--warn:#8a6a1f;--warn-soft:#f7efd8;--bad:#8a3b3b;--bad-soft:#f6e4e4;--sample:#6b3fa0;--sample-soft:#f1eafa}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#e9e6dd;color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--green);text-decoration:none}button{font:inherit}
+.about{max-width:900px;margin:0 auto;padding:14px 16px;font-size:14px;color:var(--muted)}
+.about b{color:var(--ink)}
+.legend{display:inline-block;color:var(--sample);background:var(--sample-soft);border-radius:6px;padding:0 6px;font-weight:600}
+.frames{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;padding:6px 10px 40px}
+.frame-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.frame-cap{font-size:13px;font-weight:700;color:var(--muted);max-width:390px;text-align:center}
+.phone{width:390px;min-height:780px;background:var(--paper);border:1px solid #cfcabc;border-radius:28px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.nav{display:flex;gap:10px;align-items:center;padding:10px 14px;background:var(--sunk);border-bottom:1px solid var(--rule);font-size:15px}
+.nav .burger{font-size:18px}
+.col{padding:14px 14px 40px;display:flex;flex-direction:column;gap:12px}
+.head{display:flex;align-items:center;gap:10px}
+.head h1{margin:0;font-size:24px;display:flex;gap:10px;align-items:center}
+.facts{font-size:12.5px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.row-head{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.row-head .name{flex:1;font-weight:700}
+.status{font-size:12.5px;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--chip);color:var(--chip-ink);white-space:nowrap}
+.status.ok{background:var(--green-soft);color:var(--green)}.status.warn{background:var(--warn-soft);color:var(--warn)}
+.panel{background:var(--sunk);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:10px}
+.step{display:grid;grid-template-columns:22px 1fr;gap:2px 8px;align-items:start;padding:8px 0;border-top:1px solid var(--rule)}
+.step:first-child{border-top:0}
+.step .ic{font-size:17px;line-height:1.4}
+.step b{font-size:15px}
+.step .line{grid-column:2;font-size:13px;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:6px;grid-column:2}
+.seg button{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--ink);font-size:13.5px;font-weight:600;cursor:pointer}
+.seg button[aria-selected=true]{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.btn{display:inline-flex;justify-content:center;gap:6px;padding:10px 16px;border-radius:10px;border:0;background:var(--green);color:#fff;font-weight:700;cursor:pointer;width:100%}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--ink);font-size:13.5px;font-weight:600;cursor:pointer}
+.pill.quiet{color:var(--muted)}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.est{display:flex;justify-content:space-between;align-items:baseline;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:8px 10px;font-size:14px}
+.est .amt{font-size:20px;font-weight:700}
+.parts{font-size:12.5px;color:var(--muted);grid-column:1/-1}
+.sample{color:var(--sample);background:var(--sample-soft);border-radius:5px;padding:0 4px;font-weight:600}
+.sample::before{content:"◆ ";font-size:10px}
+.item{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.item .what{font-weight:700}
+.basis{font-size:12.5px;color:var(--chip-ink);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.basis .tag{font-weight:600;padding:1px 8px;border-radius:999px;background:var(--chip)}
+.basis .tag.page{background:var(--green-soft);color:var(--green)}
+.unver{font-size:12.5px;color:var(--warn);font-weight:600}
+.mix{font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:8px 10px}
+.mix .note{margin-top:2px}
+.confirm{border:2px solid var(--warn);background:var(--warn-soft);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+select{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--rule);background:var(--card);width:100%}
+.hide{display:none!important}
+.dep{font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="about">
+  <b>Mockup #2122</b> · the Research section (built in #2057 from mockup #2054), with the choice Kiran decided on
+  <a href="https://github.com/Veritill/platform/issues/2058">#2058</a>: <b>Own knowledge</b> or <b>With web search</b>, per step, offered on
+  <b>Money and thresholds</b> and <b>Setup questions</b> only. Not approved for building. No product code was written.
+  Real from the code: the two business types and their built-in set, the five steps in build-on order, the three model names,
+  the $25 second Yes, the $0.32 / $1.56 / $2.52 run estimates. <span class="legend">◆ Purple</span> numbers, dates and page links are invented samples.
+  Tap the choices: the estimate and the button follow.
+</div>
+
+<div class="frames">
+
+<!-- ============ FRAME 1: start a run, per-step choice ============ -->
+<div class="frame-wrap">
+<div class="frame-cap">1 · Start a run: money and setup each pick a basis; the estimate follows</div>
+<div class="phone">
+  <div class="nav"><span class="burger">☰</span><b>🔬 Research</b></div>
+  <div class="col">
+    <div class="head"><h1>🔬 Research</h1></div>
+    <p class="facts">💵 <span class="sample">$4.10</span> of $50.00 spent on research in 2026-11</p>
+    <div class="card">
+      <button class="row-head"><span>🏪</span><span class="name">Grocery</span><span class="status">○ Never run</span></button>
+      <div class="panel">
+        <div class="seg" style="grid-column:auto" id="f1-tier">
+          <button aria-selected="true" data-tier="standard">Main model</button>
+          <button aria-selected="false" data-tier="best">Opus 5</button>
+          <button aria-selected="false" data-tier="fable">Fable 5.1</button>
+        </div>
+        <div>
+          <div class="step"><span class="ic">🖥️</span><b>Screens</b><span class="line">Own knowledge</span></div>
+          <div class="step"><span class="ic">🔁</span><b>Processes</b><span class="line">Own knowledge</span></div>
+          <div class="step"><span class="ic">👥</span><b>Roles</b><span class="line">Own knowledge</span></div>
+          <div class="step"><span class="ic">💲</span><b>Money and thresholds</b>
+            <div class="seg" data-step="money">
+              <button aria-selected="true" data-basis="own">📖 Own knowledge</button>
+              <button aria-selected="false" data-basis="web">🌐 With web search</button>
+            </div>
+          </div>
+          <div class="step"><span class="ic">❓</span><b>Setup questions</b>
+            <div class="seg" data-step="setup">
+              <button aria-selected="true" data-basis="own">📖 Own knowledge</button>
+              <button aria-selected="false" data-basis="web">🌐 With web search</button>
+            </div>
+          </div>
+        </div>
+        <div class="est"><span>Estimate</span><span class="amt" id="f1-amt">$0.32</span></div>
+        <p class="note" id="f1-parts">Rough · not measured</p>
+        <div class="confirm hide" id="f1-confirm">
+          <b id="f1-confirm-words">This run is estimated at $25.00. Start it?</b>
+          <div class="pills"><button class="btn" style="width:auto">Yes, start</button><button class="pill quiet">No</button></div>
+        </div>
+        <button class="btn" id="f1-go">Start · $0.32</button>
+      </div>
+    </div>
+    <p class="note">ⓘ Web search reads public pages and keeps each page's link. Screens, processes and roles run on own knowledge.</p>
+  </div>
+</div>
+</div>
+
+<!-- ============ FRAME 2: finished run, basis lines ============ -->
+<div class="frame-wrap">
+<div class="frame-cap">2 · A finished run: each kept item names its basis; a page has its link</div>
+<div class="phone">
+  <div class="nav"><span class="burger">☰</span><b>🔬 Research</b></div>
+  <div class="col">
+    <div class="head"><h1>🔬 Research</h1></div>
+    <div class="card">
+      <button class="row-head"><span>🏪</span><span class="name">Restaurant</span><span class="status ok">✅ Done · <span class="sample">2026-11-16</span> · Opus 5</span></button>
+      <div class="panel">
+        <div>
+          <div class="step"><span class="ic">🖥️</span><b>Screens</b><span class="line">✅ <span class="sample">12</span> proposed · 📖 own knowledge</span></div>
+          <div class="step"><span class="ic">🔁</span><b>Processes</b><span class="line">✅ <span class="sample">9</span> proposed · 📖 own knowledge</span></div>
+          <div class="step"><span class="ic">👥</span><b>Roles</b><span class="line">✅ <span class="sample">5</span> proposed · 📖 own knowledge</span></div>
+          <div class="step"><span class="ic">💲</span><b>Money and thresholds</b><span class="line">✅ <span class="sample">7</span> proposed · 🌐 web search · <span class="sample">4</span> read from a page</span></div>
+          <div class="step"><span class="ic">❓</span><b>Setup questions</b><span class="line">✅ <span class="sample">6</span> proposed · 📖 own knowledge</span></div>
+        </div>
+
+        <div class="item">
+          <span class="what">💲 Waste above <span class="sample">4%</span> of food cost flags</span>
+          <span class="basis"><span class="tag page">🌐 Read from a page</span><a href="#">example-restaurant-guide.org/waste <span class="sample">sample link</span></a></span>
+          <span class="unver">Unverified · research's reading</span>
+        </div>
+        <div class="item">
+          <span class="what">💲 Food cost target <span class="sample">30%</span></span>
+          <span class="basis"><span class="tag">📖 AI's own knowledge</span></span>
+          <span class="unver">Unverified · research's reading</span>
+        </div>
+        <div class="item">
+          <span class="what">❓ "Do you take catering orders?"</span>
+          <span class="basis"><span class="tag">📖 AI's own knowledge</span></span>
+        </div>
+
+        <div class="mix">🌐 <span class="sample">4</span> read from a page · 📖 <span class="sample">35</span> own knowledge
+          <p class="note">A page is not a legal review. The review decides.</p>
+        </div>
+        <div class="pills"><a class="pill" href="#">Review the differences</a><a class="pill quiet" href="#">🧩 Functions</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ FRAME 3: re-run one step with web search ============ -->
+<div class="frame-wrap">
+<div class="frame-cap">3 · Re-run one step: setup ran on own knowledge, now again with web search</div>
+<div class="phone">
+  <div class="nav"><span class="burger">☰</span><b>🔬 Research</b></div>
+  <div class="col">
+    <div class="head"><h1>🔬 Research</h1></div>
+    <div class="card">
+      <button class="row-head"><span>🏪</span><span class="name">Restaurant</span><span class="status ok">✅ Done · <span class="sample">2026-11-16</span> · Opus 5</span></button>
+      <div class="panel">
+        <div class="seg" style="grid-column:auto">
+          <button aria-selected="false">All five</button>
+          <button aria-selected="true">One step</button>
+        </div>
+        <select id="f3-step">
+          <option value="money">Money and thresholds</option>
+          <option value="setup" selected>Setup questions</option>
+          <option value="roles">Roles</option>
+        </select>
+        <span class="dep" id="f3-dep">Makes no later step out of date</span>
+        <div class="seg" style="grid-column:auto" id="f3-tier">
+          <button aria-selected="false" data-tier="standard">Main model</button>
+          <button aria-selected="true" data-tier="best">Opus 5</button>
+          <button aria-selected="false" data-tier="fable">Fable 5.1</button>
+        </div>
+        <div class="seg" style="grid-column:auto" id="f3-basis">
+          <button aria-selected="false" data-basis="own">📖 Own knowledge</button>
+          <button aria-selected="true" data-basis="web">🌐 With web search</button>
+        </div>
+        <div class="est"><span>Estimate</span><span class="amt" id="f3-amt">$0.53</span></div>
+        <p class="note" id="f3-parts">Only this step is paid for · rough · not measured</p>
+        <button class="btn" id="f3-go">Re-run · $0.53</button>
+      </div>
+    </div>
+    <p class="note">Last run of this step: 📖 own knowledge.</p>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+// Sample per-step figures (the run totals $0.32 / $1.56 / $2.52 are the real flat estimates from #2054; the split per
+// step and the web-search part are samples: search charge at the barcode lookup's $10 per 1,000 searches, plus a larger call).
+const RUN = { standard: 0.32, best: 1.56, fable: 2.52 };
+const SHARE = { screens: .24, processes: .22, roles: .14, money: .2, setup: .2 };
+const WEB_EXTRA_FACTOR = 0.8;   // sample: the read pages roughly add this much again to that step's call
+const SEARCH_CHARGE = 0.05;     // sample: about 5 searches at $10 per 1,000
+const SECOND_YES = 25;
+const fmt = (n) => '$' + n.toFixed(2);
+const stepCost = (tier, step, basis) => {
+  const base = RUN[tier] * SHARE[step];
+  return basis === 'web' ? base * (1 + WEB_EXTRA_FACTOR) + SEARCH_CHARGE : base;
+};
+function wireSeg(el, cb) {
+  el.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
+    el.querySelectorAll('button').forEach((x) => x.setAttribute('aria-selected', x === b ? 'true' : 'false'));
+    cb && cb();
+  }));
+}
+const sel = (el, attr) => el.querySelector('button[aria-selected=true]')?.dataset[attr];
+
+// frame 1
+const f1 = { tier: document.getElementById('f1-tier'), money: document.querySelector('[data-step=money]'), setup: document.querySelector('[data-step=setup]') };
+function f1Update() {
+  const tier = sel(f1.tier, 'tier'), m = sel(f1.money, 'basis'), s = sel(f1.setup, 'basis');
+  const total = ['screens', 'processes', 'roles'].reduce((n, k) => n + stepCost(tier, k, 'own'), 0) + stepCost(tier, 'money', m) + stepCost(tier, 'setup', s);
+  const webs = [m, s].filter((x) => x === 'web').length;
+  document.getElementById('f1-amt').textContent = fmt(total);
+  document.getElementById('f1-go').textContent = 'Start · ' + fmt(total);
+  document.getElementById('f1-parts').innerHTML = webs ? 'Rough · not measured · includes a search charge on ' + (webs === 2 ? '2 steps' : '1 step') + ' <span class="sample">sample</span>' : 'Rough · not measured';
+  const c = document.getElementById('f1-confirm');
+  c.classList.toggle('hide', total < SECOND_YES);
+  document.getElementById('f1-confirm-words').textContent = 'This run is estimated at ' + fmt(total) + '. Start it?';
+}
+[f1.tier, f1.money, f1.setup].forEach((el) => wireSeg(el, f1Update));
+f1Update();
+
+// frame 3
+const DEP = { money: 'Makes no later step out of date', setup: 'Makes no later step out of date', roles: 'Makes no later step out of date' }; // BUILT_ON: nothing is built on money, setup or roles
+const f3 = { tier: document.getElementById('f3-tier'), basis: document.getElementById('f3-basis'), step: document.getElementById('f3-step') };
+function f3Update() {
+  const step = f3.step.value, tier = sel(f3.tier, 'tier');
+  const offered = step === 'money' || step === 'setup';
+  f3.basis.classList.toggle('hide', !offered);
+  const basis = offered ? sel(f3.basis, 'basis') : 'own';
+  const n = stepCost(tier, step, basis);
+  document.getElementById('f3-dep').textContent = DEP[step];
+  document.getElementById('f3-amt').textContent = fmt(n);
+  document.getElementById('f3-go').textContent = 'Re-run · ' + fmt(n);
+}
+wireSeg(f3.tier, f3Update); wireSeg(f3.basis, f3Update); f3.step.addEventListener('change', f3Update);
+f3Update();
+</script>
+</body>
+</html>
