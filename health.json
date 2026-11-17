@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-17T16:23:03.452Z",
+  "at": "2026-11-17T17:11:36.393Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 22,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 18
+      "busyPct": 0
     },
     "core": {
-      "runs": 13,
-      "busyMin": 61,
-      "waitMin": 28,
-      "busyPct": 102
+      "runs": 8,
+      "busyMin": 13,
+      "waitMin": 16,
+      "busyPct": 22
     },
     "planner": {
-      "runs": 15,
-      "busyMin": 38,
-      "waitMin": 23,
-      "busyPct": 63
+      "runs": 1,
+      "busyMin": 5,
+      "waitMin": 16,
+      "busyPct": 9
     },
     "ci": {
-      "runs": 14,
-      "busyMin": 70,
+      "runs": 10,
+      "busyMin": 160,
       "waitMin": 0,
-      "busyPct": 58
+      "busyPct": 133
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 1,
     "ciQueued": 2,
-    "oldestQueuedMin": 14
+    "oldestQueuedMin": 63
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -70,18 +70,27 @@
   "conflictWoken": {},
   "findings": [
     {
+      "level": "fixed",
+      "text": "reset 1 dead run(s) back to ready (no note movement for 3 h, no PR)"
+    },
+    {
       "level": "warn",
-      "text": "PR #2072 red for 2054 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 2102 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 9943 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 9991 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "dead pick(s) under lane:core, never woken: #2246 — relabel to lane:solo/lane:chain and schedule"
+      "text": "#2242 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
+    },
+    {
+      "level": "warn",
+      "text": "dead pick(s) under lane:core, never woken: #2246 — relabel to lane:solo/lane:chain and schedule",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -95,17 +104,16 @@
     },
     {
       "level": "warn",
-      "text": "865 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "888 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 44119697215, failed: test) for 8 min — staging is not moving until a fix lands",
-      "repeated": true
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 63 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $78.02)",
+      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $78.2)",
       "repeated": true
     },
     {
@@ -116,22 +124,26 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 57.75,
-    "railwayProjected": 78.02,
+    "railwayMonthToDate": 57.97,
+    "railwayProjected": 78.2,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-17T16:22:54.227Z",
+    "at": "2026-11-17T17:11:25.978Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 298,
+      "hits": 301,
       "misses": 20,
       "hydrations": 14
     },
@@ -168,12 +180,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-17T15:57:18.599Z",
+      "checkedAt": "2026-11-17T16:43:01.259Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-17T16:22:54.010Z",
+    "at": "2026-11-17T17:11:25.753Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -189,17 +201,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "464f0b6",
-      "ageMin": 26,
-      "lastGoodSha": "464f0b6",
-      "lastGoodAgeMin": 26
+      "sha": "0fbeec8",
+      "ageMin": 29,
+      "lastGoodSha": "0fbeec8",
+      "lastGoodAgeMin": 29
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "464f0b6",
-      "ageMin": 26,
-      "lastGoodSha": "464f0b6",
-      "lastGoodAgeMin": 26
+      "sha": "0fbeec8",
+      "ageMin": 29,
+      "lastGoodSha": "0fbeec8",
+      "lastGoodAgeMin": 29
     }
   },
   "prRerun": {},
@@ -207,6 +219,10 @@
     "PR ## red for # min with no new push (failed: test): its lane is not fixing it": {
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
+    },
+    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
+      "since": "2026-11-17T17:10:47.555Z",
+      "escalated": false
     },
     "dead pick(s) under lane:core, never woken: ## — relabel to lane:solo/lane:chain ": {
       "since": "2026-11-17T15:56:24.000Z",
@@ -224,8 +240,8 @@
       "since": "2026-11-17T06:16:04.631Z",
       "escalated": false
     },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-17T15:21:04.852Z",
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-17T17:10:47.555Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -237,5 +253,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-17T15:56:24.000Z"
+  "supervisorWokeAt": "2026-11-17T17:10:47.555Z"
 }
