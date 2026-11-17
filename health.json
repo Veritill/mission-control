@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-17T14:51:10.314Z",
+  "at": "2026-11-17T15:21:47.823Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 24,
+      "runs": 2,
+      "busyMin": 15,
       "waitMin": 11,
-      "busyPct": 20
+      "busyPct": 12
     },
     "core": {
-      "runs": 9,
-      "busyMin": 23,
-      "waitMin": 21,
-      "busyPct": 38
+      "runs": 7,
+      "busyMin": 25,
+      "waitMin": 22,
+      "busyPct": 41
     },
     "planner": {
-      "runs": 8,
-      "busyMin": 18,
-      "waitMin": 8,
-      "busyPct": 30
+      "runs": 10,
+      "busyMin": 27,
+      "waitMin": 16,
+      "busyPct": 45
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 157,
+      "runs": 8,
+      "busyMin": 126,
       "waitMin": 0,
-      "busyPct": 131
+      "busyPct": 105
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 3,
-    "oldestQueuedMin": 37
+    "agentsQueued": 1,
+    "ciQueued": 2,
+    "oldestQueuedMin": 68
   },
   "runners": [
     {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 1962 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 1993 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 9851 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 9882 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -85,21 +85,30 @@
     },
     {
       "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2223 — nothing builds them until a line names them"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "727 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "766 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 37 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "main is RED (run 44105945413, failed: test) for 7 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.79)",
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 68 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.89)",
       "repeated": true
     },
     {
@@ -113,23 +122,23 @@
     },
     {
       "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 57.37,
-    "railwayProjected": 77.79,
+    "railwayMonthToDate": 57.51,
+    "railwayProjected": 77.89,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-17T14:51:01.433Z",
+    "at": "2026-11-17T15:21:38.434Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 292,
+      "hits": 294,
       "misses": 20,
       "hydrations": 14
     },
@@ -166,12 +175,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-17T14:23:23.383Z",
+      "checkedAt": "2026-11-17T15:03:59.988Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-17T14:51:01.216Z",
+    "at": "2026-11-17T15:21:38.210Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -187,17 +196,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "edde495",
-      "ageMin": 29,
-      "lastGoodSha": "edde495",
-      "lastGoodAgeMin": 29
+      "sha": "fc00174",
+      "ageMin": 18,
+      "lastGoodSha": "fc00174",
+      "lastGoodAgeMin": 18
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "edde495",
-      "ageMin": 29,
-      "lastGoodSha": "edde495",
-      "lastGoodAgeMin": 29
+      "sha": "fc00174",
+      "ageMin": 18,
+      "lastGoodSha": "fc00174",
+      "lastGoodAgeMin": 18
     }
   },
   "prRerun": {},
@@ -210,12 +219,20 @@
       "since": "2026-11-17T14:50:28.628Z",
       "escalated": false
     },
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
+      "since": "2026-11-17T15:21:04.852Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
       "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-17T06:16:04.631Z",
+      "escalated": false
+    },
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-17T15:21:04.852Z",
       "escalated": false
     },
     "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
@@ -231,5 +248,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-17T14:50:28.628Z"
+  "supervisorWokeAt": "2026-11-17T15:21:04.852Z"
 }
