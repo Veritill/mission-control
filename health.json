@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-17T06:43:16.779Z",
+  "at": "2026-11-17T07:10:40.420Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 1,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 1
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 11,
+      "busyMin": 18,
+      "waitMin": 7,
+      "busyPct": 30
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 3,
+      "busyMin": 7,
+      "waitMin": 14,
+      "busyPct": 11
     },
     "ci": {
-      "runs": 14,
-      "busyMin": 179,
+      "runs": 15,
+      "busyMin": 208,
       "waitMin": 0,
-      "busyPct": 150
+      "busyPct": 173
     }
   },
   "queue": {
-    "agentsQueued": 99,
-    "ciQueued": 1,
-    "oldestQueuedMin": 23
+    "agentsQueued": 8,
+    "ciQueued": 4,
+    "oldestQueuedMin": 49
   },
   "runners": [
     {
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 1474 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 1502 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 9363 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 9391 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,19 +86,11 @@
     },
     {
       "level": "warn",
-      "text": "418 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "441 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "CI queue: 86 run(s) waiting 20+ min for label 'router' (longest 23 min); every 'router' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "router not keeping up: 86 agents run(s) waiting 20+ min for a 5-second route job — the router runner is down or restarting per job (runbook 2026-11-05: its start command must run ./run.sh without --once)"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.14)",
+      "text": "projected development cost $276 exceeds the $250 budget (Railway projected $76.23)",
       "repeated": true
     },
     {
@@ -115,16 +107,16 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 55.2,
-    "railwayProjected": 76.14,
+    "railwayMonthToDate": 55.32,
+    "railwayProjected": 76.23,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-17T06:43:13.722Z",
+    "at": "2026-11-17T07:10:35.712Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 260,
+      "hits": 261,
       "misses": 20,
       "hydrations": 14
     },
@@ -161,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-17T06:32:36.701Z",
+      "checkedAt": "2026-11-17T06:47:40.560Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-17T06:43:13.296Z",
+    "at": "2026-11-17T07:10:35.489Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -182,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "877f857",
-      "ageMin": 11,
-      "lastGoodSha": "877f857",
-      "lastGoodAgeMin": 11
+      "sha": "8d2786a",
+      "ageMin": 24,
+      "lastGoodSha": "8d2786a",
+      "lastGoodAgeMin": 24
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "877f857",
-      "ageMin": 11,
-      "lastGoodSha": "877f857",
-      "lastGoodAgeMin": 11
+      "sha": "8d2786a",
+      "ageMin": 24,
+      "lastGoodSha": "8d2786a",
+      "lastGoodAgeMin": 24
     }
   },
   "prRerun": {},
@@ -207,14 +199,6 @@
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-17T06:16:04.631Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'router' (longest # min); every 'rou": {
-      "since": "2026-11-17T06:42:09.985Z",
-      "escalated": false
-    },
-    "router not keeping up: # agents run(s) waiting #+ min for a #-second route job —": {
-      "since": "2026-11-17T06:42:09.985Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
