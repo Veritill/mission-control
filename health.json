@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-17T15:21:47.823Z",
+  "at": "2026-11-17T15:57:00.428Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 15,
-      "waitMin": 11,
-      "busyPct": 12
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "core": {
-      "runs": 7,
-      "busyMin": 25,
-      "waitMin": 22,
-      "busyPct": 41
+      "runs": 12,
+      "busyMin": 27,
+      "waitMin": 36,
+      "busyPct": 44
     },
     "planner": {
       "runs": 10,
-      "busyMin": 27,
-      "waitMin": 16,
-      "busyPct": 45
+      "busyMin": 35,
+      "waitMin": 25,
+      "busyPct": 58
     },
     "ci": {
       "runs": 8,
-      "busyMin": 126,
+      "busyMin": 9,
       "waitMin": 0,
-      "busyPct": 105
+      "busyPct": 7
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 2,
-    "oldestQueuedMin": 68
+    "agentsQueued": 0,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -71,17 +71,26 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 1993 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 2028 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 9882 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 9917 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "#2150 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+    },
+    {
+      "level": "warn",
+      "text": "#2150 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it",
+      "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "dead pick(s) under lane:core, never woken: #2246 — relabel to lane:solo/lane:chain and schedule"
     },
     {
       "level": "warn",
@@ -94,21 +103,16 @@
     },
     {
       "level": "warn",
-      "text": "766 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "816 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 44105945413, failed: test) for 7 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 44105945413, failed: test) for 43 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 68 min); every 'veritill' runner is online and busy — a backlog, not an outage",
-      "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.89)",
+      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.94)",
       "repeated": true
     },
     {
@@ -129,16 +133,16 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 57.51,
-    "railwayProjected": 77.89,
+    "railwayMonthToDate": 57.63,
+    "railwayProjected": 77.94,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-17T15:21:38.434Z",
+    "at": "2026-11-17T15:56:51.391Z",
     "tenantContext": {
       "entries": 2,
-      "hits": 294,
+      "hits": 296,
       "misses": 20,
       "hydrations": 14
     },
@@ -175,12 +179,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-17T15:03:59.988Z",
+      "checkedAt": "2026-11-17T15:46:18.630Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-17T15:21:38.210Z",
+    "at": "2026-11-17T15:56:51.175Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -195,18 +199,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "fc00174",
-      "ageMin": 18,
-      "lastGoodSha": "fc00174",
-      "lastGoodAgeMin": 18
+      "status": "BUILDING",
+      "sha": "464f0b6",
+      "ageMin": 0,
+      "lastGoodSha": "0723901",
+      "lastGoodAgeMin": 12
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "fc00174",
-      "ageMin": 18,
-      "lastGoodSha": "fc00174",
-      "lastGoodAgeMin": 18
+      "status": "BUILDING",
+      "sha": "464f0b6",
+      "ageMin": 0,
+      "lastGoodSha": "0723901",
+      "lastGoodAgeMin": 12
     }
   },
   "prRerun": {},
@@ -215,8 +219,16 @@
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
     },
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-17T15:56:24.000Z",
+      "escalated": false
+    },
     "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
       "since": "2026-11-17T14:50:28.628Z",
+      "escalated": false
+    },
+    "dead pick(s) under lane:core, never woken: ## — relabel to lane:solo/lane:chain ": {
+      "since": "2026-11-17T15:56:24.000Z",
       "escalated": false
     },
     "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
@@ -235,10 +247,6 @@
       "since": "2026-11-17T15:21:04.852Z",
       "escalated": false
     },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-17T14:05:57.288Z",
-      "escalated": false
-    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-16T16:18:36.778Z",
       "escalated": false
@@ -248,5 +256,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-17T15:21:04.852Z"
+  "supervisorWokeAt": "2026-11-17T15:56:24.000Z"
 }
