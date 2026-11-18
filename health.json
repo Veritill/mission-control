@@ -1,57 +1,57 @@
 {
-  "at": "2026-11-18T04:41:09.701Z",
+  "at": "2026-11-18T05:08:28.081Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 4,
-      "busyMin": 20,
+      "runs": 5,
+      "busyMin": 23,
       "waitMin": 10,
-      "busyPct": 16
+      "busyPct": 19
     },
     "core": {
-      "runs": 4,
-      "busyMin": 12,
-      "waitMin": 2,
-      "busyPct": 20
+      "runs": 3,
+      "busyMin": 13,
+      "waitMin": 1,
+      "busyPct": 21
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 4,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 105,
+      "runs": 6,
+      "busyMin": 125,
       "waitMin": 0,
-      "busyPct": 87
+      "busyPct": 104
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 2,
-    "oldestQueuedMin": 20
+    "agentsQueued": 44,
+    "ciQueued": 1,
+    "oldestQueuedMin": 3
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,13 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 2792 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 2820 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 10681 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 10709 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "dead pick(s) under lane:core, never woken: #2309 — relabel to lane:solo/lane:chain and schedule"
     },
     {
       "level": "warn",
@@ -86,11 +90,11 @@
     },
     {
       "level": "warn",
-      "text": "140 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "196 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "projected development cost $281 exceeds the $250 budget (Railway projected $80.57)",
+      "text": "projected development cost $281 exceeds the $250 budget (Railway projected $80.69)",
       "repeated": true
     },
     {
@@ -101,23 +105,19 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 61.12,
-    "railwayProjected": 80.57,
+    "railwayMonthToDate": 61.26,
+    "railwayProjected": 80.69,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-18T04:41:03.225Z",
+    "at": "2026-11-18T05:08:23.967Z",
     "tenantContext": {
       "entries": 2,
       "hits": 345,
@@ -157,12 +157,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-18T04:00:33.775Z",
+      "checkedAt": "2026-11-18T05:07:47.649Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-18T04:41:03.003Z",
+    "at": "2026-11-18T05:08:23.739Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +178,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "3a318e6",
-      "ageMin": 41,
-      "lastGoodSha": "3a318e6",
-      "lastGoodAgeMin": 41
+      "sha": "a95a8fa",
+      "ageMin": 2,
+      "lastGoodSha": "a95a8fa",
+      "lastGoodAgeMin": 2
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "3a318e6",
-      "ageMin": 41,
-      "lastGoodSha": "3a318e6",
-      "lastGoodAgeMin": 41
+      "sha": "a95a8fa",
+      "ageMin": 2,
+      "lastGoodSha": "a95a8fa",
+      "lastGoodAgeMin": 2
     }
   },
   "prRerun": {},
@@ -196,6 +196,10 @@
     "PR ## red for # min with no new push (failed: test): its lane is not fixing it": {
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
+    },
+    "dead pick(s) under lane:core, never woken: ## — relabel to lane:solo/lane:chain ": {
+      "since": "2026-11-18T05:07:58.819Z",
+      "escalated": false
     },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
