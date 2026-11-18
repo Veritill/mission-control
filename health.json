@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-18T20:51:00.774Z",
+  "at": "2026-11-18T21:39:31.638Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 1,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 1
+      "busyPct": 0
     },
     "core": {
       "runs": 5,
-      "busyMin": 25,
-      "waitMin": 8,
-      "busyPct": 41
+      "busyMin": 15,
+      "waitMin": 0,
+      "busyPct": 24
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 180,
+      "runs": 3,
+      "busyMin": 77,
       "waitMin": 0,
-      "busyPct": 150
+      "busyPct": 64
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 3,
-    "oldestQueuedMin": 68
+    "ciQueued": 2,
+    "oldestQueuedMin": 40
   },
   "runners": [
     {
@@ -71,13 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 3762 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 3810 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 11651 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 11699 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -86,16 +90,12 @@
     },
     {
       "level": "warn",
-      "text": "718 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "728 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 68 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $85.18)",
+      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $85.4)",
       "repeated": true
     },
     {
@@ -106,19 +106,23 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 65.7,
-    "railwayProjected": 85.18,
+    "railwayMonthToDate": 65.92,
+    "railwayProjected": 85.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-18T20:50:55.597Z",
+    "at": "2026-11-18T21:39:24.467Z",
     "tenantContext": {
       "entries": 2,
       "hits": 345,
@@ -158,12 +162,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-18T20:24:07.218Z",
+      "checkedAt": "2026-11-18T21:09:39.427Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-18T20:50:55.381Z",
+    "at": "2026-11-18T21:39:24.256Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,17 +183,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "0762551",
-      "ageMin": 29,
-      "lastGoodSha": "0762551",
-      "lastGoodAgeMin": 29
+      "sha": "e2768f3",
+      "ageMin": 30,
+      "lastGoodSha": "e2768f3",
+      "lastGoodAgeMin": 30
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "0762551",
-      "ageMin": 29,
-      "lastGoodSha": "0762551",
-      "lastGoodAgeMin": 29
+      "sha": "e2768f3",
+      "ageMin": 30,
+      "lastGoodSha": "e2768f3",
+      "lastGoodAgeMin": 30
     }
   },
   "prRerun": {},
@@ -198,16 +202,16 @@
       "since": "2026-11-09T09:22:55.121Z",
       "escalated": true
     },
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-18T21:38:44.315Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
       "escalated": true
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-18T04:40:39.048Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-18T20:21:53.115Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -219,5 +223,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-18T20:21:53.115Z"
+  "supervisorWokeAt": "2026-11-18T21:38:44.315Z"
 }
