@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-19T05:41:16.517Z",
+  "at": "2026-11-19T06:24:02.810Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 15,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 12
     },
     "core": {
-      "runs": 5,
-      "busyMin": 11,
-      "waitMin": 3,
-      "busyPct": 19
+      "runs": 8,
+      "busyMin": 18,
+      "waitMin": 7,
+      "busyPct": 30
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 35,
+      "runs": 6,
+      "busyMin": 37,
       "waitMin": 0,
-      "busyPct": 29
+      "busyPct": 31
     }
   },
   "queue": {
-    "agentsQueued": 3,
-    "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,12 +76,12 @@
     },
     {
       "level": "warn",
-      "text": "179 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "199 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $288 exceeds the $250 budget (Railway projected $88.41)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $88.52)",
       "repeated": true
     },
     {
@@ -98,13 +98,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 68.74,
-    "railwayProjected": 88.41,
+    "railwayMonthToDate": 68.91,
+    "railwayProjected": 88.52,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-19T05:41:11.354Z",
+    "at": "2026-11-19T06:23:56.784Z",
     "tenantContext": {
       "entries": 2,
       "hits": 345,
@@ -144,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-19T04:45:42.748Z",
+      "checkedAt": "2026-11-19T06:02:31.603Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-19T05:41:11.138Z",
+    "at": "2026-11-19T06:23:56.556Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -165,17 +165,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "da93e1a",
-      "ageMin": 56,
-      "lastGoodSha": "da93e1a",
-      "lastGoodAgeMin": 56
+      "sha": "e8e8f4b",
+      "ageMin": 22,
+      "lastGoodSha": "e8e8f4b",
+      "lastGoodAgeMin": 22
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "da93e1a",
-      "ageMin": 56,
-      "lastGoodSha": "da93e1a",
-      "lastGoodAgeMin": 56
+      "sha": "e8e8f4b",
+      "ageMin": 22,
+      "lastGoodSha": "e8e8f4b",
+      "lastGoodAgeMin": 22
     }
   },
   "prRerun": {},
