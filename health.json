@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-19T00:34:55.951Z",
+  "at": "2026-11-19T01:01:23.157Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 23,
+      "runs": 1,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 19
+      "busyPct": 2
     },
     "core": {
-      "runs": 8,
-      "busyMin": 24,
-      "waitMin": 6,
-      "busyPct": 40
+      "runs": 6,
+      "busyMin": 22,
+      "waitMin": 2,
+      "busyPct": 36
     },
     "planner": {
       "runs": 0,
@@ -22,21 +22,21 @@
     },
     "ci": {
       "runs": 8,
-      "busyMin": 143,
+      "busyMin": 114,
       "waitMin": 0,
-      "busyPct": 119
+      "busyPct": 95
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 2,
-    "oldestQueuedMin": 43
+    "oldestQueuedMin": 47
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,12 +71,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2072 red for 3986 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2072 red for 4012 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "PR #1765 red for 11875 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #1765 red for 11902 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -86,12 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 43 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 47 min); every 'veritill' runner is online and busy — a backlog, not an outage",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $286 exceeds the $250 budget (Railway projected $86.27)",
+      "text": "projected development cost $286 exceeds the $250 budget (Railway projected $86.4)",
       "repeated": true
     },
     {
@@ -108,13 +108,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 66.81,
-    "railwayProjected": 86.27,
+    "railwayMonthToDate": 66.94,
+    "railwayProjected": 86.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-19T00:34:49.676Z",
+    "at": "2026-11-19T01:01:17.432Z",
     "tenantContext": {
       "entries": 2,
       "hits": 345,
@@ -154,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-19T00:07:27.076Z",
+      "checkedAt": "2026-11-19T00:57:45.247Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-19T00:34:49.415Z",
+    "at": "2026-11-19T01:01:17.206Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -175,17 +175,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "0e6f9d2",
-      "ageMin": 29,
-      "lastGoodSha": "0e6f9d2",
-      "lastGoodAgeMin": 29
+      "sha": "8a57790",
+      "ageMin": 4,
+      "lastGoodSha": "8a57790",
+      "lastGoodAgeMin": 4
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "0e6f9d2",
-      "ageMin": 29,
-      "lastGoodSha": "0e6f9d2",
-      "lastGoodAgeMin": 29
+      "sha": "8a57790",
+      "ageMin": 4,
+      "lastGoodSha": "8a57790",
+      "lastGoodAgeMin": 4
     }
   },
   "prRerun": {},
