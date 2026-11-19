@@ -1,27 +1,27 @@
 {
-  "at": "2026-11-19T22:45:12.819Z",
+  "at": "2026-11-19T23:16:48.509Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 5,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 0
     },
     "core": {
-      "runs": 9,
-      "busyMin": 21,
+      "runs": 12,
+      "busyMin": 41,
       "waitMin": 5,
-      "busyPct": 35
+      "busyPct": 68
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 3,
-      "waitMin": 4,
-      "busyPct": 6
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 9,
+      "runs": 8,
       "busyMin": 85,
       "waitMin": 0,
       "busyPct": 71
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2401 red for 1095 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2401 red for 1127 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
     },
     {
@@ -81,12 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "407 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "419 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.24)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.36)",
       "repeated": true
     },
     {
@@ -103,34 +103,34 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 71.75,
-    "railwayProjected": 89.24,
+    "railwayMonthToDate": 71.9,
+    "railwayProjected": 89.36,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-19T22:45:05.059Z",
+    "at": "2026-11-19T23:16:42.470Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 632,
-      "misses": 16,
-      "hydrations": 16
+      "hits": 213,
+      "misses": 1,
+      "hydrations": 1
     },
     "platformContent": {
-      "entries": 2,
-      "hits": 15,
-      "misses": 5
+      "entries": 0,
+      "hits": 0,
+      "misses": 0
     },
     "derived": {
-      "hits": 54,
-      "misses": 43,
+      "hits": 0,
+      "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 15
+      "onceHits": 0
     },
     "edgePurge": {
       "purges": 0,
@@ -143,18 +143,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-19T21:37:04.406Z",
+      "checkedAt": "2026-11-19T22:54:36.593Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-19T22:27:06.430Z",
+      "checkedAt": "2026-11-19T22:58:25.240Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-19T22:45:04.847Z",
+    "at": "2026-11-19T23:16:42.281Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,16 +170,16 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "49ff1b7",
+      "sha": "d152518",
       "ageMin": 19,
-      "lastGoodSha": "49ff1b7",
+      "lastGoodSha": "d152518",
       "lastGoodAgeMin": 19
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "49ff1b7",
+      "sha": "d152518",
       "ageMin": 19,
-      "lastGoodSha": "49ff1b7",
+      "lastGoodSha": "d152518",
       "lastGoodAgeMin": 19
     }
   },
