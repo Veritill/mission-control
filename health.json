@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-19T22:09:24.254Z",
+  "at": "2026-11-19T22:45:12.819Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 11,
+      "runs": 1,
+      "busyMin": 5,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 5
     },
     "core": {
-      "runs": 5,
-      "busyMin": 12,
-      "waitMin": 2,
-      "busyPct": 20
+      "runs": 9,
+      "busyMin": 21,
+      "waitMin": 5,
+      "busyPct": 35
     },
     "planner": {
       "runs": 1,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 1
+      "busyMin": 3,
+      "waitMin": 4,
+      "busyPct": 6
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 23,
+      "runs": 9,
+      "busyMin": 85,
       "waitMin": 0,
-      "busyPct": 19
+      "busyPct": 71
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,12 +71,8 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2401 red for 1060 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2401 red for 1095 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "lane chain had 1 ready task(s) 30+ min old and an idle runner: woke it"
     },
     {
       "level": "warn",
@@ -84,17 +80,13 @@
       "repeated": true
     },
     {
-      "level": "info",
-      "text": "CHAIN is on hold (its own schedule paragraph) — not a stall"
-    },
-    {
       "level": "warn",
-      "text": "380 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "407 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.11)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.24)",
       "repeated": true
     },
     {
@@ -111,16 +103,16 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 71.58,
-    "railwayProjected": 89.11,
+    "railwayMonthToDate": 71.75,
+    "railwayProjected": 89.24,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-19T22:09:17.603Z",
+    "at": "2026-11-19T22:45:05.059Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 630,
+      "hits": 632,
       "misses": 16,
       "hydrations": 16
     },
@@ -157,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-19T21:45:07.150Z",
+      "checkedAt": "2026-11-19T22:27:06.430Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-19T22:09:17.399Z",
+    "at": "2026-11-19T22:45:04.847Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "10a6567",
-      "ageMin": 25,
-      "lastGoodSha": "10a6567",
-      "lastGoodAgeMin": 25
+      "sha": "49ff1b7",
+      "ageMin": 19,
+      "lastGoodSha": "49ff1b7",
+      "lastGoodAgeMin": 19
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "10a6567",
-      "ageMin": 25,
-      "lastGoodSha": "10a6567",
-      "lastGoodAgeMin": 25
+      "sha": "49ff1b7",
+      "ageMin": 19,
+      "lastGoodSha": "49ff1b7",
+      "lastGoodAgeMin": 19
     }
   },
   "prRerun": {},
