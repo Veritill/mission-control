@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-19T02:13:28.428Z",
+  "at": "2026-11-19T02:46:08.412Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 45,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 37
+      "busyPct": 0
     },
     "core": {
-      "runs": 11,
-      "busyMin": 27,
-      "waitMin": 18,
-      "busyPct": 45
+      "runs": 9,
+      "busyMin": 24,
+      "waitMin": 16,
+      "busyPct": 40
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 8,
-      "busyMin": 127,
+      "busyMin": 112,
       "waitMin": 0,
-      "busyPct": 106
+      "busyPct": 93
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 3,
+    "oldestQueuedMin": 24
   },
   "runners": [
     {
@@ -64,20 +64,11 @@
       "busy": false
     }
   ],
-  "conflicted": [
-    {
-      "number": 2400,
-      "branch": "lane/chain/2388"
-    }
-  ],
+  "conflicted": [],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
-    {
-      "level": "warn",
-      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
-    },
     {
       "level": "warn",
       "text": "needs you: #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
@@ -85,7 +76,11 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.87)",
+      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 24 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $87.18)",
       "repeated": true
     },
     {
@@ -106,13 +101,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 67.38,
-    "railwayProjected": 86.87,
+    "railwayMonthToDate": 67.63,
+    "railwayProjected": 87.18,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-19T02:13:20.646Z",
+    "at": "2026-11-19T02:46:00.473Z",
     "tenantContext": {
       "entries": 2,
       "hits": 345,
@@ -152,12 +147,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-19T01:48:03.306Z",
+      "checkedAt": "2026-11-19T02:30:58.435Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-19T02:13:20.427Z",
+    "at": "2026-11-19T02:46:00.256Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,28 +168,28 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "113fb86",
-      "ageMin": 26,
-      "lastGoodSha": "113fb86",
-      "lastGoodAgeMin": 26
+      "sha": "28719de",
+      "ageMin": 16,
+      "lastGoodSha": "28719de",
+      "lastGoodAgeMin": 16
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "113fb86",
-      "ageMin": 26,
-      "lastGoodSha": "113fb86",
-      "lastGoodAgeMin": 26
+      "sha": "28719de",
+      "ageMin": 16,
+      "lastGoodSha": "28719de",
+      "lastGoodAgeMin": 16
     }
   },
   "prRerun": {},
   "warnSince": {
-    "# pull request(s) conflicted with main; Core is busy (no dispatch)": {
-      "since": "2026-11-19T02:12:59.637Z",
-      "escalated": false
-    },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
       "escalated": true
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-19T02:45:34.872Z",
+      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-16T16:18:36.778Z",
@@ -205,5 +200,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-19T02:12:59.637Z"
+  "supervisorWokeAt": "2026-11-19T02:45:34.872Z"
 }
