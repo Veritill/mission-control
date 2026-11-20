@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-20T19:49:42.065Z",
+  "at": "2026-11-20T20:15:41.131Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 12,
+      "runs": 2,
+      "busyMin": 37,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 31
     },
     "core": {
-      "runs": 6,
-      "busyMin": 13,
-      "waitMin": 2,
-      "busyPct": 21
+      "runs": 10,
+      "busyMin": 23,
+      "waitMin": 11,
+      "busyPct": 38
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 44,
+      "runs": 12,
+      "busyMin": 46,
       "waitMin": 0,
-      "busyPct": 36
+      "busyPct": 38
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 1,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -71,21 +71,17 @@
   "findings": [
     {
       "level": "warn",
-      "text": "#2536 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
-    },
-    {
-      "level": "warn",
       "text": "needs you: #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "699 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "737 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $294 exceeds the $250 budget (Railway projected $94.17)",
+      "text": "projected development cost $294 exceeds the $250 budget (Railway projected $94.26)",
       "repeated": true
     },
     {
@@ -96,36 +92,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 77.96,
-    "railwayProjected": 94.17,
+    "railwayMonthToDate": 78.08,
+    "railwayProjected": 94.26,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-20T19:49:34.371Z",
+    "at": "2026-11-20T20:15:35.565Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 81,
+      "hits": 93,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 12,
+      "hits": 14,
       "misses": 1
     },
     "derived": {
-      "hits": 52,
+      "hits": 60,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -133,7 +125,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 13
+      "onceHits": 15
     },
     "edgePurge": {
       "purges": 0,
@@ -152,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-20T19:14:51.738Z",
+      "checkedAt": "2026-11-20T20:10:56.188Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-20T19:49:34.164Z",
+    "at": "2026-11-20T20:15:35.355Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -172,26 +164,22 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "154651d",
-      "ageMin": 36,
-      "lastGoodSha": "154651d",
-      "lastGoodAgeMin": 36
+      "status": "BUILDING",
+      "sha": "ca82766",
+      "ageMin": 0,
+      "lastGoodSha": "6655bb2",
+      "lastGoodAgeMin": 6
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "154651d",
-      "ageMin": 36,
-      "lastGoodSha": "154651d",
-      "lastGoodAgeMin": 36
+      "status": "BUILDING",
+      "sha": "ca82766",
+      "ageMin": 0,
+      "lastGoodSha": "6655bb2",
+      "lastGoodAgeMin": 6
     }
   },
   "prRerun": {},
   "warnSince": {
-    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
-      "since": "2026-11-20T19:49:14.523Z",
-      "escalated": false
-    },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
       "escalated": true
