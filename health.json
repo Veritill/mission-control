@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-20T05:17:03.844Z",
+  "at": "2026-11-20T05:42:58.353Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 35,
+      "runs": 2,
+      "busyMin": 32,
       "waitMin": 0,
-      "busyPct": 29
+      "busyPct": 27
     },
     "core": {
-      "runs": 9,
-      "busyMin": 25,
-      "waitMin": 8,
-      "busyPct": 42
+      "runs": 8,
+      "busyMin": 33,
+      "waitMin": 11,
+      "busyPct": 55
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 0,
-      "waitMin": 1,
-      "busyPct": 0
+      "runs": 3,
+      "busyMin": 24,
+      "waitMin": 4,
+      "busyPct": 41
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 77,
+      "runs": 12,
+      "busyMin": 165,
       "waitMin": 0,
-      "busyPct": 65
+      "busyPct": 137
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 3
+    "agentsQueued": 3,
+    "ciQueued": 3,
+    "oldestQueuedMin": 32
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -71,8 +71,16 @@
   "findings": [
     {
       "level": "warn",
-      "text": "PR #2401 red for 1487 min with no new push (failed: test): its lane is not fixing it",
+      "text": "PR #2401 red for 1513 min with no new push (failed: test): its lane is not fixing it",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "13 of today's 24 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+    },
+    {
+      "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2346, #2254 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -81,8 +89,12 @@
     },
     {
       "level": "warn",
-      "text": "241 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "292 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 32 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
@@ -90,7 +102,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $90.78)",
+      "text": "projected development cost $291 exceeds the $250 budget (Railway projected $90.88)",
       "repeated": true
     },
     {
@@ -101,26 +113,22 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 73.71,
-    "railwayProjected": 90.78,
+    "railwayMonthToDate": 73.83,
+    "railwayProjected": 90.88,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-20T05:16:55.744Z",
+    "at": "2026-11-20T05:42:52.124Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 27,
+      "hits": 34,
       "misses": 1,
       "hydrations": 1
     },
@@ -157,12 +165,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-20T04:55:00.377Z",
+      "checkedAt": "2026-11-20T05:42:10.097Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-20T05:16:55.538Z",
+    "at": "2026-11-20T05:42:51.920Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -177,18 +185,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
-      "sha": "9701cb4",
-      "ageMin": 0,
-      "lastGoodSha": "e94a475",
-      "lastGoodAgeMin": 23
+      "status": "SUCCESS",
+      "sha": "143e553",
+      "ageMin": 3,
+      "lastGoodSha": "143e553",
+      "lastGoodAgeMin": 3
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "9701cb4",
-      "ageMin": 0,
-      "lastGoodSha": "e94a475",
-      "lastGoodAgeMin": 23
+      "status": "DEPLOYING",
+      "sha": "143e553",
+      "ageMin": 3,
+      "lastGoodSha": "f4870b1",
+      "lastGoodAgeMin": 3
     }
   },
   "prRerun": {},
@@ -197,12 +205,24 @@
       "since": "2026-11-19T06:53:59.644Z",
       "escalated": false
     },
+    "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
+      "since": "2026-11-20T05:42:28.533Z",
+      "escalated": false
+    },
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
+      "since": "2026-11-20T05:42:28.533Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-16T18:21:55.540Z",
       "escalated": true
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-20T02:24:37.457Z",
+      "escalated": false
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-20T05:42:28.533Z",
       "escalated": false
     },
     "# agents run(s) failed in the last hour (#): the build's own workflow is errorin": {
