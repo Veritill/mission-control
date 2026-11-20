@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-20T17:58:36.963Z",
+  "at": "2026-11-20T18:00:51.672Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 10,
-      "busyMin": 125,
+      "busyMin": 133,
       "waitMin": 50,
-      "busyPct": 104
+      "busyPct": 110
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 49
+    "oldestQueuedMin": 52
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -76,16 +76,12 @@
     },
     {
       "level": "warn",
-      "text": "641 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "644 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
-      "level": "fixed",
-      "text": "main is red on e2e only (run 44780280418): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
-    },
-    {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 49 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 52 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
@@ -100,10 +96,6 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
@@ -116,20 +108,20 @@
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-20T17:58:29.248Z",
+    "at": "2026-11-20T18:00:46.209Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 37,
+      "hits": 39,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 4,
+      "hits": 5,
       "misses": 1
     },
     "derived": {
-      "hits": 20,
+      "hits": 24,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -137,7 +129,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 5
+      "onceHits": 6
     },
     "edgePurge": {
       "purges": 0,
@@ -161,7 +153,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-20T17:58:29.037Z",
+    "at": "2026-11-20T18:00:45.999Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,16 +170,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "b7473bc",
-      "ageMin": 32,
+      "ageMin": 35,
       "lastGoodSha": "b7473bc",
-      "lastGoodAgeMin": 32
+      "lastGoodAgeMin": 35
     },
     "web": {
       "status": "SUCCESS",
       "sha": "b7473bc",
-      "ageMin": 32,
+      "ageMin": 35,
       "lastGoodSha": "b7473bc",
-      "lastGoodAgeMin": 32
+      "lastGoodAgeMin": 35
     }
   },
   "prRerun": {},
