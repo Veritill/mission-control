@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-21T01:06:27.768Z",
+  "at": "2026-11-21T01:33:27.501Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 13,
+      "runs": 2,
+      "busyMin": 20,
       "waitMin": 0,
-      "busyPct": 11
+      "busyPct": 17
     },
     "core": {
-      "runs": 9,
-      "busyMin": 25,
-      "waitMin": 13,
-      "busyPct": 42
+      "runs": 8,
+      "busyMin": 29,
+      "waitMin": 23,
+      "busyPct": 49
     },
     "planner": {
       "runs": 1,
-      "busyMin": 4,
-      "waitMin": 0,
-      "busyPct": 7
+      "busyMin": 7,
+      "waitMin": 9,
+      "busyPct": 11
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 83,
+      "runs": 10,
+      "busyMin": 129,
       "waitMin": 0,
-      "busyPct": 69
+      "busyPct": 107
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 2,
-    "oldestQueuedMin": 34
+    "agentsQueued": 7,
+    "ciQueued": 3,
+    "oldestQueuedMin": 61
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -80,11 +80,12 @@
     },
     {
       "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 34 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 61 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.4)",
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.52)",
       "repeated": true
     },
     {
@@ -95,36 +96,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 79.6,
-    "railwayProjected": 95.4,
+    "railwayMonthToDate": 79.76,
+    "railwayProjected": 95.52,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T01:06:18.934Z",
+    "at": "2026-11-21T01:33:20.109Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 35,
+      "hits": 41,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 5,
+      "hits": 6,
       "misses": 1
     },
     "derived": {
-      "hits": 24,
+      "hits": 28,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -132,7 +129,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 6
+      "onceHits": 7
     },
     "edgePurge": {
       "purges": 0,
@@ -151,12 +148,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T00:31:57.149Z",
+      "checkedAt": "2026-11-21T01:32:28.202Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T01:06:18.726Z",
+    "at": "2026-11-21T01:33:19.885Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -171,18 +168,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "5bb19ac",
-      "ageMin": 35,
-      "lastGoodSha": "5bb19ac",
-      "lastGoodAgeMin": 35
+      "status": "BUILDING",
+      "sha": "986ca7f",
+      "ageMin": 0,
+      "lastGoodSha": "a647893",
+      "lastGoodAgeMin": 2
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "5bb19ac",
-      "ageMin": 35,
-      "lastGoodSha": "5bb19ac",
-      "lastGoodAgeMin": 35
+      "status": "BUILDING",
+      "sha": "986ca7f",
+      "ageMin": 0,
+      "lastGoodSha": "a647893",
+      "lastGoodAgeMin": 2
     }
   },
   "prRerun": {},
