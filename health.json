@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-21T00:10:25.726Z",
+  "at": "2026-11-21T00:40:40.431Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 18,
-      "waitMin": 0,
-      "busyPct": 15
-    },
-    "core": {
-      "runs": 17,
-      "busyMin": 37,
-      "waitMin": 15,
-      "busyPct": 61
-    },
-    "planner": {
       "runs": 0,
       "busyMin": 0,
       "waitMin": 0,
       "busyPct": 0
     },
-    "ci": {
+    "core": {
       "runs": 16,
-      "busyMin": 109,
+      "busyMin": 45,
+      "waitMin": 17,
+      "busyPct": 75
+    },
+    "planner": {
+      "runs": 1,
+      "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 91
+      "busyPct": 7
+    },
+    "ci": {
+      "runs": 14,
+      "busyMin": 105,
+      "waitMin": 0,
+      "busyPct": 88
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 2,
-    "oldestQueuedMin": 31
+    "ciQueued": 3,
+    "oldestQueuedMin": 43
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -75,11 +75,11 @@
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 31 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 43 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.2)"
+      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.31)"
     },
     {
       "level": "info",
@@ -89,36 +89,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 79.32,
-    "railwayProjected": 95.2,
+    "railwayMonthToDate": 79.47,
+    "railwayProjected": 95.31,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T00:10:15.461Z",
+    "at": "2026-11-21T00:40:32.502Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 11,
+      "hits": 23,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 1,
+      "hits": 3,
       "misses": 1
     },
     "derived": {
-      "hits": 8,
+      "hits": 16,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -126,7 +122,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 2
+      "onceHits": 4
     },
     "edgePurge": {
       "purges": 0,
@@ -145,12 +141,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T00:03:28.566Z",
+      "checkedAt": "2026-11-21T00:31:57.149Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T00:10:15.251Z",
+    "at": "2026-11-21T00:40:32.294Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -165,18 +161,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
-      "sha": "4b843c8",
-      "ageMin": 0,
-      "lastGoodSha": "955b3c6",
-      "lastGoodAgeMin": 8
+      "status": "SUCCESS",
+      "sha": "5bb19ac",
+      "ageMin": 9,
+      "lastGoodSha": "5bb19ac",
+      "lastGoodAgeMin": 9
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "4b843c8",
-      "ageMin": 0,
-      "lastGoodSha": "955b3c6",
-      "lastGoodAgeMin": 8
+      "status": "SUCCESS",
+      "sha": "5bb19ac",
+      "ageMin": 9,
+      "lastGoodSha": "5bb19ac",
+      "lastGoodAgeMin": 9
     }
   },
   "prRerun": {},
