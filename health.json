@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-21T09:47:56.330Z",
+  "at": "2026-11-21T10:15:47.166Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 3,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 2
+      "busyPct": 14
     },
     "core": {
-      "runs": 3,
-      "busyMin": 6,
-      "waitMin": 6,
-      "busyPct": 10
+      "runs": 9,
+      "busyMin": 35,
+      "waitMin": 8,
+      "busyPct": 58
     },
     "planner": {
       "runs": 1,
@@ -21,16 +21,16 @@
       "busyPct": 6
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 70,
+      "runs": 9,
+      "busyMin": 89,
       "waitMin": 0,
-      "busyPct": 58
+      "busyPct": 74
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 6,
+    "ciQueued": 1,
+    "oldestQueuedMin": 8
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -75,18 +75,26 @@
       "repeated": true
     },
     {
+      "level": "fixed",
+      "text": "lane chain had 1 ready task(s) 30+ min old and an idle runner: woke it"
+    },
+    {
       "level": "warn",
       "text": "needs you: #2448, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "297 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "CHAIN is empty while line \"113. #2538 M Linking 4: a product made or edited by hand lin...\" is eligible (#2538: open, after items closed, no PR): Core's hand-out skipped it"
+    },
+    {
+      "level": "warn",
+      "text": "326 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $96.88)",
+      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $96.94)",
       "repeated": true
     },
     {
@@ -97,32 +105,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 82.16,
-    "railwayProjected": 96.88,
+    "railwayMonthToDate": 82.29,
+    "railwayProjected": 96.94,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T09:47:51.498Z",
+    "at": "2026-11-21T10:15:38.983Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 239,
+      "hits": 251,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 39,
+      "hits": 41,
       "misses": 1
     },
     "derived": {
-      "hits": 160,
+      "hits": 168,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +142,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 40
+      "onceHits": 42
     },
     "edgePurge": {
       "purges": 0,
@@ -149,12 +161,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T08:48:22.301Z",
+      "checkedAt": "2026-11-21T10:05:07.836Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T09:47:51.277Z",
+    "at": "2026-11-21T10:15:38.759Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +182,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "08b3b29",
-      "ageMin": 61,
-      "lastGoodSha": "08b3b29",
-      "lastGoodAgeMin": 61
+      "sha": "453ebf9",
+      "ageMin": 11,
+      "lastGoodSha": "453ebf9",
+      "lastGoodAgeMin": 11
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "08b3b29",
-      "ageMin": 61,
-      "lastGoodSha": "08b3b29",
-      "lastGoodAgeMin": 61
+      "sha": "453ebf9",
+      "ageMin": 11,
+      "lastGoodSha": "453ebf9",
+      "lastGoodAgeMin": 11
     }
   },
   "prRerun": {},
@@ -191,6 +203,10 @@
     },
     "needs you: ##, ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-20T23:50:10.411Z",
+      "escalated": false
+    },
+    "CHAIN is empty while line \"#. ## M Linking #: a product made or edited by hand l": {
+      "since": "2026-11-21T10:15:10.572Z",
       "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
@@ -206,5 +222,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-21T08:23:23.756Z"
+  "supervisorWokeAt": "2026-11-21T10:15:10.572Z"
 }
