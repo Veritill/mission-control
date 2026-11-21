@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-21T15:02:06.511Z",
+  "at": "2026-11-21T15:41:05.209Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 10,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 8
+      "busyPct": 14
     },
     "core": {
-      "runs": 7,
-      "busyMin": 16,
-      "waitMin": 4,
-      "busyPct": 26
+      "runs": 4,
+      "busyMin": 10,
+      "waitMin": 11,
+      "busyPct": 16
     },
     "planner": {
       "runs": 1,
@@ -21,22 +21,22 @@
       "busyPct": 6
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 86,
+      "runs": 5,
+      "busyMin": 79,
       "waitMin": 0,
-      "busyPct": 71
+      "busyPct": 66
     }
   },
   "queue": {
-    "agentsQueued": 3,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 7
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,16 +76,17 @@
     },
     {
       "level": "warn",
-      "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it"
-    },
-    {
-      "level": "warn",
-      "text": "466 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.57)",
+      "text": "475 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.65)",
       "repeated": true
     },
     {
@@ -102,26 +103,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 83.67,
-    "railwayProjected": 97.57,
+    "railwayMonthToDate": 83.85,
+    "railwayProjected": 97.65,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T15:02:02.533Z",
+    "at": "2026-11-21T15:41:00.748Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 365,
+      "hits": 383,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 60,
+      "hits": 63,
       "misses": 1
     },
     "derived": {
-      "hits": 255,
+      "hits": 267,
       "misses": 10,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -129,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 61
+      "onceHits": 64
     },
     "edgePurge": {
       "purges": 0,
@@ -148,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T14:56:10.514Z",
+      "checkedAt": "2026-11-21T15:11:02.306Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T15:02:02.313Z",
+    "at": "2026-11-21T15:41:00.540Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -169,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "05f0c81",
-      "ageMin": 7,
-      "lastGoodSha": "05f0c81",
-      "lastGoodAgeMin": 7
+      "sha": "160b734",
+      "ageMin": 31,
+      "lastGoodSha": "160b734",
+      "lastGoodAgeMin": 31
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "05f0c81",
-      "ageMin": 7,
-      "lastGoodSha": "05f0c81",
-      "lastGoodAgeMin": 7
+      "sha": "160b734",
+      "ageMin": 31,
+      "lastGoodSha": "160b734",
+      "lastGoodAgeMin": 31
     }
   },
   "prRerun": {},
