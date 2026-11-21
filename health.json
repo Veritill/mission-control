@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-21T02:39:14.034Z",
+  "at": "2026-11-21T03:09:46.688Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 16,
+      "busyMin": 25,
       "waitMin": 0,
-      "busyPct": 13
+      "busyPct": 21
     },
     "core": {
       "runs": 6,
-      "busyMin": 13,
-      "waitMin": 2,
+      "busyMin": 12,
+      "waitMin": 11,
       "busyPct": 21
     },
     "planner": {
       "runs": 2,
-      "busyMin": 3,
-      "waitMin": 0,
-      "busyPct": 6
+      "busyMin": 10,
+      "waitMin": 12,
+      "busyPct": 16
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 65,
+      "runs": 10,
+      "busyMin": 180,
       "waitMin": 0,
-      "busyPct": 54
+      "busyPct": 150
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 2,
-    "oldestQueuedMin": 69
+    "ciQueued": 1,
+    "oldestQueuedMin": 43
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -81,16 +81,16 @@
     },
     {
       "level": "warn",
-      "text": "137 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "152 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 69 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 43 min); every 'veritill' runner is online and busy — a backlog, not an outage",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.75)",
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.84)",
       "repeated": true
     },
     {
@@ -101,36 +101,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 80.09,
-    "railwayProjected": 95.75,
+    "railwayMonthToDate": 80.24,
+    "railwayProjected": 95.84,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T02:39:07.756Z",
+    "at": "2026-11-21T03:09:42.295Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 71,
+      "hits": 83,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 11,
+      "hits": 13,
       "misses": 1
     },
     "derived": {
-      "hits": 48,
+      "hits": 56,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -138,7 +134,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 12
+      "onceHits": 14
     },
     "edgePurge": {
       "purges": 0,
@@ -157,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T02:30:36.976Z",
+      "checkedAt": "2026-11-21T02:52:34.263Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T02:39:07.553Z",
+    "at": "2026-11-21T03:09:42.090Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "b7ba3f2",
-      "ageMin": 10,
-      "lastGoodSha": "b7ba3f2",
-      "lastGoodAgeMin": 10
+      "sha": "c3e211e",
+      "ageMin": 18,
+      "lastGoodSha": "c3e211e",
+      "lastGoodAgeMin": 18
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "b7ba3f2",
-      "ageMin": 10,
-      "lastGoodSha": "b7ba3f2",
-      "lastGoodAgeMin": 10
+      "sha": "c3e211e",
+      "ageMin": 18,
+      "lastGoodSha": "c3e211e",
+      "lastGoodAgeMin": 18
     }
   },
   "prRerun": {},
