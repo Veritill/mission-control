@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-21T00:40:40.431Z",
+  "at": "2026-11-21T01:06:27.768Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 13,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 11
     },
     "core": {
-      "runs": 16,
-      "busyMin": 45,
-      "waitMin": 17,
-      "busyPct": 75
+      "runs": 9,
+      "busyMin": 25,
+      "waitMin": 13,
+      "busyPct": 42
     },
     "planner": {
       "runs": 1,
@@ -21,16 +21,16 @@
       "busyPct": 7
     },
     "ci": {
-      "runs": 14,
-      "busyMin": 105,
+      "runs": 7,
+      "busyMin": 83,
       "waitMin": 0,
-      "busyPct": 88
+      "busyPct": 69
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 3,
-    "oldestQueuedMin": 43
+    "agentsQueued": 0,
+    "ciQueued": 2,
+    "oldestQueuedMin": 34
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,15 +71,21 @@
   "findings": [
     {
       "level": "warn",
-      "text": "needs you: #2448, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 43 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "needs you: #2448, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.31)"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 34 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.4)",
+      "repeated": true
     },
     {
       "level": "info",
@@ -89,32 +95,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 79.47,
-    "railwayProjected": 95.31,
+    "railwayMonthToDate": 79.6,
+    "railwayProjected": 95.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T00:40:32.502Z",
+    "at": "2026-11-21T01:06:18.934Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 23,
+      "hits": 35,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 3,
+      "hits": 5,
       "misses": 1
     },
     "derived": {
-      "hits": 16,
+      "hits": 24,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -122,7 +132,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 4
+      "onceHits": 6
     },
     "edgePurge": {
       "purges": 0,
@@ -146,7 +156,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T00:40:32.294Z",
+    "at": "2026-11-21T01:06:18.726Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -163,20 +173,24 @@
     "api": {
       "status": "SUCCESS",
       "sha": "5bb19ac",
-      "ageMin": 9,
+      "ageMin": 35,
       "lastGoodSha": "5bb19ac",
-      "lastGoodAgeMin": 9
+      "lastGoodAgeMin": 35
     },
     "web": {
       "status": "SUCCESS",
       "sha": "5bb19ac",
-      "ageMin": 9,
+      "ageMin": 35,
       "lastGoodSha": "5bb19ac",
-      "lastGoodAgeMin": 9
+      "lastGoodAgeMin": 35
     }
   },
   "prRerun": {},
   "warnSince": {
+    "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
+      "since": "2026-11-21T01:05:46.764Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": false
@@ -194,5 +208,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-21T00:09:44.026Z"
+  "supervisorWokeAt": "2026-11-21T01:05:46.764Z"
 }
