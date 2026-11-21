@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-21T21:49:32.481Z",
+  "at": "2026-11-21T21:54:12.066Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -10,9 +10,9 @@
     },
     "core": {
       "runs": 5,
-      "busyMin": 14,
+      "busyMin": 15,
       "waitMin": 1,
-      "busyPct": 23
+      "busyPct": 25
     },
     "planner": {
       "runs": 0,
@@ -28,9 +28,9 @@
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 0,
     "ciQueued": 0,
-    "oldestQueuedMin": 2
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -109,20 +109,20 @@
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T21:49:25.828Z",
+    "at": "2026-11-21T21:54:05.829Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 527,
+      "hits": 533,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 87,
+      "hits": 88,
       "misses": 1
     },
     "derived": {
-      "hits": 363,
+      "hits": 367,
       "misses": 10,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 88
+      "onceHits": 89
     },
     "edgePurge": {
       "purges": 0,
@@ -154,7 +154,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T21:49:25.616Z",
+    "at": "2026-11-21T21:54:05.631Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -171,16 +171,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "7cf094a",
-      "ageMin": 1,
+      "ageMin": 6,
       "lastGoodSha": "7cf094a",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 6
     },
     "web": {
       "status": "SUCCESS",
       "sha": "7cf094a",
-      "ageMin": 1,
+      "ageMin": 6,
       "lastGoodSha": "7cf094a",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 6
     }
   },
   "prRerun": {},
