@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-21T14:33:16.418Z",
+  "at": "2026-11-21T15:02:06.511Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 30,
+      "busyMin": 10,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 8
     },
     "core": {
-      "runs": 6,
-      "busyMin": 11,
-      "waitMin": 11,
-      "busyPct": 18
+      "runs": 7,
+      "busyMin": 16,
+      "waitMin": 4,
+      "busyPct": 26
     },
     "planner": {
       "runs": 1,
-      "busyMin": 8,
-      "waitMin": 3,
-      "busyPct": 13
+      "busyMin": 4,
+      "waitMin": 0,
+      "busyPct": 6
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 107,
+      "runs": 6,
+      "busyMin": 86,
       "waitMin": 0,
-      "busyPct": 89
+      "busyPct": 71
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 12
+    "agentsQueued": 3,
+    "ciQueued": 0,
+    "oldestQueuedMin": 7
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -80,12 +80,12 @@
     },
     {
       "level": "warn",
-      "text": "449 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "466 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.53)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.57)",
       "repeated": true
     },
     {
@@ -96,44 +96,40 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 83.54,
-    "railwayProjected": 97.53,
+    "railwayMonthToDate": 83.67,
+    "railwayProjected": 97.57,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T14:33:10.792Z",
+    "at": "2026-11-21T15:02:02.533Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 353,
+      "hits": 365,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 58,
+      "hits": 60,
       "misses": 1
     },
     "derived": {
-      "hits": 236,
-      "misses": 2,
+      "hits": 255,
+      "misses": 10,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 59
+      "onceHits": 61
     },
     "edgePurge": {
       "purges": 0,
@@ -152,12 +148,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T14:16:49.831Z",
+      "checkedAt": "2026-11-21T14:56:10.514Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T14:33:10.570Z",
+    "at": "2026-11-21T15:02:02.313Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,17 +169,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "29ec43d",
-      "ageMin": 17,
-      "lastGoodSha": "29ec43d",
-      "lastGoodAgeMin": 17
+      "sha": "05f0c81",
+      "ageMin": 7,
+      "lastGoodSha": "05f0c81",
+      "lastGoodAgeMin": 7
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "29ec43d",
-      "ageMin": 17,
-      "lastGoodSha": "29ec43d",
-      "lastGoodAgeMin": 17
+      "sha": "05f0c81",
+      "ageMin": 7,
+      "lastGoodSha": "05f0c81",
+      "lastGoodAgeMin": 7
     }
   },
   "prRerun": {},
