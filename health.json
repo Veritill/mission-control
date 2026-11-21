@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-21T03:09:46.688Z",
+  "at": "2026-11-21T03:41:14.026Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 25,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 21
+      "busyPct": 0
     },
     "core": {
-      "runs": 6,
-      "busyMin": 12,
-      "waitMin": 11,
-      "busyPct": 21
+      "runs": 4,
+      "busyMin": 7,
+      "waitMin": 1,
+      "busyPct": 12
     },
     "planner": {
-      "runs": 2,
-      "busyMin": 10,
-      "waitMin": 12,
-      "busyPct": 16
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 180,
+      "runs": 3,
+      "busyMin": 83,
       "waitMin": 0,
-      "busyPct": 150
+      "busyPct": 69
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 43
+    "ciQueued": 0,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -81,16 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "152 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 43 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "text": "158 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.84)",
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.94)",
       "repeated": true
     },
     {
@@ -107,26 +103,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 80.24,
-    "railwayProjected": 95.84,
+    "railwayMonthToDate": 80.39,
+    "railwayProjected": 95.94,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T03:09:42.295Z",
+    "at": "2026-11-21T03:41:09.773Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 83,
+      "hits": 95,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 13,
+      "hits": 15,
       "misses": 1
     },
     "derived": {
-      "hits": 56,
+      "hits": 64,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -134,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 14
+      "onceHits": 16
     },
     "edgePurge": {
       "purges": 0,
@@ -158,7 +154,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T03:09:42.090Z",
+    "at": "2026-11-21T03:41:09.565Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -175,16 +171,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "c3e211e",
-      "ageMin": 18,
+      "ageMin": 50,
       "lastGoodSha": "c3e211e",
-      "lastGoodAgeMin": 18
+      "lastGoodAgeMin": 50
     },
     "web": {
       "status": "SUCCESS",
       "sha": "c3e211e",
-      "ageMin": 18,
+      "ageMin": 50,
       "lastGoodSha": "c3e211e",
-      "lastGoodAgeMin": 18
+      "lastGoodAgeMin": 50
     }
   },
   "prRerun": {},
@@ -199,10 +195,6 @@
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-21T02:38:47.470Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-21T00:09:44.026Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
