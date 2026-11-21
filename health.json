@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-21T01:33:27.501Z",
+  "at": "2026-11-21T02:09:24.783Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 20,
-      "waitMin": 0,
-      "busyPct": 17
-    },
-    "core": {
-      "runs": 8,
-      "busyMin": 29,
-      "waitMin": 23,
-      "busyPct": 49
-    },
-    "planner": {
       "runs": 1,
       "busyMin": 7,
-      "waitMin": 9,
-      "busyPct": 11
+      "waitMin": 0,
+      "busyPct": 6
+    },
+    "core": {
+      "runs": 7,
+      "busyMin": 27,
+      "waitMin": 14,
+      "busyPct": 45
+    },
+    "planner": {
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 129,
+      "runs": 7,
+      "busyMin": 141,
       "waitMin": 0,
-      "busyPct": 107
+      "busyPct": 118
     }
   },
   "queue": {
-    "agentsQueued": 7,
-    "ciQueued": 3,
-    "oldestQueuedMin": 61
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 52
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -71,7 +71,8 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)"
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -80,12 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 61 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 52 min); every 'veritill' runner is online and busy — a backlog, not an outage",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.52)",
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.63)",
       "repeated": true
     },
     {
@@ -102,26 +103,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 79.76,
-    "railwayProjected": 95.52,
+    "railwayMonthToDate": 79.93,
+    "railwayProjected": 95.63,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T01:33:20.109Z",
+    "at": "2026-11-21T02:09:19.185Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 41,
+      "hits": 59,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 6,
+      "hits": 9,
       "misses": 1
     },
     "derived": {
-      "hits": 28,
+      "hits": 40,
       "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -129,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 7
+      "onceHits": 10
     },
     "edgePurge": {
       "purges": 0,
@@ -148,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T01:32:28.202Z",
+      "checkedAt": "2026-11-21T01:33:56.783Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T01:33:19.885Z",
+    "at": "2026-11-21T02:09:18.979Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -168,18 +169,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "986ca7f",
-      "ageMin": 0,
-      "lastGoodSha": "a647893",
-      "lastGoodAgeMin": 2
+      "ageMin": 36,
+      "lastGoodSha": "986ca7f",
+      "lastGoodAgeMin": 36
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "986ca7f",
-      "ageMin": 0,
-      "lastGoodSha": "a647893",
-      "lastGoodAgeMin": 2
+      "ageMin": 36,
+      "lastGoodSha": "986ca7f",
+      "lastGoodAgeMin": 36
     }
   },
   "prRerun": {},
