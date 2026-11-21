@@ -1,17 +1,17 @@
 {
-  "at": "2026-11-21T06:24:51.956Z",
+  "at": "2026-11-21T07:20:18.536Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 11,
-      "waitMin": 0,
-      "busyPct": 9
+      "busyMin": 13,
+      "waitMin": 3,
+      "busyPct": 11
     },
     "core": {
-      "runs": 4,
+      "runs": 2,
       "busyMin": 13,
-      "waitMin": 1,
+      "waitMin": 0,
       "busyPct": 22
     },
     "planner": {
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 137,
+      "runs": 3,
+      "busyMin": 126,
       "waitMin": 0,
-      "busyPct": 114
+      "busyPct": 105
     }
   },
   "queue": {
@@ -81,12 +81,16 @@
     },
     {
       "level": "warn",
-      "text": "225 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "CHAIN is empty while line \"120. #2626 L Data Hub proof 2: the record and the apply in b...\" is eligible (#2626: open, after items closed, no PR): Core's hand-out skipped it"
+    },
+    {
+      "level": "warn",
+      "text": "235 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $96.35)",
+      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $96.5)",
       "repeated": true
     },
     {
@@ -97,32 +101,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 81.15,
-    "railwayProjected": 96.35,
+    "railwayMonthToDate": 81.43,
+    "railwayProjected": 96.5,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T06:24:46.069Z",
+    "at": "2026-11-21T07:20:12.808Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 161,
+      "hits": 179,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 26,
+      "hits": 29,
       "misses": 1
     },
     "derived": {
-      "hits": 108,
+      "hits": 120,
       "misses": 2,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +138,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 27
+      "onceHits": 30
     },
     "edgePurge": {
       "purges": 0,
@@ -143,18 +151,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-20T23:50:35.794Z",
+      "checkedAt": "2026-11-21T06:24:46.236Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T05:54:25.592Z",
+      "checkedAt": "2026-11-21T07:10:38.687Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T06:24:45.854Z",
+    "at": "2026-11-21T07:20:12.594Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +178,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "a9819a0",
-      "ageMin": 31,
-      "lastGoodSha": "a9819a0",
-      "lastGoodAgeMin": 31
+      "sha": "0743368",
+      "ageMin": 11,
+      "lastGoodSha": "0743368",
+      "lastGoodAgeMin": 11
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "a9819a0",
-      "ageMin": 31,
-      "lastGoodSha": "a9819a0",
-      "lastGoodAgeMin": 31
+      "sha": "0743368",
+      "ageMin": 11,
+      "lastGoodSha": "0743368",
+      "lastGoodAgeMin": 11
     }
   },
   "prRerun": {},
@@ -191,6 +199,10 @@
     },
     "needs you: ##, ##, ##, ##, ## open over a day with a schedule line waiting on it": {
       "since": "2026-11-20T23:50:10.411Z",
+      "escalated": false
+    },
+    "CHAIN is empty while line \"#. ## L Data Hub proof #: the record and the apply in": {
+      "since": "2026-11-21T07:19:47.558Z",
       "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
@@ -206,5 +218,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-21T02:38:47.470Z"
+  "supervisorWokeAt": "2026-11-21T07:19:47.558Z"
 }
