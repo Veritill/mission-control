@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-22T18:40:51.823Z",
+  "at": "2026-11-22T19:25:41.109Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 12,
-      "waitMin": 0,
-      "busyPct": 10
+      "runs": 3,
+      "busyMin": 44,
+      "waitMin": 37,
+      "busyPct": 37
     },
     "core": {
-      "runs": 4,
-      "busyMin": 12,
-      "waitMin": 2,
-      "busyPct": 20
+      "runs": 5,
+      "busyMin": 20,
+      "waitMin": 9,
+      "busyPct": 34
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 11
+      "busyPct": 0
     },
     "ci": {
       "runs": 6,
-      "busyMin": 68,
+      "busyMin": 136,
       "waitMin": 0,
-      "busyPct": 57
+      "busyPct": 113
     }
   },
   "queue": {
-    "agentsQueued": 2,
-    "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 45
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -75,12 +75,8 @@
       "repeated": true
     },
     {
-      "level": "fixed",
-      "text": "lane solo had 1 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
       "level": "warn",
-      "text": "14 of today's 26 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "15 of today's 27 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -90,16 +86,16 @@
     },
     {
       "level": "warn",
-      "text": "SOLO is empty while line \"186. #2163 M Wholesale 6f: the other exemption kinds, and de...\" is eligible (#2163: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "291 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "308 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.55)",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 45 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.63)",
       "repeated": true
     },
     {
@@ -120,26 +116,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 89.27,
-    "railwayProjected": 97.55,
+    "railwayMonthToDate": 89.5,
+    "railwayProjected": 97.63,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-22T18:40:46.371Z",
+    "at": "2026-11-22T19:25:35.902Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 835,
+      "hits": 841,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 171,
+      "hits": 174,
       "misses": 1
     },
     "derived": {
-      "hits": 710,
+      "hits": 722,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -147,7 +143,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 172
+      "onceHits": 175
     },
     "edgePurge": {
       "purges": 0,
@@ -166,12 +162,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-22T18:10:48.792Z",
+      "checkedAt": "2026-11-22T18:55:44.678Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-22T18:40:46.152Z",
+    "at": "2026-11-22T19:25:35.673Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -187,16 +183,16 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "cb774e9",
+      "sha": "9fc77e4",
       "ageMin": 31,
-      "lastGoodSha": "cb774e9",
+      "lastGoodSha": "9fc77e4",
       "lastGoodAgeMin": 31
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "cb774e9",
+      "sha": "9fc77e4",
       "ageMin": 31,
-      "lastGoodSha": "cb774e9",
+      "lastGoodSha": "9fc77e4",
       "lastGoodAgeMin": 31
     }
   },
@@ -214,12 +210,12 @@
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
     },
-    "SOLO is empty while line \"#. ## M Wholesale #f: the other exemption kinds, and d": {
-      "since": "2026-11-22T18:40:22.015Z",
-      "escalated": false
-    },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-22T11:47:13.555Z",
+      "escalated": false
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-22T19:25:14.064Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -231,5 +227,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-22T18:40:22.015Z"
+  "supervisorWokeAt": "2026-11-22T19:25:14.064Z"
 }
