@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-22T17:06:43.401Z",
+  "at": "2026-11-22T17:34:12.354Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 44,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 36
+      "busyPct": 2
     },
     "core": {
-      "runs": 6,
-      "busyMin": 23,
-      "waitMin": 21,
-      "busyPct": 39
+      "runs": 2,
+      "busyMin": 3,
+      "waitMin": 1,
+      "busyPct": 4
     },
     "planner": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 64,
+      "runs": 4,
+      "busyMin": 81,
       "waitMin": 0,
-      "busyPct": 54
+      "busyPct": 67
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -76,7 +76,8 @@
     },
     {
       "level": "warn",
-      "text": "11 of today's 21 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+      "text": "12 of today's 22 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -85,12 +86,12 @@
     },
     {
       "level": "warn",
-      "text": "249 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "254 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $97.43)",
+      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $97.46)",
       "repeated": true
     },
     {
@@ -107,26 +108,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 88.84,
-    "railwayProjected": 97.43,
+    "railwayMonthToDate": 88.96,
+    "railwayProjected": 97.46,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-22T17:06:40.375Z",
+    "at": "2026-11-22T17:34:09.746Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 823,
+      "hits": 827,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 165,
+      "hits": 167,
       "misses": 1
     },
     "derived": {
-      "hits": 686,
+      "hits": 694,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -134,7 +135,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 166
+      "onceHits": 168
     },
     "edgePurge": {
       "purges": 0,
@@ -153,12 +154,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-22T16:38:20.595Z",
+      "checkedAt": "2026-11-22T17:13:24.558Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-22T17:06:40.158Z",
+    "at": "2026-11-22T17:34:09.545Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,17 +175,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "24ea123",
-      "ageMin": 30,
-      "lastGoodSha": "24ea123",
-      "lastGoodAgeMin": 30
+      "sha": "07c20ce",
+      "ageMin": 22,
+      "lastGoodSha": "07c20ce",
+      "lastGoodAgeMin": 22
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "24ea123",
-      "ageMin": 30,
-      "lastGoodSha": "24ea123",
-      "lastGoodAgeMin": 30
+      "sha": "07c20ce",
+      "ageMin": 22,
+      "lastGoodSha": "07c20ce",
+      "lastGoodAgeMin": 22
     }
   },
   "prRerun": {},
