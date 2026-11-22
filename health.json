@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-22T13:27:59.475Z",
+  "at": "2026-11-22T14:11:28.499Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 20,
-      "waitMin": 0,
-      "busyPct": 17
-    },
-    "core": {
-      "runs": 2,
+      "runs": 1,
       "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 4
+    },
+    "core": {
+      "runs": 4,
+      "busyMin": 12,
+      "waitMin": 5,
+      "busyPct": 21
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 3,
+      "runs": 5,
       "busyMin": 42,
       "waitMin": 0,
       "busyPct": 35
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 2,
+    "ciQueued": 1,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
@@ -81,12 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "156 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "170 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.61)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.62)",
       "repeated": true
     },
     {
@@ -103,26 +103,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 88.22,
-    "railwayProjected": 97.61,
+    "railwayMonthToDate": 88.38,
+    "railwayProjected": 97.62,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-22T13:27:55.515Z",
+    "at": "2026-11-22T14:11:23.916Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 793,
+      "hits": 799,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 150,
+      "hits": 153,
       "misses": 1
     },
     "derived": {
-      "hits": 615,
+      "hits": 627,
       "misses": 12,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 151
+      "onceHits": 154
     },
     "edgePurge": {
       "purges": 0,
@@ -149,12 +149,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-22T12:34:37.083Z",
+      "checkedAt": "2026-11-22T13:36:35.857Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-22T13:27:55.322Z",
+    "at": "2026-11-22T14:11:23.701Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +170,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "5f5da64",
-      "ageMin": 54,
-      "lastGoodSha": "5f5da64",
-      "lastGoodAgeMin": 54
+      "sha": "53028fd",
+      "ageMin": 36,
+      "lastGoodSha": "53028fd",
+      "lastGoodAgeMin": 36
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "5f5da64",
-      "ageMin": 54,
-      "lastGoodSha": "5f5da64",
-      "lastGoodAgeMin": 54
+      "sha": "53028fd",
+      "ageMin": 36,
+      "lastGoodSha": "53028fd",
+      "lastGoodAgeMin": 36
     }
   },
   "prRerun": {},
