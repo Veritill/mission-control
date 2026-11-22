@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-21T23:18:43.227Z",
+  "at": "2026-11-22T02:36:22.652Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 31,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 26
+      "busyPct": 0
     }
   },
   "queue": {
@@ -76,21 +76,12 @@
     },
     {
       "level": "warn",
-      "text": "34 of today's 67 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
-    },
-    {
-      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "625 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
-      "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.21)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.01)",
       "repeated": true
     },
     {
@@ -101,36 +92,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 85.78,
-    "railwayProjected": 98.21,
+    "railwayMonthToDate": 86.3,
+    "railwayProjected": 98.01,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-21T23:18:36.722Z",
+    "at": "2026-11-22T02:36:19.303Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 563,
+      "hits": 641,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 93,
+      "hits": 106,
       "misses": 1
     },
     "derived": {
-      "hits": 387,
+      "hits": 439,
       "misses": 10,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -138,7 +125,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 94
+      "onceHits": 107
     },
     "edgePurge": {
       "purges": 0,
@@ -157,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-21T22:19:34.015Z",
+      "checkedAt": "2026-11-21T23:29:46.208Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-21T23:18:36.498Z",
+    "at": "2026-11-22T02:36:19.090Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,40 +165,32 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "8076099",
-      "ageMin": 61,
-      "lastGoodSha": "8076099",
-      "lastGoodAgeMin": 61
+      "sha": "7c0b4a1",
+      "ageMin": 187,
+      "lastGoodSha": "7c0b4a1",
+      "lastGoodAgeMin": 187
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "8076099",
-      "ageMin": 61,
-      "lastGoodSha": "8076099",
-      "lastGoodAgeMin": 61
+      "sha": "7c0b4a1",
+      "ageMin": 187,
+      "lastGoodSha": "7c0b4a1",
+      "lastGoodAgeMin": 187
     }
   },
   "prRerun": {},
   "warnSince": {
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
-      "escalated": false
-    },
-    "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
-      "since": "2026-11-21T23:18:06.848Z",
-      "escalated": false
+      "escalated": true
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": false
     },
-    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
-      "since": "2026-11-21T02:38:47.470Z",
-      "escalated": false
-    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
-      "escalated": false
+      "escalated": true
     },
     "staging AI key refused (authentication_error): every AI feature there is dark (R": {
       "since": "2026-11-06T00:31:28.817Z",
