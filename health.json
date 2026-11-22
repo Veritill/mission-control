@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-22T09:39:14.414Z",
+  "at": "2026-11-22T10:32:41.893Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 13,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 11
     },
     "core": {
-      "runs": 4,
-      "busyMin": 10,
+      "runs": 5,
+      "busyMin": 11,
       "waitMin": 0,
-      "busyPct": 17
+      "busyPct": 19
     },
     "planner": {
       "runs": 0,
@@ -21,8 +21,8 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 37,
+      "runs": 4,
+      "busyMin": 38,
       "waitMin": 0,
       "busyPct": 31
     }
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.53)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.56)",
       "repeated": true
     },
     {
@@ -98,26 +98,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 87.36,
-    "railwayProjected": 97.53,
+    "railwayMonthToDate": 87.57,
+    "railwayProjected": 97.56,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-22T09:39:10.372Z",
+    "at": "2026-11-22T10:32:38.303Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 761,
+      "hits": 769,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 134,
+      "hits": 138,
       "misses": 1
     },
     "derived": {
-      "hits": 551,
+      "hits": 567,
       "misses": 12,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -125,7 +125,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 135
+      "onceHits": 139
     },
     "edgePurge": {
       "purges": 0,
@@ -144,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-22T09:00:57.718Z",
+      "checkedAt": "2026-11-22T09:50:18.834Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-22T09:39:10.156Z",
+    "at": "2026-11-22T10:32:38.084Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -165,17 +165,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "ce283b8",
-      "ageMin": 39,
-      "lastGoodSha": "ce283b8",
-      "lastGoodAgeMin": 39
+      "sha": "8063c9a",
+      "ageMin": 43,
+      "lastGoodSha": "8063c9a",
+      "lastGoodAgeMin": 43
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "ce283b8",
-      "ageMin": 39,
-      "lastGoodSha": "ce283b8",
-      "lastGoodAgeMin": 39
+      "sha": "8063c9a",
+      "ageMin": 43,
+      "lastGoodSha": "8063c9a",
+      "lastGoodAgeMin": 43
     }
   },
   "prRerun": {},
