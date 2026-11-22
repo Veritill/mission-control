@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-22T14:11:28.499Z",
+  "at": "2026-11-22T16:04:05.215Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
+      "runs": 2,
       "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 3
     },
     "core": {
-      "runs": 4,
-      "busyMin": 12,
-      "waitMin": 5,
-      "busyPct": 21
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 0,
+      "busyPct": 3
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 3
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 42,
+      "runs": 2,
+      "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 35
+      "busyPct": 3
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 8,
     "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 4
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -76,17 +76,21 @@
     },
     {
       "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2183, #2163 — nothing builds them until a line names them"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "170 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "188 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.62)",
+      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $97.44)",
       "repeated": true
     },
     {
@@ -97,40 +101,44 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 88.38,
-    "railwayProjected": 97.62,
+    "railwayMonthToDate": 88.62,
+    "railwayProjected": 97.44,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-22T14:11:23.916Z",
+    "at": "2026-11-22T16:03:57.523Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 799,
+      "hits": 815,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 153,
+      "hits": 161,
       "misses": 1
     },
     "derived": {
-      "hits": 627,
-      "misses": 12,
+      "hits": 670,
+      "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 154
+      "onceHits": 162
     },
     "edgePurge": {
       "purges": 0,
@@ -149,12 +157,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-22T13:36:35.857Z",
+      "checkedAt": "2026-11-22T14:21:51.331Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-22T14:11:23.701Z",
+    "at": "2026-11-22T16:03:57.316Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +178,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "53028fd",
-      "ageMin": 36,
-      "lastGoodSha": "53028fd",
-      "lastGoodAgeMin": 36
+      "sha": "e5b5d57",
+      "ageMin": 103,
+      "lastGoodSha": "e5b5d57",
+      "lastGoodAgeMin": 103
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "53028fd",
-      "ageMin": 36,
-      "lastGoodSha": "53028fd",
-      "lastGoodAgeMin": 36
+      "sha": "e5b5d57",
+      "ageMin": 103,
+      "lastGoodSha": "e5b5d57",
+      "lastGoodAgeMin": 103
     }
   },
   "prRerun": {},
@@ -189,9 +197,13 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
+      "since": "2026-11-22T16:03:21.180Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
-      "escalated": false
+      "escalated": true
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-22T11:47:13.555Z",
@@ -206,5 +218,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-22T11:47:13.555Z"
+  "supervisorWokeAt": "2026-11-22T16:03:21.180Z"
 }
