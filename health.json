@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-23T16:51:25.654Z",
+  "at": "2026-11-23T18:17:20.149Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,28 +9,28 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 19,
-      "busyMin": 43,
-      "waitMin": 41,
-      "busyPct": 71
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
-      "runs": 4,
-      "busyMin": 24,
-      "waitMin": 26,
-      "busyPct": 41
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 17,
-      "busyMin": 83,
+      "runs": 1,
+      "busyMin": 57,
       "waitMin": 0,
-      "busyPct": 69
+      "busyPct": 47
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 2
+    "ciQueued": 1,
+    "oldestQueuedMin": 85
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,7 +76,12 @@
     },
     {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2769 — nothing builds them until a line names them"
+      "text": "#2769 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
+    },
+    {
+      "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2843 — nothing builds them until a line names them",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -85,16 +90,12 @@
     },
     {
       "level": "warn",
-      "text": "776 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "799 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "nightly.yml last ran 26 h ago (over 26 h): GitHub dropped its cron, run it by hand"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.29)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.35)",
       "repeated": true
     },
     {
@@ -115,34 +116,34 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 95.16,
-    "railwayProjected": 98.29,
+    "railwayMonthToDate": 95.58,
+    "railwayProjected": 98.35,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T16:51:12.748Z",
+    "at": "2026-11-23T18:17:09.367Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 1013,
+      "hits": 1023,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 260,
+      "hits": 265,
       "misses": 1
     },
     "derived": {
-      "hits": 1066,
-      "misses": 22,
+      "hits": 1115,
+      "misses": 30,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 261
+      "onceHits": 266
     },
     "edgePurge": {
       "purges": 0,
@@ -161,12 +162,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-23T16:50:12.454Z",
+      "checkedAt": "2026-11-23T17:06:41.251Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T16:51:12.537Z",
+    "at": "2026-11-23T18:17:09.154Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -182,17 +183,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "60257a7",
-      "ageMin": 2,
-      "lastGoodSha": "60257a7",
-      "lastGoodAgeMin": 2
+      "sha": "bd4383f",
+      "ageMin": 71,
+      "lastGoodSha": "bd4383f",
+      "lastGoodAgeMin": 71
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "60257a7",
-      "ageMin": 2,
-      "lastGoodSha": "60257a7",
-      "lastGoodAgeMin": 2
+      "sha": "bd4383f",
+      "ageMin": 71,
+      "lastGoodSha": "bd4383f",
+      "lastGoodAgeMin": 71
     }
   },
   "prRerun": {},
@@ -200,6 +201,10 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
+    },
+    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
+      "since": "2026-11-23T18:16:37.187Z",
+      "escalated": false
     },
     "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
       "since": "2026-11-23T15:55:24.090Z",
@@ -213,10 +218,6 @@
       "since": "2026-11-23T04:51:59.580Z",
       "escalated": false
     },
-    "nightly.yml last ran # h ago (over # h): GitHub dropped its cron, run it by hand": {
-      "since": "2026-11-23T16:50:36.205Z",
-      "escalated": false
-    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
@@ -226,5 +227,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-23T16:50:36.205Z"
+  "supervisorWokeAt": "2026-11-23T18:16:37.187Z"
 }
