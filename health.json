@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-23T07:42:46.144Z",
+  "at": "2026-11-23T08:56:57.386Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,28 +9,28 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 15,
-      "busyMin": 26,
-      "waitMin": 22,
-      "busyPct": 44
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 0
     },
     "ci": {
-      "runs": 13,
-      "busyMin": 120,
+      "runs": 2,
+      "busyMin": 112,
       "waitMin": 0,
-      "busyPct": 100
+      "busyPct": 93
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 58
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -75,12 +75,8 @@
       "repeated": true
     },
     {
-      "level": "fixed",
-      "text": "lane chain had 4 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2790, #2788 — nothing builds them until a line names them"
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2794 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -89,16 +85,16 @@
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"131c. #2773 L Data Hub proof 14: the price list plan is comp...\" is eligible (#2773: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "347 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "369 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.12)",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 58 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.16)",
       "repeated": true
     },
     {
@@ -119,26 +115,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 92.73,
-    "railwayProjected": 98.12,
+    "railwayMonthToDate": 93.07,
+    "railwayProjected": 98.16,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T07:42:37.215Z",
+    "at": "2026-11-23T08:56:50.374Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 939,
+      "hits": 949,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 223,
+      "hits": 228,
       "misses": 1
     },
     "derived": {
-      "hits": 918,
+      "hits": 938,
       "misses": 22,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -146,7 +142,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 224
+      "onceHits": 229
     },
     "edgePurge": {
       "purges": 0,
@@ -165,12 +161,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-23T07:10:44.896Z",
+      "checkedAt": "2026-11-23T08:02:08.638Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T07:42:37.002Z",
+    "at": "2026-11-23T08:56:50.153Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -186,17 +182,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "577bc62",
-      "ageMin": 33,
-      "lastGoodSha": "577bc62",
-      "lastGoodAgeMin": 33
+      "sha": "fcbcd56",
+      "ageMin": 56,
+      "lastGoodSha": "fcbcd56",
+      "lastGoodAgeMin": 56
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "577bc62",
-      "ageMin": 33,
-      "lastGoodSha": "577bc62",
-      "lastGoodAgeMin": 33
+      "sha": "fcbcd56",
+      "ageMin": 56,
+      "lastGoodSha": "fcbcd56",
+      "lastGoodAgeMin": 56
     }
   },
   "prRerun": {},
@@ -205,20 +201,20 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
-      "since": "2026-11-23T07:42:03.932Z",
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
+      "since": "2026-11-23T08:56:24.406Z",
       "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
     },
-    "CHAIN is empty while line \"#c. ## L Data Hub proof #: the price list plan is com": {
-      "since": "2026-11-23T07:42:03.932Z",
-      "escalated": false
-    },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-23T04:51:59.580Z",
+      "escalated": false
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-23T08:56:24.406Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -230,5 +226,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-23T07:42:03.932Z"
+  "supervisorWokeAt": "2026-11-23T08:56:24.406Z"
 }
