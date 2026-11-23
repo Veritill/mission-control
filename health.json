@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-23T00:34:04.914Z",
+  "at": "2026-11-23T01:06:03.369Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 34,
+      "busyMin": 15,
       "waitMin": 0,
-      "busyPct": 28
+      "busyPct": 12
     },
     "core": {
-      "runs": 5,
+      "runs": 2,
       "busyMin": 15,
-      "waitMin": 1,
-      "busyPct": 26
+      "waitMin": 17,
+      "busyPct": 25
     },
     "planner": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 60,
+      "runs": 1,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 50
+      "busyPct": 14
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -36,7 +36,7 @@
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -64,12 +64,7 @@
       "busy": false
     }
   ],
-  "conflicted": [
-    {
-      "number": 2748,
-      "branch": "lane/chain/2721"
-    }
-  ],
+  "conflicted": [],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
@@ -78,10 +73,6 @@
       "level": "warn",
       "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -101,36 +92,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 90.93,
+    "railwayMonthToDate": 91.05,
     "railwayProjected": 97.98,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T00:33:59.744Z",
+    "at": "2026-11-23T01:06:00.658Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 883,
+      "hits": 887,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 195,
+      "hits": 197,
       "misses": 1
     },
     "derived": {
-      "hits": 806,
+      "hits": 814,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -138,7 +125,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 196
+      "onceHits": 198
     },
     "edgePurge": {
       "purges": 0,
@@ -162,7 +149,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T00:33:59.535Z",
+    "at": "2026-11-23T01:06:00.451Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,16 +166,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "b253e8a",
-      "ageMin": 35,
+      "ageMin": 67,
       "lastGoodSha": "b253e8a",
-      "lastGoodAgeMin": 35
+      "lastGoodAgeMin": 67
     },
     "web": {
       "status": "SUCCESS",
       "sha": "b253e8a",
-      "ageMin": 35,
+      "ageMin": 67,
       "lastGoodSha": "b253e8a",
-      "lastGoodAgeMin": 35
+      "lastGoodAgeMin": 67
     }
   },
   "prRerun": {},
@@ -196,10 +183,6 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
-    },
-    "# pull request(s) conflicted with main; Core is busy (no dispatch)": {
-      "since": "2026-11-23T00:33:27.730Z",
-      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
