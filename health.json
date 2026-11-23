@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-23T05:21:37.904Z",
+  "at": "2026-11-23T05:47:39.576Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 15,
-      "waitMin": 0,
-      "busyPct": 13
+      "runs": 3,
+      "busyMin": 29,
+      "waitMin": 4,
+      "busyPct": 24
     },
     "core": {
-      "runs": 5,
-      "busyMin": 14,
-      "waitMin": 18,
-      "busyPct": 23
+      "runs": 11,
+      "busyMin": 33,
+      "waitMin": 15,
+      "busyPct": 56
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 2,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 20
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 9,
+      "runs": 15,
+      "busyMin": 36,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 30
     }
   },
   "queue": {
-    "agentsQueued": 9,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 7
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,12 +71,8 @@
   "findings": [
     {
       "level": "warn",
-      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2762 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -85,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "184 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "233 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
     },
     {
       "level": "warn",
@@ -106,26 +102,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 91.95,
+    "railwayMonthToDate": 92.06,
     "railwayProjected": 97.9,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T05:21:34.122Z",
+    "at": "2026-11-23T05:47:34.806Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 921,
+      "hits": 925,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 214,
+      "hits": 216,
       "misses": 1
     },
     "derived": {
-      "hits": 882,
+      "hits": 890,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -133,7 +129,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 215
+      "onceHits": 217
     },
     "edgePurge": {
       "purges": 0,
@@ -152,12 +148,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-23T05:20:51.183Z",
+      "checkedAt": "2026-11-23T05:45:17.741Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T05:21:33.914Z",
+    "at": "2026-11-23T05:47:34.589Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,17 +169,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "bb52811",
-      "ageMin": 2,
-      "lastGoodSha": "bb52811",
-      "lastGoodAgeMin": 2
+      "sha": "0e710cb",
+      "ageMin": 4,
+      "lastGoodSha": "0e710cb",
+      "lastGoodAgeMin": 4
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "bb52811",
-      "ageMin": 2,
-      "lastGoodSha": "bb52811",
-      "lastGoodAgeMin": 2
+      "sha": "0e710cb",
+      "ageMin": 4,
+      "lastGoodSha": "0e710cb",
+      "lastGoodAgeMin": 4
     }
   },
   "prRerun": {},
@@ -191,10 +187,6 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
-    },
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
-      "since": "2026-11-23T05:20:57.184Z",
-      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
