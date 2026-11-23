@@ -1,34 +1,34 @@
 {
-  "at": "2026-11-23T02:19:25.629Z",
+  "at": "2026-11-23T03:46:23.465Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 4,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 0
     },
     "core": {
-      "runs": 8,
-      "busyMin": 16,
-      "waitMin": 13,
-      "busyPct": 27
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 1,
       "busyMin": 7,
-      "waitMin": 3,
+      "waitMin": 0,
       "busyPct": 12
     },
     "ci": {
-      "runs": 11,
-      "busyMin": 75,
+      "runs": 1,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 62
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 11,
     "ciQueued": 0,
     "oldestQueuedMin": 1
   },
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,7 +71,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
     },
     {
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.95)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.9)",
       "repeated": true
     },
     {
@@ -98,26 +98,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 91.3,
-    "railwayProjected": 97.95,
+    "railwayMonthToDate": 91.58,
+    "railwayProjected": 97.9,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T02:19:20.838Z",
+    "at": "2026-11-23T03:46:19.444Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 897,
+      "hits": 909,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 202,
+      "hits": 208,
       "misses": 1
     },
     "derived": {
-      "hits": 834,
+      "hits": 858,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -125,7 +125,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 203
+      "onceHits": 209
     },
     "edgePurge": {
       "purges": 0,
@@ -149,7 +149,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T02:19:20.632Z",
+    "at": "2026-11-23T03:46:19.245Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -166,16 +166,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "cb414ed",
-      "ageMin": 1,
+      "ageMin": 88,
       "lastGoodSha": "cb414ed",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 88
     },
     "web": {
       "status": "SUCCESS",
       "sha": "cb414ed",
-      "ageMin": 1,
+      "ageMin": 88,
       "lastGoodSha": "cb414ed",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 88
     }
   },
   "prRerun": {},
