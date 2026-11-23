@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-23T11:39:12.653Z",
+  "at": "2026-11-23T12:08:26.770Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 49,
+      "runs": 2,
+      "busyMin": 9,
       "waitMin": 0,
-      "busyPct": 40
+      "busyPct": 8
     },
     "core": {
-      "runs": 3,
-      "busyMin": 6,
+      "runs": 5,
+      "busyMin": 14,
       "waitMin": 8,
-      "busyPct": 9
+      "busyPct": 23
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 167,
+      "runs": 4,
+      "busyMin": 29,
       "waitMin": 0,
-      "busyPct": 139
+      "busyPct": 24
     }
   },
   "queue": {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -75,26 +75,18 @@
       "repeated": true
     },
     {
-      "level": "fixed",
-      "text": "lane chain had 5 ready task(s) 30+ min old and an idle runner: woke it"
-    },
-    {
       "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CHAIN is empty while line \"133a. #2757 M Wholesale 7 part 1: invoice numbering, void/ad...\" is eligible (#2757: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "443 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "458 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.22)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.24)",
       "repeated": true
     },
     {
@@ -105,36 +97,32 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 93.79,
-    "railwayProjected": 98.22,
+    "railwayMonthToDate": 93.93,
+    "railwayProjected": 98.24,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T11:39:05.275Z",
+    "at": "2026-11-23T12:08:21.402Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 971,
+      "hits": 975,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 239,
+      "hits": 241,
       "misses": 1
     },
     "derived": {
-      "hits": 982,
+      "hits": 990,
       "misses": 22,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -142,7 +130,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 240
+      "onceHits": 242
     },
     "edgePurge": {
       "purges": 0,
@@ -155,7 +143,7 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-23T04:52:34.665Z",
+      "checkedAt": "2026-11-23T11:39:05.419Z",
       "error": null
     },
     "staging": {
@@ -166,7 +154,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T11:39:05.065Z",
+    "at": "2026-11-23T12:08:21.192Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,18 +169,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "59b1c3a",
-      "ageMin": 40,
+      "status": "BUILDING",
+      "sha": "cfc2e8d",
+      "ageMin": 0,
       "lastGoodSha": "59b1c3a",
-      "lastGoodAgeMin": 40
+      "lastGoodAgeMin": 70
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "59b1c3a",
-      "ageMin": 40,
+      "status": "BUILDING",
+      "sha": "cfc2e8d",
+      "ageMin": 0,
       "lastGoodSha": "59b1c3a",
-      "lastGoodAgeMin": 40
+      "lastGoodAgeMin": 70
     }
   },
   "prRerun": {},
@@ -204,10 +192,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
-    },
-    "CHAIN is empty while line \"#a. ## M Wholesale # part #: invoice numbering, void/": {
-      "since": "2026-11-23T11:38:28.229Z",
-      "escalated": false
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-23T04:51:59.580Z",
