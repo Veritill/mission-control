@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-23T03:46:23.465Z",
+  "at": "2026-11-23T04:16:18.375Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 4,
+      "busyMin": 34,
+      "waitMin": 1,
+      "busyPct": 28
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 8,
+      "busyMin": 11,
+      "waitMin": 25,
+      "busyPct": 19
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 7,
-      "waitMin": 0,
-      "busyPct": 12
+      "runs": 4,
+      "busyMin": 25,
+      "waitMin": 12,
+      "busyPct": 42
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 0,
+      "runs": 8,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 10
     }
   },
   "queue": {
-    "agentsQueued": 11,
+    "agentsQueued": 0,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -81,7 +81,11 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.9)",
+      "text": "1 agents run(s) failed in the last hour (45107216570): the build's own workflow is erroring, not a lane's tests"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $97.91)",
       "repeated": true
     },
     {
@@ -92,32 +96,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 91.58,
-    "railwayProjected": 97.9,
+    "railwayMonthToDate": 91.71,
+    "railwayProjected": 97.91,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T03:46:19.444Z",
+    "at": "2026-11-23T04:16:11.145Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 909,
+      "hits": 911,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 208,
+      "hits": 209,
       "misses": 1
     },
     "derived": {
-      "hits": 858,
+      "hits": 862,
       "misses": 20,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -125,7 +133,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 209
+      "onceHits": 210
     },
     "edgePurge": {
       "purges": 0,
@@ -144,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-23T02:18:37.844Z",
+      "checkedAt": "2026-11-23T04:05:13.851Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T03:46:19.245Z",
+    "at": "2026-11-23T04:16:10.928Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -164,18 +172,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "cb414ed",
-      "ageMin": 88,
-      "lastGoodSha": "cb414ed",
-      "lastGoodAgeMin": 88
+      "status": "BUILDING",
+      "sha": "98196ff",
+      "ageMin": 0,
+      "lastGoodSha": "d5e9edb",
+      "lastGoodAgeMin": 12
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "cb414ed",
-      "ageMin": 88,
-      "lastGoodSha": "cb414ed",
-      "lastGoodAgeMin": 88
+      "status": "BUILDING",
+      "sha": "98196ff",
+      "ageMin": 0,
+      "lastGoodSha": "d5e9edb",
+      "lastGoodAgeMin": 12
     }
   },
   "prRerun": {},
@@ -188,6 +196,10 @@
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
     },
+    "# agents run(s) failed in the last hour (#): the build's own workflow is errorin": {
+      "since": "2026-11-23T04:15:37.421Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
@@ -197,5 +209,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-23T00:33:27.730Z"
+  "supervisorWokeAt": "2026-11-23T04:15:37.421Z"
 }
