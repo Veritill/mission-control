@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-23T16:25:13.968Z",
+  "at": "2026-11-23T16:51:25.654Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 43,
-      "waitMin": 4,
-      "busyPct": 36
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "core": {
-      "runs": 18,
-      "busyMin": 38,
-      "waitMin": 39,
-      "busyPct": 63
+      "runs": 19,
+      "busyMin": 43,
+      "waitMin": 41,
+      "busyPct": 71
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 14,
-      "waitMin": 7,
-      "busyPct": 24
+      "runs": 4,
+      "busyMin": 24,
+      "waitMin": 26,
+      "busyPct": 41
     },
     "ci": {
-      "runs": 21,
-      "busyMin": 190,
+      "runs": 17,
+      "busyMin": 83,
       "waitMin": 0,
-      "busyPct": 158
+      "busyPct": 69
     }
   },
   "queue": {
-    "agentsQueued": 4,
-    "ciQueued": 1,
-    "oldestQueuedMin": 53
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -85,20 +85,16 @@
     },
     {
       "level": "warn",
-      "text": "718 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "776 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45205430926, failed: test) for 25 min — staging is not moving until a fix lands"
+      "text": "nightly.yml last ran 26 h ago (over 26 h): GitHub dropped its cron, run it by hand"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 53 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.28)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.29)",
       "repeated": true
     },
     {
@@ -109,32 +105,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 95.04,
-    "railwayProjected": 98.28,
+    "railwayMonthToDate": 95.16,
+    "railwayProjected": 98.29,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T16:25:05.768Z",
+    "at": "2026-11-23T16:51:12.748Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 1009,
+      "hits": 1013,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 258,
+      "hits": 260,
       "misses": 1
     },
     "derived": {
-      "hits": 1058,
+      "hits": 1066,
       "misses": 22,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -142,7 +142,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 259
+      "onceHits": 261
     },
     "edgePurge": {
       "purges": 0,
@@ -161,12 +161,12 @@
     "staging": {
       "configured": true,
       "ok": false,
-      "checkedAt": "2026-11-23T16:20:40.152Z",
+      "checkedAt": "2026-11-23T16:50:12.454Z",
       "error": "authentication_error"
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T16:25:05.559Z",
+    "at": "2026-11-23T16:51:12.537Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,18 +181,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
-      "sha": "2026cb0",
-      "ageMin": 1,
-      "lastGoodSha": "e8772f0",
-      "lastGoodAgeMin": 5
+      "status": "SUCCESS",
+      "sha": "60257a7",
+      "ageMin": 2,
+      "lastGoodSha": "60257a7",
+      "lastGoodAgeMin": 2
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "2026cb0",
-      "ageMin": 1,
-      "lastGoodSha": "e8772f0",
-      "lastGoodAgeMin": 5
+      "status": "SUCCESS",
+      "sha": "60257a7",
+      "ageMin": 2,
+      "lastGoodSha": "60257a7",
+      "lastGoodAgeMin": 2
     }
   },
   "prRerun": {},
@@ -213,12 +213,8 @@
       "since": "2026-11-23T04:51:59.580Z",
       "escalated": false
     },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-23T16:24:31.781Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-23T16:24:31.781Z",
+    "nightly.yml last ran # h ago (over # h): GitHub dropped its cron, run it by hand": {
+      "since": "2026-11-23T16:50:36.205Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -230,5 +226,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-23T15:55:24.090Z"
+  "supervisorWokeAt": "2026-11-23T16:50:36.205Z"
 }
