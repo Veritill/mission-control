@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup #2751 · The buyer's new-date page (/w/&lt;token&gt;)</title>
+<style>
+:root{--paper:#fbfaf7;--card:#fff;--ink:#1e2a24;--muted:#5f6b63;--rule:#e4e1d6;--green:#2f7d4f;--green-soft:#eaf3ec;--chip:#f1efe8;--sunk:#f5f3ed;--chip-ink:#4a564f;--warn:#8a6a1f;--warn-soft:#f7efd8;--bad:#8a3b3b;--bad-soft:#f6e4e4;--bg:#e9e6dd;--accent:#2f7d4f}
+body.dark{--paper:#151a17;--card:#1d2420;--ink:#e8ece9;--muted:#9aa69f;--rule:#2e3732;--green:#6cc08d;--green-soft:#1f3328;--chip:#26302b;--sunk:#1a201d;--chip-ink:#c4cec8;--warn:#e0bf6a;--warn-soft:#3a3220;--bad:#e59a9a;--bad-soft:#3b2424;--bg:#0e1210;--accent:#6cc08d}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+.about{max-width:940px;margin:0 auto;padding:14px 16px;font-size:14px;color:var(--muted)}
+.about b{color:var(--ink)}
+.about .tog{float:right;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:999px;padding:3px 12px;font-size:13px}
+.frames{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;padding:6px 10px 30px}
+.frame-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;width:min(390px,100%)}
+.frame-cap{font-size:13px;font-weight:700;color:var(--muted);text-align:center}
+.phone{width:100%;min-height:720px;background:var(--paper);border:1px solid var(--rule);border-radius:28px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.col{padding:18px 14px 40px;display:flex;flex-direction:column;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.brand h1{margin:0;font-size:21px;line-height:1.2}
+.note{font-size:13.5px;color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.big{display:flex;gap:10px;align-items:center}
+.big .ic{font-size:26px}
+.big .t{font-weight:700;font-size:17px}
+.line{display:flex;gap:10px;align-items:center}
+.pic{width:46px;height:46px;border-radius:10px;background:var(--sunk);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.line .name{font-weight:700}
+.dates{display:flex;align-items:center;gap:8px;font-size:15px}
+.was{color:var(--muted);text-decoration:line-through}
+.now{font-weight:700;color:var(--warn);background:var(--warn-soft);padding:1px 9px;border-radius:999px}
+.here{font-size:13px;color:var(--green);background:var(--green-soft);padding:1px 8px;border-radius:999px;font-weight:600;align-self:flex-start}
+.btns{display:flex;flex-direction:column;gap:8px}
+.b{display:flex;align-items:center;gap:10px;border:1px solid var(--rule);background:var(--card);color:var(--ink);border-radius:12px;padding:11px 12px;text-align:left;font-weight:600}
+.b .ic{font-size:20px;width:24px;text-align:center}
+.b.primary{background:var(--green);border-color:var(--green);color:#fff}
+body.dark .b.primary{color:#0e1210}
+.b.quiet{color:var(--bad)}
+.done{display:flex;gap:10px;align-items:center;background:var(--green-soft);color:var(--green);border-radius:12px;padding:10px 12px;font-weight:700}
+.done.off{background:var(--bad-soft);color:var(--bad)}
+.cut{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.confirm{background:var(--bad-soft);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.confirm .q{font-weight:700;color:var(--bad)}
+.confirm .row{display:flex;gap:8px}
+.confirm .row .b{flex:1;justify-content:center}
+.foot{font-size:12px;color:var(--muted);text-align:center}
+.decide{max-width:940px;margin:0 auto;padding:0 16px 50px;font-size:14.5px}
+.decide h2{font-size:17px;margin:14px 0 6px}
+.decide ol{margin:0;padding-left:20px}
+.decide li{margin:6px 0}
+.decide .rec{color:var(--green);font-weight:600}
+.decide table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:6px}
+.decide td,.decide th{border:1px solid var(--rule);padding:5px 8px;text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<div class="about">
+  <button class="tog" onclick="document.body.classList.toggle('dark')">Light / dark</button>
+  <b>Mockup #2751 · the buyer's new-date page.</b> Draft for decision, nothing is built. A wholesale buyer opens it from the link in the
+  "a new date" email (no sign-in). It reads what <code>GET /public/wholesale/notice/:token</code> already answers (shipped in PR #2743) and each
+  button is one <code>POST …/answer</code>. Same look as the delivery tracking page <code>/t/&lt;token&gt;</code>: the client's own name and colour,
+  no address, phone or price (the link is a bearer). All names, items and dates are invented.
+</div>
+
+<div class="frames">
+
+  <!-- 1. Open notice -->
+  <div class="frame-wrap">
+    <div class="frame-cap">1 · The notice, two lines told</div>
+    <div class="phone"><div class="col">
+      <div class="brand"><div class="logo">HM</div><div><h1>Harbor Masala Wholesale</h1><p class="note">Order WHS-1044</p></div></div>
+      <div class="card"><div class="big"><div class="ic">📅</div><div class="t">2 items will come later than promised</div></div>
+        <div class="cut">⏰ Answer by Wed 26 Nov, 7 pm</div></div>
+
+      <div class="card">
+        <div class="line"><div class="pic">🌾</div><div><div class="name">Basmati rice 20 lb</div><div class="note">6 bags</div></div></div>
+        <div class="dates"><span class="was">Thu 27 Nov</span> → <span class="now">Tue 2 Dec</span></div>
+        <span class="here">✅ 3 of 6 are here now</span>
+        <div class="btns">
+          <button class="b primary"><span class="ic">📅</span>Accept the new date</button>
+          <button class="b"><span class="ic">🚚</span>Send the 3 now, cancel the rest</button>
+          <button class="b quiet"><span class="ic">✖</span>Cancel this item</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="line"><div class="pic">🫘</div><div><div class="name">Toor dal 10 lb</div><div class="note">4 bags</div></div></div>
+        <div class="dates"><span class="was">Thu 27 Nov</span> → <span class="now">Fri 28 Nov</span></div>
+        <div class="btns">
+          <button class="b primary"><span class="ic">📅</span>Accept the new date</button>
+          <button class="b quiet"><span class="ic">✖</span>Cancel this item</button>
+        </div>
+      </div>
+      <p class="foot">No answer by the cut-off keeps the new date.</p>
+    </div></div>
+  </div>
+
+  <!-- 2. Cancel asks once, one line answered -->
+  <div class="frame-wrap">
+    <div class="frame-cap">2 · One answered, Cancel asks once</div>
+    <div class="phone"><div class="col">
+      <div class="brand"><div class="logo">HM</div><div><h1>Harbor Masala Wholesale</h1><p class="note">Order WHS-1044</p></div></div>
+      <div class="card"><div class="big"><div class="ic">📅</div><div class="t">1 item left to answer</div></div>
+        <div class="cut">⏰ Answer by Wed 26 Nov, 7 pm</div></div>
+
+      <div class="card">
+        <div class="line"><div class="pic">🌾</div><div><div class="name">Basmati rice 20 lb</div><div class="note">6 bags</div></div></div>
+        <div class="done">✅ Kept for Tue 2 Dec</div>
+      </div>
+
+      <div class="card">
+        <div class="line"><div class="pic">🫘</div><div><div class="name">Toor dal 10 lb</div><div class="note">4 bags</div></div></div>
+        <div class="dates"><span class="was">Thu 27 Nov</span> → <span class="now">Fri 28 Nov</span></div>
+        <div class="confirm">
+          <div class="q">Cancel 4 bags of Toor dal?</div>
+          <div class="row"><button class="b">Keep it</button><button class="b quiet">Yes, cancel</button></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 3. All answered -->
+  <div class="frame-wrap">
+    <div class="frame-cap">3 · Everything answered</div>
+    <div class="phone"><div class="col">
+      <div class="brand"><div class="logo">HM</div><div><h1>Harbor Masala Wholesale</h1><p class="note">Order WHS-1044</p></div></div>
+      <div class="card"><div class="big"><div class="ic">👍</div><div class="t">Thank you, we have your answers</div></div></div>
+      <div class="card">
+        <div class="line"><div class="pic">🌾</div><div><div class="name">Basmati rice 20 lb</div><div class="note">3 bags</div></div></div>
+        <div class="done">🚚 Sending 3 now; the rest is cancelled</div>
+      </div>
+      <div class="card">
+        <div class="line"><div class="pic">🫘</div><div><div class="name">Toor dal 10 lb</div><div class="note">4 bags</div></div></div>
+        <div class="done off">✖ This item is cancelled</div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 4. Cut-off passed -->
+  <div class="frame-wrap">
+    <div class="frame-cap">4 · Opened after the cut-off</div>
+    <div class="phone"><div class="col">
+      <div class="brand"><div class="logo">HM</div><div><h1>Harbor Masala Wholesale</h1><p class="note">Order WHS-1044</p></div></div>
+      <div class="card"><div class="big"><div class="ic">⏰</div><div class="t">The cut-off has passed: the new dates stand</div></div></div>
+      <div class="card">
+        <div class="line"><div class="pic">🌾</div><div><div class="name">Basmati rice 20 lb</div><div class="note">6 bags</div></div></div>
+        <div class="dates">📅 <span class="now">Tue 2 Dec</span></div>
+      </div>
+      <div class="card">
+        <div class="line"><div class="pic">🫘</div><div><div class="name">Toor dal 10 lb</div><div class="note">4 bags</div></div></div>
+        <div class="dates">📅 <span class="now">Fri 28 Nov</span></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 5. Bad link -->
+  <div class="frame-wrap">
+    <div class="frame-cap">5 · A broken or old link</div>
+    <div class="phone"><div class="col">
+      <div class="card"><div class="big"><div class="ic">🔗</div><div class="t">This link is no longer valid</div></div>
+        <p class="note">Ask your supplier for a new one.</p></div>
+    </div></div>
+  </div>
+
+</div>
+
+<div class="decide">
+  <h2>The eight checks</h2>
+  <table>
+    <tr><th>Check</th><th>How this page meets it</th></tr>
+    <tr><td>1 one job, action visible</td><td>Answer the new dates; the first item's buttons are above the fold on a 360 px phone.</td></tr>
+    <tr><td>2 no paragraphs</td><td>One short line per row; the cut-off rule is one footer line.</td></tr>
+    <tr><td>3 a picture per row</td><td>The item's family picture per line (the same picture as everywhere else); an icon on every button.</td></tr>
+    <tr><td>4 seven things</td><td>Header, the count card, one card per told item (a notice rarely names more than three).</td></tr>
+    <tr><td>5 under 300 ms</td><td>One stored read, nothing computed on open.</td></tr>
+    <tr><td>6 a way back</td><td>A public page opened from an email: nothing to go back to, like <code>/t/&lt;token&gt;</code>.</td></tr>
+    <tr><td>7 one home</td><td>The only buyer home for this answer; staff record a phone answer on the order page instead.</td></tr>
+    <tr><td>8 few screens</td><td>One page, every state on it; no second step page.</td></tr>
+  </table>
+
+  <h2>Three questions for Kiran</h2>
+  <ol>
+    <li><b>"Send what you have" only when something is here.</b> The API refuses it while nothing has arrived for a line, but the page cannot tell
+      today. <span class="rec">Recommended:</span> the notice line gains how many are here ("3 of 6 are here now", frame 1), and the button shows only then,
+      worded with the number ("Send the 3 now, cancel the rest"). Otherwise the page shows all three and a tap can fail.</li>
+    <li><b>Cancel asks once; Accept does not.</b> <span class="rec">Recommended:</span> Accept and Send are one tap; Cancel shows "Cancel 4 bags of Toor dal? Keep it · Yes, cancel" in place (frame 2), since it cannot be undone from this page.</li>
+    <li><b>The words "item" instead of "line".</b> <span class="rec">Recommended:</span> the buyer sees "Cancel this item"; the API's "Cancel this line" stays the staff wording.</li>
+  </ol>
+  <p class="note">Built after approval as part of #2744: <code>apps/web/src/app/w/[token]/page.tsx</code> over the shipped routes, a Playwright case at 360 and 1280 px.</p>
+</div>
+</body>
+</html>
