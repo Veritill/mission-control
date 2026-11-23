@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-23T09:41:12.303Z",
+  "at": "2026-11-23T10:34:00.961Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 35,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 29
+      "busyPct": 0
     },
     "core": {
-      "runs": 9,
-      "busyMin": 20,
-      "waitMin": 9,
-      "busyPct": 33
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 93,
+      "runs": 1,
+      "busyMin": 52,
       "waitMin": 0,
-      "busyPct": 78
+      "busyPct": 43
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 20
+    "oldestQueuedMin": 72
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -76,17 +76,25 @@
     },
     {
       "level": "warn",
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2807, #2806 — nothing builds them until a line names them"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "414 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "417 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.18)",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 72 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.19)",
       "repeated": true
     },
     {
@@ -97,32 +105,36 @@
       "level": "warn",
       "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
       "repeated": true
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 93.27,
-    "railwayProjected": 98.18,
+    "railwayMonthToDate": 93.5,
+    "railwayProjected": 98.19,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T09:41:05.463Z",
+    "at": "2026-11-23T10:33:54.890Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 955,
+      "hits": 963,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 231,
+      "hits": 235,
       "misses": 1
     },
     "derived": {
-      "hits": 950,
+      "hits": 966,
       "misses": 22,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -130,7 +142,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 232
+      "onceHits": 236
     },
     "edgePurge": {
       "purges": 0,
@@ -154,7 +166,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T09:41:05.246Z",
+    "at": "2026-11-23T10:33:54.682Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -171,16 +183,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "ca62e92",
-      "ageMin": 18,
+      "ageMin": 71,
       "lastGoodSha": "ca62e92",
-      "lastGoodAgeMin": 18
+      "lastGoodAgeMin": 71
     },
     "web": {
       "status": "SUCCESS",
       "sha": "ca62e92",
-      "ageMin": 18,
+      "ageMin": 71,
       "lastGoodSha": "ca62e92",
-      "lastGoodAgeMin": 18
+      "lastGoodAgeMin": 71
     }
   },
   "prRerun": {},
@@ -189,12 +201,20 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
+      "since": "2026-11-23T10:33:30.179Z",
+      "escalated": false
+    },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-23T04:51:59.580Z",
+      "escalated": false
+    },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-23T10:33:30.179Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -206,5 +226,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-23T08:56:24.406Z"
+  "supervisorWokeAt": "2026-11-23T10:33:30.179Z"
 }
