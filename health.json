@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-24T22:26:15.352Z",
+  "at": "2026-11-24T23:24:40.177Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 14,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 0
     },
     "core": {
-      "runs": 7,
-      "busyMin": 21,
-      "waitMin": 13,
-      "busyPct": 34
+      "runs": 1,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 1
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 7,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 12
+      "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 122,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 102
+      "busyPct": 0
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 35
+    "oldestQueuedMin": 86
   },
   "runners": [
     {
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -86,42 +86,34 @@
     },
     {
       "level": "warn",
-      "text": "595 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "599 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45495179653, failed: test) for 1 min — staging is not moving until a fix lands"
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 86 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 35 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $259 exceeds the $250 budget (Railway projected $59.19)",
+      "text": "projected development cost $259 exceeds the $250 budget (Railway projected $59.47)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 4.51,
-    "railwayProjected": 59.19,
+    "railwayMonthToDate": 4.77,
+    "railwayProjected": 59.47,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-24T22:26:08.011Z",
+    "at": "2026-11-24T23:24:36.787Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -166,7 +158,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-24T22:26:07.795Z",
+    "at": "2026-11-24T23:24:36.577Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -183,16 +175,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "f1fdfd3",
-      "ageMin": 27,
+      "ageMin": 86,
       "lastGoodSha": "f1fdfd3",
-      "lastGoodAgeMin": 27
+      "lastGoodAgeMin": 86
     },
     "web": {
       "status": "SUCCESS",
       "sha": "f1fdfd3",
-      "ageMin": 27,
+      "ageMin": 86,
       "lastGoodSha": "f1fdfd3",
-      "lastGoodAgeMin": 27
+      "lastGoodAgeMin": 86
     }
   },
   "prRerun": {},
@@ -211,10 +203,6 @@
     },
     "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
       "since": "2026-11-24T06:00:31.808Z",
-      "escalated": false
-    },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-24T22:25:41.939Z",
       "escalated": false
     },
     "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
