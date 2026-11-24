@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-24T13:14:10.575Z",
+  "at": "2026-11-24T13:42:48.713Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 4,
+      "busyMin": 58,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 49
     },
     "core": {
-      "runs": 8,
-      "busyMin": 22,
-      "waitMin": 8,
-      "busyPct": 37
+      "runs": 10,
+      "busyMin": 28,
+      "waitMin": 10,
+      "busyPct": 46
     },
     "planner": {
       "runs": 0,
@@ -21,27 +21,27 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 7,
-      "busyMin": 30,
+      "runs": 12,
+      "busyMin": 148,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 124
     }
   },
   "queue": {
     "agentsQueued": 4,
-    "ciQueued": 2,
-    "oldestQueuedMin": 5
+    "ciQueued": 1,
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -76,7 +76,7 @@
     },
     {
       "level": "warn",
-      "text": "21 of today's 39 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "23 of today's 41 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -86,30 +86,38 @@
     },
     {
       "level": "warn",
-      "text": "331 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "350 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $257 exceeds the $250 budget (Railway projected $56.7)",
+      "text": "main is RED (run 45399556902, failed: test) for 2 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $257 exceeds the $250 budget (Railway projected $56.86)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 2.08,
-    "railwayProjected": 56.7,
+    "railwayMonthToDate": 2.24,
+    "railwayProjected": 56.86,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-24T13:14:05.886Z",
+    "at": "2026-11-24T13:42:42.593Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -143,18 +151,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-24T06:47:17.534Z",
+      "checkedAt": "2026-11-24T13:14:06.110Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-24T13:00:17.055Z",
+      "checkedAt": "2026-11-24T13:30:37.180Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-24T13:14:05.662Z",
+    "at": "2026-11-24T13:42:42.387Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -170,17 +178,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "be222d4",
-      "ageMin": 15,
-      "lastGoodSha": "be222d4",
-      "lastGoodAgeMin": 15
+      "sha": "b522042",
+      "ageMin": 13,
+      "lastGoodSha": "b522042",
+      "lastGoodAgeMin": 13
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "be222d4",
-      "ageMin": 15,
-      "lastGoodSha": "be222d4",
-      "lastGoodAgeMin": 15
+      "sha": "b522042",
+      "ageMin": 13,
+      "lastGoodSha": "b522042",
+      "lastGoodAgeMin": 13
     }
   },
   "prRerun": {},
@@ -201,10 +209,14 @@
       "since": "2026-11-24T06:00:31.808Z",
       "escalated": false
     },
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-24T13:42:16.818Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-24T12:44:05.293Z"
+  "supervisorWokeAt": "2026-11-24T13:42:16.818Z"
 }
