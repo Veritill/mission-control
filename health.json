@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-24T15:24:52.354Z",
+  "at": "2026-11-24T15:53:34.817Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 3,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 2
+      "busyPct": 0
     },
     "core": {
-      "runs": 2,
-      "busyMin": 3,
-      "waitMin": 4,
+      "runs": 1,
+      "busyMin": 4,
+      "waitMin": 3,
       "busyPct": 6
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 3,
-      "waitMin": 0,
-      "busyPct": 5
+      "runs": 2,
+      "busyMin": 5,
+      "waitMin": 7,
+      "busyPct": 9
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 31,
+      "runs": 9,
+      "busyMin": 153,
       "waitMin": 0,
-      "busyPct": 26
+      "busyPct": 127
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 2,
-    "oldestQueuedMin": 138
+    "ciQueued": 4,
+    "oldestQueuedMin": 166
   },
   "runners": [
     {
@@ -76,7 +76,7 @@
     },
     {
       "level": "warn",
-      "text": "23 of today's 41 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "26 of today's 46 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -85,38 +85,35 @@
     },
     {
       "level": "warn",
-      "text": "367 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
+      "text": "445 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 138 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 166 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $257 exceeds the $250 budget (Railway projected $57.22)",
+      "text": "projected development cost $257 exceeds the $250 budget (Railway projected $57.36)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 2.59,
-    "railwayProjected": 57.22,
+    "railwayMonthToDate": 2.72,
+    "railwayProjected": 57.36,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-24T15:24:47.155Z",
+    "at": "2026-11-24T15:53:29.538Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -156,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-24T13:30:37.180Z",
+      "checkedAt": "2026-11-24T15:38:06.414Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-24T15:24:46.930Z",
+    "at": "2026-11-24T15:53:29.310Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -176,18 +173,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "b522042",
-      "ageMin": 115,
-      "lastGoodSha": "b522042",
-      "lastGoodAgeMin": 115
+      "status": "BUILDING",
+      "sha": "2f2f5fe",
+      "ageMin": 0,
+      "lastGoodSha": "c8b55ae",
+      "lastGoodAgeMin": 16
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "b522042",
-      "ageMin": 115,
-      "lastGoodSha": "b522042",
-      "lastGoodAgeMin": 115
+      "status": "BUILDING",
+      "sha": "2f2f5fe",
+      "ageMin": 0,
+      "lastGoodSha": "c8b55ae",
+      "lastGoodAgeMin": 16
     }
   },
   "prRerun": {},
