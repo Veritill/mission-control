@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-24T00:34:11.350Z",
+  "at": "2026-11-24T01:39:53.955Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 6,
-      "waitMin": 0,
-      "busyPct": 5
+      "runs": 1,
+      "busyMin": 1,
+      "waitMin": 34,
+      "busyPct": 1
     },
     "core": {
-      "runs": 3,
-      "busyMin": 5,
-      "waitMin": 16,
-      "busyPct": 8
+      "runs": 5,
+      "busyMin": 23,
+      "waitMin": 0,
+      "busyPct": 38
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 11
+      "busyPct": 0
     },
     "ci": {
       "runs": 6,
-      "busyMin": 84,
+      "busyMin": 132,
       "waitMin": 0,
-      "busyPct": 70
+      "busyPct": 110
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 1,
+    "oldestQueuedMin": 50
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     }
   ],
   "conflicted": [],
@@ -71,12 +71,8 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
-    },
-    {
-      "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2814 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -84,8 +80,12 @@
       "repeated": true
     },
     {
+      "level": "info",
+      "text": "lanes waited longer than they worked this hour (34 min queued vs 1 min building)"
+    },
+    {
       "level": "warn",
-      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.36)",
+      "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.4)",
       "repeated": true
     },
     {
@@ -97,26 +97,26 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 97.19,
-    "railwayProjected": 98.36,
+    "railwayMonthToDate": 97.51,
+    "railwayProjected": 98.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-24T00:34:08.396Z",
+    "at": "2026-11-24T01:39:47.749Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 1075,
+      "hits": 1083,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 291,
+      "hits": 295,
       "misses": 1
     },
     "derived": {
-      "hits": 1219,
+      "hits": 1235,
       "misses": 30,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -124,7 +124,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 292
+      "onceHits": 296
     },
     "edgePurge": {
       "purges": 0,
@@ -137,18 +137,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-23T18:17:09.567Z",
+      "checkedAt": "2026-11-24T00:34:08.665Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-24T00:08:13.466Z",
+      "checkedAt": "2026-11-24T00:55:28.690Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-24T00:34:08.200Z",
+    "at": "2026-11-24T01:39:47.541Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -164,17 +164,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "5d6d646",
-      "ageMin": 27,
-      "lastGoodSha": "5d6d646",
-      "lastGoodAgeMin": 27
+      "sha": "5854e25",
+      "ageMin": 45,
+      "lastGoodSha": "5854e25",
+      "lastGoodAgeMin": 45
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "5d6d646",
-      "ageMin": 27,
-      "lastGoodSha": "5d6d646",
-      "lastGoodAgeMin": 27
+      "sha": "5854e25",
+      "ageMin": 45,
+      "lastGoodSha": "5854e25",
+      "lastGoodAgeMin": 45
     }
   },
   "prRerun": {},
@@ -182,10 +182,6 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
-    },
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
-      "since": "2026-11-23T23:48:57.679Z",
-      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-21T14:32:51.056Z",
