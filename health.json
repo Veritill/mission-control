@@ -1,30 +1,30 @@
 {
-  "at": "2026-11-23T23:49:37.724Z",
+  "at": "2026-11-24T00:34:11.350Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 20,
+      "runs": 2,
+      "busyMin": 6,
       "waitMin": 0,
-      "busyPct": 17
+      "busyPct": 5
     },
     "core": {
-      "runs": 4,
+      "runs": 3,
       "busyMin": 5,
-      "waitMin": 1,
+      "waitMin": 16,
       "busyPct": 8
     },
     "planner": {
       "runs": 1,
-      "busyMin": 1,
+      "busyMin": 6,
       "waitMin": 0,
-      "busyPct": 1
+      "busyPct": 11
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 31,
+      "runs": 6,
+      "busyMin": 84,
       "waitMin": 0,
-      "busyPct": 26
+      "busyPct": 70
     }
   },
   "queue": {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -61,7 +61,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -85,52 +85,38 @@
     },
     {
       "level": "warn",
-      "text": "906 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles",
-      "repeated": true
-    },
-    {
-      "level": "warn",
       "text": "projected development cost $298 exceeds the $250 budget (Railway projected $98.36)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "warn",
-      "text": "staging AI key refused (authentication_error): every AI feature there is dark (Railway → platform → staging → api → Variables → VERITILL_AI_KEY; runbook §12)",
-      "repeated": true
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 97,
+    "railwayMonthToDate": 97.19,
     "railwayProjected": 98.36,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-23T23:49:32.525Z",
+    "at": "2026-11-24T00:34:08.396Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 1069,
+      "hits": 1075,
       "misses": 1,
       "hydrations": 1
     },
     "platformContent": {
       "entries": 1,
-      "hits": 288,
+      "hits": 291,
       "misses": 1
     },
     "derived": {
-      "hits": 1207,
+      "hits": 1219,
       "misses": 30,
       "refreshes": 0,
       "refreshFailures": 0,
@@ -138,7 +124,7 @@
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 289
+      "onceHits": 292
     },
     "edgePurge": {
       "purges": 0,
@@ -156,13 +142,13 @@
     },
     "staging": {
       "configured": true,
-      "ok": false,
-      "checkedAt": "2026-11-23T23:09:42.467Z",
-      "error": "authentication_error"
+      "ok": true,
+      "checkedAt": "2026-11-24T00:08:13.466Z",
+      "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-23T23:49:32.318Z",
+    "at": "2026-11-24T00:34:08.200Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +164,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "e61e2c5",
-      "ageMin": 41,
-      "lastGoodSha": "e61e2c5",
-      "lastGoodAgeMin": 41
+      "sha": "5d6d646",
+      "ageMin": 27,
+      "lastGoodSha": "5d6d646",
+      "lastGoodAgeMin": 27
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "e61e2c5",
-      "ageMin": 41,
-      "lastGoodSha": "e61e2c5",
-      "lastGoodAgeMin": 41
+      "sha": "5d6d646",
+      "ageMin": 27,
+      "lastGoodSha": "5d6d646",
+      "lastGoodAgeMin": 27
     }
   },
   "prRerun": {},
@@ -205,16 +191,8 @@
       "since": "2026-11-21T14:32:51.056Z",
       "escalated": true
     },
-    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
-      "since": "2026-11-23T04:51:59.580Z",
-      "escalated": false
-    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
-      "escalated": true
-    },
-    "staging AI key refused (authentication_error): every AI feature there is dark (R": {
-      "since": "2026-11-06T00:31:28.817Z",
       "escalated": true
     }
   },
