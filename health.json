@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-25T06:32:36.784Z",
+  "at": "2026-11-25T07:21:59.058Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 12,
-      "waitMin": 8,
-      "busyPct": 10
+      "runs": 2,
+      "busyMin": 53,
+      "waitMin": 0,
+      "busyPct": 44
     },
     "core": {
-      "runs": 3,
-      "busyMin": 6,
-      "waitMin": 3,
-      "busyPct": 10
+      "runs": 6,
+      "busyMin": 15,
+      "waitMin": 12,
+      "busyPct": 24
     },
     "planner": {
       "runs": 0,
@@ -22,15 +22,15 @@
     },
     "ci": {
       "runs": 6,
-      "busyMin": 172,
+      "busyMin": 142,
       "waitMin": 0,
-      "busyPct": 95
+      "busyPct": 79
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 74
+    "oldestQueuedMin": 11
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
@@ -56,7 +56,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
@@ -86,15 +86,15 @@
     },
     {
       "level": "warn",
-      "text": "132 agents runs today (over 120; a busy 15-PR day is about 90): something is firing events in a loop — read the day's commit log and the newest PR titles"
+      "text": "156 agents runs today, 44 of them the same \"agents\" on main: that one repeat is the loop — read what keeps re-firing it"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 74 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "main is RED (run 45562201397, failed: test) for 0 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $262 exceeds the $250 budget (Railway projected $62.36)",
+      "text": "projected development cost $263 exceeds the $250 budget (Railway projected $62.89)",
       "repeated": true
     },
     {
@@ -103,20 +103,20 @@
     },
     {
       "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 7.01,
-    "railwayProjected": 62.36,
+    "railwayMonthToDate": 7.31,
+    "railwayProjected": 62.89,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T06:32:30.038Z",
+    "at": "2026-11-25T07:21:50.671Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -156,12 +156,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-25T05:41:08.710Z",
+      "checkedAt": "2026-11-25T06:55:37.009Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T06:32:29.814Z",
+    "at": "2026-11-25T07:21:50.463Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -177,17 +177,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "cf48d7e",
-      "ageMin": 52,
-      "lastGoodSha": "cf48d7e",
-      "lastGoodAgeMin": 52
+      "sha": "3419b0a",
+      "ageMin": 27,
+      "lastGoodSha": "3419b0a",
+      "lastGoodAgeMin": 27
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "cf48d7e",
-      "ageMin": 52,
-      "lastGoodSha": "cf48d7e",
-      "lastGoodAgeMin": 52
+      "sha": "3419b0a",
+      "ageMin": 27,
+      "lastGoodSha": "3419b0a",
+      "lastGoodAgeMin": 27
     }
   },
   "prRerun": {},
@@ -200,12 +200,12 @@
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": false
     },
-    "# agents runs today (over #; a busy #-PR day is about #): something is firing ev": {
-      "since": "2026-11-25T05:37:50.742Z",
+    "# agents runs today, # of them the same \"agents\" on main: that one repeat is the": {
+      "since": "2026-11-25T07:21:24.345Z",
       "escalated": false
     },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-25T06:32:05.841Z",
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-25T07:21:24.345Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -213,5 +213,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T06:32:05.841Z"
+  "supervisorWokeAt": "2026-11-25T07:21:24.345Z"
 }
