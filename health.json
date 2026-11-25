@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-25T16:07:40.326Z",
+  "at": "2026-11-25T16:45:52.555Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 2,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 1
+      "busyPct": 0
     },
     "core": {
-      "runs": 4,
-      "busyMin": 12,
+      "runs": 5,
+      "busyMin": 18,
       "waitMin": 2,
-      "busyPct": 21
+      "busyPct": 30
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 97,
+      "runs": 2,
+      "busyMin": 45,
       "waitMin": 0,
-      "busyPct": 54
+      "busyPct": 25
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 3
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -56,7 +56,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-3",
@@ -76,8 +76,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "3 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "#2840 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
     },
     {
       "level": "warn",
@@ -86,29 +90,33 @@
     },
     {
       "level": "info",
-      "text": "351 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 84 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "353 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 86 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $267 exceeds the $250 budget (Railway projected $67.25)",
+      "text": "projected development cost $267 exceeds the $250 budget (Railway projected $67.49)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 10.31,
-    "railwayProjected": 67.25,
+    "railwayMonthToDate": 10.5,
+    "railwayProjected": 67.49,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T16:07:34.223Z",
+    "at": "2026-11-25T16:45:45.077Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -153,7 +161,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T16:07:34.020Z",
+    "at": "2026-11-25T16:45:44.856Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -168,18 +176,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "42ba88c",
-      "ageMin": 28,
+      "status": "DEPLOYING",
+      "sha": "74181ad",
+      "ageMin": 1,
       "lastGoodSha": "42ba88c",
-      "lastGoodAgeMin": 28
+      "lastGoodAgeMin": 66
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "42ba88c",
-      "ageMin": 28,
-      "lastGoodSha": "42ba88c",
-      "lastGoodAgeMin": 28
+      "sha": "74181ad",
+      "ageMin": 1,
+      "lastGoodSha": "74181ad",
+      "lastGoodAgeMin": 1
     }
   },
   "prRerun": {},
@@ -187,6 +195,10 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
+    },
+    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
+      "since": "2026-11-25T16:45:04.027Z",
+      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
@@ -197,5 +209,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T12:47:47.918Z"
+  "supervisorWokeAt": "2026-11-25T16:45:04.027Z"
 }
