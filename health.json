@@ -1,17 +1,17 @@
 {
-  "at": "2026-11-25T11:55:31.940Z",
+  "at": "2026-11-25T12:48:28.001Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 2,
+      "runs": 2,
+      "busyMin": 27,
       "waitMin": 0,
-      "busyPct": 2
+      "busyPct": 23
     },
     "core": {
-      "runs": 4,
+      "runs": 3,
       "busyMin": 9,
-      "waitMin": 0,
+      "waitMin": 1,
       "busyPct": 14
     },
     "planner": {
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 78,
+      "runs": 5,
+      "busyMin": 79,
       "waitMin": 0,
-      "busyPct": 43
+      "busyPct": 44
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -41,27 +41,27 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -81,34 +81,42 @@
     },
     {
       "level": "warn",
+      "text": "dead pick(s) under lane:core, never woken: #2998 — relabel to lane:solo/lane:chain and schedule"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "info",
-      "text": "252 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 72 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "266 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 75 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $265 exceeds the $250 budget (Railway projected $64.96)",
+      "text": "projected development cost $265 exceeds the $250 budget (Railway projected $65.4)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 8.82,
-    "railwayProjected": 64.96,
+    "railwayMonthToDate": 9.15,
+    "railwayProjected": 65.4,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T11:55:25.283Z",
+    "at": "2026-11-25T12:48:21.318Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -148,12 +156,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-25T11:54:01.915Z",
+      "checkedAt": "2026-11-25T11:59:40.495Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T11:55:25.070Z",
+    "at": "2026-11-25T12:48:21.101Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -169,17 +177,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "0acf0ef",
-      "ageMin": 2,
-      "lastGoodSha": "0acf0ef",
-      "lastGoodAgeMin": 2
+      "sha": "44e5453",
+      "ageMin": 50,
+      "lastGoodSha": "44e5453",
+      "lastGoodAgeMin": 50
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "0acf0ef",
-      "ageMin": 2,
-      "lastGoodSha": "0acf0ef",
-      "lastGoodAgeMin": 2
+      "sha": "44e5453",
+      "ageMin": 50,
+      "lastGoodSha": "44e5453",
+      "lastGoodAgeMin": 50
     }
   },
   "prRerun": {},
@@ -187,6 +195,10 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
+    },
+    "dead pick(s) under lane:core, never woken: ## — relabel to lane:solo/lane:chain ": {
+      "since": "2026-11-25T12:47:47.918Z",
+      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
@@ -197,5 +209,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T09:36:14.646Z"
+  "supervisorWokeAt": "2026-11-25T12:47:47.918Z"
 }
