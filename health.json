@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-25T16:45:52.555Z",
+  "at": "2026-11-25T17:50:36.103Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 2,
+      "busyMin": 37,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 31
     },
     "core": {
-      "runs": 5,
-      "busyMin": 18,
-      "waitMin": 2,
-      "busyPct": 30
+      "runs": 3,
+      "busyMin": 12,
+      "waitMin": 7,
+      "busyPct": 19
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 2,
-      "busyMin": 45,
+      "runs": 3,
+      "busyMin": 130,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 72
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 1,
+    "oldestQueuedMin": 49
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -56,12 +56,12 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -76,12 +76,12 @@
   "findings": [
     {
       "level": "warn",
-      "text": "3 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "#2840 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
+      "text": "#3003 is status:in-progress (lane solo) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
     },
     {
       "level": "warn",
@@ -90,11 +90,15 @@
     },
     {
       "level": "info",
-      "text": "353 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 86 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "375 agents runs today (over 120), but the largest same-item burst is only 10 (dominant pair 85 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $267 exceeds the $250 budget (Railway projected $67.49)",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'router' (longest 49 min); every 'router' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $268 exceeds the $250 budget (Railway projected $68.02)",
       "repeated": true
     },
     {
@@ -103,20 +107,20 @@
     },
     {
       "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 10.5,
-    "railwayProjected": 67.49,
+    "railwayMonthToDate": 10.86,
+    "railwayProjected": 68.02,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T16:45:45.077Z",
+    "at": "2026-11-25T17:50:30.701Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -129,8 +133,8 @@
       "misses": 1
     },
     "derived": {
-      "hits": 1258,
-      "misses": 38,
+      "hits": 1269,
+      "misses": 46,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
@@ -156,12 +160,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-25T15:40:18.259Z",
+      "checkedAt": "2026-11-25T16:45:49.664Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T16:45:44.856Z",
+    "at": "2026-11-25T17:50:30.480Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -176,18 +180,18 @@
   },
   "staging": {
     "api": {
-      "status": "DEPLOYING",
+      "status": "SUCCESS",
       "sha": "74181ad",
-      "ageMin": 1,
-      "lastGoodSha": "42ba88c",
-      "lastGoodAgeMin": 66
+      "ageMin": 65,
+      "lastGoodSha": "74181ad",
+      "lastGoodAgeMin": 65
     },
     "web": {
       "status": "SUCCESS",
       "sha": "74181ad",
-      "ageMin": 1,
+      "ageMin": 65,
       "lastGoodSha": "74181ad",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 65
     }
   },
   "prRerun": {},
@@ -196,18 +200,22 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
-    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
-      "since": "2026-11-25T16:45:04.027Z",
+    "## is status:in-progress (lane solo) with no 🟢 note in # min, no PR and no lane": {
+      "since": "2026-11-25T17:49:33.876Z",
       "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
+    "CI queue: # run(s) waiting #+ min for label 'router' (longest # min); every 'rou": {
+      "since": "2026-11-25T17:49:33.876Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T16:45:04.027Z"
+  "supervisorWokeAt": "2026-11-25T17:49:33.876Z"
 }
