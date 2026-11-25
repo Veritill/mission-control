@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-25T22:07:05.416Z",
+  "at": "2026-11-25T22:39:35.034Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 18,
+      "runs": 3,
+      "busyMin": 49,
       "waitMin": 0,
-      "busyPct": 15
+      "busyPct": 41
     },
     "core": {
-      "runs": 7,
-      "busyMin": 14,
-      "waitMin": 7,
-      "busyPct": 23
+      "runs": 8,
+      "busyMin": 17,
+      "waitMin": 1,
+      "busyPct": 28
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 67,
+      "runs": 10,
+      "busyMin": 114,
       "waitMin": 0,
-      "busyPct": 37
+      "busyPct": 64
     }
   },
   "queue": {
@@ -36,22 +36,22 @@
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
@@ -61,7 +61,7 @@
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -85,30 +85,34 @@
       "repeated": true
     },
     {
-      "level": "info",
-      "text": "508 agents runs today (over 120), but the largest same-item burst is only 13 (dominant pair 80 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "level": "warn",
+      "text": "533 agents runs today, 17 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $271 exceeds the $250 budget (Railway projected $70.56)",
+      "text": "projected development cost $271 exceeds the $250 budget (Railway projected $70.95)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 12.52,
-    "railwayProjected": 70.56,
+    "railwayMonthToDate": 12.74,
+    "railwayProjected": 70.95,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T22:06:59.989Z",
+    "at": "2026-11-25T22:39:26.775Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -148,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-25T21:55:48.200Z",
+      "checkedAt": "2026-11-25T22:21:56.460Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T22:06:59.772Z",
+    "at": "2026-11-25T22:39:26.553Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -169,17 +173,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "2422d8b",
-      "ageMin": 12,
-      "lastGoodSha": "2422d8b",
-      "lastGoodAgeMin": 12
+      "sha": "9355f5b",
+      "ageMin": 19,
+      "lastGoodSha": "9355f5b",
+      "lastGoodAgeMin": 19
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "2422d8b",
-      "ageMin": 12,
-      "lastGoodSha": "2422d8b",
-      "lastGoodAgeMin": 12
+      "sha": "9355f5b",
+      "ageMin": 19,
+      "lastGoodSha": "9355f5b",
+      "lastGoodAgeMin": 19
     }
   },
   "prRerun": {},
@@ -192,10 +196,14 @@
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
+    "# agents runs today, # of them the same \"agents\" on main within # minutes of eac": {
+      "since": "2026-11-25T22:38:56.985Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T21:34:58.209Z"
+  "supervisorWokeAt": "2026-11-25T22:38:56.985Z"
 }
