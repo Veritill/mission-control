@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-25T02:44:25.411Z",
+  "at": "2026-11-25T03:33:13.652Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 21,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 18
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 6,
+      "busyMin": 23,
+      "waitMin": 17,
+      "busyPct": 39
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 1,
+      "busyPct": 3
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 53,
+      "runs": 3,
+      "busyMin": 47,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 40
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 78
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -81,33 +81,25 @@
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 78 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $261 exceeds the $250 budget (Railway projected $60.7)",
+      "text": "projected development cost $261 exceeds the $250 budget (Railway projected $60.85)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 5.74,
-    "railwayProjected": 60.7,
+    "railwayMonthToDate": 5.97,
+    "railwayProjected": 60.85,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T02:44:19.599Z",
+    "at": "2026-11-25T03:33:10.277Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -141,18 +133,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-24T19:33:26.829Z",
+      "checkedAt": "2026-11-25T02:44:19.845Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-25T01:33:42.996Z",
+      "checkedAt": "2026-11-25T02:54:36.522Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T02:44:19.394Z",
+    "at": "2026-11-25T03:33:10.051Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -168,17 +160,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "7b27d3b",
-      "ageMin": 72,
-      "lastGoodSha": "7b27d3b",
-      "lastGoodAgeMin": 72
+      "sha": "2b443a4",
+      "ageMin": 40,
+      "lastGoodSha": "2b443a4",
+      "lastGoodAgeMin": 40
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "7b27d3b",
-      "ageMin": 72,
-      "lastGoodSha": "7b27d3b",
-      "lastGoodAgeMin": 72
+      "sha": "2b443a4",
+      "ageMin": 40,
+      "lastGoodSha": "2b443a4",
+      "lastGoodAgeMin": 40
     }
   },
   "prRerun": {},
@@ -189,10 +181,6 @@
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-25T02:43:54.720Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
