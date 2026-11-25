@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-25T07:21:59.058Z",
+  "at": "2026-11-25T08:09:53.720Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 53,
+      "busyMin": 4,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 4
     },
     "core": {
-      "runs": 6,
-      "busyMin": 15,
+      "runs": 1,
+      "busyMin": 3,
       "waitMin": 12,
-      "busyPct": 24
+      "busyPct": 5
     },
     "planner": {
       "runs": 0,
@@ -21,27 +21,27 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 142,
+      "runs": 4,
+      "busyMin": 127,
       "waitMin": 0,
-      "busyPct": 79
+      "busyPct": 70
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 11
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -86,37 +86,33 @@
     },
     {
       "level": "warn",
-      "text": "156 agents runs today, 44 of them the same \"agents\" on main: that one repeat is the loop — read what keeps re-firing it"
+      "text": "169 agents runs today, 49 of them the same \"agents\" on main: that one repeat is the loop — read what keeps re-firing it"
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45562201397, failed: test) for 0 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 45562445610, failed: test) for 47 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $263 exceeds the $250 budget (Railway projected $62.89)",
+      "text": "projected development cost $263 exceeds the $250 budget (Railway projected $63.27)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 7.31,
-    "railwayProjected": 62.89,
+    "railwayMonthToDate": 7.56,
+    "railwayProjected": 63.27,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-25T07:21:50.671Z",
+    "at": "2026-11-25T08:09:47.327Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -161,7 +157,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-25T07:21:50.463Z",
+    "at": "2026-11-25T08:09:47.099Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,16 +174,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "3419b0a",
-      "ageMin": 27,
+      "ageMin": 75,
       "lastGoodSha": "3419b0a",
-      "lastGoodAgeMin": 27
+      "lastGoodAgeMin": 75
     },
     "web": {
       "status": "SUCCESS",
       "sha": "3419b0a",
-      "ageMin": 27,
+      "ageMin": 75,
       "lastGoodSha": "3419b0a",
-      "lastGoodAgeMin": 27
+      "lastGoodAgeMin": 75
     }
   },
   "prRerun": {},
