@@ -1,57 +1,57 @@
 {
-  "at": "2026-11-26T20:34:26.291Z",
+  "at": "2026-11-26T21:13:44.389Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 23,
+      "busyMin": 56,
       "waitMin": 0,
-      "busyPct": 19
+      "busyPct": 47
     },
     "core": {
-      "runs": 10,
-      "busyMin": 21,
-      "waitMin": 4,
-      "busyPct": 35
+      "runs": 6,
+      "busyMin": 16,
+      "waitMin": 1,
+      "busyPct": 27
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
+      "runs": 1,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 0
+      "busyPct": 4
     },
     "ci": {
       "runs": 9,
-      "busyMin": 27,
+      "busyMin": 111,
       "waitMin": 0,
-      "busyPct": 15
+      "busyPct": 62
     }
   },
   "queue": {
-    "agentsQueued": 2,
-    "ciQueued": 1,
-    "oldestQueuedMin": 4
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
@@ -61,7 +61,7 @@
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -91,15 +91,11 @@
     },
     {
       "level": "info",
-      "text": "581 agents runs today (over 120), but the largest same-item burst is only 13 (dominant pair 79 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "588 agents runs today (over 120), but the largest same-item burst is only 14 (dominant pair 77 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "6 agents run(s) failed in the last hour (45888593694, 45888510980, 45886773458): the build's own workflow is erroring, not a lane's tests"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $282 exceeds the $250 budget (Railway projected $82.43)",
+      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $82.86)",
       "repeated": true
     },
     {
@@ -111,13 +107,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 20.53,
-    "railwayProjected": 82.43,
+    "railwayMonthToDate": 20.78,
+    "railwayProjected": 82.86,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T20:34:21.164Z",
+    "at": "2026-11-26T21:13:39.435Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -157,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T20:27:18.822Z",
+      "checkedAt": "2026-11-26T20:36:55.464Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T20:34:20.952Z",
+    "at": "2026-11-26T21:13:39.230Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "0b67691",
-      "ageMin": 8,
-      "lastGoodSha": "0b67691",
-      "lastGoodAgeMin": 8
+      "sha": "aefe956",
+      "ageMin": 38,
+      "lastGoodSha": "aefe956",
+      "lastGoodAgeMin": 38
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "0b67691",
-      "ageMin": 8,
-      "lastGoodSha": "0b67691",
-      "lastGoodAgeMin": 8
+      "sha": "aefe956",
+      "ageMin": 38,
+      "lastGoodSha": "aefe956",
+      "lastGoodAgeMin": 38
     }
   },
   "prRerun": {},
@@ -204,10 +200,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "# agents run(s) failed in the last hour (#, #, #): the build's own workflow is e": {
-      "since": "2026-11-26T20:06:02.919Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
