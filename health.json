@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T00:16:31.102Z",
+  "at": "2026-11-26T01:03:03.901Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 33,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 27
+      "busyPct": 2
     },
     "core": {
-      "runs": 5,
-      "busyMin": 10,
-      "waitMin": 2,
-      "busyPct": 17
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,10 +21,10 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 79,
+      "runs": 2,
+      "busyMin": 80,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 45
     }
   },
   "queue": {
@@ -36,7 +36,7 @@
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -86,7 +86,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $272 exceeds the $250 budget (Railway projected $71.94)",
+      "text": "projected development cost $272 exceeds the $250 budget (Railway projected $72.34)",
       "repeated": true
     },
     {
@@ -98,13 +98,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 13.37,
-    "railwayProjected": 71.94,
+    "railwayMonthToDate": 13.65,
+    "railwayProjected": 72.34,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T00:16:24.613Z",
+    "at": "2026-11-26T01:02:58.140Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -149,7 +149,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T00:16:24.393Z",
+    "at": "2026-11-26T01:02:57.924Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -166,16 +166,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "6f71860",
-      "ageMin": 26,
+      "ageMin": 73,
       "lastGoodSha": "6f71860",
-      "lastGoodAgeMin": 26
+      "lastGoodAgeMin": 73
     },
     "web": {
       "status": "SUCCESS",
       "sha": "6f71860",
-      "ageMin": 26,
+      "ageMin": 73,
       "lastGoodSha": "6f71860",
-      "lastGoodAgeMin": 26
+      "lastGoodAgeMin": 73
     }
   },
   "prRerun": {},
