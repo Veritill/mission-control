@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T02:51:16.212Z",
+  "at": "2026-11-26T03:23:11.403Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 20,
+      "runs": 2,
+      "busyMin": 18,
       "waitMin": 0,
-      "busyPct": 17
+      "busyPct": 15
     },
     "core": {
-      "runs": 8,
-      "busyMin": 19,
+      "runs": 7,
+      "busyMin": 18,
       "waitMin": 2,
-      "busyPct": 31
+      "busyPct": 29
     },
     "planner": {
       "runs": 0,
@@ -21,52 +21,52 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 12,
-      "busyMin": 85,
+      "runs": 11,
+      "busyMin": 149,
       "waitMin": 0,
-      "busyPct": 47
+      "busyPct": 83
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "agent-runner-2",
-      "online": true,
+      "online": false,
       "busy": false
     },
     {
       "name": "railway-noble",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "railway-noble-2",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "core-runner",
-      "online": true,
+      "online": false,
       "busy": false
     },
     {
       "name": "railway-noble-3",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "router-runner",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -86,11 +86,15 @@
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45738254053, failed: test) for 24 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 45744473884, failed: test) for 0 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.05)",
+      "text": "runner(s) offline: agent-runner-1, agent-runner-2, railway-noble, railway-noble-2, core-runner, railway-noble-3, router-runner"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.22)",
       "repeated": true
     },
     {
@@ -106,13 +110,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 14.29,
-    "railwayProjected": 73.05,
+    "railwayMonthToDate": 14.48,
+    "railwayProjected": 73.22,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T02:51:08.891Z",
+    "at": "2026-11-26T03:23:04.237Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -152,12 +156,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T02:50:49.764Z",
+      "checkedAt": "2026-11-26T03:10:07.756Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T02:51:08.679Z",
+    "at": "2026-11-26T03:23:04.027Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,17 +177,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "742cea5",
-      "ageMin": 1,
-      "lastGoodSha": "742cea5",
-      "lastGoodAgeMin": 1
+      "sha": "5b2cd0e",
+      "ageMin": 14,
+      "lastGoodSha": "5b2cd0e",
+      "lastGoodAgeMin": 14
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "742cea5",
-      "ageMin": 1,
-      "lastGoodSha": "742cea5",
-      "lastGoodAgeMin": 1
+      "sha": "5b2cd0e",
+      "ageMin": 14,
+      "lastGoodSha": "5b2cd0e",
+      "lastGoodAgeMin": 14
     }
   },
   "prRerun": {},
@@ -200,10 +204,14 @@
       "since": "2026-11-26T02:50:45.459Z",
       "escalated": false
     },
+    "runner(s) offline: agent-runner-#, agent-runner-#, railway-noble, railway-noble-": {
+      "since": "2026-11-26T03:22:39.483Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-26T02:50:45.459Z"
+  "supervisorWokeAt": "2026-11-26T03:22:39.483Z"
 }
