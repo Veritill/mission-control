@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-26T21:13:44.389Z",
+  "at": "2026-11-26T21:40:27.027Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 56,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 47
+      "busyPct": 0
     },
     "core": {
-      "runs": 6,
-      "busyMin": 16,
-      "waitMin": 1,
-      "busyPct": 27
+      "runs": 3,
+      "busyMin": 6,
+      "waitMin": 0,
+      "busyPct": 10
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 2,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 4
+      "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 111,
+      "runs": 3,
+      "busyMin": 97,
       "waitMin": 0,
-      "busyPct": 62
+      "busyPct": 54
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -46,12 +46,12 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "core-runner",
@@ -61,7 +61,7 @@
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "38 of today's 64 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "38 of today's 65 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -90,30 +90,38 @@
       "repeated": true
     },
     {
+      "level": "warn",
+      "text": "CHAIN is empty while line \"131z-3. #3117 L Data Hub slice 2, piece 3 part 2 (split from...\" is eligible (#3117: open, after items closed, no PR): Core's hand-out skipped it"
+    },
+    {
       "level": "info",
-      "text": "588 agents runs today (over 120), but the largest same-item burst is only 14 (dominant pair 77 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "593 agents runs today (over 120), but the largest same-item burst is only 14 (dominant pair 78 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $82.86)",
+      "text": "projected development cost $283 exceeds the $250 budget (Railway projected $83.05)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 20.78,
-    "railwayProjected": 82.86,
+    "railwayMonthToDate": 20.93,
+    "railwayProjected": 83.05,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T21:13:39.435Z",
+    "at": "2026-11-26T21:40:21.264Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -158,7 +166,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T21:13:39.230Z",
+    "at": "2026-11-26T21:40:21.047Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,18 +181,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "aefe956",
-      "ageMin": 38,
+      "status": "BUILDING",
+      "sha": "f0f821b",
+      "ageMin": 0,
       "lastGoodSha": "aefe956",
-      "lastGoodAgeMin": 38
+      "lastGoodAgeMin": 64
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "aefe956",
-      "ageMin": 38,
+      "status": "BUILDING",
+      "sha": "f0f821b",
+      "ageMin": 0,
       "lastGoodSha": "aefe956",
-      "lastGoodAgeMin": 38
+      "lastGoodAgeMin": 64
     }
   },
   "prRerun": {},
@@ -201,10 +209,14 @@
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
+    "CHAIN is empty while line \"#z-#. ## L Data Hub slice #, piece # part # (split fr": {
+      "since": "2026-11-26T21:39:43.264Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-26T20:06:02.919Z"
+  "supervisorWokeAt": "2026-11-26T21:39:43.264Z"
 }
