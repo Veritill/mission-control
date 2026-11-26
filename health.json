@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T18:51:11.217Z",
+  "at": "2026-11-26T19:32:20.228Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 30,
+      "runs": 1,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 10
     },
     "core": {
-      "runs": 9,
-      "busyMin": 17,
-      "waitMin": 5,
-      "busyPct": 29
+      "runs": 5,
+      "busyMin": 11,
+      "waitMin": 3,
+      "busyPct": 18
     },
     "planner": {
       "runs": 0,
@@ -21,14 +21,14 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 29,
+      "runs": 7,
+      "busyMin": 143,
       "waitMin": 0,
-      "busyPct": 16
+      "busyPct": 79
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -36,32 +36,32 @@
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -91,11 +91,11 @@
     },
     {
       "level": "info",
-      "text": "526 agents runs today (over 120), but the largest same-item burst is only 11 (dominant pair 74 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "540 agents runs today (over 120), but the largest same-item burst is only 11 (dominant pair 72 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $282 exceeds the $250 budget (Railway projected $81.55)",
+      "text": "projected development cost $282 exceeds the $250 budget (Railway projected $81.95)",
       "repeated": true
     },
     {
@@ -107,13 +107,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 19.96,
-    "railwayProjected": 81.55,
+    "railwayMonthToDate": 20.2,
+    "railwayProjected": 81.95,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T18:51:07.691Z",
+    "at": "2026-11-26T19:32:14.774Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -153,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T18:49:33.533Z",
+      "checkedAt": "2026-11-26T18:51:40.195Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T18:51:07.477Z",
+    "at": "2026-11-26T19:32:14.413Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,18 +173,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "3e27d16",
-      "ageMin": 0,
-      "lastGoodSha": "197d6a6",
-      "lastGoodAgeMin": 3
+      "ageMin": 42,
+      "lastGoodSha": "3e27d16",
+      "lastGoodAgeMin": 42
     },
     "web": {
-      "status": "BUILDING",
+      "status": "SUCCESS",
       "sha": "3e27d16",
-      "ageMin": 0,
-      "lastGoodSha": "197d6a6",
-      "lastGoodAgeMin": 3
+      "ageMin": 42,
+      "lastGoodSha": "3e27d16",
+      "lastGoodAgeMin": 42
     }
   },
   "prRerun": {},
