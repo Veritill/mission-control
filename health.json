@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T02:22:52.071Z",
+  "at": "2026-11-26T02:51:16.212Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 8,
+      "runs": 3,
+      "busyMin": 20,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 17
     },
     "core": {
-      "runs": 3,
-      "busyMin": 6,
-      "waitMin": 0,
-      "busyPct": 10
+      "runs": 8,
+      "busyMin": 19,
+      "waitMin": 2,
+      "busyPct": 31
     },
     "planner": {
       "runs": 0,
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 97,
+      "runs": 12,
+      "busyMin": 85,
       "waitMin": 0,
-      "busyPct": 54
+      "busyPct": 47
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 2
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -86,25 +86,33 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $72.88)",
+      "text": "main is RED (run 45738254053, failed: test) for 24 min — staging is not moving until a fix lands"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $273 exceeds the $250 budget (Railway projected $73.05)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 14.11,
-    "railwayProjected": 72.88,
+    "railwayMonthToDate": 14.29,
+    "railwayProjected": 73.05,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T02:22:47.411Z",
+    "at": "2026-11-26T02:51:08.891Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -144,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T01:55:56.053Z",
+      "checkedAt": "2026-11-26T02:50:49.764Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T02:22:47.040Z",
+    "at": "2026-11-26T02:51:08.679Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -165,17 +173,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "92c824a",
-      "ageMin": 28,
-      "lastGoodSha": "92c824a",
-      "lastGoodAgeMin": 28
+      "sha": "742cea5",
+      "ageMin": 1,
+      "lastGoodSha": "742cea5",
+      "lastGoodAgeMin": 1
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "92c824a",
-      "ageMin": 28,
-      "lastGoodSha": "92c824a",
-      "lastGoodAgeMin": 28
+      "sha": "742cea5",
+      "ageMin": 1,
+      "lastGoodSha": "742cea5",
+      "lastGoodAgeMin": 1
     }
   },
   "prRerun": {},
@@ -188,10 +196,14 @@
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-26T02:50:45.459Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-25T22:38:56.985Z"
+  "supervisorWokeAt": "2026-11-26T02:50:45.459Z"
 }
