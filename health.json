@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T11:02:38.225Z",
+  "at": "2026-11-26T12:02:04.005Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 29,
+      "runs": 2,
+      "busyMin": 19,
       "waitMin": 0,
-      "busyPct": 25
+      "busyPct": 16
     },
     "core": {
-      "runs": 2,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 3
+      "runs": 3,
+      "busyMin": 10,
+      "waitMin": 2,
+      "busyPct": 17
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 70,
+      "runs": 8,
+      "busyMin": 148,
       "waitMin": 0,
-      "busyPct": 39
+      "busyPct": 82
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 2,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 2
   },
   "runners": [
     {
@@ -51,12 +51,12 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "22 of today's 36 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "24 of today's 39 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -90,17 +90,12 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "327 agents runs today, 19 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
-      "repeated": true
+      "level": "info",
+      "text": "349 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 74 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45795315356, failed: test) for 36 min — staging is not moving until a fix lands"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $277 exceeds the $250 budget (Railway projected $77.31)",
+      "text": "projected development cost $278 exceeds the $250 budget (Railway projected $77.82)",
       "repeated": true
     },
     {
@@ -112,13 +107,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 17.34,
-    "railwayProjected": 77.31,
+    "railwayMonthToDate": 17.68,
+    "railwayProjected": 77.82,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T11:02:32.062Z",
+    "at": "2026-11-26T12:01:57.497Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -158,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T10:30:27.165Z",
+      "checkedAt": "2026-11-26T11:18:54.219Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T11:02:31.847Z",
+    "at": "2026-11-26T12:01:57.268Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "53c9c4c",
-      "ageMin": 33,
-      "lastGoodSha": "53c9c4c",
-      "lastGoodAgeMin": 33
+      "sha": "7ac86e0",
+      "ageMin": 44,
+      "lastGoodSha": "7ac86e0",
+      "lastGoodAgeMin": 44
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "53c9c4c",
-      "ageMin": 33,
-      "lastGoodSha": "53c9c4c",
-      "lastGoodAgeMin": 33
+      "sha": "7ac86e0",
+      "ageMin": 44,
+      "lastGoodSha": "7ac86e0",
+      "lastGoodAgeMin": 44
     }
   },
   "prRerun": {},
@@ -205,14 +200,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "# agents runs today, # of them the same \"agents\" on main within # minutes of eac": {
-      "since": "2026-11-26T05:05:00.836Z",
-      "escalated": false
-    },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-26T10:11:46.354Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-20T23:50:10.411Z",
