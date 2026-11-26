@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-26T05:05:34.416Z",
+  "at": "2026-11-26T05:23:04.724Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 4,
+      "runs": 2,
+      "busyMin": 33,
       "waitMin": 0,
-      "busyPct": 3
+      "busyPct": 28
     },
     "core": {
-      "runs": 4,
-      "busyMin": 8,
-      "waitMin": 10,
-      "busyPct": 14
+      "runs": 6,
+      "busyMin": 12,
+      "waitMin": 11,
+      "busyPct": 19
     },
     "planner": {
       "runs": 1,
@@ -21,14 +21,14 @@
       "busyPct": 5
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 110,
+      "runs": 7,
+      "busyMin": 48,
       "waitMin": 0,
-      "busyPct": 61
+      "busyPct": 27
     }
   },
   "queue": {
-    "agentsQueued": 1,
+    "agentsQueued": 0,
     "ciQueued": 0,
     "oldestQueuedMin": 0
   },
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "10 of today's 17 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+      "text": "11 of today's 19 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
     },
     {
       "level": "warn",
@@ -90,11 +90,11 @@
     },
     {
       "level": "warn",
-      "text": "128 agents runs today, 19 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it"
+      "text": "136 agents runs today, 19 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it"
     },
     {
       "level": "warn",
-      "text": "projected development cost $274 exceeds the $250 budget (Railway projected $74.04)",
+      "text": "projected development cost $274 exceeds the $250 budget (Railway projected $74.27)",
       "repeated": true
     },
     {
@@ -106,13 +106,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 15.16,
-    "railwayProjected": 74.04,
+    "railwayMonthToDate": 15.29,
+    "railwayProjected": 74.27,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T05:05:28.923Z",
+    "at": "2026-11-26T05:22:59.455Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -152,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T04:46:36.296Z",
+      "checkedAt": "2026-11-26T05:13:44.545Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T05:05:28.700Z",
+    "at": "2026-11-26T05:22:59.245Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -172,18 +172,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
-      "sha": "ded6248",
-      "ageMin": 0,
-      "lastGoodSha": "0c7f105",
-      "lastGoodAgeMin": 20
+      "status": "SUCCESS",
+      "sha": "6da61b2",
+      "ageMin": 10,
+      "lastGoodSha": "6da61b2",
+      "lastGoodAgeMin": 10
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "ded6248",
-      "ageMin": 0,
-      "lastGoodSha": "0c7f105",
-      "lastGoodAgeMin": 20
+      "status": "SUCCESS",
+      "sha": "6da61b2",
+      "ageMin": 10,
+      "lastGoodSha": "6da61b2",
+      "lastGoodAgeMin": 10
     }
   },
   "prRerun": {},
