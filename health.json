@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-27T07:26:51.827Z",
+  "at": "2026-11-27T07:53:08.450Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
-    },
-    "core": {
       "runs": 2,
-      "busyMin": 8,
+      "busyMin": 17,
       "waitMin": 0,
       "busyPct": 14
     },
+    "core": {
+      "runs": 4,
+      "busyMin": 12,
+      "waitMin": 31,
+      "busyPct": 20
+    },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 2,
+      "busyMin": 10,
+      "waitMin": 9,
+      "busyPct": 17
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 100,
+      "runs": 5,
+      "busyMin": 12,
       "waitMin": 0,
-      "busyPct": 56
+      "busyPct": 6
     }
   },
   "queue": {
-    "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "agentsQueued": 3,
+    "ciQueued": 1,
+    "oldestQueuedMin": 5
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
@@ -51,7 +51,7 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
@@ -61,7 +61,7 @@
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "11 of today's 21 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
+      "text": "13 of today's 23 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
       "repeated": true
     },
     {
@@ -90,38 +90,30 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "SOLO is empty while line \"220a. #3155 M Data Hub slice 5, piece 3, split 1 of 3: the c...\" is eligible (#3155: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
       "level": "info",
-      "text": "242 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 66 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "264 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 73 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $288 exceeds the $250 budget (Railway projected $88.18)",
+      "text": "projected development cost $288 exceeds the $250 budget (Railway projected $88.37)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 24.33,
-    "railwayProjected": 88.18,
+    "railwayMonthToDate": 24.46,
+    "railwayProjected": 88.37,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T07:26:46.157Z",
+    "at": "2026-11-27T07:53:03.872Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -161,12 +153,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T06:29:52.601Z",
+      "checkedAt": "2026-11-27T07:41:15.924Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T07:26:45.936Z",
+    "at": "2026-11-27T07:53:03.651Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,18 +173,18 @@
   },
   "staging": {
     "api": {
-      "status": "BUILDING",
-      "sha": "12f2d89",
-      "ageMin": 0,
-      "lastGoodSha": "a332e71",
-      "lastGoodAgeMin": 58
+      "status": "SUCCESS",
+      "sha": "5cc3f0f",
+      "ageMin": 13,
+      "lastGoodSha": "5cc3f0f",
+      "lastGoodAgeMin": 13
     },
     "web": {
-      "status": "BUILDING",
-      "sha": "12f2d89",
-      "ageMin": 0,
-      "lastGoodSha": "a332e71",
-      "lastGoodAgeMin": 58
+      "status": "SUCCESS",
+      "sha": "5cc3f0f",
+      "ageMin": 13,
+      "lastGoodSha": "5cc3f0f",
+      "lastGoodAgeMin": 13
     }
   },
   "prRerun": {},
@@ -208,10 +200,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "SOLO is empty while line \"#a. ## M Data Hub slice #, piece #, split # of #: the ": {
-      "since": "2026-11-27T07:26:18.575Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
