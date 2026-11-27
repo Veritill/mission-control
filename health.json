@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T21:50:38.230Z",
+  "at": "2026-11-27T22:37:08.559Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 2,
-      "busyMin": 7,
+      "runs": 4,
+      "busyMin": 16,
       "waitMin": 0,
-      "busyPct": 6
+      "busyPct": 14
     },
     "core": {
-      "runs": 1,
-      "busyMin": 2,
-      "waitMin": 0,
-      "busyPct": 3
+      "runs": 5,
+      "busyMin": 8,
+      "waitMin": 13,
+      "busyPct": 13
     },
     "planner": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 3,
+      "busyMin": 8,
+      "waitMin": 4,
+      "busyPct": 13
     },
     "ci": {
-      "runs": 3,
-      "busyMin": 76,
+      "runs": 5,
+      "busyMin": 83,
       "waitMin": 0,
-      "busyPct": 64
+      "busyPct": 69
     }
   },
   "queue": {
-    "agentsQueued": 3,
-    "ciQueued": 1,
-    "oldestQueuedMin": 1
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-2",
@@ -85,12 +85,8 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "SOLO is empty while line \"197b. #2930 M Wholesale 7 part 3: Owed to you e2e, held cred...\" is eligible (#2930: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
       "level": "info",
-      "text": "657 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 86 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "689 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 86 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
@@ -99,55 +95,51 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $95.17)",
+      "text": "projected development cost $296 exceeds the $250 budget (Railway projected $95.5)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 29.06,
-    "railwayProjected": 95.17,
+    "railwayMonthToDate": 29.29,
+    "railwayProjected": 95.5,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T21:50:33.188Z",
+    "at": "2026-11-27T22:37:05.883Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 9,
-      "misses": 5,
-      "hydrations": 1
+      "hits": 276,
+      "misses": 7,
+      "hydrations": 3
     },
     "platformContent": {
       "entries": 1,
-      "hits": 2,
-      "misses": 1
+      "hits": 8,
+      "misses": 2
     },
     "derived": {
-      "hits": 23,
-      "misses": 10,
+      "hits": 50,
+      "misses": 16,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 3
+      "onceHits": 10
     },
     "edgePurge": {
-      "purges": 0,
-      "calls": 0,
-      "urls": 0,
+      "purges": 4,
+      "calls": 4,
+      "urls": 8,
       "failed": 0
     }
   },
@@ -155,18 +147,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T15:02:09.055Z",
+      "checkedAt": "2026-11-27T21:50:33.558Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T20:12:51.751Z",
+      "checkedAt": "2026-11-27T22:01:41.047Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T21:50:32.987Z",
+    "at": "2026-11-27T22:37:05.691Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -182,17 +174,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "689e621",
-      "ageMin": 98,
-      "lastGoodSha": "689e621",
-      "lastGoodAgeMin": 98
+      "sha": "7105c2a",
+      "ageMin": 36,
+      "lastGoodSha": "7105c2a",
+      "lastGoodAgeMin": 36
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "689e621",
-      "ageMin": 98,
-      "lastGoodSha": "689e621",
-      "lastGoodAgeMin": 98
+      "sha": "7105c2a",
+      "ageMin": 36,
+      "lastGoodSha": "7105c2a",
+      "lastGoodAgeMin": 36
     }
   },
   "prRerun": {},
@@ -204,10 +196,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "SOLO is empty while line \"#b. ## M Wholesale # part #: Owed to you e#e, held cre": {
-      "since": "2026-11-27T21:50:04.226Z",
-      "escalated": false
     },
     "runner(s) offline: railway-noble-#": {
       "since": "2026-11-27T15:55:29.670Z",
