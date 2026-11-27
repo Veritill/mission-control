@@ -1,47 +1,47 @@
 {
-  "at": "2026-11-27T14:47:30.788Z",
+  "at": "2026-11-27T15:15:44.599Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 23,
-      "waitMin": 0,
-      "busyPct": 19
+      "runs": 5,
+      "busyMin": 50,
+      "waitMin": 21,
+      "busyPct": 42
     },
     "core": {
       "runs": 6,
-      "busyMin": 26,
-      "waitMin": 28,
-      "busyPct": 44
+      "busyMin": 22,
+      "waitMin": 24,
+      "busyPct": 36
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 14,
-      "waitMin": 7,
-      "busyPct": 23
+      "runs": 4,
+      "busyMin": 26,
+      "waitMin": 13,
+      "busyPct": 43
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 77,
+      "runs": 13,
+      "busyMin": 115,
       "waitMin": 0,
-      "busyPct": 43
+      "busyPct": 64
     }
   },
   "queue": {
-    "agentsQueued": 9,
-    "ciQueued": 4,
-    "oldestQueuedMin": 11
+    "agentsQueued": 1,
+    "ciQueued": 2,
+    "oldestQueuedMin": 12
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #3102, #2945 — nothing builds them until a line names them"
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2945 — nothing builds them until a line names them"
     },
     {
       "level": "warn",
@@ -89,59 +89,51 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "CHAIN is empty while line \"132e. #2744 M Wholesale 6b part 2b web: the staff order page...\" is eligible (#2744: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
       "level": "info",
-      "text": "502 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 78 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "530 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 79 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $292 exceeds the $250 budget (Railway projected $92.22)",
+      "text": "projected development cost $293 exceeds the $250 budget (Railway projected $92.57)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.02,
-    "railwayProjected": 92.22,
+    "railwayMonthToDate": 27.22,
+    "railwayProjected": 92.57,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T14:47:24.492Z",
+    "at": "2026-11-27T15:15:38.680Z",
     "tenantContext": {
-      "entries": 1,
-      "hits": 1089,
-      "misses": 1,
-      "hydrations": 1
+      "entries": 0,
+      "hits": 0,
+      "misses": 0,
+      "hydrations": 0
     },
     "platformContent": {
-      "entries": 1,
-      "hits": 298,
-      "misses": 1
+      "entries": 0,
+      "hits": 0,
+      "misses": 0
     },
     "derived": {
-      "hits": 1280,
-      "misses": 54,
+      "hits": 0,
+      "misses": 0,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
       "deadRows": 0
     },
     "requestContext": {
-      "onceHits": 299
+      "onceHits": 0
     },
     "edgePurge": {
       "purges": 0,
@@ -154,18 +146,18 @@
     "production": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T10:52:26.976Z",
+      "checkedAt": "2026-11-27T15:02:09.055Z",
       "error": null
     },
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T14:21:55.100Z",
+      "checkedAt": "2026-11-27T15:10:42.443Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T14:47:24.276Z",
+    "at": "2026-11-27T15:15:38.481Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,17 +173,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "05776a7",
-      "ageMin": 27,
-      "lastGoodSha": "05776a7",
-      "lastGoodAgeMin": 27
+      "sha": "decdeb9",
+      "ageMin": 6,
+      "lastGoodSha": "decdeb9",
+      "lastGoodAgeMin": 6
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "05776a7",
-      "ageMin": 27,
-      "lastGoodSha": "05776a7",
-      "lastGoodAgeMin": 27
+      "sha": "decdeb9",
+      "ageMin": 6,
+      "lastGoodSha": "decdeb9",
+      "lastGoodAgeMin": 6
     }
   },
   "prRerun": {},
@@ -200,17 +192,13 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ##, ## — nothing build": {
-      "since": "2026-11-27T14:46:41.599Z",
+    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
+      "since": "2026-11-27T15:15:05.654Z",
       "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "CHAIN is empty while line \"#e. ## M Wholesale #b part #b web: the staff order pa": {
-      "since": "2026-11-27T14:46:41.599Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
