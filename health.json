@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T15:56:09.874Z",
+  "at": "2026-11-27T16:57:48.541Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 3,
-      "busyMin": 3,
-      "waitMin": 21,
-      "busyPct": 3
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 0,
+      "busyPct": 2
     },
     "core": {
-      "runs": 6,
-      "busyMin": 16,
-      "waitMin": 1,
-      "busyPct": 26
+      "runs": 3,
+      "busyMin": 7,
+      "waitMin": 2,
+      "busyPct": 11
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 5,
-      "waitMin": 4,
-      "busyPct": 9
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 9,
-      "busyMin": 126,
+      "runs": 4,
+      "busyMin": 106,
       "waitMin": 0,
-      "busyPct": 105
+      "busyPct": 88
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 1,
-    "oldestQueuedMin": 77
+    "ciQueued": 2,
+    "oldestQueuedMin": 55
   },
   "runners": [
     {
@@ -81,7 +81,8 @@
     },
     {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2945 — nothing builds them until a line names them"
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2945 — nothing builds them until a line names them",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -90,45 +91,39 @@
     },
     {
       "level": "info",
-      "text": "544 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 79 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "558 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 80 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 77 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 55 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "runner(s) offline: railway-noble-3"
-    },
-    {
-      "level": "info",
-      "text": "lanes waited longer than they worked this hour (21 min queued vs 3 min building)"
+      "text": "runner(s) offline: railway-noble-3",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $293 exceeds the $250 budget (Railway projected $92.93)",
+      "text": "projected development cost $293 exceeds the $250 budget (Railway projected $93.36)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.43,
-    "railwayProjected": 92.93,
+    "railwayMonthToDate": 27.7,
+    "railwayProjected": 93.36,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T15:56:01.559Z",
+    "at": "2026-11-27T16:57:43.183Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -141,8 +136,8 @@
       "misses": 0
     },
     "derived": {
-      "hits": 0,
-      "misses": 0,
+      "hits": 11,
+      "misses": 8,
       "refreshes": 0,
       "refreshFailures": 0,
       "oldestQueuedAgeSec": null,
@@ -168,12 +163,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T15:33:00.136Z",
+      "checkedAt": "2026-11-27T16:17:16.131Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T15:56:01.342Z",
+    "at": "2026-11-27T16:57:42.992Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -189,17 +184,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "afc2022",
-      "ageMin": 24,
-      "lastGoodSha": "afc2022",
-      "lastGoodAgeMin": 24
+      "sha": "34ec1c3",
+      "ageMin": 41,
+      "lastGoodSha": "34ec1c3",
+      "lastGoodAgeMin": 41
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "afc2022",
-      "ageMin": 24,
-      "lastGoodSha": "afc2022",
-      "lastGoodAgeMin": 24
+      "sha": "34ec1c3",
+      "ageMin": 41,
+      "lastGoodSha": "34ec1c3",
+      "lastGoodAgeMin": 41
     }
   },
   "prRerun": {},
