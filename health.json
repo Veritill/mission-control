@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T06:09:18.790Z",
+  "at": "2026-11-27T06:59:37.529Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 18,
+      "runs": 2,
+      "busyMin": 23,
       "waitMin": 0,
-      "busyPct": 15
+      "busyPct": 19
     },
     "core": {
-      "runs": 7,
+      "runs": 3,
       "busyMin": 11,
-      "waitMin": 20,
-      "busyPct": 18
+      "waitMin": 1,
+      "busyPct": 19
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 7,
-      "waitMin": 3,
-      "busyPct": 11
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 8,
-      "busyMin": 119,
+      "runs": 6,
+      "busyMin": 131,
       "waitMin": 0,
-      "busyPct": 66
+      "busyPct": 73
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "ciQueued": 1,
+    "oldestQueuedMin": 17
   },
   "runners": [
     {
@@ -51,12 +51,12 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
@@ -81,7 +81,7 @@
     },
     {
       "level": "warn",
-      "text": "10 of today's 18 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
+      "text": "11 of today's 20 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)"
     },
     {
       "level": "warn",
@@ -90,33 +90,29 @@
     },
     {
       "level": "info",
-      "text": "217 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 57 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "236 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 63 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $87.46)",
+      "text": "projected development cost $288 exceeds the $250 budget (Railway projected $87.94)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 23.88,
-    "railwayProjected": 87.46,
+    "railwayMonthToDate": 24.18,
+    "railwayProjected": 87.94,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T06:09:12.230Z",
+    "at": "2026-11-27T06:59:33.301Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -156,12 +152,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T05:45:40.846Z",
+      "checkedAt": "2026-11-27T06:29:52.601Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T06:09:12.012Z",
+    "at": "2026-11-27T06:59:33.094Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -177,17 +173,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "73c5c98",
-      "ageMin": 24,
-      "lastGoodSha": "73c5c98",
-      "lastGoodAgeMin": 24
+      "sha": "a332e71",
+      "ageMin": 31,
+      "lastGoodSha": "a332e71",
+      "lastGoodAgeMin": 31
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "73c5c98",
-      "ageMin": 24,
-      "lastGoodSha": "73c5c98",
-      "lastGoodAgeMin": 24
+      "sha": "a332e71",
+      "ageMin": 31,
+      "lastGoodSha": "a332e71",
+      "lastGoodAgeMin": 31
     }
   },
   "prRerun": {},
