@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T03:55:26.112Z",
+  "at": "2026-11-27T04:52:06.599Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 6,
+      "busyMin": 13,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 11
     },
     "core": {
-      "runs": 6,
-      "busyMin": 19,
-      "waitMin": 19,
-      "busyPct": 32
+      "runs": 2,
+      "busyMin": 3,
+      "waitMin": 3,
+      "busyPct": 5
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
-      "waitMin": 4,
-      "busyPct": 10
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 26,
+      "runs": 5,
+      "busyMin": 100,
       "waitMin": 0,
-      "busyPct": 14
+      "busyPct": 56
     }
   },
   "queue": {
-    "agentsQueued": 2,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 2
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -41,7 +41,7 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -56,7 +56,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
@@ -85,38 +85,30 @@
       "repeated": true
     },
     {
-      "level": "warn",
-      "text": "SOLO is empty while line \"220. #3106 L Data Hub slice 5, piece 3: the screen's new vie...\" is eligible (#3106: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
       "level": "info",
-      "text": "141 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 37 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "161 agents runs today (over 120), but the largest same-item burst is only 15 (dominant pair 43 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $286 exceeds the $250 budget (Railway projected $86.19)",
+      "text": "projected development cost $287 exceeds the $250 budget (Railway projected $86.72)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 23.06,
-    "railwayProjected": 86.19,
+    "railwayMonthToDate": 23.42,
+    "railwayProjected": 86.72,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T03:55:20.308Z",
+    "at": "2026-11-27T04:52:02.042Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -156,12 +148,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T03:54:27.813Z",
+      "checkedAt": "2026-11-27T04:12:39.494Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T03:55:20.091Z",
+    "at": "2026-11-27T04:52:01.820Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -177,17 +169,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "9440169",
-      "ageMin": 2,
-      "lastGoodSha": "9440169",
-      "lastGoodAgeMin": 2
+      "sha": "7e99af3",
+      "ageMin": 40,
+      "lastGoodSha": "7e99af3",
+      "lastGoodAgeMin": 40
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "9440169",
-      "ageMin": 2,
-      "lastGoodSha": "9440169",
-      "lastGoodAgeMin": 2
+      "sha": "7e99af3",
+      "ageMin": 40,
+      "lastGoodSha": "7e99af3",
+      "lastGoodAgeMin": 40
     }
   },
   "prRerun": {},
@@ -199,10 +191,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "SOLO is empty while line \"#. ## L Data Hub slice #, piece #: the screen's new vi": {
-      "since": "2026-11-27T03:54:49.135Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
