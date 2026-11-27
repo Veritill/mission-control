@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-27T01:14:09.718Z",
+  "at": "2026-11-27T01:45:43.485Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 7,
-      "busyMin": 87,
-      "waitMin": 25,
-      "busyPct": 73
+      "runs": 2,
+      "busyMin": 24,
+      "waitMin": 23,
+      "busyPct": 20
     },
     "core": {
-      "runs": 8,
-      "busyMin": 19,
-      "waitMin": 18,
-      "busyPct": 32
+      "runs": 3,
+      "busyMin": 10,
+      "waitMin": 16,
+      "busyPct": 16
     },
     "planner": {
-      "runs": 3,
-      "busyMin": 11,
-      "waitMin": 30,
-      "busyPct": 19
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 12,
+      "busyPct": 3
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 79,
+      "runs": 5,
+      "busyMin": 109,
       "waitMin": 0,
-      "busyPct": 44
+      "busyPct": 61
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 1
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -61,7 +61,7 @@
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -81,30 +81,38 @@
     },
     {
       "level": "warn",
+      "text": "#3133 is status:in-progress (lane chain) with no 🟢 note in 30 min, no PR and no lane run queued or running: nobody is on it"
+    },
+    {
+      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $84.91)",
+      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $85.07)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 22.14,
-    "railwayProjected": 84.91,
+    "railwayMonthToDate": 22.31,
+    "railwayProjected": 85.07,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T01:14:05.661Z",
+    "at": "2026-11-27T01:45:38.311Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -149,7 +157,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T01:14:05.442Z",
+    "at": "2026-11-27T01:45:38.071Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -166,16 +174,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "2d0470c",
-      "ageMin": 1,
+      "ageMin": 33,
       "lastGoodSha": "2d0470c",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 33
     },
     "web": {
       "status": "SUCCESS",
       "sha": "2d0470c",
-      "ageMin": 1,
+      "ageMin": 33,
       "lastGoodSha": "2d0470c",
-      "lastGoodAgeMin": 1
+      "lastGoodAgeMin": 33
     }
   },
   "prRerun": {},
@@ -183,6 +191,10 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
+    },
+    "## is status:in-progress (lane chain) with no 🟢 note in # min, no PR and no lan": {
+      "since": "2026-11-27T01:45:06.804Z",
+      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
@@ -193,5 +205,5 @@
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-27T00:45:14.312Z"
+  "supervisorWokeAt": "2026-11-27T01:45:06.804Z"
 }
