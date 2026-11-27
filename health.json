@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T15:15:44.599Z",
+  "at": "2026-11-27T15:56:09.874Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 50,
+      "runs": 3,
+      "busyMin": 3,
       "waitMin": 21,
-      "busyPct": 42
+      "busyPct": 3
     },
     "core": {
       "runs": 6,
-      "busyMin": 22,
-      "waitMin": 24,
-      "busyPct": 36
+      "busyMin": 16,
+      "waitMin": 1,
+      "busyPct": 26
     },
     "planner": {
-      "runs": 4,
-      "busyMin": 26,
-      "waitMin": 13,
-      "busyPct": 43
+      "runs": 1,
+      "busyMin": 5,
+      "waitMin": 4,
+      "busyPct": 9
     },
     "ci": {
-      "runs": 13,
-      "busyMin": 115,
+      "runs": 9,
+      "busyMin": 126,
       "waitMin": 0,
-      "busyPct": 64
+      "busyPct": 105
     }
   },
   "queue": {
     "agentsQueued": 1,
-    "ciQueued": 2,
-    "oldestQueuedMin": 12
+    "ciQueued": 1,
+    "oldestQueuedMin": 77
   },
   "runners": [
     {
@@ -56,12 +56,12 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "router-runner",
@@ -90,29 +90,45 @@
     },
     {
       "level": "info",
-      "text": "530 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 79 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "544 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 79 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
-      "text": "projected development cost $293 exceeds the $250 budget (Railway projected $92.57)",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 77 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+    },
+    {
+      "level": "warn",
+      "text": "runner(s) offline: railway-noble-3"
+    },
+    {
+      "level": "info",
+      "text": "lanes waited longer than they worked this hour (21 min queued vs 3 min building)"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $293 exceeds the $250 budget (Railway projected $92.93)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.22,
-    "railwayProjected": 92.57,
+    "railwayMonthToDate": 27.43,
+    "railwayProjected": 92.93,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T15:15:38.680Z",
+    "at": "2026-11-27T15:56:01.559Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -152,12 +168,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T15:10:42.443Z",
+      "checkedAt": "2026-11-27T15:33:00.136Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T15:15:38.481Z",
+    "at": "2026-11-27T15:56:01.342Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,17 +189,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "decdeb9",
-      "ageMin": 6,
-      "lastGoodSha": "decdeb9",
-      "lastGoodAgeMin": 6
+      "sha": "afc2022",
+      "ageMin": 24,
+      "lastGoodSha": "afc2022",
+      "lastGoodAgeMin": 24
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "decdeb9",
-      "ageMin": 6,
-      "lastGoodSha": "decdeb9",
-      "lastGoodAgeMin": 6
+      "sha": "afc2022",
+      "ageMin": 24,
+      "lastGoodSha": "afc2022",
+      "lastGoodAgeMin": 24
     }
   },
   "prRerun": {},
@@ -200,10 +216,18 @@
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-27T15:55:29.670Z",
+      "escalated": false
+    },
+    "runner(s) offline: railway-noble-#": {
+      "since": "2026-11-27T15:55:29.670Z",
+      "escalated": false
+    },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-27T14:46:41.599Z"
+  "supervisorWokeAt": "2026-11-27T15:55:29.670Z"
 }
