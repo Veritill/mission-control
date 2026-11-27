@@ -1,42 +1,42 @@
 {
-  "at": "2026-11-27T08:54:47.258Z",
+  "at": "2026-11-27T09:25:39.409Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 9,
-      "busyMin": 32,
-      "waitMin": 1,
-      "busyPct": 26
+      "runs": 5,
+      "busyMin": 53,
+      "waitMin": 33,
+      "busyPct": 89
     },
     "core": {
-      "runs": 6,
-      "busyMin": 10,
-      "waitMin": 18,
-      "busyPct": 17
+      "runs": 2,
+      "busyMin": 8,
+      "waitMin": 15,
+      "busyPct": 13
     },
     "planner": {
-      "runs": 2,
-      "busyMin": 16,
-      "waitMin": 0,
-      "busyPct": 26
+      "runs": 4,
+      "busyMin": 17,
+      "waitMin": 15,
+      "busyPct": 29
     },
     "ci": {
-      "runs": 10,
-      "busyMin": 138,
-      "waitMin": 44,
-      "busyPct": 77
+      "runs": 6,
+      "busyMin": 63,
+      "waitMin": 0,
+      "busyPct": 35
     }
   },
   "queue": {
-    "agentsQueued": 24,
+    "agentsQueued": 9,
     "ciQueued": 1,
-    "oldestQueuedMin": 56
+    "oldestQueuedMin": 34
   },
   "runners": [
     {
       "name": "agent-runner-1",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -76,7 +76,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
     },
     {
@@ -90,15 +90,20 @@
     },
     {
       "level": "warn",
-      "text": "339 agents runs today, 24 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it"
+      "text": "360 agents runs today, 30 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
+      "repeated": true
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 56 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "main is RED (run 45965330286, failed: test) for 17 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $88.9)",
+      "text": "runner(s) offline: agent-runner-1"
+    },
+    {
+      "level": "warn",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.21)",
       "repeated": true
     },
     {
@@ -114,13 +119,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 24.82,
-    "railwayProjected": 88.9,
+    "railwayMonthToDate": 25.02,
+    "railwayProjected": 89.21,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T08:54:38.898Z",
+    "at": "2026-11-27T09:25:30.980Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -160,12 +165,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T08:15:06.866Z",
+      "checkedAt": "2026-11-27T09:15:56.105Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T08:54:38.679Z",
+    "at": "2026-11-27T09:25:30.724Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,17 +186,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "ed27057",
-      "ageMin": 40,
-      "lastGoodSha": "ed27057",
-      "lastGoodAgeMin": 40
+      "sha": "440ec5a",
+      "ageMin": 10,
+      "lastGoodSha": "440ec5a",
+      "lastGoodAgeMin": 10
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "ed27057",
-      "ageMin": 40,
-      "lastGoodSha": "ed27057",
-      "lastGoodAgeMin": 40
+      "sha": "440ec5a",
+      "ageMin": 10,
+      "lastGoodSha": "440ec5a",
+      "lastGoodAgeMin": 10
     }
   },
   "prRerun": {},
@@ -212,8 +217,12 @@
       "since": "2026-11-27T08:18:27.205Z",
       "escalated": false
     },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-27T08:54:04.294Z",
+    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
+      "since": "2026-11-27T09:24:50.173Z",
+      "escalated": false
+    },
+    "runner(s) offline: agent-runner-#": {
+      "since": "2026-11-27T09:24:50.173Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -221,5 +230,5 @@
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-27T08:54:04.294Z"
+  "supervisorWokeAt": "2026-11-27T09:24:50.173Z"
 }
