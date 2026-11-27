@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-27T17:51:02.010Z",
+  "at": "2026-11-27T18:30:31.876Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 8,
+      "runs": 2,
+      "busyMin": 29,
       "waitMin": 0,
-      "busyPct": 7
+      "busyPct": 24
     },
     "core": {
-      "runs": 5,
-      "busyMin": 11,
-      "waitMin": 5,
-      "busyPct": 19
+      "runs": 2,
+      "busyMin": 6,
+      "waitMin": 0,
+      "busyPct": 10
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 136,
+      "runs": 4,
+      "busyMin": 55,
       "waitMin": 0,
-      "busyPct": 113
+      "busyPct": 45
     }
   },
   "queue": {
     "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 51
+    "oldestQueuedMin": 78
   },
   "runners": [
     {
@@ -69,15 +69,24 @@
       "busy": true
     }
   ],
-  "conflicted": [],
+  "conflicted": [
+    {
+      "number": 3202,
+      "branch": "lane/solo/3156"
+    }
+  ],
   "runless": [],
   "ciKicked": {},
   "conflictWoken": {},
   "findings": [
     {
       "level": "warn",
-      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
+    },
+    {
+      "level": "warn",
+      "text": "1 pull request(s) conflicted with main; Core is busy (no dispatch)"
     },
     {
       "level": "warn",
@@ -86,11 +95,15 @@
     },
     {
       "level": "info",
-      "text": "578 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 80 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+      "text": "599 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 77 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
+    },
+    {
+      "level": "fixed",
+      "text": "main is red on e2e only (run 46038102872): re-ran the failed jobs once (the flaky pattern); if it fails again a lane owns it"
     },
     {
       "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 51 min); every 'veritill' runner is online and busy — a backlog, not an outage",
+      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 78 min); every 'veritill' runner is online and busy — a backlog, not an outage",
       "repeated": true
     },
     {
@@ -100,25 +113,29 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $294 exceeds the $250 budget (Railway projected $93.62)",
+      "text": "projected development cost $294 exceeds the $250 budget (Railway projected $93.86)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
+    },
+    {
+      "level": "fixed",
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 27.93,
-    "railwayProjected": 93.62,
+    "railwayMonthToDate": 28.14,
+    "railwayProjected": 93.86,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T17:50:54.395Z",
+    "at": "2026-11-27T18:30:23.806Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -158,12 +175,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T17:08:01.310Z",
+      "checkedAt": "2026-11-27T18:01:15.020Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T17:50:54.173Z",
+    "at": "2026-11-27T18:30:23.596Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -179,17 +196,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "79f7938",
-      "ageMin": 44,
-      "lastGoodSha": "79f7938",
-      "lastGoodAgeMin": 44
+      "sha": "880bf67",
+      "ageMin": 30,
+      "lastGoodSha": "880bf67",
+      "lastGoodAgeMin": 30
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "79f7938",
-      "ageMin": 44,
-      "lastGoodSha": "79f7938",
-      "lastGoodAgeMin": 44
+      "sha": "880bf67",
+      "ageMin": 30,
+      "lastGoodSha": "880bf67",
+      "lastGoodAgeMin": 30
     }
   },
   "prRerun": {},
@@ -197,6 +214,10 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
+    },
+    "# pull request(s) conflicted with main; Core is busy (no dispatch)": {
+      "since": "2026-11-27T18:29:39.620Z",
+      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
@@ -215,5 +236,5 @@
       "escalated": true
     }
   },
-  "supervisorWokeAt": "2026-11-27T15:55:29.670Z"
+  "supervisorWokeAt": "2026-11-27T18:29:39.620Z"
 }
