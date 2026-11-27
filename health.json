@@ -1,18 +1,18 @@
 {
-  "at": "2026-11-27T10:05:03.908Z",
+  "at": "2026-11-27T10:52:32.106Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 1,
-      "busyMin": 2,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 1
+      "busyPct": 0
     },
     "core": {
-      "runs": 1,
-      "busyMin": 8,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 14
+      "busyPct": 0
     },
     "planner": {
       "runs": 0,
@@ -21,16 +21,16 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 5,
-      "busyMin": 118,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 66
+      "busyPct": 0
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 2,
-    "oldestQueuedMin": 46
+    "agentsQueued": 1,
+    "ciQueued": 1,
+    "oldestQueuedMin": 139
   },
   "runners": [
     {
@@ -76,7 +76,7 @@
   "findings": [
     {
       "level": "warn",
-      "text": "1 pull request(s) green for 15+ min; Core is busy (no dispatch)",
+      "text": "2 pull request(s) green for 15+ min; Core is busy (no dispatch)",
       "repeated": true
     },
     {
@@ -91,42 +91,30 @@
     },
     {
       "level": "warn",
-      "text": "378 agents runs today, 33 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
+      "text": "383 agents runs today, 33 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45965330286, failed: test) for 56 min — staging is not moving until a fix lands"
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 46 min); every 'veritill' runner is online and busy — a backlog, not an outage"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.49)",
+      "text": "projected development cost $290 exceeds the $250 budget (Railway projected $89.96)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 25.25,
-    "railwayProjected": 89.49,
+    "railwayMonthToDate": 25.53,
+    "railwayProjected": 89.96,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T10:04:55.869Z",
+    "at": "2026-11-27T10:52:26.741Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -171,7 +159,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T10:04:55.644Z",
+    "at": "2026-11-27T10:52:26.527Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -188,16 +176,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "440ec5a",
-      "ageMin": 50,
+      "ageMin": 97,
       "lastGoodSha": "440ec5a",
-      "lastGoodAgeMin": 50
+      "lastGoodAgeMin": 97
     },
     "web": {
       "status": "SUCCESS",
       "sha": "440ec5a",
-      "ageMin": 50,
+      "ageMin": 97,
       "lastGoodSha": "440ec5a",
-      "lastGoodAgeMin": 50
+      "lastGoodAgeMin": 97
     }
   },
   "prRerun": {},
@@ -216,14 +204,6 @@
     },
     "# agents runs today, # of them the same \"agents\" on main within # minutes of eac": {
       "since": "2026-11-27T08:18:27.205Z",
-      "escalated": false
-    },
-    "main is RED (run #, failed: test) for # min — staging is not moving until a fix ": {
-      "since": "2026-11-27T09:24:50.173Z",
-      "escalated": false
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-27T10:04:24.984Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
