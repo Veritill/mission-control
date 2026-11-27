@@ -1,41 +1,41 @@
 {
-  "at": "2026-11-27T09:25:39.409Z",
+  "at": "2026-11-27T10:05:03.908Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 53,
-      "waitMin": 33,
-      "busyPct": 89
+      "runs": 1,
+      "busyMin": 2,
+      "waitMin": 0,
+      "busyPct": 1
     },
     "core": {
-      "runs": 2,
+      "runs": 1,
       "busyMin": 8,
-      "waitMin": 15,
-      "busyPct": 13
+      "waitMin": 0,
+      "busyPct": 14
     },
     "planner": {
-      "runs": 4,
-      "busyMin": 17,
-      "waitMin": 15,
-      "busyPct": 29
+      "runs": 0,
+      "busyMin": 0,
+      "waitMin": 0,
+      "busyPct": 0
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 63,
+      "runs": 5,
+      "busyMin": 118,
       "waitMin": 0,
-      "busyPct": 35
+      "busyPct": 66
     }
   },
   "queue": {
-    "agentsQueued": 9,
-    "ciQueued": 1,
-    "oldestQueuedMin": 34
+    "agentsQueued": 0,
+    "ciQueued": 2,
+    "oldestQueuedMin": 46
   },
   "runners": [
     {
       "name": "agent-runner-1",
-      "online": false,
+      "online": true,
       "busy": false
     },
     {
@@ -81,7 +81,8 @@
     },
     {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2945 — nothing builds them until a line names them"
+      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #2945 — nothing builds them until a line names them",
+      "repeated": true
     },
     {
       "level": "warn",
@@ -90,20 +91,20 @@
     },
     {
       "level": "warn",
-      "text": "360 agents runs today, 30 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
+      "text": "378 agents runs today, 33 of them the same \"agents\" on main within 15 minutes of each other: that burst is the loop — read what keeps re-firing it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "main is RED (run 45965330286, failed: test) for 17 min — staging is not moving until a fix lands"
+      "text": "main is RED (run 45965330286, failed: test) for 56 min — staging is not moving until a fix lands"
     },
     {
       "level": "warn",
-      "text": "runner(s) offline: agent-runner-1"
+      "text": "CI queue: 2 run(s) waiting 20+ min for label 'veritill' (longest 46 min); every 'veritill' runner is online and busy — a backlog, not an outage"
     },
     {
       "level": "warn",
-      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.21)",
+      "text": "projected development cost $289 exceeds the $250 budget (Railway projected $89.49)",
       "repeated": true
     },
     {
@@ -112,20 +113,20 @@
     },
     {
       "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
+      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 25.02,
-    "railwayProjected": 89.21,
+    "railwayMonthToDate": 25.25,
+    "railwayProjected": 89.49,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T09:25:30.980Z",
+    "at": "2026-11-27T10:04:55.869Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -170,7 +171,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T09:25:30.724Z",
+    "at": "2026-11-27T10:04:55.644Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -187,16 +188,16 @@
     "api": {
       "status": "SUCCESS",
       "sha": "440ec5a",
-      "ageMin": 10,
+      "ageMin": 50,
       "lastGoodSha": "440ec5a",
-      "lastGoodAgeMin": 10
+      "lastGoodAgeMin": 50
     },
     "web": {
       "status": "SUCCESS",
       "sha": "440ec5a",
-      "ageMin": 10,
+      "ageMin": 50,
       "lastGoodSha": "440ec5a",
-      "lastGoodAgeMin": 10
+      "lastGoodAgeMin": 50
     }
   },
   "prRerun": {},
@@ -221,8 +222,8 @@
       "since": "2026-11-27T09:24:50.173Z",
       "escalated": false
     },
-    "runner(s) offline: agent-runner-#": {
-      "since": "2026-11-27T09:24:50.173Z",
+    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
+      "since": "2026-11-27T10:04:24.984Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
@@ -230,5 +231,5 @@
       "escalated": false
     }
   },
-  "supervisorWokeAt": "2026-11-27T09:24:50.173Z"
+  "supervisorWokeAt": "2026-11-27T10:04:24.984Z"
 }
