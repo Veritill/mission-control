@@ -1,17 +1,17 @@
 {
-  "at": "2026-11-26T23:22:17.405Z",
+  "at": "2026-11-27T00:15:00.021Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 1,
-      "busyMin": 6,
+      "busyMin": 13,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 11
     },
     "core": {
       "runs": 5,
-      "busyMin": 12,
-      "waitMin": 2,
+      "busyMin": 11,
+      "waitMin": 1,
       "busyPct": 19
     },
     "planner": {
@@ -21,22 +21,22 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 4,
-      "busyMin": 39,
+      "runs": 5,
+      "busyMin": 103,
       "waitMin": 0,
-      "busyPct": 22
+      "busyPct": 57
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 1,
-    "oldestQueuedMin": 3
+    "agentsQueued": 1,
+    "ciQueued": 0,
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "agent-runner-2",
@@ -46,7 +46,7 @@
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -56,12 +56,12 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -81,21 +81,12 @@
     },
     {
       "level": "warn",
-      "text": "41 of today's 70 commits on main (first 100) are lane-schedule notes: the Core bot is feeding itself (runbook 2026-11-05, the note loop)",
-      "repeated": true
-    },
-    {
-      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
-      "level": "info",
-      "text": "648 agents runs today (over 120), but the largest same-item burst is only 14 (dominant pair 74 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
-    },
-    {
       "level": "warn",
-      "text": "projected development cost $284 exceeds the $250 budget (Railway projected $83.92)",
+      "text": "projected development cost $284 exceeds the $250 budget (Railway projected $84.44)",
       "repeated": true
     },
     {
@@ -107,13 +98,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 21.5,
-    "railwayProjected": 83.92,
+    "railwayMonthToDate": 21.8,
+    "railwayProjected": 84.44,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-26T23:22:12.556Z",
+    "at": "2026-11-27T00:14:54.929Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -153,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-26T23:19:53.476Z",
+      "checkedAt": "2026-11-26T23:27:34.196Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-26T23:22:12.343Z",
+    "at": "2026-11-27T00:14:54.726Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -174,17 +165,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "3d76e24",
-      "ageMin": 3,
-      "lastGoodSha": "3d76e24",
-      "lastGoodAgeMin": 3
+      "sha": "01c4af3",
+      "ageMin": 48,
+      "lastGoodSha": "01c4af3",
+      "lastGoodAgeMin": 48
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "3d76e24",
-      "ageMin": 3,
-      "lastGoodSha": "3d76e24",
-      "lastGoodAgeMin": 3
+      "sha": "01c4af3",
+      "ageMin": 48,
+      "lastGoodSha": "01c4af3",
+      "lastGoodAgeMin": 48
     }
   },
   "prRerun": {},
@@ -192,10 +183,6 @@
     "# pull request(s) green for #+ min; Core is busy (no dispatch)": {
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
-    },
-    "# of today's # commits on main (first #) are lane-schedule notes: the Core bot i": {
-      "since": "2026-11-26T05:05:00.836Z",
-      "escalated": false
     },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
