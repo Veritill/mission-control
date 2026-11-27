@@ -1,47 +1,47 @@
 {
-  "at": "2026-11-27T00:45:47.234Z",
+  "at": "2026-11-27T01:14:09.718Z",
   "windowHours": 1,
   "roles": {
     "lane": {
-      "runs": 5,
-      "busyMin": 40,
-      "waitMin": 2,
-      "busyPct": 33
+      "runs": 7,
+      "busyMin": 87,
+      "waitMin": 25,
+      "busyPct": 73
     },
     "core": {
-      "runs": 6,
-      "busyMin": 11,
-      "waitMin": 2,
-      "busyPct": 19
+      "runs": 8,
+      "busyMin": 19,
+      "waitMin": 18,
+      "busyPct": 32
     },
     "planner": {
-      "runs": 2,
-      "busyMin": 10,
-      "waitMin": 0,
-      "busyPct": 17
+      "runs": 3,
+      "busyMin": 11,
+      "waitMin": 30,
+      "busyPct": 19
     },
     "ci": {
-      "runs": 6,
-      "busyMin": 30,
+      "runs": 10,
+      "busyMin": 79,
       "waitMin": 0,
-      "busyPct": 16
+      "busyPct": 44
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 0,
-    "oldestQueuedMin": 0
+    "oldestQueuedMin": 1
   },
   "runners": [
     {
       "name": "agent-runner-1",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble",
@@ -51,17 +51,17 @@
     {
       "name": "railway-noble-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "core-runner",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-3",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "router-runner",
@@ -86,33 +86,25 @@
     },
     {
       "level": "warn",
-      "text": "SOLO is empty while line \"218. #3104 S Data Hub slice 5, piece 1: the remaining column...\" is eligible (#3104: open, after items closed, no PR): Core's hand-out skipped it"
-    },
-    {
-      "level": "warn",
-      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $84.53)",
+      "text": "projected development cost $285 exceeds the $250 budget (Railway projected $84.91)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "1 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 21.95,
-    "railwayProjected": 84.53,
+    "railwayMonthToDate": 22.14,
+    "railwayProjected": 84.91,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T00:45:39.667Z",
+    "at": "2026-11-27T01:14:05.661Z",
     "tenantContext": {
       "entries": 1,
       "hits": 1089,
@@ -152,12 +144,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-27T00:39:04.847Z",
+      "checkedAt": "2026-11-27T01:13:32.713Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T00:45:39.456Z",
+    "at": "2026-11-27T01:14:05.442Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -173,17 +165,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "043f4be",
-      "ageMin": 8,
-      "lastGoodSha": "043f4be",
-      "lastGoodAgeMin": 8
+      "sha": "2d0470c",
+      "ageMin": 1,
+      "lastGoodSha": "2d0470c",
+      "lastGoodAgeMin": 1
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "043f4be",
-      "ageMin": 8,
-      "lastGoodSha": "043f4be",
-      "lastGoodAgeMin": 8
+      "sha": "2d0470c",
+      "ageMin": 1,
+      "lastGoodSha": "2d0470c",
+      "lastGoodAgeMin": 1
     }
   },
   "prRerun": {},
@@ -195,10 +187,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "SOLO is empty while line \"#. ## S Data Hub slice #, piece #: the remaining colum": {
-      "since": "2026-11-27T00:45:14.312Z",
-      "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
       "since": "2026-11-26T17:19:13.290Z",
