@@ -1,36 +1,36 @@
 {
-  "at": "2026-11-27T19:38:01.108Z",
+  "at": "2026-11-27T20:05:22.818Z",
   "windowHours": 1,
   "roles": {
     "lane": {
       "runs": 2,
-      "busyMin": 6,
+      "busyMin": 2,
       "waitMin": 0,
-      "busyPct": 5
+      "busyPct": 2
     },
     "core": {
-      "runs": 3,
-      "busyMin": 7,
+      "runs": 5,
+      "busyMin": 9,
       "waitMin": 2,
-      "busyPct": 12
+      "busyPct": 14
     },
     "planner": {
-      "runs": 1,
-      "busyMin": 6,
+      "runs": 0,
+      "busyMin": 0,
       "waitMin": 0,
-      "busyPct": 10
+      "busyPct": 0
     },
     "ci": {
       "runs": 4,
-      "busyMin": 82,
+      "busyMin": 67,
       "waitMin": 0,
-      "busyPct": 68
+      "busyPct": 56
     }
   },
   "queue": {
-    "agentsQueued": 0,
+    "agentsQueued": 1,
     "ciQueued": 1,
-    "oldestQueuedMin": 105
+    "oldestQueuedMin": 0
   },
   "runners": [
     {
@@ -41,12 +41,12 @@
     {
       "name": "agent-runner-2",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble",
       "online": true,
-      "busy": true
+      "busy": false
     },
     {
       "name": "railway-noble-2",
@@ -56,7 +56,7 @@
     {
       "name": "core-runner",
       "online": true,
-      "busy": false
+      "busy": true
     },
     {
       "name": "railway-noble-3",
@@ -86,12 +86,7 @@
     },
     {
       "level": "info",
-      "text": "629 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 83 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
-    },
-    {
-      "level": "warn",
-      "text": "CI queue: 1 run(s) waiting 20+ min for label 'veritill' (longest 105 min); every 'veritill' runner is online and busy — a backlog, not an outage",
-      "repeated": true
+      "text": "639 agents runs today (over 120), but the largest same-item density is only 7 in any 15-minute window (dominant pair 86 total across the whole day): a fast real night (multi-label issue creation + merge chains fan out a short burst per real item), not a loop"
     },
     {
       "level": "warn",
@@ -100,7 +95,7 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $294 exceeds the $250 budget (Railway projected $94.39)",
+      "text": "projected development cost $295 exceeds the $250 budget (Railway projected $94.55)",
       "repeated": true
     },
     {
@@ -112,13 +107,13 @@
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 28.46,
-    "railwayProjected": 94.39,
+    "railwayMonthToDate": 28.59,
+    "railwayProjected": 94.55,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-27T19:37:55.925Z",
+    "at": "2026-11-27T20:05:16.949Z",
     "tenantContext": {
       "entries": 0,
       "hits": 0,
@@ -163,7 +158,7 @@
     }
   },
   "securityPulse": {
-    "at": "2026-11-27T19:37:55.705Z",
+    "at": "2026-11-27T20:05:16.728Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -178,18 +173,18 @@
   },
   "staging": {
     "api": {
-      "status": "SUCCESS",
-      "sha": "f1ac500",
-      "ageMin": 40,
+      "status": "BUILDING",
+      "sha": "824af8b",
+      "ageMin": 1,
       "lastGoodSha": "f1ac500",
-      "lastGoodAgeMin": 40
+      "lastGoodAgeMin": 67
     },
     "web": {
-      "status": "SUCCESS",
-      "sha": "f1ac500",
-      "ageMin": 40,
+      "status": "DEPLOYING",
+      "sha": "824af8b",
+      "ageMin": 1,
       "lastGoodSha": "f1ac500",
-      "lastGoodAgeMin": 40
+      "lastGoodAgeMin": 67
     }
   },
   "prRerun": {},
@@ -201,10 +196,6 @@
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
-    },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-27T15:55:29.670Z",
-      "escalated": false
     },
     "runner(s) offline: railway-noble-#": {
       "since": "2026-11-27T15:55:29.670Z",
