@@ -1,5 +1,5 @@
 {
-  "at": "2026-11-28T02:55:58.469Z",
+  "at": "2026-11-28T03:23:58.490Z",
   "windowHours": 1,
   "roles": {
     "lane": {
@@ -9,10 +9,10 @@
       "busyPct": 0
     },
     "core": {
-      "runs": 0,
-      "busyMin": 0,
-      "waitMin": 0,
-      "busyPct": 0
+      "runs": 2,
+      "busyMin": 3,
+      "waitMin": 2,
+      "busyPct": 5
     },
     "planner": {
       "runs": 0,
@@ -21,41 +21,41 @@
       "busyPct": 0
     },
     "ci": {
-      "runs": 1,
-      "busyMin": 59,
+      "runs": 2,
+      "busyMin": 5,
       "waitMin": 0,
-      "busyPct": 50
+      "busyPct": 3
     }
   },
   "queue": {
-    "agentsQueued": 0,
-    "ciQueued": 3,
-    "oldestQueuedMin": 95
+    "agentsQueued": 1,
+    "ciQueued": 2,
+    "oldestQueuedMin": 115
   },
   "runners": [
     {
       "name": "agent-runner-1",
-      "online": true,
+      "online": false,
       "busy": false
     },
     {
       "name": "agent-runner-2",
-      "online": true,
+      "online": false,
       "busy": false
     },
     {
       "name": "railway-noble",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "railway-noble-2",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     },
     {
       "name": "core-runner",
-      "online": true,
+      "online": false,
       "busy": false
     },
     {
@@ -65,8 +65,8 @@
     },
     {
       "name": "router-runner",
-      "online": true,
-      "busy": true
+      "online": false,
+      "busy": false
     }
   ],
   "conflicted": [],
@@ -81,16 +81,20 @@
     },
     {
       "level": "warn",
-      "text": "ready issue(s) with no line in docs/ops/lane-schedule.md: #3227 — nothing builds them until a line names them"
-    },
-    {
-      "level": "warn",
       "text": "needs you: #2448, #2315, #2013, #1940, #1897, #1083 open over a day with a schedule line waiting on it",
       "repeated": true
     },
     {
       "level": "warn",
-      "text": "CI queue: 3 run(s) waiting 20+ min for label 'veritill' (longest 95 min); every 'veritill' runner is online and busy — a backlog, not an outage"
+      "text": "run 46095218826 (ci) queued 92 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "run 46093261473 (ci) queued 115 min for label 'veritill' and no runner with that label is online — a runner is down"
+    },
+    {
+      "level": "warn",
+      "text": "runner(s) offline: agent-runner-1, agent-runner-2, railway-noble, railway-noble-2, core-runner, router-runner"
     },
     {
       "level": "info",
@@ -98,32 +102,28 @@
     },
     {
       "level": "warn",
-      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $97.15)",
+      "text": "projected development cost $297 exceeds the $250 budget (Railway projected $97.31)",
       "repeated": true
     },
     {
       "level": "info",
       "text": "security: quiet hour (0 export, 0 purge, 0 support access, 0 owner passkey add, 0 rate-limit hit, 0 AI budget refusal)"
-    },
-    {
-      "level": "fixed",
-      "text": "2 new finding(s) this script cannot fix itself: woke the Build supervisor"
     }
   ],
   "cost": {
     "claudeMonthly": 200,
     "budget": 250,
     "otherBudget": 50,
-    "railwayMonthToDate": 30.49,
-    "railwayProjected": 97.15,
+    "railwayMonthToDate": 30.63,
+    "railwayProjected": 97.31,
     "source": "railway-api",
     "note": "usage × Railway's published rates; the plan base fee is not included"
   },
   "cache": {
-    "at": "2026-11-28T02:55:51.377Z",
+    "at": "2026-11-28T03:23:52.995Z",
     "tenantContext": {
       "entries": 1,
-      "hits": 320,
+      "hits": 322,
       "misses": 7,
       "hydrations": 3
     },
@@ -160,12 +160,12 @@
     "staging": {
       "configured": true,
       "ok": true,
-      "checkedAt": "2026-11-28T01:36:05.191Z",
+      "checkedAt": "2026-11-28T03:09:49.353Z",
       "error": null
     }
   },
   "securityPulse": {
-    "at": "2026-11-28T02:55:51.157Z",
+    "at": "2026-11-28T03:23:52.777Z",
     "windowMinutes": 60,
     "counts": {
       "passkey.add_owner": 0
@@ -181,17 +181,17 @@
   "staging": {
     "api": {
       "status": "SUCCESS",
-      "sha": "18c2e64",
-      "ageMin": 81,
-      "lastGoodSha": "18c2e64",
-      "lastGoodAgeMin": 81
+      "sha": "092fb2b",
+      "ageMin": 15,
+      "lastGoodSha": "092fb2b",
+      "lastGoodAgeMin": 15
     },
     "web": {
       "status": "SUCCESS",
-      "sha": "18c2e64",
-      "ageMin": 81,
-      "lastGoodSha": "18c2e64",
-      "lastGoodAgeMin": 81
+      "sha": "092fb2b",
+      "ageMin": 15,
+      "lastGoodSha": "092fb2b",
+      "lastGoodAgeMin": 15
     }
   },
   "prRerun": {},
@@ -200,16 +200,16 @@
       "since": "2026-11-21T01:05:46.764Z",
       "escalated": true
     },
-    "ready issue(s) with no line in docs/ops/lane-schedule.md: ## — nothing builds th": {
-      "since": "2026-11-28T02:55:27.465Z",
-      "escalated": false
-    },
     "needs you: ##, ##, ##, ##, ##, ## open over a day with a schedule line waiting o": {
       "since": "2026-11-24T15:24:18.825Z",
       "escalated": true
     },
-    "CI queue: # run(s) waiting #+ min for label 'veritill' (longest # min); every 'v": {
-      "since": "2026-11-28T02:55:27.465Z",
+    "run # (ci) queued # min for label 'veritill' and no runner with that label is on": {
+      "since": "2026-11-28T03:23:26.446Z",
+      "escalated": false
+    },
+    "runner(s) offline: agent-runner-#, agent-runner-#, railway-noble, railway-noble-": {
+      "since": "2026-11-28T03:23:26.446Z",
       "escalated": false
     },
     "projected development cost $# exceeds the $# budget (Railway projected $#.#)": {
